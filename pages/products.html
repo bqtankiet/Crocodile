@@ -10,13 +10,28 @@
     <script src="/public/jquery-3.7.1.min.js"></script>
     <!--  css  -->
     <link rel="stylesheet" href="/layouts/layout.css">
+    <link rel="stylesheet" href="../assets/css/custom.css">
     <!--  js  -->
     <script src="/public/loadHTML.js"></script>
 </head>
 <body>
 <div id="page">
+    <script>
+        loadHTML("#HEADER", "/includes/header.html")
+    </script>
+    <div id="HEADER"></div>
+
     <!-- TODO: (Bùi Quang Tấn Kiệt) Code html trang sản phẩm ở đây -->
-    <h1>Products</h1> <!-- Dòng này chỉ để test -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col col-2">
+                left
+            </div>
+            <div class="col">
+                right
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
