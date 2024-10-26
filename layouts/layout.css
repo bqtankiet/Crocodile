@@ -1,0 +1,9 @@
+.layout-test {
+    display: flex;
+    flex-direction: row;
+}
+
+.layout-default {
+    display: flex;
+    flex-direction: column;
+}
