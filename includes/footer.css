@@ -6,6 +6,19 @@
     padding: 40px 0 20px;
 }
 
+.delivery-provider-info img {
+    width: fit-content;
+    height: 45px;
+    padding: 10px 10px 10px 0;
+}
+
+.payment-info img {
+    width: fit-content;
+    height: 45px;
+    padding: 10px 10px 10px 0;
+}
+
+
 #main {
     background-color: #fbfbfb;
     border-top: 4px solid rgb(238, 77, 45);
