@@ -15,26 +15,20 @@
 </head>
 <body>
 <div id="page" class="container d-flex align-items-center justify-content-center min-vh-100">
-    <div class="card shadow p-4" style="width: 40rem; height: auto;">
+    <div class="card shadow p-4" style="width: 40rem; height: 30rem">
         <h3 class="text-center mb-4">Đăng Ký</h3>
         <form id="signinform" class="d-grid gap-3">
             <div class="d-flex gap-4">
-                <div class="form-group">
-                    <label for="name" class="form-label">Họ:</label>
-                    <input class="form-control p-2" type="text" id="name" placeholder="Nhập Họ của bạn: " required>
-                </div>
-                <div class="form-group">
-                    <label for="lastname" class="form-label">Tên:</label>
-                    <input class="form-control p-2" type="text" id="lastname" placeholder="Nhập Tên của bạn:  " required>
-                </div>
+                <input class="form-control p-2" type="text" id="name" placeholder="Nhập Họ của bạn: " required>
+                <input class="form-control p-2" type="text" id="lastname" placeholder="Nhập Tên của bạn:  " required>
             </div>
-            <label for="birthdate" class="form-label">Ngày Sinh Của Bạn:</label>
+            <label for="signinform">Ngày Sinh Của Bạn:</label>
             <div class="d-flex gap-4 mb-1">
                 <select class="form-select-sm flex-grow-1" id="day"></select>
                 <select class="form-select-sm flex-grow-1" id="month"></select>
                 <select class="form-select-sm flex-grow-1" id="year"></select>
             </div>
-            <label class="form-label">Giới Tính:</label>
+            <label for="signinform">Giới Tính:</label>
             <div class="d-flex gap-4">
                 <div class="form-check">
                     <input class="form-check-input" type="radio" id="Male" name="gender" value="male">
@@ -45,14 +39,10 @@
                     <label class="form-check-label" for="Female">Nữ</label>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="email" class="form-label">Email:</label>
-                <input class="form-control" type="email" id="email" placeholder="Nhập Email của bạn:  " required>
-            </div>
-            <div class="form-group">
-                <label for="sdt" class="form-label">Số điện thoại:</label>
-                <input class="form-control" type="tel" id="sdt" placeholder="Nhập số điện thoại của bạn:  " required>
-            </div>
+
+            <input class="form-control" type="email" id="email" placeholder="Nhập Email của bạn:  " required>
+            <input class="form-control" type="tel" id="sdt" placeholder="Nhập số điện thoại của bạn:  " required>
+            <div class="d-flex"></div>
         </form>
     </div>
 </div>
