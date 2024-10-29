@@ -1,0 +1,43 @@
+* {
+    font-size: 13px;
+}
+
+.pd-t40-b20 {
+    padding: 40px 0 20px;
+}
+
+.delivery-provider-info img {
+    width: fit-content;
+    height: 45px;
+    padding: 10px 10px 10px 0;
+}
+
+.payment-info img {
+    width: fit-content;
+    height: 45px;
+    padding: 10px 10px 10px 0;
+}
+
+
+#main {
+    background-color: #fbfbfb;
+    border-top: 4px solid rgb(238, 77, 45);
+}
+
+.title {
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.container a {
+    display: block;
+    text-decoration: none;
+    color: #585858;
+    width: fit-content;
+}
+
+.container a:hover {
+    color: #ee4d2d;
+    cursor: pointer;
+}
