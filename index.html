@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>index</title>
+  <!--  bootstrap  -->
+  <link rel="stylesheet" href="/public/bootstrap/css/bootstrap.css">
+  <!--  jquery  -->
+  <script src="/public/jquery-3.7.1.min.js"></script>
+  <!--  css  -->
+  <link rel="stylesheet" href="/layouts/layout.css">
+
+  <link rel="stylesheet" href="/assets/css/custom.css">
+  <!--  js  -->
+  <script src="/public/loadHTML.js"></script>
+</head>
+<body>
+
+<div id="page" class="layout-default">
+  <!--  Khai báo nguồn của các thẻ HEADER, FOOTER  -->
+  <script>
+    loadHTML("#HEADER", "/includes/header.html");
+    loadHTML("#FOOTER", "/includes/footer.html");
+  </script>
+
+  <div id="HEADER"></div>
+
+  <div id="CONTENT">
+    <p>content</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, id!</p>
+    <a class="btn btn-primary">Click me!</a>
+    <a href="pages/home.html"> home</a>
+    <a href="pages/login.html"> login</a>
+    <a href="pages/signup.html"> signup</a>
+    <a href="pages/products.html"> products</a>
+  </div>
+
+  <div id="FOOTER"></div>
+</div>
+
+</body>
+</html>
