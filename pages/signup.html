@@ -112,39 +112,38 @@
                 <a href="http://www.example.com" style="color: #ee4d2d">Đăng nhập</a>
                 ngay.
             </p>
-
         </div>
-
     </div>
-    <script>
-        // Tạo tùy chọn ngày
-        const daySelect = document.getElementById('day');
-        for (let day = 1; day <= 31; day++) {
-            const option = document.createElement('option');
-            option.value = day;
-            option.textContent = day;
-            daySelect.appendChild(option);
-        }
+</div>
+<script>
+    // Tạo tùy chọn ngày
+    const daySelect = document.getElementById('day');
+    for (let day = 1; day <= 31; day++) {
+        const option = document.createElement('option');
+        option.value = day;
+        option.textContent = day;
+        daySelect.appendChild(option);
+    }
 
-        // Tạo tùy chọn tháng
-        const monthSelect = document.getElementById('month');
-        for (let month = 1; month <= 12; month++) {
-            const option = document.createElement('option');
-            option.value = month;
-            option.textContent = `Tháng ${month}`;
-            monthSelect.appendChild(option);
-        }
+    // Tạo tùy chọn tháng
+    const monthSelect = document.getElementById('month');
+    for (let month = 1; month <= 12; month++) {
+        const option = document.createElement('option');
+        option.value = month;
+        option.textContent = `Tháng ${month}`;
+        monthSelect.appendChild(option);
+    }
 
 
-        // Tạo tùy chọn năm
-        const yearSelect = document.getElementById('year');
-        const currentYear = new Date().getFullYear();
-        for (let year = 1950; year <= currentYear; year++) {
-            const option = document.createElement('option');
-            option.value = year;
-            option.textContent = year;
-            yearSelect.appendChild(option);
-        }
-    </script>
+    // Tạo tùy chọn năm
+    const yearSelect = document.getElementById('year');
+    const currentYear = new Date().getFullYear();
+    for (let year = 1950; year <= currentYear; year++) {
+        const option = document.createElement('option');
+        option.value = year;
+        option.textContent = year;
+        yearSelect.appendChild(option);
+    }
+</script>
 </body>
 </html>
