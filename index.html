@@ -10,9 +10,45 @@
   <!--  css  -->
   <link rel="stylesheet" href="/layouts/layout.css">
 
+  <!-- link css box icon -->
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="/assets/css/custom.css">
   <!--  js  -->
   <script src="/public/loadHTML.js"></script>
+
+    <style>
+      .banner-show {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .list-images {
+        transition: .5s ease;
+      }
+
+      .btns {
+        color: #999;
+        font-size: 30px;
+      }
+
+      .btn-right:hover,
+      .btn-left:hover {
+        color: #fff;
+        cursor: pointer;
+      }
+      
+      .btn-arr {
+        top: 50%;
+        position: absolute;
+        transform: translateY(-50%);
+      }
+
+      .btn-right {
+        right: 0;
+      }
+    </style>
+
 </head>
 <body>
 
@@ -26,17 +62,73 @@
   <div id="HEADER"></div>
 
   <div id="CONTENT">
-    <p>content</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, id!</p>
-    <a class="btn btn-primary">Click me!</a>
-    <a href="pages/home.html"> home</a>
-    <a href="pages/login.html"> login</a>
-    <a href="pages/signup.html"> signup</a>
-    <a href="pages/products.html"> products</a>
+    <div class="container">
+      <div class="row banner  pt-4 pb-5">
+        <div class="col-8">
+          <div class="banner-show">
+            <div class="list-images d-flex">
+              <img src="https://cf.shopee.vn/file/vn-50009109-727a24a85a60935da5ccb9008298f681" alt=""  class="bn d-block w-100" alt="...">
+              <img src="https://cf.shopee.vn/file/vn-11134258-7ras8-m0tqhapoxr4f2e" class="bn d-block w-100" alt="...">
+              <img src="https://cf.shopee.vn/file/vn-11134258-7ras8-m1w3weeevec38f" class="bn d-block w-100" alt="...">
+            </div>
+            <div class="btns">
+              <div class="btn-arr btn-left"><i class='bx bx-left-arrow-alt' ></i></box-icon></div>
+              <div class="btn-arr btn-right"><i class='bx bx-right-arrow-alt'></i></div>
+            </div>
+
+          </div>
+
+        </div>
+        <div class="col-4">
+            <div class="sub-banner">
+              <img src="https://cf.shopee.vn/file/vn-50009109-727a24a85a60935da5ccb9008298f681" alt=""  class="bn d-block w-100" alt="...">
+            </div>
+
+            <div class="sub-banner pt-2">
+              <img src="https://cf.shopee.vn/file/vn-50009109-727a24a85a60935da5ccb9008298f681" alt=""  class="bn d-block w-100" alt="...">
+            </div>
+        </div>
+    </div>
+    
+    
+
   </div>
 
   <div id="FOOTER"></div>
 </div>
 
 </body>
+<script>
+    var listImage = document.querySelector('.list-images');
+var imgs = document.querySelectorAll('.bn');
+var current = 0;
+const length = imgs.length;
+
+var firstImageClone = imgs[0].cloneNode(true);
+listImage.appendChild(firstImageClone);
+
+const newLength = length + 1;
+
+setInterval(() => {
+  if (current === newLength - 1) {
+    current = 1; 
+    let width = imgs[0].offsetWidth;
+    listImage.style.transition = 'none'; 
+    listImage.style.transform = `translateX(0px)`;
+    
+    setTimeout(() => {
+      listImage.style.transition = 'transform 0.5s ease'; 
+      listImage.style.transform = `translateX(${-width * current}px)`;
+    }, 50);
+  } else {
+    current++;
+    let width = imgs[0].offsetWidth;
+    listImage.style.transform = `translateX(${-width * current}px)`;
+  }
+}, 4000);
+
+
+</script>
+
+
 </html>
