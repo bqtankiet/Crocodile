@@ -65,10 +65,6 @@
             #triggerCategory,
             #triggerPriceRange {
                 pointer-events: none;
-                .bi-chevron-right,
-                .bi-chevron-down {
-                    display: none;
-                }
             }
 
             #products-list li {
@@ -178,9 +174,10 @@
             <!-- filter -->
             <div class="col-lg-2 d-flex flex-column gap-3 pe-3">
                 <div class="ms-1 ms-lg-0">
-                    <div class="gap-2" role="button" id="triggerCategory" data-bs-toggle="collapse" data-bs-target="#collapseCategory">
+                    <div class="gap-2" role="button" id="triggerCategory" data-bs-toggle="collapse"
+                         data-bs-target="#collapseCategory">
                         <div class="d-flex align-items-center gap-2">
-                            <div class="custom-icon">
+                            <div class="custom-icon d-lg-none">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-chevron-right" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd"
@@ -194,32 +191,33 @@
                             </div>
                             <h5 class="m-0 lh-sm">Danh Mục</h5>
                         </div>
-                        <div class="collapse d-lg-block" id="collapseCategory">
-                            <hr>
-                            <div class="d-flex align-items-center mb-2  ms-3" style="transform: translateX(-1rem)">
-                                <div class="custom-icon pe-1"
-                                     style="--size: 0.8rem;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                         fill="var(--custom-bg-primary)"
-                                         class="bi bi-caret-right-fill" viewBox="0 0 16 16">
-                                        <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
-                                    </svg>
-                                </div>
-                                <a href="#" class="text-decoration-none custom-text-primary fw-bold">Túi Da</a>
+                    </div>
+                    <div class="collapse d-lg-block" id="collapseCategory">
+                        <hr>
+                        <div class="d-flex align-items-center mb-2  ms-3" style="transform: translateX(-1rem)">
+                            <div class="custom-icon pe-1"
+                                 style="--size: 0.8rem;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                     fill="var(--custom-bg-primary)"
+                                     class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                                    <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                                </svg>
                             </div>
-                            <ul class="d-grid gap-2 list-unstyled ms-3 ">
-                                <li><a href="#" class="text-decoration-none text-black">Áo Khoác Da</a></li>
-                                <li><a href="#" class="text-decoration-none text-black">Găng Tay Da</a></li>
-                                <li><a href="#" class="text-decoration-none text-black">Ví Da</a></li>
-                                <li><a href="#" class="text-decoration-none text-black">Thắt Lưng Da</a></li>
-                            </ul>
+                            <a href="#" class="text-decoration-none custom-text-primary fw-bold">Túi Da</a>
                         </div>
+                        <ul class="d-grid gap-2 list-unstyled ms-3 ">
+                            <li><a href="#" class="text-decoration-none text-black">Áo Khoác Da</a></li>
+                            <li><a href="#" class="text-decoration-none text-black">Găng Tay Da</a></li>
+                            <li><a href="#" class="text-decoration-none text-black">Ví Da</a></li>
+                            <li><a href="#" class="text-decoration-none text-black">Thắt Lưng Da</a></li>
+                        </ul>
                     </div>
                 </div>
                 <div class="ms-1 ms-lg-0">
-                    <div class="gap-2" role="button" id="triggerPriceRange" data-bs-toggle="collapse" data-bs-target="#collapsePriceRange">
+                    <div class="gap-2" role="button" id="triggerPriceRange" data-bs-toggle="collapse"
+                         data-bs-target="#collapsePriceRange">
                         <div class="d-flex align-items-center gap-2">
-                            <div class="custom-icon">
+                            <div class="custom-icon d-lg-none">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-chevron-right" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd"
@@ -233,16 +231,16 @@
                             </div>
                             <h5 class="m-0 lh-sm">Mức Giá</h5>
                         </div>
-                        <div class="collapse d-lg-block" id="collapsePriceRange">
-                            <hr>
-                            <div class="d-flex align-items-center gap-1">
-                                <span>Từ</span>
-                                <input type="number" class="form-control px-1">
-                                <span>Đến</span>
-                                <input type="number" class="form-control px-0">
-                            </div>
-                            <button class="btn custom-btn-primary rounded-0 w-100 text-uppercase mt-3">Áp dụng</button>
+                    </div>
+                    <div class="collapse d-lg-block" id="collapsePriceRange">
+                        <hr>
+                        <div class="d-flex align-items-center gap-1">
+                            <span>Từ</span>
+                            <input type="number" class="form-control px-1">
+                            <span>Đến</span>
+                            <input type="number" class="form-control px-0">
                         </div>
+                        <button class="btn custom-btn-primary rounded-0 w-100 text-uppercase mt-3">Áp dụng</button>
                     </div>
                 </div>
             </div>
