@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>index</title>
+  <title>Trang chủ</title>
   <!--  bootstrap  -->
   <link rel="stylesheet" href="/public/bootstrap/css/bootstrap.css">
   <!--  jquery  -->
@@ -52,9 +52,42 @@
         margin-left: -10px;
       }
 
+      #CONTENT {
+        background-color: #f5f5f5;
+      }
+
+      .category {
+        background-color: #ffffff;
+        border: 1px solid #ccc;
+      }
+
       .category-item {
         border: 1px solid #ccc;
-        max-width: 100px;
+        width: 118px;
+        height: 100px;
+        margin: 10px 5px;
+        transition: box-shadow 0.3s ease, border-color 0.3s ease; ;
+      }
+      
+
+      .category-item:first-child {
+        margin-left: 14px;
+      }
+
+      .category-item:hover {
+        cursor: pointer;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        border: 2px solid orangered;
+        color: rgb(249, 72, 72);
+        font-weight: 700;
+      }
+
+      .category-title {
+        padding-left: 14px;
+      }
+
+      .category-name {
+        padding: 5px;
       }
 
     </style>
@@ -109,68 +142,71 @@
     <!-- -------------------------BEGIN CATEGORY---------------------------------- -->
      <div class="container">
       <div class="category">
-        <h3 class="category-title"> Danh mục</h3>
+        <div class="title-content pt-2">
+          <h4 class="category-title"> Danh mục</h4>
+
+        </div>
 
         <!-- content  -->
         <div class="category-list d-flex flex-wrap">
           <!-- --category-item-- -->
           <div class="category-item">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s" class="card-img-top" alt="Image">
-            <p class="text-center">Áo khoác</p>
+            <p class="category-name text-center">Áo khoác</p>
           </div>
 
           <!-- --category-item-- -->
           <div class="category-item">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s" class="card-img-top" alt="Image">
-            <p class="text-center">Túi</p>
+            <p class="category-name text-center">Túi</p>
           </div>
 
           <!-- --category-item-- -->
           <div class="category-item">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s" class="card-img-top" alt="Image">
-            <p class="text-center">Giày</p>
+            <p class="category-name text-center">Giày</p>
           </div>
 
           <!-- --category-item-- -->
           <div class="category-item">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s" class="card-img-top" alt="Image">
-            <p class="text-center">Dép</p>
+            <p class="category-name text-center">Dép</p>
           </div>
 
           <!-- --category-item-- -->
           <div class="category-item">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s" class="card-img-top" alt="Image">
-            <p class="text-center">Ví</p>
+            <p class="category-name text-center">Ví</p>
           </div>
 
           <!-- --category-item-- -->
           <div class="category-item">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s" class="card-img-top" alt="Image">
-            <p class="text-center">Thắt lưng</p>
+            <p class="category-name text-center">Thắt lưng</p>
           </div>
 
           <!-- --category-item-- -->
           <div class="category-item">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s" class="card-img-top" alt="Image">
-            <p class="text-center">Dây đồng hồ</p>
+            <p class="category-name text-center">Dây đồng hồ</p>
           </div>
 
           <!-- --category-item-- -->
           <div class="category-item">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s" class="card-img-top" alt="Image">
-            <p class="text-center">Balo</p>
+            <p class="category-name text-center">Balo</p>
           </div>
 
           <!-- --category-item-- -->
           <div class="category-item">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s" class="card-img-top" alt="Image">
-            <p class="text-center">Nón</p>
+            <p class="category-name text-center">Nón</p>
           </div>
 
           <!-- --category-item-- -->
           <div class="category-item">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s" class="card-img-top" alt="Image">
-            <p class="text-center">Bao tay</p>
+            <p class="category-name text-center">Bao tay</p>
           </div>
 
         <!-- end content  -->
@@ -180,10 +216,6 @@
      </div>
 
     <!-- -------------------------END CATEGORY---------------------------------- -->
-
-
-
-  
 
   <div id="FOOTER"></div>
 </div>
