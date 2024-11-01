@@ -6,19 +6,25 @@
   <title>Trang chủ</title>
   <!--  bootstrap  -->
   <link rel="stylesheet" href="/public/bootstrap/css/bootstrap.css">
+
   <!--  jquery  -->
   <script src="/public/jquery-3.7.1.min.js"></script>
+
   <!--  css  -->
   <link rel="stylesheet" href="/layouts/layout.css">
+  <link rel="stylesheet" href="/assets/css/custom.css">
 
   <!-- link css box icon -->
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-  <link rel="stylesheet" href="/assets/css/custom.css">
+  <!-- link font awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+ 
   <!--  js  -->
   <script src="/public/loadHTML.js"></script>
 
   <style>
+
     .slider {
       position: relative;
       overflow: hidden;
@@ -51,10 +57,33 @@
       cursor: pointer;
     }
 
-    .btn-right {
+    .bi-arrow-right-circle {
       right: 0;
     }
 
+    .service-box .list-icon {
+      font-size: 35px;
+      color: #515151;
+      padding-right: 10px;
+    }
+
+    .service-box .service {
+      display: flex;
+      padding: 30px 0 20px;
+      justify-content: center;
+    }
+
+    .service-box .service span{
+      font-weight: 700;
+    }
+
+    .service-box>.container {
+      border-bottom: 1px solid #515151;
+    }
+
+    .category {
+      height: 300px;
+    }
 
   </style>
 
@@ -72,7 +101,7 @@
     <div id="HEADER"></div>
 
     <div id="CONTENT">
-      <!-- -------------------------BEGIN BANNER---------------------------------- -->
+      <!-- -------------------------BEGIN SLIDER---------------------------------- -->
       <div class="slider">
         <!-- Các slide -->
         <div class="slides">
@@ -84,107 +113,72 @@
 
         <!-- Các nút điều khiển -->
         <div class="controls">
-          <svg class="control-btn btn-left" onclick="prevSlide()" xmlns="http://www.w3.org/2000/svg" width="25" height="25"
-            fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+          <svg onclick="prevSlide()" xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+            fill="currentColor" class="bi bi-arrow-left-circle control-btn" viewBox="0 0 16 16">
             <path fill-rule="evenodd"
               d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z" />
           </svg>
-          <svg class="control-btn btn-right" onclick="nextSlide()" xmlns="http://www.w3.org/2000/svg" width="25" height="25"
-            fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+          <svg onclick="nextSlide()" xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+            fill="currentColor" class="bi bi-arrow-right-circle control-btn" viewBox="0 0 16 16">
             <path fill-rule="evenodd"
               d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
           </svg>
         </div>
       </div>
+      <!-- -------------------------END SLIDER---------------------------------- -->
 
-      <!-- -------------------------END BANNER---------------------------------- -->
-
-      <!-- -------------------------BEGIN CATEGORY---------------------------------- -->
-      <div class="container">
-        <div class="category">
-          <div class="title-content pt-2">
-            <h4 class="category-title"> Danh mục</h4>
-
-          </div>
-
-          <!-- content  -->
-          <div class="category-list d-flex flex-wrap">
-            <!-- --category-item-- -->
-            <div class="category-item">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s"
-                class="card-img-top" alt="Image">
-              <p class="category-name text-center">Áo khoác</p>
+      <!-- -------------------------BEGIN SERVICE BOX---------------------------------- -->
+      <div class="service-box">
+        <div class="container">
+          <div class="row">
+            <!-- Giao hàng  -->
+            <div class="col-3 service">
+              <div class="list-icon fas fa-shipping-fast"></div>
+              <div class="list-content">
+                <span>Giao hàng miễn phí</span>
+                <p>Với hóa đơn trên 690k</p>
+              </div>
             </div>
 
-            <!-- --category-item-- -->
-            <div class="category-item">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s"
-                class="card-img-top" alt="Image">
-              <p class="category-name text-center">Túi</p>
+            <!-- Bảo hành  -->
+            <div class="col-3 service">
+              <div class="list-icon fas fa-award"></div>
+              <div class="list-content">
+                <span>Bảo hành 36 tháng</span>
+                <p>Theo chính sách của Khoi dz</p>
+              </div>
             </div>
-
-            <!-- --category-item-- -->
-            <div class="category-item">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s"
-                class="card-img-top" alt="Image">
-              <p class="category-name text-center">Giày</p>
+            
+            <!-- Chính hãng  -->
+            <div class="col-3 service">
+              <div class="list-icon fas fa-shield-alt"></div>
+              <div class="list-content">
+                <span>Cam kết da thật 100%</span>
+                <p>Cam kết chất liệu da thật</p>
+              </div>
             </div>
-
-            <!-- --category-item-- -->
-            <div class="category-item">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s"
-                class="card-img-top" alt="Image">
-              <p class="category-name text-center">Dép</p>
+            
+            <!-- Đổi trả  -->
+            <div class="col-3 service">
+              <div class="list-icon fas fa-money-check"></div>
+              <div class="list-content">
+                <span>Đổi trả trong 7 ngày</span>
+                <p>Đổi mới với lỗi từ nhà sản xuất</p>
+              </div>
             </div>
-
-            <!-- --category-item-- -->
-            <div class="category-item">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s"
-                class="card-img-top" alt="Image">
-              <p class="category-name text-center">Ví</p>
-            </div>
-
-            <!-- --category-item-- -->
-            <div class="category-item">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s"
-                class="card-img-top" alt="Image">
-              <p class="category-name text-center">Thắt lưng</p>
-            </div>
-
-            <!-- --category-item-- -->
-            <div class="category-item">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s"
-                class="card-img-top" alt="Image">
-              <p class="category-name text-center">Dây đồng hồ</p>
-            </div>
-
-            <!-- --category-item-- -->
-            <div class="category-item">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s"
-                class="card-img-top" alt="Image">
-              <p class="category-name text-center">Balo</p>
-            </div>
-
-            <!-- --category-item-- -->
-            <div class="category-item">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s"
-                class="card-img-top" alt="Image">
-              <p class="category-name text-center">Nón</p>
-            </div>
-
-            <!-- --category-item-- -->
-            <div class="category-item">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s"
-                class="card-img-top" alt="Image">
-              <p class="category-name text-center">Bao tay</p>
-            </div>
-
-            <!-- end content  -->
 
           </div>
         </div>
       </div>
 
+      <!-- -------------------------END SERVICE BOX---------------------------------- -->
+
+
+
+      <!-- -------------------------BEGIN CATEGORY---------------------------------- -->
+       <div class="category">
+
+       </div>
       <!-- -------------------------END CATEGORY---------------------------------- -->
 
       <div id="FOOTER"></div>
