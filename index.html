@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Trang chủ</title>
@@ -17,227 +18,207 @@
   <!--  js  -->
   <script src="/public/loadHTML.js"></script>
 
-    <style>
-      .banner-show {
-        position: relative;
-        overflow: hidden;
-      }
+  <style>
+    .slider {
+      position: relative;
+      overflow: hidden;
+    }
 
-      .list-images {
-        transition: .5s ease;
-      }
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
 
-      .btns {
-        color: #999;
-        font-size: 30px;
-      }
+    .slide {
+      width: 100%;
+      flex-shrink: 0;
+    }
 
-      .btn-right:hover,
-      .btn-left:hover {
-        color: #fff;
-        cursor: pointer;
-      }
-      
-      .btn-arr {
-        top: 50%;
-        position: absolute;
-        transform: translateY(-50%);
-      }
+    .slide img {
+      width: 100%;
+      display: block;
+    }
 
-      .btn-right {
-        right: 0;
-      }
+    .control-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
 
-      .sub-banner {
-        margin-left: -10px;
-      }
+    .control-btn:hover {
+      background-color: #fff;
+      border-radius: 20px;
+      cursor: pointer;
+    }
 
-      #CONTENT {
-        background-color: #f5f5f5;
-      }
+    .btn-right {
+      right: 0;
+    }
 
-      .category {
-        background-color: #ffffff;
-        border: 1px solid #ccc;
-      }
 
-      .category-item {
-        border: 1px solid #ccc;
-        width: 118px;
-        height: 100px;
-        margin: 10px 5px;
-        transition: box-shadow 0.3s ease, border-color 0.3s ease; ;
-      }
-      
-
-      .category-item:first-child {
-        margin-left: 14px;
-      }
-
-      .category-item:hover {
-        cursor: pointer;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        border: 2px solid orangered;
-        color: rgb(249, 72, 72);
-        font-weight: 700;
-      }
-
-      .category-title {
-        padding-left: 14px;
-      }
-
-      .category-name {
-        padding: 5px;
-      }
-
-    </style>
+  </style>
 
 </head>
+
 <body>
 
-<div id="page" class="layout-default">
-  <!--  Khai báo nguồn của các thẻ HEADER, FOOTER  -->
-  <script>
-    loadHTML("#HEADER", "/includes/header.html");
-    loadHTML("#FOOTER", "/includes/footer.html");
-  </script>
+  <div id="page" class="layout-default">
+    <!--  Khai báo nguồn của các thẻ HEADER, FOOTER  -->
+    <script>
+      loadHTML("#HEADER", "/includes/header.html");
+      loadHTML("#FOOTER", "/includes/footer.html");
+    </script>
 
-  <div id="HEADER"></div>
+    <div id="HEADER"></div>
 
-  <div id="CONTENT">
-    <div class="container">
-
+    <div id="CONTENT">
       <!-- -------------------------BEGIN BANNER---------------------------------- -->
-      <div class="row banner  pt-4 pb-5">
-        <div class="col-8">
-          <div class="banner-show">
-            <div class="list-images d-flex">
-              <img src="https://cf.shopee.vn/file/vn-50009109-727a24a85a60935da5ccb9008298f681" alt=""  class="bn d-block w-100" alt="...">
-              <img src="https://cf.shopee.vn/file/vn-11134258-7ras8-m0tqhapoxr4f2e" class="bn d-block w-100" alt="...">
-              <img src="https://cf.shopee.vn/file/vn-11134258-7ras8-m1w3weeevec38f" class="bn d-block w-100" alt="...">
-            </div>
-
-            <div class="btns">
-              <div class="btn-arr btn-left"><i class='bx bx-left-arrow-alt' ></i></box-icon></div>
-              <div class="btn-arr btn-right"><i class='bx bx-right-arrow-alt'></i></div>
-            </div>
-
-          </div>
+      <div class="slider">
+        <!-- Các slide -->
+        <div class="slides">
+          <div class="slide"><img src="https://cf.shopee.vn/file/vn-50009109-727a24a85a60935da5ccb9008298f681"
+              alt="Slide 1"></div>
+          <div class="slide"><img src="https://cf.shopee.vn/file/vn-11134258-7ras8-m0tqhapoxr4f2e" alt="Slide 2"></div>
+          <div class="slide"><img src="https://cf.shopee.vn/file/vn-11134258-7ras8-m1w3weeevec38f" alt="Slide 3"></div>
         </div>
 
-        <div class="sub-banner col-4">
-            <div class="sub-banner-1">
-              <img src="https://cf.shopee.vn/file/vn-50009109-727a24a85a60935da5ccb9008298f681" alt=""  class="bn d-block w-100" alt="...">
-            </div>
-
-            <div class="sub-banner-2 pt-2">
-              <img src="https://cf.shopee.vn/file/vn-50009109-727a24a85a60935da5ccb9008298f681" alt=""  class="bn d-block w-100" alt="...">
-            </div>
-        </div>
-
-    </div>
-  </div>
-    <!-- -------------------------END BANNER---------------------------------- -->
-    
-    <!-- -------------------------BEGIN CATEGORY---------------------------------- -->
-     <div class="container">
-      <div class="category">
-        <div class="title-content pt-2">
-          <h4 class="category-title"> Danh mục</h4>
-
-        </div>
-
-        <!-- content  -->
-        <div class="category-list d-flex flex-wrap">
-          <!-- --category-item-- -->
-          <div class="category-item">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s" class="card-img-top" alt="Image">
-            <p class="category-name text-center">Áo khoác</p>
-          </div>
-
-          <!-- --category-item-- -->
-          <div class="category-item">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s" class="card-img-top" alt="Image">
-            <p class="category-name text-center">Túi</p>
-          </div>
-
-          <!-- --category-item-- -->
-          <div class="category-item">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s" class="card-img-top" alt="Image">
-            <p class="category-name text-center">Giày</p>
-          </div>
-
-          <!-- --category-item-- -->
-          <div class="category-item">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s" class="card-img-top" alt="Image">
-            <p class="category-name text-center">Dép</p>
-          </div>
-
-          <!-- --category-item-- -->
-          <div class="category-item">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s" class="card-img-top" alt="Image">
-            <p class="category-name text-center">Ví</p>
-          </div>
-
-          <!-- --category-item-- -->
-          <div class="category-item">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s" class="card-img-top" alt="Image">
-            <p class="category-name text-center">Thắt lưng</p>
-          </div>
-
-          <!-- --category-item-- -->
-          <div class="category-item">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s" class="card-img-top" alt="Image">
-            <p class="category-name text-center">Dây đồng hồ</p>
-          </div>
-
-          <!-- --category-item-- -->
-          <div class="category-item">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s" class="card-img-top" alt="Image">
-            <p class="category-name text-center">Balo</p>
-          </div>
-
-          <!-- --category-item-- -->
-          <div class="category-item">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s" class="card-img-top" alt="Image">
-            <p class="category-name text-center">Nón</p>
-          </div>
-
-          <!-- --category-item-- -->
-          <div class="category-item">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s" class="card-img-top" alt="Image">
-            <p class="category-name text-center">Bao tay</p>
-          </div>
-
-        <!-- end content  -->
-
+        <!-- Các nút điều khiển -->
+        <div class="controls">
+          <svg class="control-btn btn-left" onclick="prevSlide()" xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+            fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z" />
+          </svg>
+          <svg class="control-btn btn-right" onclick="nextSlide()" xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+            fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
+          </svg>
         </div>
       </div>
-     </div>
 
-    <!-- -------------------------END CATEGORY---------------------------------- -->
+      <!-- -------------------------END BANNER---------------------------------- -->
 
-  <div id="FOOTER"></div>
-</div>
+      <!-- -------------------------BEGIN CATEGORY---------------------------------- -->
+      <div class="container">
+        <div class="category">
+          <div class="title-content pt-2">
+            <h4 class="category-title"> Danh mục</h4>
+
+          </div>
+
+          <!-- content  -->
+          <div class="category-list d-flex flex-wrap">
+            <!-- --category-item-- -->
+            <div class="category-item">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s"
+                class="card-img-top" alt="Image">
+              <p class="category-name text-center">Áo khoác</p>
+            </div>
+
+            <!-- --category-item-- -->
+            <div class="category-item">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s"
+                class="card-img-top" alt="Image">
+              <p class="category-name text-center">Túi</p>
+            </div>
+
+            <!-- --category-item-- -->
+            <div class="category-item">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s"
+                class="card-img-top" alt="Image">
+              <p class="category-name text-center">Giày</p>
+            </div>
+
+            <!-- --category-item-- -->
+            <div class="category-item">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s"
+                class="card-img-top" alt="Image">
+              <p class="category-name text-center">Dép</p>
+            </div>
+
+            <!-- --category-item-- -->
+            <div class="category-item">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s"
+                class="card-img-top" alt="Image">
+              <p class="category-name text-center">Ví</p>
+            </div>
+
+            <!-- --category-item-- -->
+            <div class="category-item">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s"
+                class="card-img-top" alt="Image">
+              <p class="category-name text-center">Thắt lưng</p>
+            </div>
+
+            <!-- --category-item-- -->
+            <div class="category-item">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s"
+                class="card-img-top" alt="Image">
+              <p class="category-name text-center">Dây đồng hồ</p>
+            </div>
+
+            <!-- --category-item-- -->
+            <div class="category-item">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s"
+                class="card-img-top" alt="Image">
+              <p class="category-name text-center">Balo</p>
+            </div>
+
+            <!-- --category-item-- -->
+            <div class="category-item">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s"
+                class="card-img-top" alt="Image">
+              <p class="category-name text-center">Nón</p>
+            </div>
+
+            <!-- --category-item-- -->
+            <div class="category-item">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSU5h59AP3mmqCBdEt0A-rfvneY58HZiXdg&s"
+                class="card-img-top" alt="Image">
+              <p class="category-name text-center">Bao tay</p>
+            </div>
+
+            <!-- end content  -->
+
+          </div>
+        </div>
+      </div>
+
+      <!-- -------------------------END CATEGORY---------------------------------- -->
+
+      <div id="FOOTER"></div>
+    </div>
 
 </body>
 <script>
-var listImage = document.querySelector('.list-images');
-var imgs = document.querySelectorAll('.bn');
-var current = 0;
-const length = imgs.length;
+  let currentIndex = 0;
 
-setInterval(() => {
-  if (current == length -1) {
-    current = 0; 
-    let width = imgs[0].offsetWidth;
-    listImage.style.transform = `translateX(0px)`;
-  } else {
-    current++;
-    let width = imgs[0].offsetWidth;
-    listImage.style.transform = `translateX(${-width * current}px)`;
+  function showSlide(index) {
+    const slides = document.querySelector('.slides');
+    const totalSlides = slides.children.length;
+
+    if (index >= totalSlides) {
+      currentIndex = 0;
+    } else if (index < 0) {
+      currentIndex = totalSlides - 1;
+    } else {
+      currentIndex = index;
+    }
+
+    const offset = -currentIndex * 100;
+    slides.style.transform = `translateX(${offset}%)`;
   }
-}, 3000);
+
+  function nextSlide() {
+    showSlide(currentIndex + 1);
+  }
+
+  function prevSlide() {
+    showSlide(currentIndex - 1);
+  }
+
+  setInterval(nextSlide, 3000);
 </script>
 
 
