@@ -1,4 +1,12 @@
+@font-face {
+    font-family: 'MyCustomFont';
+    src: url('assets/fonts/brandontext-bold-webfont.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 400;
+}
+
 :root {
+    font-family: 'MyCustomFont', sans-serif;
     --custom-bg-primary: #ee4d2d;
     font-size: 14px;
 }
