@@ -47,9 +47,18 @@
 
         </form>
         <form id="userform" class="d-grid gap-2 mb-2">
-            <input class="form-control " type="text" id="email" placeholder="Nhập Email hoặc số điện thoại  "
-                   required>
-            <input class="form-control" type="password" id="password" placeholder="Mật khẩu mới" required>
+            <input class="form-control" type="text" id="email" placeholder="Nhập Email hoặc số điện thoại" required>
+
+            <div class="position-relative">
+                <input class="form-control" type="password" id="password" placeholder="Mật khẩu mới" required>
+                <span class="position-absolute top-50 end-0 translate-middle-y pe-3" id="toggle-password"
+                      style="cursor: pointer;">
+            <!-- Icon mặc định là "ẩn" -->
+            <svg id="eye-icon" width="24" height="24" viewBox="0 0 24 24">
+                <path d="M12 4.5C7.305 4.5 3.22 7.092 1 12c2.22 4.908 6.305 7.5 11 7.5s8.78-2.592 11-7.5c-2.22-4.908-6.305-7.5-11-7.5zm0 13c-2.5 0-4.5-2-4.5-4.5S9.5 8.5 12 8.5 16.5 10.5 16.5 13 14.5 17.5 12 17.5z"></path>
+            </svg>
+        </span>
+            </div>
         </form>
         <div class="d-flex align-items-center justify-content-center">
             <div style="height: 1px; background-color: #dbdbdb; width: 100%"></div>
@@ -103,13 +112,13 @@
             </div>
         </form>
         <div class="d-flex justify-content-center">
-            <button type="submit" class="btn btn-primary" style="width: 100%; background-color: #ee4d2d">Đăng ký
+            <button type="submit" class="btn btn-primary" style="width: 100%; background-color: #339933">Đăng ký
             </button>
         </div>
         <div class="d-flex mt-3 justify-content-center">
             <p style="margin: 0">
                 Bạn đã có tài khoản?
-                <a href="http://www.example.com" style="color: #ee4d2d">Đăng nhập</a>
+                <a href="http://www.example.com" style="color: #006600">Đăng nhập</a>
                 ngay.
             </p>
         </div>
@@ -135,6 +144,7 @@
     }
 
 
+
     // Tạo tùy chọn năm
     const yearSelect = document.getElementById('year');
     const currentYear = new Date().getFullYear();
@@ -144,6 +154,22 @@
         option.textContent = year;
         yearSelect.appendChild(option);
     }
+    $(document).ready(function () {
+        $('#toggle-password').click(function () {
+            const passwordField = $('#password');
+            const eyeIcon = $('#eye-icon');
+
+            if (passwordField.attr('type') === 'password') {
+                passwordField.attr('type', 'text');
+                // Thay đổi icon sang "hiện"
+                eyeIcon.html('<path d="M12 4.5C7.305 4.5 3.22 7.092 1 12c2.22 4.908 6.305 7.5 11 7.5s8.78-2.592 11-7.5c-2.22-4.908-6.305-7.5-11-7.5zm0 13c-2.5 0-4.5-2-4.5-4.5S9.5 8.5 12 8.5 16.5 10.5 16.5 13 14.5 17.5 12 17.5z"></path><path d="M2 2l20 20"></path>');
+            } else {
+                passwordField.attr('type', 'password');
+                // Đổi lại icon về "ẩn"
+                eyeIcon.html('<path d="M12 4.5C7.305 4.5 3.22 7.092 1 12c2.22 4.908 6.305 7.5 11 7.5s8.78-2.592 11-7.5c-2.22-4.908-6.305-7.5-11-7.5zm0 13c-2.5 0-4.5-2-4.5-4.5S9.5 8.5 12 8.5 16.5 10.5 16.5 13 14.5 17.5 12 17.5z"></path>');
+            }
+        });
+    });
 </script>
 </body>
 </html>
