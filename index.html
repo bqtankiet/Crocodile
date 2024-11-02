@@ -11,81 +11,23 @@
   <script src="/public/jquery-3.7.1.min.js"></script>
 
   <!--  css  -->
-  <link rel="stylesheet" href="/layouts/layout.css">
+  <link rel="stylesheet" href="/assets//css/home.css">
   <link rel="stylesheet" href="/assets/css/custom.css">
+  <link rel="stylesheet" href="/layouts/layout.css">
 
   <!-- link css box icon -->
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
   <!-- link font awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
- 
+
   <!--  js  -->
-  <script src="/public/loadHTML.js"></script>
-
-  <style>
-
-    .slider {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .slides {
-      display: flex;
-      transition: transform 0.5s ease-in-out;
-    }
-
-    .slide {
-      width: 100%;
-      flex-shrink: 0;
-    }
-
-    .slide img {
-      width: 100%;
-      display: block;
-    }
-
-    .control-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    .control-btn:hover {
-      background-color: #fff;
-      border-radius: 20px;
-      cursor: pointer;
-    }
-
-    .bi-arrow-right-circle {
-      right: 0;
-    }
-
-    .service-box .list-icon {
-      font-size: 35px;
-      color: #515151;
-      padding-right: 10px;
-    }
-
-    .service-box .service {
-      display: flex;
-      padding: 30px 0 20px;
-      justify-content: center;
-    }
-
-    .service-box .service span{
-      font-weight: 700;
-    }
-
-    .service-box>.container {
-      border-bottom: 1px solid #515151;
-    }
-
-    .category {
-      height: 300px;
-    }
-
-  </style>
+  <script>
+    $(document).ready(function () {
+      $("#HEADER").load("/includes/header.html");
+      $("#FOOTER").load("/includes/footer.html");
+    });
+  </script>
 
 </head>
 
@@ -93,10 +35,6 @@
 
   <div id="page" class="layout-default">
     <!--  Khai báo nguồn của các thẻ HEADER, FOOTER  -->
-    <script>
-      loadHTML("#HEADER", "/includes/header.html");
-      loadHTML("#FOOTER", "/includes/footer.html");
-    </script>
 
     <div id="HEADER"></div>
 
@@ -113,13 +51,13 @@
 
         <!-- Các nút điều khiển -->
         <div class="controls">
-          <svg onclick="prevSlide()" xmlns="http://www.w3.org/2000/svg" width="25" height="25"
-            fill="currentColor" class="bi bi-arrow-left-circle control-btn" viewBox="0 0 16 16">
+          <svg onclick="prevSlide()" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+            class="bi bi-arrow-left-circle control-btn" viewBox="0 0 16 16">
             <path fill-rule="evenodd"
               d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z" />
           </svg>
-          <svg onclick="nextSlide()" xmlns="http://www.w3.org/2000/svg" width="25" height="25"
-            fill="currentColor" class="bi bi-arrow-right-circle control-btn" viewBox="0 0 16 16">
+          <svg onclick="nextSlide()" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+            class="bi bi-arrow-right-circle control-btn" viewBox="0 0 16 16">
             <path fill-rule="evenodd"
               d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
           </svg>
@@ -148,7 +86,7 @@
                 <p>Theo chính sách của Khoi dz</p>
               </div>
             </div>
-            
+
             <!-- Chính hãng  -->
             <div class="col-3 service">
               <div class="list-icon fas fa-shield-alt"></div>
@@ -157,7 +95,7 @@
                 <p>Cam kết chất liệu da thật</p>
               </div>
             </div>
-            
+
             <!-- Đổi trả  -->
             <div class="col-3 service">
               <div class="list-icon fas fa-money-check"></div>
@@ -176,9 +114,41 @@
 
 
       <!-- -------------------------BEGIN CATEGORY---------------------------------- -->
-       <div class="category">
+      <div class="product-category">
+        <div class="container">
 
-       </div>
+          <h1 class="product-category-title">ĐỒ DA KHOIDZ</h1>
+          <p class="product-category-subtitle">Sang trọng – Mạnh mẽ – Khí chất</p>
+          <p class="product-category-description">
+            Đồ da nam cao cấp Gento Các dòng sản phẩm về :
+            <a href="#">Túi xách nam</a>
+            hàng hiệu,
+            <a href="#">Cặp da công sở</a>,
+            <a href="#">Túi đeo chéo nam</a>,
+            Túi bao tử, Túi sling bag (Đeo trước ngực), Túi da cầm tay,
+            <a href="#">Balo nam</a>,
+            <a href="#">Ví da nam</a>, Các phụ kiện đồ da.. phong cách cổ điển lịch lãm, sang trọng
+          </p>
+
+        </div>
+
+        <div class="product-category-box">
+          <div class="container">
+            <div class="menu-box">
+              <div class="item_menu tui_xach_nam">
+                <h2>
+                  <a href="#">Túi xách nam</a>
+                </h2>
+              </div>
+
+            </div>
+          </div>
+
+
+
+        </div>
+
+      </div>
       <!-- -------------------------END CATEGORY---------------------------------- -->
 
       <div id="FOOTER"></div>

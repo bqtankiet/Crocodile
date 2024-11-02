@@ -1,0 +1,84 @@
+.slider {
+  position: relative;
+  overflow: hidden;
+}
+
+.slides {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.slide img {
+  width: 100%;
+  display: block;
+}
+
+.control-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.control-btn:hover {
+  background-color: #fff;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.bi-arrow-right-circle {
+  right: 0;
+}
+
+.service-box .list-icon {
+  font-size: 35px;
+  color: #515151;
+  padding-right: 10px;
+}
+
+.service-box .service {
+  display: flex;
+  padding: 30px 0 20px;
+  justify-content: center;
+}
+
+.service-box .service span {
+  font-weight: 700;
+}
+
+.service-box > .container {
+  border-bottom: 1px solid #515151;
+}
+
+.product-category {
+  height: 500px;
+}
+
+.product-category-title {
+  text-align: center;
+  font-size: 32px;
+}
+
+.product-category-subtitle {
+  text-align: center;
+  font-size: 19px;
+}
+
+.product-category-description {
+  text-align: center;
+}
+
+.product-category-description a {
+  color: #408115;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.product-category-description a:hover {
+  text-decoration: underline;
+}
+
