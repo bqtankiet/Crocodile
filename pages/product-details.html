@@ -8,45 +8,44 @@
     <!--  bootstrap  -->
     <link rel="stylesheet" href="/public/bootstrap/css/bootstrap.css">
     <script src="/public/bootstrap/js/bootstrap.bundle.js"></script>
+    <!-- owl carousel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+            integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+          integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+          integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
     <!--  css  -->
     <link rel="stylesheet" href="/layouts/layout.css">
     <link rel="stylesheet" href="/assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/css/product_thumbnail_carousel.css">
     <!--  js  -->
+    <script src="../assets/js/quantity-control.js"></script>
+    <script src="../assets/js/product_thumbnail_carousel.js"></script>
 
     <!--  INTERNAL CSS  -->
-    <style>
-        .owl-carousel .owl-item {
-            min-width: 5rem;
-            min-height: 5rem;
-            text-indent: 0;
-            float: left;
-        }
 
-        .owl-carousel .carousel-indicators {
-            overflow: hidden;
-            overflow-scrolling: touch;
-        }
 
-    </style>
 
-    <!--  Amount JS  -->
     <script>
-        $(document).ready(function (){
-            let amount = 1;
-            const $amount = $("#amount");
-            $amount.attr('value', amount);
-            $("#amount_inc").click(function(){
-                $amount.attr('value', ++amount);
-            });
-            $("#amount_dec").click(function(){
-                $amount.attr('value', --amount);
+        $(document).ready(function() {
+            const $input = $('input');
+            $input.on('invalid', function() {
+                this.setCustomValidity('Vui lòng chọn loại sản phẩm.'); // Đặt thông điệp tùy chỉnh
             });
 
+            $input.on('input', function() {
+                this.setCustomValidity(''); // Xóa thông điệp khi người dùng nhập liệu
+            });
         });
-
     </script>
 
-    <!--  Load HEADER, FOOTER  -->
+        <!--  Load HEADER, FOOTER  -->
     <script>
         $(document).ready(function () {
             $("#HEADER").load("/includes/header.html");
@@ -73,46 +72,71 @@
         <div class="container-xl">
             <div class="row">
                 <div class="col-6">
-                    <div id="carouselExampleIndicators" class="owl-carousel carousel slide">
-                        <div class="carousel-indicators">
-                            <div class="owl-item active" data-bs-target="#carouselExampleIndicators"
-                                 data-bs-slide-to="0">
-                                <img src="https://www.gento.vn/wp-content/uploads/2024/07/vi-nam-da-ca-sau5.jpg"
-                                     class="img-thumbnail" alt="">
+<!--                    <div id="carouselExampleIndicators" class="carousel slide">-->
+<!--                        <div class="carousel-indicators">-->
+<!--                            <div class="item active" data-bs-target="#carouselExampleIndicators"-->
+<!--                                 data-bs-slide-to="0">-->
+<!--                                <img src="https://www.gento.vn/wp-content/uploads/2024/07/vi-nam-da-ca-sau5.jpg"-->
+<!--                                     class="img-thumbnail" alt="">-->
+<!--                            </div>-->
+<!--                            <div class="item" data-bs-target="#carouselExampleIndicators"-->
+<!--                                 data-bs-slide-to="1">-->
+<!--                                <div class="w-100 h-100 text-center my-4"><span>Slide 1</span></div>-->
+<!--                            </div>-->
+<!--                            <div class="item" data-bs-target="#carouselExampleIndicators"-->
+<!--                                 data-bs-slide-to="2">-->
+<!--                                <div class="w-100 h-100 text-center my-4"><span>Slide 2</span></div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="carousel-inner" style="height: 40rem">-->
+<!--                            <div class="carousel-item active">-->
+<!--                                <img src="https://www.gento.vn/wp-content/uploads/2024/07/vi-nam-da-ca-sau5.jpg"-->
+<!--                                     class="d-block w-100 img-fluid" alt="...">-->
+<!--                            </div>-->
+<!--                            <div class="carousel-item">-->
+<!--                                <div class="text-center">Slide 1</div>-->
+<!--                            </div>-->
+<!--                            <div class="carousel-item">-->
+<!--                                <div class="text-center">Slide 2</div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"-->
+<!--                                data-bs-slide="prev">-->
+<!--                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
+<!--                            <span class="visually-hidden">Previous</span>-->
+<!--                        </button>-->
+<!--                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"-->
+<!--                                data-bs-slide="next">-->
+<!--                            <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+<!--                            <span class="visually-hidden">Next</span>-->
+<!--                        </button>-->
+<!--                    </div>-->
+
+                    <div class="col-12">
+                        <div class="product-gallery">
+                            <!-- Carousel cho hình ảnh lớn -->
+                            <div class="position-relative">
+                                <button class="owl-prev">❮</button> <!-- Nút điều hướng bên trái -->
+                                <div class="owl-carousel main-carousel mb-2">
+                                    <div class="item"><img src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg" class="img-fluid" alt=""></div>
+                                    <div class="item"><h1 class="bg-primary">Slide 2</h1></div>
+                                    <div class="item"><h1 class="bg-primary">Slide 3</h1></div>
+                                    <div class="item"><h1 class="bg-primary">Slide 4</h1></div>
+                                </div>
+                                <button class="owl-next">❯</button> <!-- Nút điều hướng bên phải -->
                             </div>
-                            <div class="owl-item" data-bs-target="#carouselExampleIndicators"
-                                 data-bs-slide-to="1">
-                                <div class="w-100 h-100 text-center my-4"><span>Slide 1</span></div>
-                            </div>
-                            <div class="owl-item" data-bs-target="#carouselExampleIndicators"
-                                 data-bs-slide-to="2">
-                                <div class="w-100 h-100 text-center my-4"><span>Slide 2</span></div>
+                            <!-- Carousel cho hình ảnh thumbnail -->
+                            <div class="owl-carousel thumbnail-carousel">
+                                <div class="item"><img src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg" class="img-thumbnail" alt="thumbnail-image"></div>
+                                <div class="item"><h1 class="bg-primary">Slide 2</h1></div>
+                                <div class="item"><h1 class="bg-primary">Slide 3</h1></div>
+                                <div class="item"><h1 class="bg-primary">Slide 4</h1></div>
                             </div>
                         </div>
-                        <div class="carousel-inner" style="height: 40rem">
-                            <div class="carousel-item active">
-                                <img src="https://www.gento.vn/wp-content/uploads/2024/07/vi-nam-da-ca-sau5.jpg"
-                                     class="d-block w-100 img-fluid" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <div class="text-center">Slide 1</div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="text-center">Slide 2</div>
-                            </div>
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-                                data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-                                data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
                     </div>
                 </div>
+
+
                 <div class="col-6 ps-5">
                     <div>
                         <h1 class="fw-bold">Ví gấp nam da cá sấu V7068</h1>
@@ -130,7 +154,7 @@
                                 <li>8 ngăn đựng thẻ – 2 ngăn đựng tiền mặt</li>
                             </ul>
                         </div>
-                        <form class="d-grid gap-3" >
+                        <form class="d-grid gap-3">
                             <!--Mau sac-->
                             <div class="d-flex gap-4 row">
                                 <p class="fw-bold col-2">Màu Sắc</p>
@@ -165,12 +189,12 @@
                             <!--So luong-->
                             <div class="d-flex gap-4 row">
                                 <p class="fw-bold col-2">Số lượng</p>
-                                <div class="col-4">
-                                    <div class="input-group">
-                                        <button id="amount_dec" class="btn custom-btn-primary" type="button">-</button>
-                                        <input type="number" name="amount" id="amount" class="form-control"
-                                               aria-label="amount">
-                                        <button id="amount_inc" class="btn custom-btn-primary" type="button">+</button>
+                                <div class="col-3">
+                                    <div class="quantity-control input-group" data-min="1" data-max="200">
+                                        <button type="button" class="decrement btn custom-btn-primary">-</button>
+                                        <input type="number" name="quantity"
+                                               class="quantity-input form-control text-center" aria-label="quantity">
+                                        <button type="button" class="increment btn custom-btn-primary">+</button>
                                     </div>
                                 </div>
                                 <p class="col my-auto">200 Sản phẩm có sẵn</p>
@@ -196,6 +220,9 @@
             </div>
         </div>
     </div>
+
+</div>
+
     <div id="FOOTER"></div>
 </div>
 

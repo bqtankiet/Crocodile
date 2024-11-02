@@ -6,10 +6,14 @@
 }
 
 :root {
-    font-family: 'MyCustomFont', sans-serif;
     --custom-bg-primary:#608e41;
     font-size: 14px;
 }
+
+* {
+    font-family: 'MyCustomFont', "Roboto Thin", sans-serif;
+}
+
 .custom-text-primary {
     color: var(--custom-bg-primary);
 }
