@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product details</title>
+    <!--  jquery  -->
+    <script src="/public/jquery-3.7.1.min.js"></script>
+    <!--  bootstrap  -->
+    <link rel="stylesheet" href="/public/bootstrap/css/bootstrap.css">
+    <script src="/public/bootstrap/js/bootstrap.bundle.js"></script>
+    <!--  css  -->
+    <link rel="stylesheet" href="/layouts/layout.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <!--  js  -->
+
+    <!--  INTERNAL CSS  -->
+    <style>
+        .owl-carousel .owl-item {
+            min-width: 5rem;
+            min-height: 5rem;
+            text-indent: 0;
+            float: left;
+        }
+
+        .owl-carousel .carousel-indicators {
+            overflow: hidden;
+            overflow-scrolling: touch;
+        }
+
+    </style>
+
+    <!--  Amount JS  -->
+    <script>
+        $(document).ready(function (){
+            let amount = 1;
+            const $amount = $("#amount");
+            $amount.attr('value', amount);
+            $("#amount_inc").click(function(){
+                $amount.attr('value', ++amount);
+            });
+            $("#amount_dec").click(function(){
+                $amount.attr('value', --amount);
+            });
+
+        });
+
+    </script>
+
+    <!--  Load HEADER, FOOTER  -->
+    <script>
+        $(document).ready(function () {
+            $("#HEADER").load("/includes/header.html");
+            // $("#FOOTER").load("/includes/footer.html");
+        });
+    </script>
+</head>
+<body>
+
+<div id="page">
+    <div id="HEADER"></div>
+    <div id="CONTENT">
+        <div class="container-xl">
+            <!-------------------- Breadcrumb -------------------->
+            <nav class="border-bottom mb-3" style="--bs-breadcrumb-divider: '>'">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Trang Chủ</a></li>
+                    <li class="breadcrumb-item"><a href="#">Túi Da</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Ví da nam cao cấp</li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="container-xl">
+            <div class="row">
+                <div class="col-6">
+                    <div id="carouselExampleIndicators" class="owl-carousel carousel slide">
+                        <div class="carousel-indicators">
+                            <div class="owl-item active" data-bs-target="#carouselExampleIndicators"
+                                 data-bs-slide-to="0">
+                                <img src="https://www.gento.vn/wp-content/uploads/2024/07/vi-nam-da-ca-sau5.jpg"
+                                     class="img-thumbnail" alt="">
+                            </div>
+                            <div class="owl-item" data-bs-target="#carouselExampleIndicators"
+                                 data-bs-slide-to="1">
+                                <div class="w-100 h-100 text-center my-4"><span>Slide 1</span></div>
+                            </div>
+                            <div class="owl-item" data-bs-target="#carouselExampleIndicators"
+                                 data-bs-slide-to="2">
+                                <div class="w-100 h-100 text-center my-4"><span>Slide 2</span></div>
+                            </div>
+                        </div>
+                        <div class="carousel-inner" style="height: 40rem">
+                            <div class="carousel-item active">
+                                <img src="https://www.gento.vn/wp-content/uploads/2024/07/vi-nam-da-ca-sau5.jpg"
+                                     class="d-block w-100 img-fluid" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <div class="text-center">Slide 1</div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="text-center">Slide 2</div>
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                                data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                                data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-6 ps-5">
+                    <div>
+                        <h1 class="fw-bold">Ví gấp nam da cá sấu V7068</h1>
+                        <div class="mt-4">
+                            <span class="fs-2 me-3 custom-text-primary">1,100,000<sup>₫</sup></span>
+                            <span class="fs-5 text-decoration-line-through text-secondary">1,500,000<sup>₫</sup></span>
+                        </div>
+                        <div class="lh-lg mt-4">
+                            <ul>
+                                <li>Kích thước: 11 cm (dài) x 9,5 cm (cao)</li>
+                                <li>Chất liệu: Da cá sấu Thái Lan mặt ngoài, mặt trong da bò Italy</li>
+                                <li>Cam kết: Gento cam kết hoàn tiền lại nếu sản phẩm không phải da cá sấu và không
+                                    giống như hình chụp.
+                                </li>
+                                <li>8 ngăn đựng thẻ – 2 ngăn đựng tiền mặt</li>
+                            </ul>
+                        </div>
+                        <form class="d-grid gap-3" >
+                            <!--Mau sac-->
+                            <div class="d-flex gap-4 row">
+                                <p class="fw-bold col-2">Màu Sắc</p>
+                                <div class="col d-flex gap-2 flex-wrap">
+                                    <input type="radio" class="btn-check" name="color" id="color-1" value="1" required>
+                                    <label for="color-1" class="btn btn-outline-dark">
+                                        <img src="https://www.gento.vn/wp-content/uploads/2024/07/vi-nam-da-ca-sau5.jpg"
+                                             alt="" class="img-fluid me-1" style="height: 2rem">
+                                        Đỏ
+                                    </label>
+
+                                    <input type="radio" class="btn-check" name="color" id="color-2" value="2" required>
+                                    <label for="color-2" class="btn btn-outline-dark">
+                                        <img src="https://www.gento.vn/wp-content/uploads/2024/07/vi-nam-da-ca-sau5.jpg"
+                                             alt="" class="img-fluid me-1" style="height: 2rem">
+                                        Vang
+                                    </label>
+
+                                </div>
+                            </div>
+                            <!--Kieu dang-->
+                            <div class="d-flex gap-4 row">
+                                <p class="fw-bold col-2">Kiểu dáng</p>
+                                <div class="col d-flex gap-2 flex-wrap">
+                                    <input type="radio" class="btn-check" name="model" id="model-1" value="1" required>
+                                    <label for="model-1" class="btn btn-outline-dark">
+                                        Kiểu dáng 1
+                                    </label>
+
+                                </div>
+                            </div>
+                            <!--So luong-->
+                            <div class="d-flex gap-4 row">
+                                <p class="fw-bold col-2">Số lượng</p>
+                                <div class="col-4">
+                                    <div class="input-group">
+                                        <button id="amount_dec" class="btn custom-btn-primary" type="button">-</button>
+                                        <input type="number" name="amount" id="amount" class="form-control"
+                                               aria-label="amount">
+                                        <button id="amount_inc" class="btn custom-btn-primary" type="button">+</button>
+                                    </div>
+                                </div>
+                                <p class="col my-auto">200 Sản phẩm có sẵn</p>
+                            </div>
+                            <!--Submit-->
+                            <div class="d-flex gap-2">
+                                <button class="btn custom-btn-primary flex-grow-1 text-uppercase text-center custom-bg-primary text-white p-3 fw-semibold fs-5"
+                                        role="button" type="submit">
+                                    Đặt mua ngay
+                                </button>
+                                <button class="btn custom-btn-primary custom-icon px-4 text-white" style="--size: 2rem"
+                                        role="button" type="submit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-cart-plus" viewBox="0 0 16 16">
+                                        <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z"/>
+                                        <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="FOOTER"></div>
+</div>
+
+</body>
+</html>
