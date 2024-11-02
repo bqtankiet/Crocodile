@@ -16,14 +16,11 @@
 
     <!--  INTERNAL CSS  -->
     <style>
-        :root {
-            --custom-color-primary: #608e41;
-        }
 
         .page-item.active > .page-link {
-            --color: var(--custom-color-primary);
-            border-color: var(--custom-color-primary);
-            background-color: var(--custom-color-primary);
+            --color: var(--custom-bg-primary);
+            border-color: var(--custom-bg-primary);
+            background-color: var(--custom-bg-primary);
             color: white;
         }
 
@@ -42,12 +39,11 @@
         }
 
         .product-card {
-            transition: all .2s ease-in-out;
-            /*height: 30rem;*/
+            transition: all .25s ease-in-out;
         }
 
         .product-card:hover {
-            border-color: var(--custom-color-primary);
+            border-color: var(--custom-bg-primary);
             border-width: 3px;
             cursor: pointer;
             z-index: 99;
@@ -72,19 +68,10 @@
             border-radius: 50px;
         }
 
-        .custom-text-primary {
-            color: var(--custom-color-primary);
+        .dropdown-menu .dropdown-item {
+            background-color: transparent;
         }
 
-        .custom-btn-primary,
-        .custom-bg-primary {
-            background-color: var(--custom-color-primary);
-        }
-
-        .custom-btn-primary:hover {
-            background-color: var(--custom-color-primary);
-            color: white;
-        }
     </style>
 
     <!--  Media queries  -->
@@ -163,6 +150,14 @@
     <div id="HEADER"></div>
     <!-- TODO: (Bùi Quang Tấn Kiệt) Code html trang sản phẩm ở đây -->
     <div class="container-xl px-3 px-xl-0">
+        <!-------------------- Breadcrumb -------------------->
+        <nav class="border-bottom" style="--bs-breadcrumb-divider: '>'">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Trang Chủ</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Túi Da</li>
+            </ol>
+        </nav>
+
         <!-------------------- Carousel -------------------->
         <!--        <div class="row m-0 mt-5">-->
         <!--            <div id="my-carousel" class="carousel slide px-0" data-bs-ride="carousel">-->
@@ -202,7 +197,7 @@
         <!--        </div>-->
 
         <!-------------------- Products -------------------->
-        <div class="row mt-5">
+        <div class="row mt-4">
             <!-------------------- Product Filter -------------------->
             <div class="col-lg-2 d-flex flex-column gap-3 pe-3">
                 <div class="ms-1 ms-lg-0">
@@ -230,7 +225,7 @@
                             <div class="custom-icon pe-1"
                                  style="--size: 0.8rem;">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                     fill="var(--custom-color-primary)"
+                                     fill="var(--custom-bg-primary)"
                                      class="bi bi-caret-right-fill" viewBox="0 0 16 16">
                                     <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
                                 </svg>
@@ -278,8 +273,9 @@
             </div>
 
             <!------------------- Products List -------------------->
+
             <div class="col">
-                <div class="d-flex align-items-center p-4 mb-2 mt-3" style="height: 50px; background-color: #eee">
+                <div class="d-flex align-items-center p-4 mb-2" style="height: 50px; background-color: #eee">
                     <span class="me-3 fw-semibold">Sắp Xếp Theo</span>
                     <div class="d-flex gap-3">
                         <button class="btn custom-btn-primary">Phổ Biến</button>
@@ -317,6 +313,9 @@
                                             <div class="d-flex gap-1 custom-text-primary">
                                                 <span class="[ product_price ] fs-5 ">250.000</span>
                                                 <span class="small">₫</span>
+                                                <span class="text-secondary text-decoration-line-through ms-2">
+                                                    300.000
+                                                </span>
                                             </div>
                                             <div class="small d-flex mt-2 dn" style="--height: 1.2rem;">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
@@ -574,8 +573,6 @@
                             </div>
                         </a>
                     </li>
-
-
                 </ul>
                 <ul class="pagination pagination-lg justify-content-center m-5">
                     <li class="page-item disabled"><a class="page-link" href="#"><</a></li>

@@ -7,7 +7,7 @@
 
 :root {
     font-family: 'MyCustomFont', sans-serif;
-    --custom-bg-primary: #ee4d2d;
+    --custom-bg-primary:#608e41;
     font-size: 14px;
 }
 .custom-text-primary {
