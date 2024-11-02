@@ -13,8 +13,13 @@
     <!-- js -->
     <script src="/public/loadHTML.js"></script>
     <style>
-        .vh-100 { height: 100vh; } /* Đảm bảo chiều cao đầy đủ màn hình */
-        .card-custom { max-width: 29rem; } /* Cố định chiều rộng của khung */
+        .vh-100 {
+            height: 100vh;
+        }
+
+        .card-custom {
+            max-width: 32rem;
+        }
     </style>
 </head>
 <body>
@@ -23,19 +28,70 @@
         <div class="card-body">
             <h3 class="card-title mb-3 text-center">Tìm Tài Khoản Của Bạn</h3>
             <div style="height: 2px; background-color: #dbdbdb; width: 100%;"></div>
-            <p class="text-xxl-start mt-3">Vui lòng nhập email hoặc số di động để tìm kiếm tài khoản của bạn.</p>
-            <form>
+            <p class="text-center mt-3">Vui lòng nhập tài khoản hoặc email để đặt lại mật khẩu của bạn.</p>
+            <form id="forgotPasswordForm">
+                <!-- Nhập email hoặc số điện thoại -->
                 <div class="form-group mb-3">
-                    <input type="text" class="form-control" id="usernameOrEmail" placeholder="Nhập Email hoặc Số điện thoại" required>
+                    <input type="text" class="form-control" id="usernameOrEmail"
+                           placeholder="Nhập Email hoặc Số điện thoại" required>
                 </div>
-                <div style="height: 2px; background-color: #dbdbdb; width: 100%;"></div>
-                <div class="d-flex justify-content-end mt-3 gap-4">
-                    <button type="button" class="btn btn-secondary border-5 ">Huỷ</button>
-                    <button type="submit" class="btn btn-primary " style="background-color: #009900">Tìm Kiếm</button>
+
+                <!-- Nút gửi mã xác nhận -->
+                <div class="d-flex justify-content-center gap-4">
+                    <button type="button" class="btn btn-secondary">Huỷ</button>
+
+                    <button type="button" class="btn btn-primary" id="sendCodeBtn">Gửi Mã</button>
+                </div>
+                <div style="height: 2px; background-color: #dbdbdb; width: 100%; margin: 15px 0;"></div>
+
+                <!-- Trường nhập mã xác nhận -->
+                <div class="form-group mb-2" id="verificationCodeField" style="display: none">
+                    <label for="verificationCode" class="mb-2">Nhập mã xác nhận</label>
+                    <input type="text" class="form-control" id="verificationCode" placeholder="Nhập mã gồm 6 chữ số"
+                           maxlength="6" required>
+
+                    <div class="d-flex justify-content-center mt-3">
+                        <button type="submit" class="btn btn-primary">Tìm Kiếm</button>
+                    </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        // kiểm tra email và số điện thoại
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phonePattern = /^\d{10,11}$/; // Số điện thoại có 10 hoặc 11 chữ số
+
+        $('#sendCodeBtn').click(function () {
+            let usernameOrEmail = $('#usernameOrEmail').val().trim();
+
+            // Kiểm tra định dạng email hoặc số điện thoại
+            if (emailPattern.test(usernameOrEmail) || phonePattern.test(usernameOrEmail)) {
+                $('#verificationCodeField').show();
+
+                // Giả lập gửi mã
+                alert('Mã xác nhận đã được gửi tới ' + usernameOrEmail);
+            } else {
+                alert('Vui lòng nhập đúng định dạng Email hoặc Số điện thoại.');
+            }
+        });
+
+        // Xử lý sự kiện submit form
+        $('#forgotPasswordForm').submit(function (e) {
+            e.preventDefault();
+            let verificationCode = $('#verificationCode').val();
+            if (verificationCode.length === 6) {
+                alert('Xác nhận mã thành công. Đang xử lý yêu cầu...');
+                // Xử lý logic xác nhận mã và chuyển hướng, hoặc gọi API
+            } else {
+                alert('Vui lòng nhập mã xác nhận gồm 6 chữ số.');
+            }
+        });
+    });
+</script>
+
 </body>
 </html>
