@@ -1,3 +1,7 @@
+.owl-carousel {
+    cursor: pointer;
+}
+
 .owl-carousel.main-carousel img{
     object-fit: cover;
     height: 35em;
@@ -39,9 +43,9 @@
 }
 
 .owl-prev {
-    left: 10px; /* Khoảng cách từ bên trái */
+    left: 10px;
 }
 
 .owl-next {
-    right: 10px; /* Khoảng cách từ bên phải */
+    right: 10px;
 }
