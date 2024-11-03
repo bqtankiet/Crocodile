@@ -80,16 +80,20 @@
         });
 
         // Xử lý sự kiện submit form
+        // Xử lý sự kiện submit form
         $('#forgotPasswordForm').submit(function (e) {
             e.preventDefault();
             let verificationCode = $('#verificationCode').val();
             if (verificationCode.length === 6) {
                 alert('Xác nhận mã thành công. Đang xử lý yêu cầu...');
-                // Xử lý logic xác nhận mã và chuyển hướng, hoặc gọi API
+
+                // Điều hướng sang trang reset_passW.html
+                window.location.href = 'reset_passW.html';
             } else {
                 alert('Vui lòng nhập mã xác nhận gồm 6 chữ số.');
             }
         });
+
     });
 </script>
 
