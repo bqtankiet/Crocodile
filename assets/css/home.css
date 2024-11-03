@@ -26,15 +26,20 @@
 .product-category-title {
   text-align: center;
   font-size: 32px;
+  margin-top: 25px;
+  font-weight: bold;
 }
 
 .product-category-subtitle {
   text-align: center;
   font-size: 19px;
+  font-weight: bold;
 }
 
 .product-category-description {
   text-align: center;
+  margin-bottom: 20px;
+  line-height: 2;
 }
 
 .product-category-description a {
