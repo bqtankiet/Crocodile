@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="initial-scale = 1.0,maximum-scale = 1.0"/>
-    <title>Products</title>
+    <title>Gento | Danh Mục Sản Phẩm</title>
     <!--  jquery  -->
     <script src="/public/jquery-3.7.1.min.js"></script>
     <!--  bootstrap  -->
@@ -11,68 +10,8 @@
     <script src="/public/bootstrap/js/bootstrap.bundle.js"></script>
     <!--  css  -->
     <link rel="stylesheet" href="/layouts/layout.css">
-    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
     <!--  js  -->
-
-    <!--  INTERNAL CSS  -->
-    <style>
-
-        .page-item.active > .page-link {
-            --color: var(--custom-bg-primary);
-            border-color: var(--custom-bg-primary);
-            background-color: var(--custom-bg-primary);
-            color: white;
-        }
-
-        .page-item > .page-link {
-            color: gray;
-        }
-
-        .carousel-item {
-            height: 25rem;
-        }
-
-        .carousel-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .product-card {
-            transition: all .25s ease-in-out;
-        }
-
-        .product-card:hover {
-            border-color: var(--custom-bg-primary);
-            border-width: 1px;
-            cursor: pointer;
-            z-index: 99;
-            scale: 1.05;
-            overflow: hidden;
-            box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.3);
-        }
-
-        .hide {
-            display: none;
-        }
-
-        .card {
-            position: relative;
-        }
-
-        .card .tag {
-            position: absolute;
-            left: 0.5rem;
-            top: 0.5rem;
-            z-index: 99;
-            border-radius: 50px;
-        }
-
-        .dropdown-menu .dropdown-item {
-            background-color: transparent;
-        }
-
-    </style>
 
     <!--  Media queries  -->
     <style>
@@ -123,6 +62,67 @@
 
     </style>
 
+    <!--  INTERNAL CSS  -->
+    <style>
+
+        .page-item.active > .page-link {
+            --color: var(--custom-bg-primary);
+            border-color: var(--custom-bg-primary);
+            background-color: var(--custom-bg-primary);
+            color: white;
+        }
+
+        .page-item > .page-link {
+            color: gray;
+        }
+
+        .carousel-item {
+            height: 25rem;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-card {
+            transition: all .25s ease-in-out;
+
+            &:hover {
+                border-color: var(--custom-bg-primary);
+                border-width: 1px;
+                cursor: pointer;
+                z-index: 99;
+                scale: 1.05;
+                overflow: hidden;
+                box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .card {
+            position: relative;
+        }
+
+        .card .tag {
+            position: absolute;
+            left: 0.5rem;
+            top: 0.5rem;
+            z-index: 99;
+            border-radius: 50px;
+        }
+
+        .dropdown-menu .dropdown-item {
+            background-color: transparent;
+        }
+
+    </style>
+
+    <!--  INTERNAL JS  -->
     <script>
         $(document).ready(function () {
             $("#triggerCategory").click(function () {
@@ -140,8 +140,11 @@
     <!--  Load HEADER, FOOTER  -->
     <script>
         $(document).ready(function () {
-            $("#HEADER").load("/includes/header.html");
-            // $("#FOOTER").load("/includes/footer.html");
+            $("#HEADER").load("/includes/header.html", function(response, status) {
+                if (status === "success") {
+                    $("#HEADER").find(".nav-link.products-page").addClass("active");
+                }
+            });
         });
     </script>
 </head>
@@ -153,8 +156,8 @@
         <!-------------------- Breadcrumb -------------------->
         <nav class="border-bottom" style="--bs-breadcrumb-divider: '>'">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Trang Chủ</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Túi Da</li>
+                <li class="breadcrumb-item"><a href="home.html">Trang Chủ</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Ví Da</li>
             </ol>
         </nav>
 
@@ -230,7 +233,7 @@
                                     <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
                                 </svg>
                             </div>
-                            <a href="#" class="text-decoration-none custom-text-primary fw-bold">Túi Da</a>
+                            <a href="#" class="text-decoration-none custom-text-primary fw-bold">Ví Da</a>
                         </div>
                         <ul class="d-grid gap-2 list-unstyled ms-3 ">
                             <li><a href="#" class="text-decoration-none text-black">Áo Khoác Da</a></li>
@@ -295,7 +298,7 @@
                 </div>
                 <ul id="products-list" class="list-unstyled row">
                     <li class="p-2">
-                        <a href="#" class="text-decoration-none" draggable="false">
+                        <a href="product-details.html" class="text-decoration-none" draggable="false">
                             <div class="card product-card rounded-0 p-0">
                                 <span class="tag custom-bg-primary text-white py-1 px-3 rounded-4"
                                       style="font-size: 0.8rem;">New</span>

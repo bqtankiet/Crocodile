@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Product details</title>
+    <title>Ví gấp nam da cá sấu V7068</title>
     <!--  jquery  -->
     <script src="/public/jquery-3.7.1.min.js"></script>
     <!--  bootstrap  -->
@@ -27,7 +27,7 @@
 
     <!--  css  -->
     <link rel="stylesheet" href="/layouts/layout.css">
-    <link rel="stylesheet" href="/assets/css/custom.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
     <link rel="stylesheet" href="../assets/css/product_thumbnail_carousel.css">
     <!--  js  -->
     <script src="../assets/js/quantity-control.js"></script>
@@ -132,8 +132,11 @@
     <!--  Load HEADER, FOOTER  -->
     <script>
         $(document).ready(function () {
-            $("#HEADER").load("/includes/header.html");
-            // $("#FOOTER").load("/includes/footer.html");
+            $("#HEADER").load("/includes/header.html", function(response, status) {
+                if (status === "success") {
+                    $("#HEADER").find(".nav-link.products-page").addClass("active");
+                }
+            });
         });
     </script>
 </head>
@@ -146,8 +149,8 @@
         <div class="container-xl">
             <nav class="mb-3" style="--bs-breadcrumb-divider: '>'">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Trang Chủ</a></li>
-                    <li class="breadcrumb-item"><a href="#">Túi Da</a></li>
+                    <li class="breadcrumb-item"><a href="home.html">Trang Chủ</a></li>
+                    <li class="breadcrumb-item"><a href="products.html">Túi Da</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Ví gấp nam da cá sấu V7068</li>
                 </ol>
             </nav>
@@ -260,11 +263,11 @@
                             </div>
                             <!--Submit-->
                             <div class="d-flex gap-2">
-                                <button class="btn custom-btn-primary flex-grow-1 text-uppercase text-center custom-bg-primary text-white p-3 fw-semibold fs-5"
+                                <button class="btn custom-btn-primary flex-grow-1 text-uppercase text-center custom-bg-primary p-3 fw-semibold fs-5"
                                         role="button" type="submit">
                                     Đặt mua ngay
                                 </button>
-                                <button class="btn custom-btn-primary custom-icon px-4 text-white"
+                                <button class="btn custom-btn-primary custom-icon px-4"
                                         data-bs-toggle="tooltip" data-bs-title="Thêm vào giỏ hàng" style="--size: 2rem"
                                         role="button" type="submit">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

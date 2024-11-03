@@ -38,10 +38,11 @@
 .custom-btn-primary {
     background: var(--custom-bg-primary);
     color: white;
-}
-.custom-btn-primary:hover {
-    background: var(--custom-bg-primary);
-    opacity: 0.7;
+    &:hover {
+        background: var(--custom-bg-primary);
+        opacity: 0.7;
+        color: white;
+    }
 }
 
 .line-clamp {
