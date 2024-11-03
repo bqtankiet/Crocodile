@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ví gấp nam da cá sấu V7068</title>
+    <!--  jquery  -->
+    <script src="/public/jquery-3.7.1.min.js"></script>
+    <!--  bootstrap  -->
+    <link rel="stylesheet" href="/public/bootstrap/css/bootstrap.css">
+    <script src="/public/bootstrap/js/bootstrap.bundle.js"></script>
+    <!-- owl carousel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+            integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+          integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+          integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <!--  marked.js  -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"
+            integrity="sha512-LhccdVNGe2QMEfI3x4DVV3ckMRe36TfydKss6mJpdHjNFiV07dFpS2xzeZedptKZrwxfICJpez09iNioiSZ3hA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!--  css  -->
+    <link rel="stylesheet" href="/layouts/layout.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/product_thumbnail_carousel.css">
+    <!--  js  -->
+    <script src="../assets/js/quantity-control.js"></script>
+    <script src="../assets/js/product_thumbnail_carousel.js"></script>
+
+    <!--  INTERNAL CSS  -->
+    <style>
+        #product_descriptions {
+            line-height: 2;
+            letter-spacing: 0.1rem;
+            height: 50ch;
+            overflow: hidden;
+        }
+
+        #product_descriptions img {
+            max-width: 100%;
+        }
+
+        .show-more {
+            position: relative;
+        }
+
+        .show-more::before {
+            content: "";
+            width: 100%;
+            height: 10rem;
+            background-image: linear-gradient(to bottom, transparent, #ededed);
+            position: absolute;
+            top: 0;
+            transform: translateY(-100%);
+        }
+
+        .rating_box {
+            border: 1px solid gray;
+            border-radius: 5px;
+        }
+
+        .rating_box > * {
+            padding: 1rem;
+        }
+
+        .rating_box .rating_average {
+            border-right: 1px solid gray;
+        }
+    </style>
+
+    <!--  Xử lý sự kiện các button trong phần mô tả sản phẩm  -->
+    <script>
+        $(document).ready(function () {
+            const $rating_btn = $('#rating-btn');
+            const $description_btn = $('#description-btn');
+
+            $rating_btn.on("click", function () {
+                $('#product_descriptions_wrapper').toggleClass("d-none");
+                $(this).toggleClass("btn-outline-secondary");
+                $(this).toggleClass("custom-btn-primary");
+                $description_btn.toggleClass("custom-btn-primary");
+                $description_btn.toggleClass("btn-outline-secondary");
+            });
+
+            $description_btn.on("click", function () {
+                $('#product_descriptions_wrapper').toggleClass("d-none");
+                $(this).toggleClass("btn-outline-secondary");
+                $(this).toggleClass("custom-btn-primary");
+                $rating_btn.toggleClass("custom-btn-primary");
+                $rating_btn.toggleClass("btn-outline-secondary");
+            });
+
+
+            $('#show-more-btn').on("click", function () {
+                $('#product_descriptions').css("height", "max-content");
+                $('.show-more').toggleClass("d-none");
+                $('.show-less').toggleClass("d-none");
+            });
+
+            $('.show-less').on("click", function () {
+                $('#product_descriptions').css("height", "50ch");
+                $('.show-more').toggleClass("d-none");
+                $('.show-less').toggleClass("d-none");
+            });
+        });
+    </script>
+
+    <!--  Test xử lý chuyển đổi markdown thành html từ file mô tả sản phẩm  -->
+    <script>
+        $(document).ready(function () {
+            const htmlConverter = new showdown.Converter();
+            $('#product_descriptions').load('/content/product_description_1.md', function (response) {
+                $(this).html(htmlConverter.makeHtml(response)); // Chuyển đổi và hiển thị
+            });
+        });
+    </script>
+
+    <!--  Khai báo Bootstrap tooltip  -->
+    <script>
+        $(document).ready(function () {
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+        });
+    </script>
+
+    <!--  Load HEADER, FOOTER  -->
+    <script>
+        $(document).ready(function () {
+            $("#HEADER").load("/includes/header.html", function(response, status) {
+                if (status === "success") {
+                    $("#HEADER").find(".nav-link.products-page").addClass("active");
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+
+<div id="page">
+    <div id="HEADER"></div>
+    <div id="CONTENT">
+        <!-------------------- Breadcrumb -------------------->
+        <div class="container-xl">
+            <nav class="mb-3" style="--bs-breadcrumb-divider: '>'">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="home.html">Trang Chủ</a></li>
+                    <li class="breadcrumb-item"><a href="products.html">Túi Da</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Ví gấp nam da cá sấu V7068</li>
+                </ol>
+            </nav>
+        </div>
+
+        <!-------------------- Thong tin san pham -------------------->
+        <div class="container-xl">
+            <div class="row">
+                <div class="col-6">
+                    <div class="col-12">
+                        <div class="product-gallery">
+                            <!-- Carousel cho hình ảnh lớn -->
+                            <div class="position-relative">
+                                <button class="owl-prev">❮</button> <!-- Nút điều hướng bên trái -->
+                                <div class="owl-carousel main-carousel mb-2">
+                                    <div class="item"><img
+                                            src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
+                                            class="img-fluid" alt=""></div>
+                                    <div class="item"><img
+                                            src="https://www.gento.vn/wp-content/uploads/2024/07/vi-nam-da-ca-sau4.jpg"
+                                            class="img-fluid" alt=""></div>
+                                    <div class="item"><img
+                                            src="https://www.gento.vn/wp-content/uploads/2024/07/vi-nam-da-ca-sau3.jpg"
+                                            class="img-fluid" alt=""></div>
+                                    <div class="item"><img
+                                            src="https://www.gento.vn/wp-content/uploads/2024/07/vi-nam-da-ca-sau8.jpg"
+                                            class="img-fluid" alt=""></div>
+                                </div>
+                                <button class="owl-next">❯</button> <!-- Nút điều hướng bên phải -->
+                            </div>
+                            <!-- Carousel cho hình ảnh thumbnail -->
+                            <div class="owl-carousel thumbnail-carousel">
+                                <div class="item"><img
+                                        src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
+                                        class="img-thumbnail" alt="thumbnail-image"></div>
+                                <div class="item"><img
+                                        src="https://www.gento.vn/wp-content/uploads/2024/07/vi-nam-da-ca-sau4.jpg"
+                                        class="img-thumbnail" alt=""></div>
+                                <div class="item"><img
+                                        src="https://www.gento.vn/wp-content/uploads/2024/07/vi-nam-da-ca-sau3.jpg"
+                                        class="img-thumbnail" alt=""></div>
+                                <div class="item"><img
+                                        src="https://www.gento.vn/wp-content/uploads/2024/07/vi-nam-da-ca-sau8.jpg"
+                                        class="img-thumbnail" alt=""></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 ps-4">
+                    <div>
+                        <h1 class="fw-bold">Ví gấp nam da cá sấu V7068</h1>
+                        <div class="mt-4">
+                            <span class="fs-2 me-3 custom-text-primary">1,100,000<sup>₫</sup></span>
+                            <span class="fs-5 text-decoration-line-through text-secondary">1,500,000<sup>₫</sup></span>
+                        </div>
+                        <div class="lh-lg mt-4">
+                            <ul>
+                                <li>Kích thước: 11 cm (dài) x 9,5 cm (cao)</li>
+                                <li>Chất liệu: Da cá sấu Thái Lan mặt ngoài, mặt trong da bò Italy</li>
+                                <li>Cam kết: Gento cam kết hoàn tiền lại nếu sản phẩm không phải da cá sấu và không
+                                    giống như hình chụp.
+                                </li>
+                                <li>8 ngăn đựng thẻ – 2 ngăn đựng tiền mặt</li>
+                            </ul>
+                        </div>
+                        <form class="d-grid gap-3 border-top pt-3">
+                            <!--Mau sac-->
+                            <div class="d-flex gap-2 row">
+                                <p class="fw-semibold col-2 my-auto">Màu Sắc</p>
+                                <div class="col d-flex gap-2 flex-wrap">
+                                    <input type="radio" class="btn-check" name="color" id="color-1" value="1" required>
+                                    <label for="color-1" class="btn btn-outline-dark">
+                                        <img src="https://www.gento.vn/wp-content/uploads/2024/07/vi-nam-da-ca-sau5.jpg"
+                                             alt="" class="img-fluid me-1" style="height: 2rem">
+                                        Test
+                                    </label>
+
+                                    <input type="radio" class="btn-check" name="color" id="color-2" value="2" required>
+                                    <label for="color-2" class="btn btn-outline-dark">
+                                        <img src="https://www.gento.vn/wp-content/uploads/2024/07/vi-nam-da-ca-sau5.jpg"
+                                             alt="" class="img-fluid me-1" style="height: 2rem">
+                                        Test
+                                    </label>
+
+                                </div>
+                            </div>
+                            <!--Kieu dang-->
+                            <div class="d-flex gap-2 row">
+                                <p class="fw-semibold col-2 my-auto">Kiểu dáng</p>
+                                <div class="col d-flex gap-2 flex-wrap align-items-center">
+                                    <input type="radio" class="btn-check" name="model" id="model-1" value="1" required>
+                                    <label for="model-1" class="btn btn-outline-dark">
+                                        Kiểu dáng 1
+                                    </label>
+
+                                </div>
+                            </div>
+                            <!--So luong-->
+                            <div class="d-flex gap-2 row">
+                                <p class="fw-semibold col-2 my-auto">Số lượng</p>
+                                <div class="col-3">
+                                    <div class="quantity-control input-group" data-min="1" data-max="200">
+                                        <button type="button" class="decrement btn custom-btn-primary">-</button>
+                                        <input type="number" name="quantity"
+                                               class="quantity-input form-control text-center" aria-label="quantity">
+                                        <button type="button" class="increment btn custom-btn-primary">+</button>
+                                    </div>
+                                </div>
+                                <p class="col my-auto">200 Sản phẩm có sẵn</p>
+                            </div>
+                            <!--Submit-->
+                            <div class="d-flex gap-2">
+                                <button class="btn custom-btn-primary flex-grow-1 text-uppercase text-center custom-bg-primary p-3 fw-semibold fs-5"
+                                        role="button" type="submit">
+                                    Đặt mua ngay
+                                </button>
+                                <button class="btn custom-btn-primary custom-icon px-4"
+                                        data-bs-toggle="tooltip" data-bs-title="Thêm vào giỏ hàng" style="--size: 2rem"
+                                        role="button" type="submit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-cart-plus" viewBox="0 0 16 16">
+                                        <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z"/>
+                                        <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-------------------- Mo ta & Danh gia -------------------->
+        <div class="mt-5" style="background-color: #ededed">
+            <div class="container-xl">
+                <div class="row">
+                    <div class="col-9 mx-auto">
+                        <div class="d-flex justify-content-center py-5 gap-3">
+                            <button id="description-btn" class="btn custom-btn-primary ">Mô tả</button>
+                            <button id="rating-btn" class="btn btn-outline-secondary">Đánh giá</button>
+                        </div>
+                        <div id="product_descriptions_wrapper">
+                            <div id="product_descriptions"></div>
+                            <div class="show-more">
+                                <div class="d-flex justify-content-center">
+                                    <button id="show-more-btn" class="btn btn-outline-primary">Xem thêm</button>
+                                </div>
+                            </div>
+                            <div class="show-less d-none">
+                                <div class="d-flex justify-content-center">
+                                    <button id="show-less-btn" class="btn btn-outline-primary">Thu gọn</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div id="product_rating">
+                            <hr>
+                            <h5 class="rating_title fw-bold"><span style="font-size: inherit">Đánh giá: </span>Ví gấp
+                                nam da cá sấu
+                                V7068</h5>
+                            <div class="rating_box row mx-1">
+                                <div class="rating_average col-4 d-flex align-items-center justify-content-center gap-2"
+                                     style="color: darkorange">
+                                    <span class="fw-semibold" style="font-size: 4rem">5.0</span>
+                                    <div class="custom-icon" style="--size: 3rem">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="rating_bar col">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="d-flex align-items-center gap-1">
+                                            5
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                 fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                            </svg>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <div class="progress bg-secondary" role="progressbar">
+                                                <div class="progress-bar"
+                                                     style="width: 100%; background-color: darkorange"></div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex gap-2" style="width: 20ch">
+                                            <div class="" style="width: 4ch;">100%</div>
+                                            <div class="border-start border-2 border-secondary ms-2 my-1"></div>
+                                            <div>1 Đánh giá</div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="d-flex align-items-center gap-1">
+                                            4
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                 fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                            </svg>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <div class="progress bg-secondary" role="progressbar">
+                                                <div class="progress-bar text-bg-warning" style="width: 0%;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex gap-2" style="width: 20ch">
+                                            <div class="" style="width: 4ch;">0%</div>
+                                            <div class="border-start border-2 border-secondary ms-2 my-1"></div>
+                                            <div>0 Đánh giá</div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="d-flex align-items-center gap-1">
+                                            3
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                 fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                            </svg>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <div class="progress bg-secondary" role="progressbar">
+                                                <div class="progress-bar text-bg-warning" style="width: 0%;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex gap-2" style="width: 20ch">
+                                            <div class="" style="width: 4ch;">0%</div>
+                                            <div class="border-start border-2 border-secondary ms-2 my-1"></div>
+                                            <div>0 Đánh giá</div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="d-flex align-items-center gap-1">
+                                            2
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                 fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                            </svg>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <div class="progress bg-secondary" role="progressbar">
+                                                <div class="progress-bar text-bg-warning" style="width: 0%;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex gap-2" style="width: 20ch">
+                                            <div class="" style="width: 4ch;">0%</div>
+                                            <div class="border-start border-2 border-secondary ms-2 my-1"></div>
+                                            <div>0 Đánh giá</div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="d-flex align-items-center gap-1">
+                                            1
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                 fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                            </svg>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <div class="progress bg-secondary" role="progressbar">
+                                                <div class="progress-bar text-bg-warning" style="width: 0%;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex gap-2" style="width: 20ch">
+                                            <div class="" style="width: 4ch;">0%</div>
+                                            <div class="border-start border-2 border-secondary ms-2 my-1"></div>
+                                            <div>0 Đánh giá</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary mt-3 fs-5 w-100 fw-semibold text-uppercase">Đánh giá
+                                ngay
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-------------------- San pham tuong tu -------------------->
+        <div class="container-xl">
+
+        </div>
+    </div>
+    <div id="FOOTER"></div>
+</div>
+
+</body>
+</html>
