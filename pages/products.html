@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/layouts/layout.css">
     <link rel="stylesheet" href="/assets/css/main.css">
     <!--  js  -->
+    <script src="/components/product_card/product_card_template.js"></script>
 
     <!--  Media queries  -->
     <style>
@@ -86,28 +87,6 @@
             object-fit: cover;
         }
 
-        .product-card {
-            transition: all .25s ease-in-out;
-
-            &:hover {
-                border-color: var(--custom-bg-primary);
-                border-width: 1px;
-                cursor: pointer;
-                z-index: 99;
-                overflow: hidden;
-                box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.3);
-
-                .product_price {
-                    color: red;
-                }
-
-                img {
-                    scale: 1.2;
-                    transition: all .3s ease-in-out;
-                }
-            }
-        }
-
         .hide {
             display: none;
         }
@@ -115,7 +94,6 @@
         .dropdown-menu .dropdown-item {
             background-color: transparent;
         }
-
     </style>
 
     <!--  INTERNAL JS  -->
@@ -333,447 +311,48 @@
                             </div>
                         </a>
                     </li> <!-- Ví da -->
-                    <li class="p-2">
-                        <a href="#" class="text-decoration-none" draggable="false">
-                            <div class="card product-card rounded-0 p-0 position-relative">
-                                <div class="discount d-flex position-absolute end-0 z-1 m-2" style="--height: 1.5rem;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                         style="height: var(--height); margin-right: -1px">
-                                        <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                              stroke="#F69113"
-                                              fill="#F69113">
-                                        </path>
-                                    </svg>
-                                    <span class="[ product_discount ] text-white px-1"
-                                          style="background-color: #F69113;">Giảm 10%</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                         style="height: var(--height); transform: rotate(180deg); margin-left: -1px">
-                                        <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                              stroke="#F69113"
-                                              fill="#F69113">
-                                        </path>
-                                    </svg>
-                                </div>
-                                <div class="ratio ratio-1x1 overflow-hidden">
-                                    <img src="https://cbu01.alicdn.com/img/ibank/2018/532/758/10184857235_1372233565.jpg"
-                                         class="card-img-top rounded-0 bg-primary" draggable="false" alt="product image"
-                                         style="object-fit: cover">
-                                </div>
-                                <div class="card-body pt-1 d-flex flex-column">
-                                    <div class="card-title line-clamp mb-0">
-                                        <span class="badge text-bg-success">NEW</span>
-                                        <span class="[ product_name ]"> Giày Da Nam Vân Da Cá Sấu Mũi Nhọn SHDTS</span>
-                                    </div>
-                                    <div class="d-flex gap-1 custom-text-primary mt-2">
-                                        <span class="[ product_price ] fs-5 ">2.680.000<sup>₫</sup></span>
-                                        <span class="text-secondary text-decoration-line-through ms-2">2.999.000<sup>₫</sup></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li> <!-- Giày da -->
                     <!-- Test data -->
                     <li class="p-2">
-                        <a href="product-details.html" class="text-decoration-none" draggable="false">
-                            <div class="card product-card rounded-0 p-0 position-relative">
-                                <!--                                <span class="badge text-bg-success position-absolute m-2 z-1">NEW</span>-->
-                                <div class="discount d-flex position-absolute end-0 z-1 m-2" style="--height: 1.5rem;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                         style="height: var(--height); margin-right: -1px">
-                                        <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                              stroke="#F69113"
-                                              fill="#F69113">
-                                        </path>
-                                    </svg>
-                                    <span class="[ product_discount ] text-white px-1"
-                                          style="background-color: #F69113;">Giảm 27%</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                         style="height: var(--height); transform: rotate(180deg); margin-left: -1px">
-                                        <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                              stroke="#F69113"
-                                              fill="#F69113">
-                                        </path>
-                                    </svg>
-                                </div>
-                                <div class="ratio ratio-1x1 overflow-hidden">
-                                    <img src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
-                                         class="card-img-top rounded-0 bg-primary" draggable="false" alt="product image"
-                                         style="object-fit: cover">
-                                </div>
-                                <div class="card-body pt-1 d-flex flex-column">
-                                    <div class="card-title line-clamp mb-0">
-                                        <span class="badge text-bg-success">NEW</span>
-                                        <span class="[ product_name ]"> Ví gấp nam da cá sấu V7068</span>
-                                    </div>
-                                    <div class="d-flex gap-1 custom-text-primary mt-2">
-                                        <span class="[ product_price ] fs-5 ">1.100.000<sup>₫</sup></span>
-                                        <span class="text-secondary text-decoration-line-through ms-2">1.500.000<sup>₫</sup></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="p-2">
-                        <a href="product-details.html" class="text-decoration-none" draggable="false">
-                            <div class="card product-card rounded-0 p-0 position-relative">
-                                <!--                                <span class="badge text-bg-success position-absolute m-2 z-1">NEW</span>-->
-                                <div class="discount d-flex position-absolute end-0 z-1 m-2" style="--height: 1.5rem;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                         style="height: var(--height); margin-right: -1px">
-                                        <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                              stroke="#F69113"
-                                              fill="#F69113">
-                                        </path>
-                                    </svg>
-                                    <span class="[ product_discount ] text-white px-1"
-                                          style="background-color: #F69113;">Giảm 27%</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                         style="height: var(--height); transform: rotate(180deg); margin-left: -1px">
-                                        <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                              stroke="#F69113"
-                                              fill="#F69113">
-                                        </path>
-                                    </svg>
-                                </div>
-                                <div class="ratio ratio-1x1 overflow-hidden">
-                                    <img src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
-                                         class="card-img-top rounded-0 bg-primary" draggable="false" alt="product image"
-                                         style="object-fit: cover">
-                                </div>
-                                <div class="card-body pt-1 d-flex flex-column">
-                                    <div class="card-title line-clamp mb-0">
-                                        <span class="badge text-bg-success">NEW</span>
-                                        <span class="[ product_name ]"> Ví gấp nam da cá sấu V7068</span>
-                                    </div>
-                                    <div class="d-flex gap-1 custom-text-primary mt-2">
-                                        <span class="[ product_price ] fs-5 ">1.100.000<sup>₫</sup></span>
-                                        <span class="text-secondary text-decoration-line-through ms-2">1.500.000<sup>₫</sup></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="p-2">
-                        <a href="product-details.html" class="text-decoration-none" draggable="false">
-                            <div class="card product-card rounded-0 p-0 position-relative">
-                                <!--                                <span class="badge text-bg-success position-absolute m-2 z-1">NEW</span>-->
-                                <div class="discount d-flex position-absolute end-0 z-1 m-2" style="--height: 1.5rem;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                         style="height: var(--height); margin-right: -1px">
-                                        <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                              stroke="#F69113"
-                                              fill="#F69113">
-                                        </path>
-                                    </svg>
-                                    <span class="[ product_discount ] text-white px-1"
-                                          style="background-color: #F69113;">Giảm 27%</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                         style="height: var(--height); transform: rotate(180deg); margin-left: -1px">
-                                        <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                              stroke="#F69113"
-                                              fill="#F69113">
-                                        </path>
-                                    </svg>
-                                </div>
-                                <div class="ratio ratio-1x1 overflow-hidden">
-                                    <img src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
-                                         class="card-img-top rounded-0 bg-primary" draggable="false" alt="product image"
-                                         style="object-fit: cover">
-                                </div>
-                                <div class="card-body pt-1 d-flex flex-column">
-                                    <div class="card-title line-clamp mb-0">
-                                        <span class="badge text-bg-success">NEW</span>
-                                        <span class="[ product_name ]"> Ví gấp nam da cá sấu V7068</span>
-                                    </div>
-                                    <div class="d-flex gap-1 custom-text-primary mt-2">
-                                        <span class="[ product_price ] fs-5 ">1.100.000<sup>₫</sup></span>
-                                        <span class="text-secondary text-decoration-line-through ms-2">1.500.000<sup>₫</sup></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="p-2">
-                        <a href="product-details.html" class="text-decoration-none" draggable="false">
-                            <div class="card product-card rounded-0 p-0 position-relative">
-                                <!--                                <span class="badge text-bg-success position-absolute m-2 z-1">NEW</span>-->
-                                <div class="discount d-flex position-absolute end-0 z-1 m-2" style="--height: 1.5rem;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                         style="height: var(--height); margin-right: -1px">
-                                        <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                              stroke="#F69113"
-                                              fill="#F69113">
-                                        </path>
-                                    </svg>
-                                    <span class="[ product_discount ] text-white px-1"
-                                          style="background-color: #F69113;">Giảm 27%</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                         style="height: var(--height); transform: rotate(180deg); margin-left: -1px">
-                                        <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                              stroke="#F69113"
-                                              fill="#F69113">
-                                        </path>
-                                    </svg>
-                                </div>
-                                <div class="ratio ratio-1x1 overflow-hidden">
-                                    <img src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
-                                         class="card-img-top rounded-0 bg-primary" draggable="false" alt="product image"
-                                         style="object-fit: cover">
-                                </div>
-                                <div class="card-body pt-1 d-flex flex-column">
-                                    <div class="card-title line-clamp mb-0">
-                                        <span class="badge text-bg-success">NEW</span>
-                                        <span class="[ product_name ]"> Ví gấp nam da cá sấu V7068</span>
-                                    </div>
-                                    <div class="d-flex gap-1 custom-text-primary mt-2">
-                                        <span class="[ product_price ] fs-5 ">1.100.000<sup>₫</sup></span>
-                                        <span class="text-secondary text-decoration-line-through ms-2">1.500.000<sup>₫</sup></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="p-2">
-                        <a href="product-details.html" class="text-decoration-none" draggable="false">
-                            <div class="card product-card rounded-0 p-0 position-relative">
-                                <!--                                <span class="badge text-bg-success position-absolute m-2 z-1">NEW</span>-->
-                                <div class="discount d-flex position-absolute end-0 z-1 m-2" style="--height: 1.5rem;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                         style="height: var(--height); margin-right: -1px">
-                                        <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                              stroke="#F69113"
-                                              fill="#F69113">
-                                        </path>
-                                    </svg>
-                                    <span class="[ product_discount ] text-white px-1"
-                                          style="background-color: #F69113;">Giảm 27%</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                         style="height: var(--height); transform: rotate(180deg); margin-left: -1px">
-                                        <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                              stroke="#F69113"
-                                              fill="#F69113">
-                                        </path>
-                                    </svg>
-                                </div>
-                                <div class="ratio ratio-1x1 overflow-hidden">
-                                    <img src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
-                                         class="card-img-top rounded-0 bg-primary" draggable="false" alt="product image"
-                                         style="object-fit: cover">
-                                </div>
-                                <div class="card-body pt-1 d-flex flex-column">
-                                    <div class="card-title line-clamp mb-0">
-                                        <span class="badge text-bg-success">NEW</span>
-                                        <span class="[ product_name ]"> Ví gấp nam da cá sấu V7068</span>
-                                    </div>
-                                    <div class="d-flex gap-1 custom-text-primary mt-2">
-                                        <span class="[ product_price ] fs-5 ">1.100.000<sup>₫</sup></span>
-                                        <span class="text-secondary text-decoration-line-through ms-2">1.500.000<sup>₫</sup></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="p-2">
-                        <a href="product-details.html" class="text-decoration-none" draggable="false">
-                            <div class="card product-card rounded-0 p-0 position-relative">
-                                <!--                                <span class="badge text-bg-success position-absolute m-2 z-1">NEW</span>-->
-                                <div class="discount d-flex position-absolute end-0 z-1 m-2" style="--height: 1.5rem;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                         style="height: var(--height); margin-right: -1px">
-                                        <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                              stroke="#F69113"
-                                              fill="#F69113">
-                                        </path>
-                                    </svg>
-                                    <span class="[ product_discount ] text-white px-1"
-                                          style="background-color: #F69113;">Giảm 27%</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                         style="height: var(--height); transform: rotate(180deg); margin-left: -1px">
-                                        <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                              stroke="#F69113"
-                                              fill="#F69113">
-                                        </path>
-                                    </svg>
-                                </div>
-                                <div class="ratio ratio-1x1 overflow-hidden">
-                                    <img src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
-                                         class="card-img-top rounded-0 bg-primary" draggable="false" alt="product image"
-                                         style="object-fit: cover">
-                                </div>
-                                <div class="card-body pt-1 d-flex flex-column">
-                                    <div class="card-title line-clamp mb-0">
-                                        <span class="badge text-bg-success">NEW</span>
-                                        <span class="[ product_name ]"> Ví gấp nam da cá sấu V7068</span>
-                                    </div>
-                                    <div class="d-flex gap-1 custom-text-primary mt-2">
-                                        <span class="[ product_price ] fs-5 ">1.100.000<sup>₫</sup></span>
-                                        <span class="text-secondary text-decoration-line-through ms-2">1.500.000<sup>₫</sup></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="p-2">
-                        <a href="product-details.html" class="text-decoration-none" draggable="false">
-                            <div class="card product-card rounded-0 p-0 position-relative">
-                                <!--                                <span class="badge text-bg-success position-absolute m-2 z-1">NEW</span>-->
-                                <div class="discount d-flex position-absolute end-0 z-1 m-2" style="--height: 1.5rem;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                         style="height: var(--height); margin-right: -1px">
-                                        <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                              stroke="#F69113"
-                                              fill="#F69113">
-                                        </path>
-                                    </svg>
-                                    <span class="[ product_discount ] text-white px-1"
-                                          style="background-color: #F69113;">Giảm 27%</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                         style="height: var(--height); transform: rotate(180deg); margin-left: -1px">
-                                        <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                              stroke="#F69113"
-                                              fill="#F69113">
-                                        </path>
-                                    </svg>
-                                </div>
-                                <div class="ratio ratio-1x1 overflow-hidden">
-                                    <img src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
-                                         class="card-img-top rounded-0 bg-primary" draggable="false" alt="product image"
-                                         style="object-fit: cover">
-                                </div>
-                                <div class="card-body pt-1 d-flex flex-column">
-                                    <div class="card-title line-clamp mb-0">
-                                        <span class="badge text-bg-success">NEW</span>
-                                        <span class="[ product_name ]"> Ví gấp nam da cá sấu V7068</span>
-                                    </div>
-                                    <div class="d-flex gap-1 custom-text-primary mt-2">
-                                        <span class="[ product_price ] fs-5 ">1.100.000<sup>₫</sup></span>
-                                        <span class="text-secondary text-decoration-line-through ms-2">1.500.000<sup>₫</sup></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="p-2">
-                        <a href="product-details.html" class="text-decoration-none" draggable="false">
-                            <div class="card product-card rounded-0 p-0 position-relative">
-                                <!--                                <span class="badge text-bg-success position-absolute m-2 z-1">NEW</span>-->
-                                <div class="discount d-flex position-absolute end-0 z-1 m-2" style="--height: 1.5rem;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                         style="height: var(--height); margin-right: -1px">
-                                        <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                              stroke="#F69113"
-                                              fill="#F69113">
-                                        </path>
-                                    </svg>
-                                    <span class="[ product_discount ] text-white px-1"
-                                          style="background-color: #F69113;">Giảm 27%</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                         style="height: var(--height); transform: rotate(180deg); margin-left: -1px">
-                                        <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                              stroke="#F69113"
-                                              fill="#F69113">
-                                        </path>
-                                    </svg>
-                                </div>
-                                <div class="ratio ratio-1x1 overflow-hidden">
-                                    <img src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
-                                         class="card-img-top rounded-0 bg-primary" draggable="false" alt="product image"
-                                         style="object-fit: cover">
-                                </div>
-                                <div class="card-body pt-1 d-flex flex-column">
-                                    <div class="card-title line-clamp mb-0">
-                                        <span class="badge text-bg-success">NEW</span>
-                                        <span class="[ product_name ]"> Ví gấp nam da cá sấu V7068</span>
-                                    </div>
-                                    <div class="d-flex gap-1 custom-text-primary mt-2">
-                                        <span class="[ product_price ] fs-5 ">1.100.000<sup>₫</sup></span>
-                                        <span class="text-secondary text-decoration-line-through ms-2">1.500.000<sup>₫</sup></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="p-2">
-                        <a href="product-details.html" class="text-decoration-none" draggable="false">
-                            <div class="card product-card rounded-0 p-0 position-relative">
-                                <!--                                <span class="badge text-bg-success position-absolute m-2 z-1">NEW</span>-->
-                                <div class="discount d-flex position-absolute end-0 z-1 m-2" style="--height: 1.5rem;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                         style="height: var(--height); margin-right: -1px">
-                                        <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                              stroke="#F69113"
-                                              fill="#F69113">
-                                        </path>
-                                    </svg>
-                                    <span class="[ product_discount ] text-white px-1"
-                                          style="background-color: #F69113;">Giảm 27%</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                         style="height: var(--height); transform: rotate(180deg); margin-left: -1px">
-                                        <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                              stroke="#F69113"
-                                              fill="#F69113">
-                                        </path>
-                                    </svg>
-                                </div>
-                                <div class="ratio ratio-1x1 overflow-hidden">
-                                    <img src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
-                                         class="card-img-top rounded-0 bg-primary" draggable="false" alt="product image"
-                                         style="object-fit: cover">
-                                </div>
-                                <div class="card-body pt-1 d-flex flex-column">
-                                    <div class="card-title line-clamp mb-0">
-                                        <span class="badge text-bg-success">NEW</span>
-                                        <span class="[ product_name ]"> Ví gấp nam da cá sấu V7068</span>
-                                    </div>
-                                    <div class="d-flex gap-1 custom-text-primary mt-2">
-                                        <span class="[ product_price ] fs-5 ">1.100.000<sup>₫</sup></span>
-                                        <span class="text-secondary text-decoration-line-through ms-2">1.500.000<sup>₫</sup></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="p-2">
-                        <a href="product-details.html" class="text-decoration-none" draggable="false">
-                            <div class="card product-card rounded-0 p-0 position-relative">
-                                <!--                                <span class="badge text-bg-success position-absolute m-2 z-1">NEW</span>-->
-                                <div class="discount d-flex position-absolute end-0 z-1 m-2" style="--height: 1.5rem;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                         style="height: var(--height); margin-right: -1px">
-                                        <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                              stroke="#F69113"
-                                              fill="#F69113">
-                                        </path>
-                                    </svg>
-                                    <span class="[ product_discount ] text-white px-1"
-                                          style="background-color: #F69113;">Giảm 27%</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                         style="height: var(--height); transform: rotate(180deg); margin-left: -1px">
-                                        <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                              stroke="#F69113"
-                                              fill="#F69113">
-                                        </path>
-                                    </svg>
-                                </div>
-                                <div class="ratio ratio-1x1 overflow-hidden">
-                                    <img src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
-                                         class="card-img-top rounded-0 bg-primary" draggable="false" alt="product image"
-                                         style="object-fit: cover">
-                                </div>
-                                <div class="card-body pt-1 d-flex flex-column">
-                                    <div class="card-title line-clamp mb-0">
-                                        <span class="badge text-bg-success">NEW</span>
-                                        <span class="[ product_name ]"> Ví gấp nam da cá sấu V7068</span>
-                                    </div>
-                                    <div class="d-flex gap-1 custom-text-primary mt-2">
-                                        <span class="[ product_price ] fs-5 ">1.100.000<sup>₫</sup></span>
-                                        <span class="text-secondary text-decoration-line-through ms-2">1.500.000<sup>₫</sup></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
+                        <div class="product_card_template"
+                             data-json='{
+                                    "img": "https://www.gento.vn/wp-content/uploads/2024/06/tui-cam-tay-da-bo3.jpg",
+                                    "name": "Ví cầm tay nam da bò dập vân cá sấu V7065",
+                                    "price": "1,350,000",
+                                    "basePrice": "1,700,000",
+                                    "discount": "Giảm 21%",
+                                    "badge": "NEW",
+                                    "target": "#"
+                                    }'>
+                        </div>
                     </li>
 
+                    <li class="p-2">
+                        <div class="product_card_template"
+                             data-json='{
+                                    "img": "https://www.gento.vn/wp-content/uploads/2021/10/vi-cam-tay-da-ca-sau-gs9825.jpeg",
+                                    "name": "Ví cầm tay da cá sấu cao cấp GS982 Nâu",
+                                    "price": "1,300,000",
+                                    "basePrice": "1,900,000",
+                                    "discount": "Giảm 32%",
+                                    "badge": "NEW",
+                                    "target": "#"
+                                    }'>
+                        </div>
+                    </li>
+
+                    <li class="p-2">
+                        <div class="product_card_template"
+                             data-json='{
+                                    "img": "https://www.gento.vn/wp-content/uploads/2023/11/vi-da-ca-sau-nam-cao-cap10.jpg",
+                                    "name": "Ví cầm tay nam da cá sấu cao cấp Gento GS985",
+                                    "price": "1,950,000",
+                                    "basePrice": "2,350,000",
+                                    "discount": "Giảm 17%",
+                                    "badge": "NEW",
+                                    "target": "#"
+                                    }'>
+                        </div>
+                    </li>
                 </ul>
                 <ul class="pagination pagination-lg justify-content-center m-5">
                     <li class="page-item disabled"><a class="page-link" href="#"><</a></li>
