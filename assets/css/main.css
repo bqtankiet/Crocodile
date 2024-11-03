@@ -9,7 +9,7 @@
 }
 
 :root {
-    --custom-bg-primary:#608e41;
+    --custom-bg-primary: #608e41;
 }
 
 * {
@@ -21,6 +21,7 @@
 .custom-text-primary {
     color: var(--custom-bg-primary);
 }
+
 .custom-bg-primary {
     background-color: var(--custom-bg-primary);
 }
@@ -30,6 +31,7 @@
     align-items: center;
     justify-content: center;
 }
+
 .custom-icon svg {
     width: var(--size);
     height: var(--size);
@@ -38,6 +40,7 @@
 .custom-btn-primary {
     background: var(--custom-bg-primary);
     color: white;
+
     &:hover {
         background: var(--custom-bg-primary);
         opacity: 0.7;
@@ -46,10 +49,13 @@
 }
 
 .line-clamp {
+    --line: 2;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: var(--line);
     -webkit-box-orient: vertical;
     overflow: hidden;
+    line-height: 1.5;
+    height: 3em;
 }
 
 input::-webkit-outer-spin-button,
