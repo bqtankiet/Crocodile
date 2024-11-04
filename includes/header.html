@@ -82,7 +82,7 @@
             <!-- Account, Cart -->
             <div class="d-flex justify-content-end lh-1 text-nowrap col-3 ms-auto gap-md-3 order-lg-2">
                 <a href="login.html" class="text-decoration-none text-black position-relative">
-<!--                    <span class="badge text-bg-danger position-absolute translate-middle rounded-pill">10+</span>-->
+                    <!--                    <span class="badge text-bg-danger position-absolute translate-middle rounded-pill">10+</span>-->
                     <div class="d-flex align-items-center justify-content-end">
                         <div class="custom-icon" style="--size: 2rem">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -98,18 +98,21 @@
                         </div>
                     </div>
                 </a>
-                <a href="#" class="text-decoration-none text-black position-relative">
+                <a class="text-decoration-none text-black position-relative" href="#offcanvasRight" role="button"
+                   data-bs-toggle="offcanvas">
                     <span class="badge text-bg-danger position-absolute translate-middle rounded-pill">1</span>
 
                     <div class="d-flex align-items-center justify-content-end">
                         <div class="custom-icon" style="--size: 2rem">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-bag" viewBox="0 0 16 16">
                                 <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
                             </svg>
                         </div>
                         <div class="ps-2">
                             <div class="small pb-1">Giỏ hàng</div>
-                            <div class="pb-1 fw-semibold text-truncate" style="width: 10ch">1.100.000<span>₫</span></div>
+                            <div class="pb-1 fw-semibold text-truncate" style="width: 10ch">1.100.000<span>₫</span>
+                            </div>
                         </div>
                     </div>
                 </a>
@@ -173,4 +176,59 @@
         </div>
         <hr>
     </div>
+
+    <!--  Offcanvas Gio Hang  -->
+    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasRight">
+        <div class="offcanvas-header">
+            <div class="custom-icon me-1 position-relative" style="--size: 2rem">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-bag" viewBox="0 0 16 16">
+                    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
+                </svg>
+            </div>
+            <h5 class="offcanvas-title fw-semibold" id="offcanvasRightLabel">Giỏ hàng</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column gap-3">
+            <div class="border-bottom pb-3">
+                <div class="float-end">
+                    <button class="btn btn-outline-danger px-2 custom-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor"
+                             class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="row g-0">
+                    <div class="col-2 me-3">
+                        <div class="ratio ratio-1x1">
+                            <img src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
+                                 class="img-fluid rounded-2" alt="">
+                        </div>
+                    </div>
+                    <div class="col lh-1">
+                        <div class="w-100 me-3">
+                            <p class="fw-bold line-clamp-1">Ví gấp nam da cá sấu V7068</p>
+                            <div class="d-flex">
+                                <div class="col">
+                                    <span class="badge text-bg-secondary">Da trơn</span>
+                                </div>
+                                <div class="ms-auto">
+                                    <div class="ms-auto text-danger fw-bold fs-6"> 1 × 1,100,000<sup>₫</sup></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-3">
+            <div class="d-flex gap-2 fw-bold">
+                <p>Tổng:</p>
+                <p>1,100,000<sup>₫</sup></p>
+            </div>
+            <button class="btn custom-btn-primary mt-auto w-100">Thanh toán</button>
+        </div>
+    </div>
+
 </header>
