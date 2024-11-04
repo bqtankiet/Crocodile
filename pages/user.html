@@ -15,65 +15,48 @@
     <script src="/public/loadHTML.js"></script>
 </head>
 <body>
-<div class="">
-
-</div>
-
-<div class="container d-flex align-items-start  justify-content-center  min-vh-100"
-     style="width: 100%; height: 100%; margin-top: 7rem">
-    <div class="container">
-        <nav class="col-5">
-
+<div class="container-fluid">
+    <div class="row">
+        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+            <div class="position-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                            <i class="bi bi-house-door"></i>
+                            Hồ Sơ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-person-circle"></i>
+                            Địa Chỉ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-shield-lock"></i>
+                            Đổi Mật Khẩu
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-lock"></i>
+                            Đơn Mua
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-people"></i>
+                           Cài Đặt Thông Báo
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </nav>
 
     </div>
-    <div class="card p-4" style="width: 55rem; height: 100%" ;>
-        <h3 class="text-center">Thông tin tài khoản</h3>
-        <div class="card mt-3">
-            <div class="card-body">
-                <form id="accountForm">
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Tên người dùng</label>
-                        <input type="text" class="form-control" id="username" value="Người dùng" readonly>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" value="user@example.com" readonly>
-                    </div>
-                    <button type="button" id="editButton" class="btn btn-primary">Chỉnh sửa</button>
-                    <button type="submit" id="saveButton" class="btn btn-success d-none">Lưu</button>
-                    <button type="button" id="cancelButton" class="btn btn-secondary d-none">Hủy</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
 </div>
 
-<script>
-    $(document).ready(function () {
-        $('#editButton').click(function () {
-            $('#username, #email').removeAttr('readonly');
-            $('#editButton').addClass('d-none');
-            $('#saveButton, #cancelButton').removeClass('d-none');
-        });
-
-        $('#cancelButton').click(function () {
-            $('#username').attr('readonly', true).val("Người dùng");
-            $('#email').attr('readonly', true).val("user@example.com");
-            $('#editButton').removeClass('d-none');
-            $('#saveButton, #cancelButton').addClass('d-none');
-        });
-
-        $('#accountForm').submit(function (e) {
-            e.preventDefault();
-            $('#username, #email').attr('readonly', true);
-            $('#editButton').removeClass('d-none');
-            $('#saveButton, #cancelButton').addClass('d-none');
-            alert("Thông tin đã được cập nhật!");
-        });
-    });
-</script>
 
 </body>
 </html>
