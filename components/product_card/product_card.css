@@ -1,3 +1,7 @@
+.product_card_template {
+    text-decoration: none;
+}
+
 .product-card {
     transition: all .25s ease-in-out;
 
