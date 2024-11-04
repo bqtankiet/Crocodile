@@ -28,11 +28,14 @@
     <!--  css  -->
     <link rel="stylesheet" href="/layouts/layout.css">
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="stylesheet" href="../assets/css/product_thumbnail_carousel.css">
     <!--  js  -->
-    <script src="../assets/js/quantity-control.js"></script>
-    <script src="../assets/js/product_thumbnail_carousel.js"></script>
-    <script src="/components/product_card/product_card_template.js"></script>
+    <script src="/assets/js/quantity-control.js"></script>
+    <script src="/components/product_gallery/product_gallery_template.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.get("/components/product_card/product_card_template.js");
+        });
+    </script>
 
     <!--  INTERNAL CSS  -->
     <style>
@@ -116,7 +119,7 @@
 <div id="page">
     <div id="HEADER">
         <script>
-            $("#HEADER").load('/includes/header.html', function() {
+            $("#HEADER").load('/includes/header.html', function () {
                 $(this).find(".nav-link.products-page").addClass("active");
             });
         </script>
@@ -139,40 +142,18 @@
             <div class="row">
                 <div class="col-6">
                     <div class="col-12">
-                        <div class="product-gallery">
-                            <!-- Carousel cho hình ảnh lớn -->
-                            <div class="position-relative">
-                                <button class="owl-prev">❮</button> <!-- Nút điều hướng bên trái -->
-                                <div class="owl-carousel main-carousel mb-2">
-                                    <div class="item" data-hash="type1"><img
-                                            src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
-                                            class="img-fluid" alt=""></div>
-                                    <div class="item" data-hash="type3"><img
-                                            src="https://www.gento.vn/wp-content/uploads/2024/07/vi-nam-da-ca-sau4.jpg"
-                                            class="img-fluid" alt=""></div>
-                                    <div class="item" data-hash="type4"><img
-                                            src="https://www.gento.vn/wp-content/uploads/2024/07/vi-nam-da-ca-sau3.jpg"
-                                            class="img-fluid" alt=""></div>
-                                    <div class="item" data-hash="type2"><img
-                                            src="https://www.gento.vn/wp-content/uploads/2024/07/vi-nam-da-ca-sau8.jpg"
-                                            class="img-fluid" alt=""></div>
-                                </div>
-                                <button class="owl-next">❯</button> <!-- Nút điều hướng bên phải -->
+                        <div class="product_gallery_template" data-main-items="1" data-thumbnail-items="4">
+                            <div class="item" data-hash="type1">
+                                <img src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg" alt="">
                             </div>
-                            <!-- Carousel cho hình ảnh thumbnail -->
-                            <div class="owl-carousel thumbnail-carousel">
-                                <div class="item"><img
-                                        src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
-                                        class="img-thumbnail" alt="thumbnail-image"></div>
-                                <div class="item"><img
-                                        src="https://www.gento.vn/wp-content/uploads/2024/07/vi-nam-da-ca-sau4.jpg"
-                                        class="img-thumbnail" alt=""></div>
-                                <div class="item"><img
-                                        src="https://www.gento.vn/wp-content/uploads/2024/07/vi-nam-da-ca-sau3.jpg"
-                                        class="img-thumbnail" alt=""></div>
-                                <div class="item"><img
-                                        src="https://www.gento.vn/wp-content/uploads/2024/07/vi-nam-da-ca-sau8.jpg"
-                                        class="img-thumbnail" alt=""></div>
+                            <div class="item" data-hash="type2">
+                                <img src="https://www.gento.vn/wp-content/uploads/2024/07/vi-nam-da-ca-sau8.jpg" alt="">
+                            </div>
+                            <div class="item" data-hash="type3">
+                                <img src="https://www.gento.vn/wp-content/uploads/2024/07/vi-nam-da-ca-sau4.jpg" alt="">
+                            </div>
+                            <div class="item" data-hash="type4">
+                                <img src="https://www.gento.vn/wp-content/uploads/2024/07/vi-nam-da-ca-sau3.jpg" alt="">
                             </div>
                         </div>
                     </div>
@@ -280,71 +261,99 @@
         <!-------------------- San pham tuong tu -------------------->
         <div class="container-xl py-5">
             <h3 class="text-center text-uppercase pb-2 fw-bold border-bottom">Sản phẩm tương tự</h3>
-            <ul id="products-list" class="list-unstyled row">
-                <style>
-                    #products-list li {width: 20%;}
-                </style>
-                <li class="p-2">
-                    <a class="product_card_template" href="https://www.gento.vn/wp-content/uploads/2024/06/tui-cam-tay-da-bo3.jpg"
+            <div class="product_gallery_template" data-main-items="5">
+                <div class="item mx-1">
+                    <a class="product_card_template"
+                       href="https://www.gento.vn/wp-content/uploads/2024/06/tui-cam-tay-da-bo3.jpg"
                        data-json='{
-                                "img": "https://www.gento.vn/wp-content/uploads/2024/06/tui-cam-tay-da-bo3.jpg",
-                                "name": "Ví cầm tay nam da bò dập vân cá sấu V7065",
-                                "price": "1,350,000",
-                                "basePrice": "1,700,000",
-                                "discount": "Giảm 21%",
-                                "badge": "NEW"
-                                }'>
+                    "img": "https://www.gento.vn/wp-content/uploads/2024/06/tui-cam-tay-da-bo3.jpg",
+                    "name": "Ví cầm tay nam da bò dập vân cá sấu V7065",
+                    "price": "1,350,000",
+                    "basePrice": "1,700,000",
+                    "discount": "Giảm 21%",
+                    "badge": "NEW"
+                    }'>
                     </a>
-                </li>
-                <li class="p-2">
-                    <a class="product_card_template" href="https://www.gento.vn/wp-content/uploads/2021/10/vi-cam-tay-da-ca-sau-gs9825.jpeg"
+                </div>
+                <div class="item mx-1">
+                    <a class="product_card_template"
+                       href="https://www.gento.vn/wp-content/uploads/2024/06/tui-cam-tay-da-bo3.jpg"
                        data-json='{
-                                    "img": "https://www.gento.vn/wp-content/uploads/2021/10/vi-cam-tay-da-ca-sau-gs9825.jpeg",
-                                    "name": "Ví cầm tay da cá sấu cao cấp GS982 Nâu",
-                                    "price": "1,300,000",
-                                    "basePrice": "1,900,000",
-                                    "discount": "Giảm 32%",
-                                    "badge": "NEW"
-                                    }'>
+                    "img": "https://www.gento.vn/wp-content/uploads/2024/06/tui-cam-tay-da-bo3.jpg",
+                    "name": "Ví cầm tay nam da bò dập vân cá sấu V7065",
+                    "price": "1,350,000",
+                    "basePrice": "1,700,000",
+                    "discount": "Giảm 21%",
+                    "badge": "NEW"
+                    }'>
                     </a>
-                </li>
-                <li class="p-2">
-                    <a class="product_card_template" href="https://www.gento.vn/wp-content/uploads/2023/11/vi-da-ca-sau-nam-cao-cap10.jpg"
+                </div>
+                <div class="item mx-1">
+                    <a class="product_card_template"
+                       href="https://www.gento.vn/wp-content/uploads/2024/06/tui-cam-tay-da-bo3.jpg"
                        data-json='{
-                                    "img": "https://www.gento.vn/wp-content/uploads/2023/11/vi-da-ca-sau-nam-cao-cap10.jpg",
-                                    "name": "Ví cầm tay nam da cá sấu cao cấp Gento GS985",
-                                    "price": "1,950,000",
-                                    "basePrice": "2,350,000",
-                                    "discount": "Giảm 17%",
-                                    "badge": "NEW"
-                                    }'>
+                    "img": "https://www.gento.vn/wp-content/uploads/2024/06/tui-cam-tay-da-bo3.jpg",
+                    "name": "Ví cầm tay nam da bò dập vân cá sấu V7065",
+                    "price": "1,350,000",
+                    "basePrice": "1,700,000",
+                    "discount": "Giảm 21%",
+                    "badge": "NEW"
+                    }'>
                     </a>
-                </li>
-                <li class="p-2">
-                    <a class="product_card_template" href="https://www.gento.vn/wp-content/uploads/2024/06/tui-cam-tay-da-bo3.jpg"
+                </div>
+                <div class="item mx-1">
+                    <a class="product_card_template"
+                       href="https://www.gento.vn/wp-content/uploads/2024/06/tui-cam-tay-da-bo3.jpg"
                        data-json='{
-                                "img": "https://www.gento.vn/wp-content/uploads/2024/06/tui-cam-tay-da-bo3.jpg",
-                                "name": "Ví cầm tay nam da bò dập vân cá sấu V7065",
-                                "price": "1,350,000",
-                                "basePrice": "1,700,000",
-                                "discount": "Giảm 21%",
-                                "badge": "NEW"
-                                }'>
+                    "img": "https://www.gento.vn/wp-content/uploads/2024/06/tui-cam-tay-da-bo3.jpg",
+                    "name": "Ví cầm tay nam da bò dập vân cá sấu V7065",
+                    "price": "1,350,000",
+                    "basePrice": "1,700,000",
+                    "discount": "Giảm 21%",
+                    "badge": "NEW"
+                    }'>
                     </a>
-                </li>
-                <li class="p-2">
-                    <a class="product_card_template" href="https://www.gento.vn/wp-content/uploads/2021/10/vi-cam-tay-da-ca-sau-gs9825.jpeg"
+                </div>
+                <div class="item mx-1">
+                    <a class="product_card_template"
+                       href="https://www.gento.vn/wp-content/uploads/2024/06/tui-cam-tay-da-bo3.jpg"
                        data-json='{
-                                    "img": "https://www.gento.vn/wp-content/uploads/2021/10/vi-cam-tay-da-ca-sau-gs9825.jpeg",
-                                    "name": "Ví cầm tay da cá sấu cao cấp GS982 Nâu",
-                                    "price": "1,300,000",
-                                    "basePrice": "1,900,000",
-                                    "discount": "Giảm 32%",
-                                    "badge": "NEW"
-                                    }'>
+                    "img": "https://www.gento.vn/wp-content/uploads/2024/06/tui-cam-tay-da-bo3.jpg",
+                    "name": "Ví cầm tay nam da bò dập vân cá sấu V7065",
+                    "price": "1,350,000",
+                    "basePrice": "1,700,000",
+                    "discount": "Giảm 21%",
+                    "badge": "NEW"
+                    }'>
                     </a>
-                </li>
-            </ul>
+                </div>
+                <div class="item mx-1">
+                    <a class="product_card_template"
+                       href="https://www.gento.vn/wp-content/uploads/2024/06/tui-cam-tay-da-bo3.jpg"
+                       data-json='{
+                    "img": "https://www.gento.vn/wp-content/uploads/2024/06/tui-cam-tay-da-bo3.jpg",
+                    "name": "Ví cầm tay nam da bò dập vân cá sấu V7065",
+                    "price": "1,350,000",
+                    "basePrice": "1,700,000",
+                    "discount": "Giảm 21%",
+                    "badge": "NEW"
+                    }'>
+                    </a>
+                </div>
+                <div class="item mx-1">
+                    <a class="product_card_template"
+                       href="https://www.gento.vn/wp-content/uploads/2024/06/tui-cam-tay-da-bo3.jpg"
+                       data-json='{
+                    "img": "https://www.gento.vn/wp-content/uploads/2024/06/tui-cam-tay-da-bo3.jpg",
+                    "name": "Ví cầm tay nam da bò dập vân cá sấu V7065",
+                    "price": "1,350,000",
+                    "basePrice": "1,700,000",
+                    "discount": "Giảm 21%",
+                    "badge": "NEW"
+                    }'>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
     <div id="FOOTER"></div>
