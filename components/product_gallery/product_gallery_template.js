@@ -8,42 +8,31 @@ $(document).ready(function () {
         const $template = $(this);
         const items = $template.html();
         $template.load(linkHTML, function () {
-            const thumbnailItems = $template.data('thumbnail-items');
-            const mainItems = $template.data('main-items');
+            const owlMain = $template.data('owl-main');
+            const owlThumbnail = $template.data('owl-thumb');
 
-            if (mainItems > 0) {
+            if (owlMain) {
                 $template.find(".main-carousel").html(items);
             }
-            if (thumbnailItems > 0) {
+            if (owlThumbnail) {
                 $template.find(".thumbnail-carousel").removeClass("d-none");
                 $template.find(".thumbnail-carousel").html(items);
             }
 
-            initOwlCarousel(mainItems, thumbnailItems);
+            createOwlCarousel($template, owlMain, owlThumbnail);
         });
     });
 });
 
-function initOwlCarousel(mainItems = 1, thumbnailItems = 4) {
+function createOwlCarousel($template, owlMain, owlThumbnail){
     // Khởi tạo carousel cho hình ảnh lớn
-    var mainCarousel = $('.main-carousel').owlCarousel({
-        items: mainItems,
-        // nav: true,
-        dots: false,
-        smartSpeed: 500,
-        URLhashListener: true,
-        hash: true
-    });
+    const mainCarousel = $template.find('.main-carousel').owlCarousel(owlMain);
 
     // Khởi tạo carousel cho thumbnail
-    var thumbnailCarousel = $('.thumbnail-carousel').owlCarousel({
-        items: thumbnailItems,
-        margin: 10,
-        dots: false,
-    });
+    const thumbnailCarousel = $template.find('.thumbnail-carousel').owlCarousel(owlThumbnail);
 
     // Sự kiện khi nhấp vào thumbnail để đồng bộ với main-carousel
-    $('.thumbnail-carousel .item').click(function () {
+    thumbnailCarousel.find('.item').click(function () {
         var index = $(this).parent().index(); // Lấy chỉ số của thumbnail
         mainCarousel.trigger('to.owl.carousel', [index, 500]); // Chuyển main-carousel đến ảnh tương ứng
     });
@@ -60,11 +49,11 @@ function initOwlCarousel(mainItems = 1, thumbnailItems = 4) {
         thumbnailCarousel.trigger('to.owl.carousel', [currentIndex, 500, true]);
     });
 
-    $('.owl-prev').click(function () {
-        $('.owl-carousel').trigger('prev.owl.carousel');
+    $template.find('.owl-prev').click(function () {
+        mainCarousel.trigger('prev.owl.carousel');
     });
 
-    $('.owl-next').click(function () {
-        $('.owl-carousel').trigger('next.owl.carousel');
+    $template.find('.owl-next').click(function () {
+        mainCarousel.trigger('next.owl.carousel');
     });
 }
