@@ -4,7 +4,9 @@ $(document).ready(function () {
         items: 1,
         // nav: true,
         dots: false,
-        smartSpeed: 500
+        smartSpeed: 500,
+        URLhashListener:true,
+        hash: true
     });
 
     // Khởi tạo carousel cho thumbnail
