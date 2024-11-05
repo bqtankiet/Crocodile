@@ -98,7 +98,7 @@
                         </div>
                     </div>
                 </a>
-                <a class="text-decoration-none text-black position-relative" href="#offcanvasRight" role="button"
+                <a id="cart-toggle" class="text-decoration-none text-black position-relative" href="#offcanvasRight" role="button"
                    data-bs-toggle="offcanvas">
                     <span class="badge text-bg-danger position-absolute translate-middle rounded-pill">1</span>
 
@@ -191,31 +191,24 @@
         </div>
         <div class="offcanvas-body d-flex flex-column gap-3">
             <div class="border-bottom pb-3">
-                <div class="float-end">
-                    <button class="btn btn-outline-danger px-2 custom-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor"
-                             class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-                        </svg>
-                    </button>
-                </div>
                 <div class="row g-0">
-                    <div class="col-2 me-3">
+                    <div class="col-2 me-3 position-relative">
+                        <span class="position-absolute top-0 start-100 z-1 translate-middle badge rounded-pill bg-danger">
+                            1
+                        </span>
                         <div class="ratio ratio-1x1">
                             <img src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
-                                 class="img-fluid rounded-2" alt="">
+                                 class="img-fluid border rounded-2" alt="">
                         </div>
                     </div>
-                    <div class="col lh-1">
-                        <div class="w-100 me-3">
-                            <p class="fw-bold line-clamp-1">Ví gấp nam da cá sấu V7068</p>
-                            <div class="d-flex">
-                                <div class="col">
-                                    <span class="badge text-bg-secondary">Da trơn</span>
+                    <div class="col lh-1 my-auto">
+                        <div class="w-100">
+                            <div class="d-flex align-items-center">
+                                <div class="me-2">
+                                    <p class="fw-semibold mb-0 lh-1 line-clamp-2" style="height: fit-content ;max-height: 2rem">Ví gấp nam da cá sấu V7068</p>
+                                    <p class="text-muted mt-1 mb-0">Da trơn</p>
                                 </div>
-                                <div class="ms-auto">
-                                    <div class="ms-auto text-danger fw-bold fs-6"> 1 × 1,100,000<sup>₫</sup></div>
-                                </div>
+                                <div class="ms-auto fw-medium fs-6">1,100,000<sup>₫</sup></div>
                             </div>
                         </div>
                     </div>
@@ -227,7 +220,7 @@
                 <p>Tổng:</p>
                 <p>1,100,000<sup>₫</sup></p>
             </div>
-            <button class="btn custom-btn-primary mt-auto w-100">Thanh toán</button>
+            <a href="../pages/cart-details.html" class="btn custom-btn-primary mt-auto w-100">Xem chi tiết</a>
         </div>
     </div>
 
