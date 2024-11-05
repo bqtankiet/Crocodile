@@ -2,376 +2,354 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Products</title>
-    <!--  bootstrap  -->
-    <link rel="stylesheet" href="/public/bootstrap/css/bootstrap.css">
-    <script src="/public/bootstrap/js/bootstrap.js"></script>
+    <title>Gento | Danh Mục Sản Phẩm</title>
     <!--  jquery  -->
     <script src="/public/jquery-3.7.1.min.js"></script>
+    <!--  bootstrap  -->
+    <link rel="stylesheet" href="/public/bootstrap/css/bootstrap.css">
+    <script src="/public/bootstrap/js/bootstrap.bundle.js"></script>
     <!--  css  -->
     <link rel="stylesheet" href="/layouts/layout.css">
-    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
     <!--  js  -->
-    <script src="/public/loadHTML.js"></script>
+    <script src="/components/product_card/product_card_template.js"></script>
+
+    <!--  Media queries  -->
+    <style>
+        @media (min-width: 992px) {
+            #page {
+                min-width: 1200px;
+            }
+
+            #triggerCategory,
+            #triggerPriceRange {
+                pointer-events: none;
+            }
+
+            #products-list li {
+                width: 25%;
+            }
+        }
+
+        @media (max-width: 992px) {
+            #page {
+                min-width: 1000px;
+            }
+
+            #products-list li {
+                width: 25%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #page {
+                min-width: 768px;
+            }
+
+            #page #products-list li {
+                width: 33.33%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            #page {
+                min-width: 576px;
+            }
+
+            #page #products-list li {
+                width: 50%;
+            }
+        }
+
+    </style>
+
+    <!--  INTERNAL CSS  -->
+    <style>
+
+        .page-item.active > .page-link {
+            --color: var(--custom-bg-primary);
+            border-color: var(--custom-bg-primary);
+            background-color: var(--custom-bg-primary);
+            color: white;
+        }
+
+        .page-item > .page-link {
+            color: gray;
+        }
+
+        .carousel-item {
+            height: 25rem;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .dropdown-menu .dropdown-item {
+            background-color: transparent;
+        }
+    </style>
+
+    <!--  INTERNAL JS  -->
+    <script>
+        $(document).ready(function () {
+            $("#triggerCategory").click(function () {
+                $(this).find(".bi-chevron-right").toggle("hide");
+                $(this).find(".bi-chevron-down").toggle("hide");
+            });
+            $("#triggerPriceRange").click(function () {
+                $(this).find(".bi-chevron-right").toggle("hide");
+                $(this).find(".bi-chevron-down").toggle("hide");
+            });
+
+        });
+    </script>
+
 </head>
 <body>
 <div id="page">
-    <script>
-        loadHTML("#HEADER", "/includes/header.html")
-    </script>
-    <div id="HEADER"></div>
+    <div id="HEADER">
+        <script>
+            $("#HEADER").load('/includes/header.html', function () {
+                $(this).find(".nav-link.products-page").addClass("active");
+            });
+        </script>
+    </div>
 
     <!-- TODO: (Bùi Quang Tấn Kiệt) Code html trang sản phẩm ở đây -->
-    <div class="container">
-        <div class="row mt-5">
-            <div class="col-2 p-0 d-flex flex-column gap-5">
-                <div>
-                    <h5>Danh Mục</h5>
-                    <hr>
-                    <ul class="d-grid gap-3 list-unstyled">
-                        <li class="fw-bold fs-5 custom-text-primary">Túi da</li>
-                        <li>Áo khoác da</li>
-                        <li>Găng tay da</li>
-                        <li>Ví da</li>
-                        <li>Thắt lưng da</li>
-                    </ul>
+    <div class="container-xl px-3 px-xl-0">
+        <!-------------------- Breadcrumb -------------------->
+        <nav class="border-bottom" style="--bs-breadcrumb-divider: '>'">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="home.html">Trang Chủ</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Ví Da</li>
+            </ol>
+        </nav>
+
+        <!-------------------- Carousel -------------------->
+        <!--        <div class="row m-0 mt-5">-->
+        <!--            <div id="my-carousel" class="carousel slide px-0" data-bs-ride="carousel">-->
+        <!--                <div class="carousel-indicators">-->
+        <!--                    <button type="button" data-bs-target="#my-carousel" data-bs-slide-to="0"-->
+        <!--                            class="active" aria-current="true" aria-label="Slide 1"></button>-->
+        <!--                    <button type="button" data-bs-target="#my-carousel" data-bs-slide-to="1"-->
+        <!--                            aria-label="Slide 2"></button>-->
+        <!--                    <button type="button" data-bs-target="#my-carousel" data-bs-slide-to="2"-->
+        <!--                            aria-label="Slide 3"></button>-->
+        <!--                </div>-->
+        <!--                <div class="carousel-inner">-->
+        <!--                    <a class="carousel-item active" href="#">-->
+        <!--                        <img src="https://cf.shopee.vn/file/vn-50009109-727a24a85a60935da5ccb9008298f681"-->
+        <!--                             class="d-block w-100" alt="...">-->
+        <!--                    </a>-->
+        <!--                    <a class="carousel-item" href="#">-->
+        <!--                        <img src="https://cf.shopee.vn/file/vn-11134258-7ras8-m0tqhapoxr4f2e"-->
+        <!--                             class="d-block w-100" alt="...">-->
+        <!--                    </a>-->
+        <!--                    <a class="carousel-item" href="#">-->
+        <!--                        <img src="https://cf.shopee.vn/file/vn-11134258-7ras8-m1w3weeevec38f" class="d-block w-100"-->
+        <!--                             alt="...">-->
+        <!--                    </a>-->
+        <!--                </div>-->
+        <!--                <button class="carousel-control-prev" type="button" data-bs-target="#my-carousel"-->
+        <!--                        data-bs-slide="prev">-->
+        <!--                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
+        <!--                    <span class="visually-hidden">Previous</span>-->
+        <!--                </button>-->
+        <!--                <button class="carousel-control-next" type="button" data-bs-target="#my-carousel"-->
+        <!--                        data-bs-slide="next">-->
+        <!--                    <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+        <!--                    <span class="visually-hidden">Next</span>-->
+        <!--                </button>-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+        <!-------------------- Products -------------------->
+        <div class="row mt-4">
+            <!-------------------- Product Filter -------------------->
+            <div class="col-lg-2 d-flex flex-column gap-3 pe-3">
+                <div class="ms-1 ms-lg-0">
+                    <div class="gap-2" role="button" id="triggerCategory" data-bs-toggle="collapse"
+                         data-bs-target="#collapseCategory">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="custom-icon d-lg-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-chevron-down hide" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+                                </svg>
+                            </div>
+                            <h5 class="m-0 lh-sm">Danh Mục</h5>
+                        </div>
+                    </div>
+                    <div class="collapse d-lg-block" id="collapseCategory">
+                        <hr>
+                        <div class="d-flex align-items-center mb-2  ms-3" style="transform: translateX(-1rem)">
+                            <div class="custom-icon pe-1"
+                                 style="--size: 0.8rem;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                     fill="var(--custom-bg-primary)"
+                                     class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                                    <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                                </svg>
+                            </div>
+                            <a href="#" class="text-decoration-none custom-text-primary fw-bold">Ví Da</a>
+                        </div>
+                        <ul class="d-grid gap-2 list-unstyled ms-3 ">
+                            <li><a href="#" class="text-decoration-none text-black">Áo Khoác Da</a></li>
+                            <li><a href="#" class="text-decoration-none text-black">Găng Tay Da</a></li>
+                            <li><a href="#" class="text-decoration-none text-black">Ví Da</a></li>
+                            <li><a href="#" class="text-decoration-none text-black">Thắt Lưng Da</a></li>
+                        </ul>
+                    </div>
                 </div>
-                <div>
-                    <h5>Mức giá</h5>
-                    <hr>
-                    <div class="d-flex align-items-center gap-1">
-                        <span>Từ</span>
-                        <input type="number" class="form-control px-1">
-                        <span>Đến</span>
-                        <input type="number" class="form-control px-0"></div>
-                </div>
-                <div>
-                    <button class="btn custom-btn-primary rounded-0 w-100 text-uppercase">Áp dụng </button>
+                <div class="ms-1 ms-lg-0">
+                    <div class="gap-2" role="button" id="triggerPriceRange" data-bs-toggle="collapse"
+                         data-bs-target="#collapsePriceRange">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="custom-icon d-lg-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-chevron-down hide" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+                                </svg>
+                            </div>
+                            <h5 class="m-0 lh-sm">Mức Giá</h5>
+                        </div>
+                    </div>
+                    <div class="collapse d-lg-block" id="collapsePriceRange">
+                        <hr>
+                        <div class="d-flex align-items-center gap-1">
+                            <span>Từ</span>
+                            <input type="number" class="form-control px-1">
+                            <span>Đến</span>
+                            <input type="number" class="form-control px-0">
+                        </div>
+                        <button class="btn custom-btn-primary rounded-0 w-100 text-uppercase mt-3">Áp dụng</button>
+                    </div>
                 </div>
             </div>
-            <div class="col-10">
-                <div class="d-flex align-items-center mx-1 p-3 mb-2" style="height: 50px; background-color: #eee">
-                    <span class="me-3">Sắp xếp theo</span>
+
+            <!------------------- Products List -------------------->
+
+            <div class="col">
+                <div class="d-flex align-items-center p-4 mb-2" style="height: 50px; background-color: #eee">
+                    <span class="me-3 fw-semibold">Sắp Xếp Theo</span>
                     <div class="d-flex gap-3">
                         <button class="btn custom-btn-primary">Phổ Biến</button>
                         <button class="btn custom-btn-primary bg-white text-black">Mới Nhất</button>
                         <button class="btn custom-btn-primary bg-white text-black">Bán Chạy</button>
                     </div>
-                    <div class="ms-auto">Todo</div>
+                    <div class="dropdown ms-3">
+                        <button class="btn bg-white dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                            Giá
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="#">Giá: Tăng Dần</a></li>
+                            <li><a class="dropdown-item" href="#">Giá: Giảm Dần</a></li>
+                        </ul>
+                    </div>
                 </div>
-                <ul class="d-flex flex-wrap m-0 p-0 list-unstyled">
-                    <li class="p-1" style="width: 20%">
-                        <div class="card rounded-0 p-0" style="height: 25rem;">
-                            <div class="ratio ratio-1x1">
-                                <img src="https://casauhoanglong.com/wp-content/uploads/2023/09/do-da-ca-sau.jpeg"
-                                     class="card-img-top rounded-0 bg-primary" alt="..." style="object-fit: cover">
-                            </div>
-                            <div class="card-body pt-1 d-flex flex-column">
-                                <div class="card-title line-clamp" style="font-size: 1.1rem">
-                            <span class="custom-bg-primary text-white px-1 rounded-1"
-                                  style="font-size: 0.8rem;">Mới</span>
-                                    Ví da cá sấu nam cao cấp thương hiệu nổi tiếng HKZR1101
+                <ul id="products-list" class="list-unstyled row">
+                    <li class="p-2">
+                        <a href="product-details.html" class="text-decoration-none" draggable="false">
+                            <div class="card product-card rounded-0 p-0 position-relative">
+                                <div class="discount d-flex position-absolute end-0 z-1 m-2" style="--height: 1.5rem;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
+                                         style="height: var(--height); margin-right: -1px">
+                                        <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
+                                              stroke="#F69113"
+                                              fill="#F69113">
+                                        </path>
+                                    </svg>
+                                    <span class="[ product_discount ] text-white px-1"
+                                          style="background-color: #F69113;">Giảm 27%</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
+                                         style="height: var(--height); transform: rotate(180deg); margin-left: -1px">
+                                        <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
+                                              stroke="#F69113"
+                                              fill="#F69113">
+                                        </path>
+                                    </svg>
                                 </div>
-                                <div class="d-flex flex-column flex-grow-1">
-                                    <div class="">
-                                        <div class="d-flex align-items-start gap-1">
-                                            <span class="fs-5">250.000</span>
-                                            <span class="small">₫</span>
-                                        </div>
-                                        <div class="small d-flex" style="--height: 1.3rem;">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                                 style="height: var(--height)">
-                                                <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                                      stroke-width="1" transform="" stroke="#F69113"
-                                                      fill="#F69113"></path>
-                                            </svg>
-                                            <span class="text-white border-0"
-                                                  style="background-color: #F69113; line-height: var(--height)">Giảm 10%</span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                                 style="height: var(--height); transform: rotate(180deg)">
-                                                <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                                      stroke-width="1" transform="" stroke="#F69113"
-                                                      fill="#F69113"></path>
-                                            </svg>
-                                        </div>
+                                <div class="ratio ratio-1x1 overflow-hidden">
+                                    <img src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
+                                         class="[ product_img ] card-img-top rounded-0 bg-secondary" draggable="false" alt="product image"
+                                         style="object-fit: cover">
+                                </div>
+                                <div class="card-body pt-1 d-flex flex-column">
+                                    <div class="card-title line-clamp mb-0">
+                                        <span class="[ product_badge ] badge text-bg-success">NEW</span>
+                                        <span class="[ product_name ]"> Ví gấp nam da cá sấu V7068</span>
                                     </div>
-                                    <div class="d-flex align-items-center justify-content-between mt-auto gap-2 small">
-                                        <div class="d-flex align-items-center gap-1">
-                                            <div class="custom-icon" style="--size: 1rem">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                     fill="orange"
-                                                     class="bi bi-star-fill" viewBox="0 0 16 16">
-                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                                                </svg>
-                                            </div>
-                                            <span>4.0</span>
-                                        </div>
-                                        <div>Đã bán 120</div>
+                                    <div class="d-flex gap-1 custom-text-primary mt-2">
+                                        <span><span class="[ product_price ] fs-5">1.100.000</span><sup class="[ vnd-currency ] fs-6">₫</sup></span>
+                                        <span class="text-secondary text-decoration-line-through ms-2"><span class="[ product_base_price ]">1.500.000</span><sup>₫</sup></span>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            </div>                        </a>
+                    </li> <!-- Ví da -->
+                    <!-- Test data -->
+                    <li class="p-2">
+                        <a class="product_card_template" href="https://www.gento.vn/wp-content/uploads/2024/06/tui-cam-tay-da-bo3.jpg"
+                           data-json='{
+                                "img": "https://www.gento.vn/wp-content/uploads/2024/06/tui-cam-tay-da-bo3.jpg",
+                                "name": "Ví cầm tay nam da bò dập vân cá sấu V7065",
+                                "price": "1,350,000",
+                                "basePrice": "1,700,000",
+                                "discount": "Giảm 21%",
+                                "badge": "NEW"
+                                }'>
+                        </a>
                     </li>
-                    <li class="p-1" style="width: 20%">
-                        <div class="card rounded-0 p-0" style="height: 25rem;">
-                            <div class="ratio ratio-1x1">
-                                <img src="https://casauhoanglong.com/wp-content/uploads/2023/09/do-da-ca-sau.jpeg"
-                                     class="card-img-top rounded-0 bg-primary" alt="..." style="object-fit: cover">
-                            </div>
-                            <div class="card-body pt-1 d-flex flex-column">
-                                <div class="card-title line-clamp" style="font-size: 1.1rem">
-                            <span class="custom-bg-primary text-white px-1 rounded-1"
-                                  style="font-size: 0.8rem;">Mới</span>
-                                    Ví da cá sấu nam cao cấp thương hiệu nổi tiếng HKZR1101
-                                </div>
-                                <div class="d-flex flex-column flex-grow-1">
-                                    <div class="">
-                                        <div class="d-flex align-items-start gap-1">
-                                            <span class="fs-5">250.000</span>
-                                            <span class="small">₫</span>
-                                        </div>
-                                        <div class="small d-flex" style="--height: 1.3rem;">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                                 style="height: var(--height)">
-                                                <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                                      stroke-width="1" transform="" stroke="#F69113"
-                                                      fill="#F69113"></path>
-                                            </svg>
-                                            <span class="text-white border-0"
-                                                  style="background-color: #F69113; line-height: var(--height)">Giảm 10%</span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                                 style="height: var(--height); transform: rotate(180deg)">
-                                                <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                                      stroke-width="1" transform="" stroke="#F69113"
-                                                      fill="#F69113"></path>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center justify-content-between mt-auto gap-2 small">
-                                        <div class="d-flex align-items-center gap-1">
-                                            <div class="custom-icon" style="--size: 1rem">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                     fill="orange"
-                                                     class="bi bi-star-fill" viewBox="0 0 16 16">
-                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                                                </svg>
-                                            </div>
-                                            <span>4.0</span>
-                                        </div>
-                                        <div>Đã bán 120</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <li class="p-2">
+                        <a class="product_card_template" href="https://www.gento.vn/wp-content/uploads/2021/10/vi-cam-tay-da-ca-sau-gs9825.jpeg"
+                             data-json='{
+                                    "img": "https://www.gento.vn/wp-content/uploads/2021/10/vi-cam-tay-da-ca-sau-gs9825.jpeg",
+                                    "name": "Ví cầm tay da cá sấu cao cấp GS982 Nâu",
+                                    "price": "1,300,000",
+                                    "basePrice": "1,900,000",
+                                    "discount": "Giảm 32%",
+                                    "badge": "NEW"
+                                    }'>
+                        </a>
                     </li>
-                    <li class="p-1" style="width: 20%">
-                        <div class="card rounded-0 p-0" style="height: 25rem;">
-                            <div class="ratio ratio-1x1">
-                                <img src="https://casauhoanglong.com/wp-content/uploads/2023/09/do-da-ca-sau.jpeg"
-                                     class="card-img-top rounded-0 bg-primary" alt="..." style="object-fit: cover">
-                            </div>
-                            <div class="card-body pt-1 d-flex flex-column">
-                                <div class="card-title line-clamp" style="font-size: 1.1rem">
-                            <span class="custom-bg-primary text-white px-1 rounded-1"
-                                  style="font-size: 0.8rem;">Mới</span>
-                                    Ví da cá sấu nam cao cấp thương hiệu nổi tiếng HKZR1101
-                                </div>
-                                <div class="d-flex flex-column flex-grow-1">
-                                    <div class="">
-                                        <div class="d-flex align-items-start gap-1">
-                                            <span class="fs-5">250.000</span>
-                                            <span class="small">₫</span>
-                                        </div>
-                                        <div class="small d-flex" style="--height: 1.3rem;">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                                 style="height: var(--height)">
-                                                <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                                      stroke-width="1" transform="" stroke="#F69113"
-                                                      fill="#F69113"></path>
-                                            </svg>
-                                            <span class="text-white border-0"
-                                                  style="background-color: #F69113; line-height: var(--height)">Giảm 10%</span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                                 style="height: var(--height); transform: rotate(180deg)">
-                                                <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                                      stroke-width="1" transform="" stroke="#F69113"
-                                                      fill="#F69113"></path>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center justify-content-between mt-auto gap-2 small">
-                                        <div class="d-flex align-items-center gap-1">
-                                            <div class="custom-icon" style="--size: 1rem">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                     fill="orange"
-                                                     class="bi bi-star-fill" viewBox="0 0 16 16">
-                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                                                </svg>
-                                            </div>
-                                            <span>4.0</span>
-                                        </div>
-                                        <div>Đã bán 120</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <li class="p-2">
+                        <a class="product_card_template" href="https://www.gento.vn/wp-content/uploads/2023/11/vi-da-ca-sau-nam-cao-cap10.jpg"
+                             data-json='{
+                                    "img": "https://www.gento.vn/wp-content/uploads/2023/11/vi-da-ca-sau-nam-cao-cap10.jpg",
+                                    "name": "Ví cầm tay nam da cá sấu cao cấp Gento GS985",
+                                    "price": "1,950,000",
+                                    "basePrice": "2,350,000",
+                                    "discount": "Giảm 17%",
+                                    "badge": "NEW"
+                                    }'>
+                        </a>
                     </li>
-                    <li class="p-1" style="width: 20%">
-                        <div class="card rounded-0 p-0" style="height: 25rem;">
-                            <div class="ratio ratio-1x1">
-                                <img src="https://casauhoanglong.com/wp-content/uploads/2023/09/do-da-ca-sau.jpeg"
-                                     class="card-img-top rounded-0 bg-primary" alt="..." style="object-fit: cover">
-                            </div>
-                            <div class="card-body pt-1 d-flex flex-column">
-                                <div class="card-title line-clamp" style="font-size: 1.1rem">
-                            <span class="custom-bg-primary text-white px-1 rounded-1"
-                                  style="font-size: 0.8rem;">Mới</span>
-                                    Ví da cá sấu nam cao cấp thương hiệu nổi tiếng HKZR1101
-                                </div>
-                                <div class="d-flex flex-column flex-grow-1">
-                                    <div class="">
-                                        <div class="d-flex align-items-start gap-1">
-                                            <span class="fs-5">250.000</span>
-                                            <span class="small">₫</span>
-                                        </div>
-                                        <div class="small d-flex" style="--height: 1.3rem;">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                                 style="height: var(--height)">
-                                                <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                                      stroke-width="1" transform="" stroke="#F69113"
-                                                      fill="#F69113"></path>
-                                            </svg>
-                                            <span class="text-white border-0"
-                                                  style="background-color: #F69113; line-height: var(--height)">Giảm 10%</span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                                 style="height: var(--height); transform: rotate(180deg)">
-                                                <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                                      stroke-width="1" transform="" stroke="#F69113"
-                                                      fill="#F69113"></path>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center justify-content-between mt-auto gap-2 small">
-                                        <div class="d-flex align-items-center gap-1">
-                                            <div class="custom-icon" style="--size: 1rem">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                     fill="orange"
-                                                     class="bi bi-star-fill" viewBox="0 0 16 16">
-                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                                                </svg>
-                                            </div>
-                                            <span>4.0</span>
-                                        </div>
-                                        <div>Đã bán 120</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="p-1" style="width: 20%">
-                        <div class="card rounded-0 p-0" style="height: 25rem;">
-                            <div class="ratio ratio-1x1">
-                                <img src="https://casauhoanglong.com/wp-content/uploads/2023/09/do-da-ca-sau.jpeg"
-                                     class="card-img-top rounded-0 bg-primary" alt="..." style="object-fit: cover">
-                            </div>
-                            <div class="card-body pt-1 d-flex flex-column">
-                                <div class="card-title line-clamp" style="font-size: 1.1rem">
-                            <span class="custom-bg-primary text-white px-1 rounded-1"
-                                  style="font-size: 0.8rem;">Mới</span>
-                                    Ví da cá sấu nam cao cấp thương hiệu nổi tiếng HKZR1101
-                                </div>
-                                <div class="d-flex flex-column flex-grow-1">
-                                    <div class="">
-                                        <div class="d-flex align-items-start gap-1">
-                                            <span class="fs-5">250.000</span>
-                                            <span class="small">₫</span>
-                                        </div>
-                                        <div class="small d-flex" style="--height: 1.3rem;">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                                 style="height: var(--height)">
-                                                <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                                      stroke-width="1" transform="" stroke="#F69113"
-                                                      fill="#F69113"></path>
-                                            </svg>
-                                            <span class="text-white border-0"
-                                                  style="background-color: #F69113; line-height: var(--height)">Giảm 10%</span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                                 style="height: var(--height); transform: rotate(180deg)">
-                                                <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                                      stroke-width="1" transform="" stroke="#F69113"
-                                                      fill="#F69113"></path>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center justify-content-between mt-auto gap-2 small">
-                                        <div class="d-flex align-items-center gap-1">
-                                            <div class="custom-icon" style="--size: 1rem">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                     fill="orange"
-                                                     class="bi bi-star-fill" viewBox="0 0 16 16">
-                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                                                </svg>
-                                            </div>
-                                            <span>4.0</span>
-                                        </div>
-                                        <div>Đã bán 120</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="p-1" style="width: 20%">
-                        <div class="card rounded-0 p-0" style="height: 25rem;">
-                            <div class="ratio ratio-1x1">
-                                <img src="https://casauhoanglong.com/wp-content/uploads/2023/09/do-da-ca-sau.jpeg"
-                                     class="card-img-top rounded-0 bg-primary" alt="..." style="object-fit: cover">
-                            </div>
-                            <div class="card-body pt-1 d-flex flex-column">
-                                <div class="card-title line-clamp" style="font-size: 1.1rem">
-                            <span class="custom-bg-primary text-white px-1 rounded-1"
-                                  style="font-size: 0.8rem;">Mới</span>
-                                    Ví da cá sấu nam cao cấp thương hiệu nổi tiếng HKZR1101
-                                </div>
-                                <div class="d-flex flex-column flex-grow-1">
-                                    <div class="">
-                                        <div class="d-flex align-items-start gap-1">
-                                            <span class="fs-5">250.000</span>
-                                            <span class="small">₫</span>
-                                        </div>
-                                        <div class="small d-flex" style="--height: 1.3rem;">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                                 style="height: var(--height)">
-                                                <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                                      stroke-width="1" transform="" stroke="#F69113"
-                                                      fill="#F69113"></path>
-                                            </svg>
-                                            <span class="text-white border-0"
-                                                  style="background-color: #F69113; line-height: var(--height)">Giảm 10%</span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                                 style="height: var(--height); transform: rotate(180deg)">
-                                                <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                                      stroke-width="1" transform="" stroke="#F69113"
-                                                      fill="#F69113"></path>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center justify-content-between mt-auto gap-2 small">
-                                        <div class="d-flex align-items-center gap-1">
-                                            <div class="custom-icon" style="--size: 1rem">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                     fill="orange"
-                                                     class="bi bi-star-fill" viewBox="0 0 16 16">
-                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                                                </svg>
-                                            </div>
-                                            <span>4.0</span>
-                                        </div>
-                                        <div>Đã bán 120</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                </ul>
+                <ul class="pagination pagination-lg justify-content-center m-5">
+                    <li class="page-item disabled"><a class="page-link" href="#"><</a></li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">></a></li>
                 </ul>
             </div>
         </div>

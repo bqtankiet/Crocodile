@@ -1,0 +1,149 @@
+
+/* service  */
+
+.serv .list-icon {
+  font-size: 35px;
+  color: #515151;
+  padding-right: 10px;
+}
+
+.serv {
+  display: flex;
+  padding: 30px 0 20px;
+  justify-content: center;
+}
+
+.serv span {
+  font-weight: 700;
+}
+
+.service-box {
+  border-bottom: 1px solid #515151;
+}
+
+/* product  */
+
+.product-category-title {
+  text-align: center;
+  font-size: 32px;
+  margin-top: 25px;
+  font-weight: bold;
+}
+
+.product-category-subtitle {
+  text-align: center;
+  font-size: 19px;
+  font-weight: bold;
+}
+
+.product-category-description {
+  text-align: center;
+  margin-bottom: 20px;
+  line-height: 2;
+}
+
+.product-category-description a {
+  color: #408115;
+  text-decoration: none;
+  font-weight: 700;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.bg-image {
+  background-image: var(--bg-image-url);
+  background-size: 25px;
+  background-repeat: no-repeat;
+  background-position: center 8px;
+  background-color: #f2f2f2;
+  margin-top: 10px;
+  margin-right: 10px;
+
+  &:hover {
+    background-image: var(--bg-image-hover-url);
+    background-color: #608e41;
+  }
+}
+
+.item_menu {
+  border-radius: 6px;
+}
+
+.item_menu a {
+  font-size: 15px;
+  width: 100%;
+  padding: 5px 0px !important;
+  min-width: 130px !important;
+  min-height: 60px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  flex-flow: column wrap;
+  color: #555;
+  text-decoration: none;
+
+  &:hover {
+    color: #eef3eb;
+  }
+}
+
+
+/* best sale  */
+
+.bs-product-box {
+  display: inline-block;
+  padding: 25px 10px 15px;
+}
+
+.bs-product-item {
+  border: none;
+}
+
+.best-sale-title {
+  font-style: 23px;
+  text-align: center;
+  margin-top: 25px;
+}
+
+.product-name {
+  font-size: 20px;
+  text-decoration: none;
+  padding-bottom: 1px;
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
+}
+
+.product-price-original {
+  font-size: 14px;
+  text-decoration: line-through;
+  color: #BDBDBD;
+}
+
+.product-price-discount {
+  font-size: 18px;
+  color: #608e41;
+}
+
+.currency-symbol {
+  font-size: 12px;
+  text-decoration: underline;
+  padding-right: 8px;
+}
+
+.btn-buy {
+  width: 100%;
+  border: none;
+  background-color: #a4b96c;
+  color: #f2f2f2;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-bottom: #4C582B solid 3px;
+  text-align: center;
+  font-size: 13px;
+  padding: 5px;
+
+  &:hover {
+    color: #555;
+  }
+}

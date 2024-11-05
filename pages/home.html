@@ -1,22 +1,453 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
-    <!--  bootstrap  -->
-    <link rel="stylesheet" href="/public/bootstrap/css/bootstrap.css">
-    <script src="/public/bootstrap/js/bootstrap.js"></script>
+    <title>Gento | Trang chủ</title>
     <!--  jquery  -->
     <script src="/public/jquery-3.7.1.min.js"></script>
+    <!--  bootstrap  -->
+    <link rel="stylesheet" href="/public/bootstrap/css/bootstrap.css">
+    <script src="/public/bootstrap/js/bootstrap.bundle.js"></script>
+    <!-- owl carousel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+        integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+        integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+        integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"
+        integrity="sha512-LhccdVNGe2QMEfI3x4DVV3ckMRe36TfydKss6mJpdHjNFiV07dFpS2xzeZedptKZrwxfICJpez09iNioiSZ3hA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!--  css  -->
+    <link rel="stylesheet" href="/assets/css/home.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
     <link rel="stylesheet" href="/layouts/layout.css">
-    <!--  js  -->
-    <script src="/public/loadHTML.js"></script>
+
+    <!-- link css box icon -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- link font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!--  Load HEADER, FOOTER  -->
+    <script>
+        $(document).ready(function () {
+            $("#HEADER").load("/includes/header.html", function (response, status) {
+                if (status === "success") {
+                    $("#HEADER").find(".nav-link.home-page").addClass("active");
+                }
+            });
+            $("#FOOTER").load("/includes/footer.html");
+        });
+    </script>
+
+    <script src="/components/product_gallery/product_gallery_template.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.get("/components/product_card/product_card_template.js");
+        });
+    </script>
 </head>
+
 <body>
-<div id="page">
-    <!-- TODO: (Đặng Minh Khôi) Code html trang chủ ở đây -->
-    <h1>Home</h1> <!-- Dòng này chỉ để test -->
-</div>
+
+    <div id="page" class="layout-default">
+        <div id="HEADER"></div>
+
+        <div id="CONTENT">
+            <!-------------------- Carousel -------------------->
+            <div class="row m-0">
+                <div id="my-carousel" class="carousel slide px-0" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#my-carousel" data-bs-slide-to="0" class="active"
+                            aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#my-carousel" data-bs-slide-to="1"
+                            aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#my-carousel" data-bs-slide-to="2"
+                            aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <a class="carousel-item active" href="#">
+                            <img src="https://cf.shopee.vn/file/vn-50009109-727a24a85a60935da5ccb9008298f681"
+                                class="d-block w-100" alt="...">
+                        </a>
+                        <a class="carousel-item" href="#">
+                            <img src="https://cf.shopee.vn/file/vn-11134258-7ras8-m0tqhapoxr4f2e" class="d-block w-100"
+                                alt="...">
+                        </a>
+                        <a class="carousel-item" href="#">
+                            <img src="https://cf.shopee.vn/file/vn-11134258-7ras8-m1w3weeevec38f" class="d-block w-100"
+                                alt="...">
+                        </a>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#my-carousel"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#my-carousel"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- -------------------------BEGIN SERVICE---------------------------------- -->
+            <div class="service">
+                <div class="container">
+                    <div class="row service-box">
+                        <!-- Giao hàng  -->
+                        <div class="col-3 serv">
+                            <div class="list-icon fas fa-shipping-fast"></div>
+                            <div class="list-content">
+                                <span>Giao hàng miễn phí</span>
+                                <p>Với hóa đơn trên 690k</p>
+                            </div>
+                        </div>
+
+                        <!-- Bảo hành  -->
+                        <div class="col-3 serv">
+                            <div class="list-icon fas fa-award"></div>
+                            <div class="list-content">
+                                <span>Bảo hành 36 tháng</span>
+                                <p>Theo chính sách của Khoi dz</p>
+                            </div>
+                        </div>
+
+                        <!-- Chính hãng  -->
+                        <div class="col-3 serv">
+                            <div class="list-icon fas fa-shield-alt"></div>
+                            <div class="list-content">
+                                <span>Cam kết da thật 100%</span>
+                                <p>Cam kết chất liệu da thật</p>
+                            </div>
+                        </div>
+
+                        <!-- Đổi trả  -->
+                        <div class="col-3 serv">
+                            <div class="list-icon fas fa-money-check"></div>
+                            <div class="list-content">
+                                <span>Đổi trả trong 7 ngày</span>
+                                <p>Đổi mới với lỗi từ nhà sản xuất</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- -------------------------END SERVICE BOX---------------------------------- -->
+
+
+            <!-- -------------------------BEGIN CATEGORY---------------------------------- -->
+            <div class="product-category">
+                <div class="container">
+
+                    <h1 class="product-category-title">ĐỒ DA KHOIDZ</h1>
+                    <p class="product-category-subtitle">Sang trọng – Mạnh mẽ – Khí chất</p>
+                    <p class="product-category-description">
+                        Đồ da nam cao cấp Gento Các dòng sản phẩm về :
+                        <a href="#">Túi xách nam</a>
+                        hàng hiệu,
+                        <a href="#">Cặp da công sở</a>,
+                        <a href="#">Túi đeo chéo nam</a>,
+                        Túi bao tử, Túi sling bag (Đeo trước ngực), Túi da cầm tay,
+                        <a href="#">Balo nam</a>,
+                        <a href="#">Ví da nam</a>, Các phụ kiện đồ da.. phong cách cổ điển lịch lãm, sang trọng
+                    </p>
+
+                </div>
+
+                <div class="product-category-box">
+                    <div class="container">
+                        <div class="menu-box d-flex justify-content-start flex-wrap">
+
+                            <!-- túi xách nam -->
+                            <div class="item_menu bg-image" style="--bg-image-url: url('/assets/images/categories-img/suitcase.png');
+                                --bg-image-hover-url: url('/assets/images/categories-img/white-suitcase.png');">
+                                <h2>
+                                    <a href="#">Túi xách nam</a>
+                                </h2>
+                            </div>
+
+                            <!-- cặp da nam -->
+                            <div class="item_menu bg-image"
+                                style="--bg-image-url: url('/assets/images/categories-img/briefcase-line-icon.png');
+                                --bg-image-hover-url: url('/assets/images/categories-img/white-briefcase-line-icon.png');">
+                                <h2>
+                                    <a href="#">Cặp da nam</a>
+                                </h2>
+                            </div>
+
+                            <!-- balo nam -->
+                            <div class="item_menu bg-image" style="--bg-image-url: url('/assets/images/categories-img/backpack-icon.png');
+                                --bg-image-hover-url: url('/assets/images/categories-img/white-backpack-icon.png');">
+                                <h2>
+                                    <a href="#">Balo nam</a>
+                                </h2>
+                            </div>
+
+                            <!-- túi đeo chéo -->
+                            <div class="item_menu bg-image" style="--bg-image-url: url('/assets/images/categories-img/messenger-bag.png');
+                                --bg-image-hover-url: url('/assets/images/categories-img/white-messenger-bag.png');">
+                                <h2>
+                                    <a href="#">Túi đeo chéo</a>
+                                </h2>
+                            </div>
+
+                            <!-- vali -->
+                            <div class="item_menu bg-image"
+                                style="--bg-image-url: url('/assets/images/categories-img/tourist-bag-icon.png');
+                                --bg-image-hover-url: url('/assets/images/categories-img/white-tourist-bag-icon.png');">
+                                <h2>
+                                    <a href="#">Vali da</a>
+                                </h2>
+                            </div>
+
+                            <!-- túi đeo ngực -->
+                            <div class="item_menu bg-image" style="--bg-image-url: url('/assets/images/categories-img/sling-bag.png');
+                                --bg-image-hover-url: url('/assets/images/categories-img/white-sling-bag.png');">
+                                <h2>
+                                    <a href="#">Túi đeo ngực</a>
+                                </h2>
+                            </div>
+
+                            <!-- ví -->
+                            <div class="item_menu bg-image" style="--bg-image-url: url('/assets/images/categories-img/wallet-icon.png');
+                                --bg-image-hover-url: url('/assets/images/categories-img/white-wallet-icon.png');">
+                                <h2>
+                                    <a href="#">Ví da nam</a>
+                                </h2>
+                            </div>
+
+                            <!-- dây đồng hồ -->
+                            <div class="item_menu bg-image" style="--bg-image-url: url('/assets/images/categories-img/smartwatch-icon.png');
+                                --bg-image-hover-url: url('/assets/images/categories-img/white-smartwatch-icon.png');">
+                                <h2>
+                                    <a href="#">Dây đồng hồ</a>
+                                </h2>
+                            </div>
+
+                            <!-- giày da nam -->
+                            <div class="item_menu bg-image" style="--bg-image-url: url('/assets/images/categories-img/man-shoe-icon.png');
+                                --bg-image-hover-url: url('/assets/images/categories-img/white-suitcase.png');">
+                                <h2>
+                                    <a href="#">Giày da nam</a>
+                                </h2>
+                            </div>
+
+                            <!-- túi xách nữ -->
+                            <div class="item_menu bg-image" style="--bg-image-url: url('/assets/images/categories-img/handbag.png');
+                                --bg-image-hover-url: url('/assets/images/categories-img/white-suitcase.png');">
+                                <h2>
+                                    <a href="#">Túi xách nữ</a>
+                                </h2>
+                            </div>
+
+                            <!-- áo khoác -->
+                            <div class="item_menu bg-image" style="--bg-image-url: url('/assets/images/categories-img/aokhoacda.png');
+                                --bg-image-hover-url: url('/assets/images/categories-img/white-aokhoacda.png');">
+                                <h2>
+                                    <a href="#">Áo khoác </a>
+                                </h2>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- -------------------------END CATEGORY---------------------------------- -->
+
+
+            <!-- -------------------------BEGIN BEST SALE PRODUCTS---------------------------------- -->
+            <div class="best-sale-product">
+                <div class="container">
+                    <h2 class="best-sale-title pb-3">Sản phẩm bán chạy</h2>
+
+                    <div class="product_gallery_template" data-owl-main='{"items": 5, "margin": 10, "dots": false}'>
+                        <div class="item">
+                            <a class="product_card_template"
+                                href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
+                                data-json='{
+                                    "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
+                                    "name": "Túi đeo chéo da cá séo",
+                                    "price": "2,200,000",
+                                    "basePrice": "2,500,000",
+                                    "discount": "Giảm 21%",
+                                    "badge": "NEW"
+                                }'>
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a class="product_card_template"
+                                href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
+                                data-json='{
+                                    "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
+                                    "name": "Túi đeo chéo da cá séo",
+                                    "price": "2,200,000",
+                                    "basePrice": "2,500,000",
+                                    "discount": "Giảm 21%",
+                                    "badge": "NEW"
+                                }'>
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a class="product_card_template"
+                                href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
+                                data-json='{
+                                    "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
+                                    "name": "Túi đeo chéo da cá séo",
+                                    "price": "2,200,000",
+                                    "basePrice": "2,500,000",
+                                    "discount": "Giảm 21%",
+                                    "badge": "NEW"
+                                }'>
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a class="product_card_template"
+                                href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
+                                data-json='{
+                                    "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
+                                    "name": "Túi đeo chéo da cá séo",
+                                    "price": "2,200,000",
+                                    "basePrice": "2,500,000",
+                                    "discount": "Giảm 21%",
+                                    "badge": "NEW"
+                                }'>
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a class="product_card_template"
+                                href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
+                                data-json='{
+                                    "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
+                                    "name": "Túi đeo chéo da cá séo",
+                                    "price": "2,200,000",
+                                    "basePrice": "2,500,000",
+                                    "discount": "Giảm 21%",
+                                    "badge": "NEW"
+                                }'>
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a class="product_card_template"
+                                href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
+                                data-json='{
+                                    "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
+                                    "name": "Túi đeo chéo da cá séo",
+                                    "price": "2,200,000",
+                                    "basePrice": "2,500,000",
+                                    "discount": "Giảm 21%",
+                                    "badge": "NEW"
+                                }'>
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a class="product_card_template"
+                                href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
+                                data-json='{
+                                    "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
+                                    "name": "Túi đeo chéo da cá séo",
+                                    "price": "2,200,000",
+                                    "basePrice": "2,500,000",
+                                    "discount": "Giảm 21%",
+                                    "badge": "NEW"
+                                }'>
+                            </a>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+            <!-- -------------------------END BEST SALE PRODUCTS---------------------------------- -->
+
+
+
+
+            <div id="FOOTER"></div>
+
+        </div>
+    </div>
+
+    <!-- dùng để tải hình -->
+    <div class="load-image d-none">
+        <img src="/assets/images/categories-img/suitcase.png" alt="">
+        <img src="/assets/images/categories-img/white-suitcase.png" alt="">
+        <img src="/assets/images/categories-img/briefcase-line-icon.png" alt="">
+        <img src="/assets/images/categories-img/white-briefcase-line-icon.png" alt="">
+        <img src="/assets/images/categories-img/backpack-icon.png" alt="">
+        <img src="/assets/images/categories-img/white-backpack-icon.png" alt="">
+        <img src="/assets/images/categories-img/messenger-bag.png" alt="">
+        <img src="/assets/images/categories-img/white-messenger-bag.png" alt="">
+        <img src="/assets/images/categories-img/tourist-bag-icon.png" alt="">
+        <img src="/assets/images/categories-img/white-tourist-bag-icon.png" alt="">
+        <img src="/assets/images/categories-img/sling-bag.png" alt="">
+        <img src="/assets/images/categories-img/white-sling-bag.png" alt="">
+        <img src="/assets/images/categories-img/wallet-icon.png" alt="">
+        <img src="/assets/images/categories-img/white-wallet-icon.png" alt="">
+        <img src="/assets/images/categories-img/wallet-icon.png" alt="">
+        <img src="/assets/images/categories-img/white-wallet-icon.png" alt="">
+        <img src="/assets/images/categories-img/smartwatch-icon.png" alt="">
+        <img src="/assets/images/categories-img/white-smartwatch-icon.png" alt="">
+        <img src="/assets/images/categories-img/man-shoe-icon.png" alt="">
+        <!-- <img src="/assets/images/categories-img/whiteman-shoe-icon.png" alt=""> -->
+        <img src="/assets/images/categories-img/handbag.png" alt="">
+        <!-- <img src="/assets/images/categories-img/white-handbag.png" alt=""> -->
+        <img src="/assets/images/categories-img/aokhoacda.png" alt="">
+        <img src="/assets/images/categories-img/white-aokhoacda.png" alt="">
+    </div>
+
 </body>
+
+<!-- <script>
+    const imagesToPreload = [
+        '/assets/images/categories-img/suitcase.png',
+        '/assets/images/categories-img/white-suitcase.png',
+        '/assets/images/categories-img/briefcase-line-icon.png',
+        '/assets/images/categories-img/white-briefcase-line-icon.png',
+        '/assets/images/categories-img/backpack-icon.png',
+        '/assets/images/categories-img/white-backpack-icon.png',
+        '/assets/images/categories-img/messenger-bag.png',
+        '/assets/images/categories-img/white-messenger-bag.png',
+        '/assets/images/categories-img/tourist-bag-icon.png',
+        '/assets/images/categories-img/white-tourist-bag-icon.png',
+        '/assets/images/categories-img/sling-bag.png',
+        '/assets/images/categories-img/white-sling-bag.png',
+        '/assets/images/categories-img/wallet-icon.png',
+        '/assets/images/categories-img/white-wallet-icon.png',
+        '/assets/images/categories-img/wallet-icon.png',
+        '/assets/images/categories-img/white-wallet-icon.png',
+        '/assets/images/categories-img/smartwatch-icon.png',
+        '/assets/images/categories-img/white-smartwatch-icon.png',
+        '/assets/images/categories-img/man-shoe-icon.png',
+        
+        '/assets/images/categories-img/handbag.png',
+        
+        '/assets/images/categories-img/aokhoacda.png',
+        '/assets/images/categories-img/white-aokhoacda.png'
+
+
+    ]; 
+
+    imagesToPreload.forEach(imageName => {
+        const img = new Image();
+        img.src = imageName;
+        img.onload = () => console.log(`${imageName} đã tải xong`);
+        img.onerror = () => console.error(`${imageName} không tải được`);
+    });
+</script> -->
+
+
 </html>

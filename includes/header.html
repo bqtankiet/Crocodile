@@ -1,62 +1,176 @@
-<header class="custom-bg-primary text-white pt-1 pb-2">
-    <div class="container">
+<!--Style-->
+<style>
+
+    header hr {
+        color: gray;
+    }
+
+    header .custom-navbar .nav-item .nav-link {
+        color: black;
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+        gap: 0.3rem;
+
+        svg {
+            width: 1.2rem;
+            height: 1.2rem;
+        }
+    }
+
+    header .custom-navbar .nav-item .nav-link:hover {
+        color: var(--custom-bg-primary);
+    }
+
+    header .custom-navbar .nav-item .nav-link.active {
+        font-weight: bold;
+        position: relative;
+        border-bottom: 2px solid var(--custom-bg-primary);
+        border-top: 2px solid var(--custom-bg-primary);
+        color: var(--custom-bg-primary);
+    }
+
+    /*header .custom-navbar .nav-item .nav-link.active::after {*/
+    /*    content: "";*/
+    /*    width: 100%;*/
+    /*    height: 2px;*/
+    /*    background-color: var(--custom-bg-primary);*/
+    /*    position: absolute;*/
+    /*    bottom: 4px;*/
+    /*    left: 0;*/
+    /*}*/
+
+    header .dropdown:hover .dropdown-menu {
+        display: block;
+        margin-top: 0; /* remove the gap so it doesn't close */
+    }
+
+    header .dropdown-menu .dropdown-item {
+        background-color: transparent;
+    }
+
+    header .dropdown-menu .dropdown-item:hover {
+        color: var(--custom-bg-primary);
+    }
+
+</style>
+
+<!--HTML-->
+<header class="text-black pt-1">
+    <!--  Search bar and other -->
+    <div class="container-xl">
         <div class="d-flex justify-content-end flex-grow-1 gap-3 small pb-2">
             <span>TP.Hồ Chí Minh</span>
-            <span>Tiếng việt</span>
+            <span>Tiếng Việt</span>
         </div>
-        <div class="row align-items-center">
-            <a class="h1 text-decoration-none text-white col-2" href="#">Logo</a>
-            <form class="d-flex bg-white p-1 rounded-1 col" role="search">
-                <input class="form-control me-2 border-0" type="search" placeholder="Nhập tên sản phẩm cần tìm kiếm"
+        <div class="row align-items-center justify-content-center mx-auto col-11 col-lg-12">
+            <a class="h1 text-decoration-none col-3 order-lg-0" href="home.html">
+                <img src="https://www.gento.vn/wp-content/uploads/2021/04/Gento_logo.png" alt="Logo" class="w-75">
+            </a>
+            <form class="d-flex p-2 mt-2 mt-lg-0 rounded-5 col-lg col-12 order-lg-1 order-3 mx-3"
+                  style="background-color: #ededed" role="search">
+                <input class="form-control shadow-none mx-2 border-0" style="background-color: inherit" type="search"
+                       placeholder="Tìm kiếm sản phẩm"
                        aria-label="Search">
-                <button class="btn custom-btn-primary text-white rounded-1" type="submit">Search</button>
+                <button class="bg-transparent border-0 me-2" type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1.3rem" height="1.3rem"
+                         fill="gray">
+                        <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/>
+                    </svg>
+                </button>
             </form>
-            <div class="d-flex lh-1 text-nowrap col-3">
-                <div class="d-flex align-items-center justify-content-end col-6">
-                    <div class="custom-icon" style="--size: 2rem">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             class="bi bi-person-circle" viewBox="0 0 16 16">
-                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                            <path fill-rule="evenodd"
-                                  d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-                        </svg>
+            <!-- Account, Cart -->
+            <div class="d-flex justify-content-end lh-1 text-nowrap col-3 ms-auto gap-md-3 order-lg-2">
+                <a href="login.html" class="text-decoration-none text-black position-relative">
+<!--                    <span class="badge text-bg-danger position-absolute translate-middle rounded-pill">10+</span>-->
+                    <div class="d-flex align-items-center justify-content-end">
+                        <div class="custom-icon" style="--size: 2rem">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-person-circle" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                <path fill-rule="evenodd"
+                                      d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                            </svg>
+                        </div>
+                        <div class="ps-2">
+                            <div class="small pb-1">Tài khoản</div>
+                            <div class="pb-1 fw-semibold text-truncate" style="width: 10ch">Đăng nhập</div>
+                        </div>
                     </div>
-                    <div class="ps-2">
-                        <div class="small pb-1">Tài khoản</div>
-                        <div class="pb-1 fw-semibold text-truncate" style="width: 10ch">Đăng nhập</div>
+                </a>
+                <a href="#" class="text-decoration-none text-black position-relative">
+                    <span class="badge text-bg-danger position-absolute translate-middle rounded-pill">1</span>
+
+                    <div class="d-flex align-items-center justify-content-end">
+                        <div class="custom-icon" style="--size: 2rem">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
+                                <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
+                            </svg>
+                        </div>
+                        <div class="ps-2">
+                            <div class="small pb-1">Giỏ hàng</div>
+                            <div class="pb-1 fw-semibold text-truncate" style="width: 10ch">1.100.000<span>₫</span></div>
+                        </div>
                     </div>
-                </div>
-                <div class="d-flex align-items-center justify-content-end col-6">
-                    <div class="custom-icon" style="--size: 2rem">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             class="bi bi-cart2" viewBox="0 0 16 16">
-                            <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
-                        </svg>
-                    </div>
-                    <div class="ps-2">
-                        <div class="small pb-1">Giỏ hàng</div>
-                        <div class="pb-1 fw-semibold text-truncate" style="width: 10ch">0<span>₫</span></div>
-                    </div>
-                </div>
+                </a>
             </div>
         </div>
-<!--        <nav class="navbar custom-navbar custom-bg-primary">-->
-<!--            <div class="d-flex flex-grow-1 justify-content-between">-->
-<!--                <ul class="navbar-nav flex-grow-1 d-flex flex-row justify-content-center align-items-center gap-5">-->
-<!--                    <li class="nav-item">-->
-<!--                        <a href="#" class="nav-link active">Trang chủ</a>-->
-<!--                    </li>-->
-<!--                    <li class="nav-item">-->
-<!--                        <a href="#" class="nav-link">Danh mục</a>-->
-<!--                    </li>-->
-<!--                    <li class="nav-item">-->
-<!--                        <a href="#" class="nav-link">Sản phẩm</a>-->
-<!--                    </li>-->
-<!--                    <li class="nav-item">-->
-<!--                        <a href="#" class="nav-link">Bài viết</a>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            </div>-->
-<!--        </nav>-->
+    </div>
+
+    <!--  Navigation bar  -->
+    <div style="background-color: #ededed">
+        <hr>
+        <div class="container-xl">
+            <nav class="navbar custom-navbar py-0">
+                <div class="d-flex flex-grow-1 justify-content-between">
+                    <ul class="navbar-nav flex-grow-1 d-flex flex-row justify-content-center align-items-center gap-5 text-uppercase">
+                        <li class="nav-item">
+                            <a href="home.html" class="nav-link home-page">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-house-door" viewBox="0 0 16 16">
+                                    <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"/>
+                                </svg>
+                                Trang chủ
+                            </a>
+                        </li>
+                        <li class="nav-item position-relative dropdown">
+                            <a href="#" class="nav-link products-page dropdown-toggle" data-bs-toggle="dropdown"
+                               role="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-briefcase" viewBox="0 0 16 16">
+                                    <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5m1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0M1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5"/>
+                                </svg>
+                                Sản phẩm
+                            </a>
+                            <ul class="dropdown-menu position-absolute rounded-0">
+                                <li><a class="dropdown-item" href="products.html">Ví Da</a></li>
+                                <li><a class="dropdown-item" href="#">Áo Khoác Da</a></li>
+                                <li><a class="dropdown-item" href="#">Găng Tay Da</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link contact-page">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-headset" viewBox="0 0 16 16">
+                                    <path d="M8 1a5 5 0 0 0-5 5v1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a6 6 0 1 1 12 0v6a2.5 2.5 0 0 1-2.5 2.5H9.366a1 1 0 0 1-.866.5h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 .866.5H11.5A1.5 1.5 0 0 0 13 12h-1a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h1V6a5 5 0 0 0-5-5"/>
+                                </svg>
+                                Liên hệ
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link about-page">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-info-circle" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                                </svg>
+                                Giới Thiệu
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <hr>
     </div>
 </header>
