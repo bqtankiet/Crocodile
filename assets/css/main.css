@@ -18,6 +18,10 @@
     /*line-height: 2;*/
 }
 
+html {
+    overflow-y: scroll;
+}
+
 .custom-text-primary {
     color: var(--custom-bg-primary);
 }
