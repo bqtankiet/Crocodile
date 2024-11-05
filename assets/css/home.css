@@ -1,3 +1,7 @@
+:root {
+  --primary-color: #1c6813;
+}
+
 
 /* service  */
 
@@ -145,5 +149,24 @@
 
   &:hover {
     color: #555;
+  }
+}
+
+.suggested-product-item {
+  padding-right: 10px;
+  padding-bottom: 10px;
+}
+
+.see-all {
+  padding: 10px 20px;
+  border: 1px solid var(--primary-color);
+  border-radius: 5px;
+  text-decoration: none;
+  color: var(--primary-color);
+
+  &:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+    cursor: pointer;
   }
 }
