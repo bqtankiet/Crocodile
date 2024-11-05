@@ -22,6 +22,28 @@
         });
     </script>
 
+    <style>
+        .payment-method-wrapper{
+            position: relative;
+            overflow: hidden;
+            .payment-radio{
+                position: absolute;
+                top: 50%;
+                transform: translateY(-70%);
+                left: 1rem;
+            }
+            .payment-radio:checked + .payment-label{
+                background-color: var(--bs-primary-bg-subtle);
+                color: var(--bs-primary-text-emphasis);
+            }
+            .payment-label {
+                width: 100%;
+                font-weight: 600;
+                padding: 1rem 1rem 1rem 3rem;
+            }
+        }
+    </style>
+
 </head>
 <body>
 <div id="page" class="layout-default ">
@@ -86,34 +108,33 @@
                             <p class="h5">Phương thức thanh toán</p>
                         </div>
                         <div class="d-flex flex-column gap-2">
-                            <div class="card bg-secondary-subtle p-3">
-                                <label for="payment-cash" class="form-check d-flex align-items-center" style="cursor: pointer">
-                                    <input type="radio" class="form-check-input" style="border: 1px solid gray"
-                                           name="payment-method" id="payment-cash" checked>
-                                    <span class="fw-semibold ms-2">Thanh toán khi nhận hàng</span>
-                                </label>
+                            <div class="payment-method-wrapper rounded-2 border-secondary-subtle border">
+                                <input type="radio" class="payment-radio form-check-input"
+                                       style="border: 1px solid gray"
+                                       name="payment-method" id="payment-cash" checked>
+                                <label for="payment-cash" class="payment-label" style="cursor: pointer">Thanh toán khi nhận hàng</label>
                             </div>
-                            <div class="card bg-secondary-subtle p-3">
-                                <label for="payment-momo" class="form-check d-flex align-items-center" style="cursor: pointer">
-                                    <input type="radio" class="form-check-input" style="border: 1px solid gray"
-                                           name="payment-method" id="payment-momo">
-                                    <span class="fw-semibold ms-2">Thanh toán qua Momo </span>
+                            <div class="payment-method-wrapper rounded-2 border-secondary-subtle border">
+                                <input type="radio" class="payment-radio form-check-input"
+                                       style="border: 1px solid gray"
+                                       name="payment-method" id="payment-momo">
+                                <label for="payment-momo" class="payment-label" style="cursor: pointer">Thanh toán qua Momo
                                     <img src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png" class="ms-2" style="width: 1.5rem; height: 1.5rem" alt="">
                                 </label>
                             </div>
-                            <div class="card bg-secondary-subtle p-3">
-                                <label for="payment-zalopay" class="form-check d-flex align-items-center" style="cursor: pointer">
-                                    <input type="radio" class="form-check-input" style="border: 1px solid gray"
-                                           name="payment-method" id="payment-zalopay">
-                                    <span class="fw-semibold ms-2">Thanh toán qua ZaloPay </span>
+                            <div class="payment-method-wrapper rounded-2 border-secondary-subtle border">
+                                <input type="radio" class="payment-radio form-check-input"
+                                       style="border: 1px solid gray"
+                                       name="payment-method" id="payment-zalopay">
+                                <label for="payment-zalopay" class="payment-label" style="cursor: pointer">Thanh toán qua ZaloPay
                                     <img src="https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-ZaloPay-Square.png" class="ms-2" style="width: 1.5rem; height: 1.5rem" alt="">
                                 </label>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-5">
-                    <div class="p-4 rounded-2 gap-3 bg-secondary-subtle h-100">
+                <div class="col-5 ">
+                    <div class="p-4 rounded-2 bg-secondary-subtle gap-3 h-100">
                         <div class="d-flex flex-column">
                             <div class="border-bottom border-secondary-subtle pb-3">
                                 <div class="row g-0">
