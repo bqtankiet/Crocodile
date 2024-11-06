@@ -125,11 +125,17 @@
         padding: 0.85rem 1.5rem;
         border-color: rgba(24, 28, 33, 0.03) !important;
     }
+
+    .hidden {
+        display: none;
+    }
+
+
 </style>
 <body>
 <div class="container light-style flex-grow-1 container-p-y">
     <h4 class="font-weight-bold py-3 mb-4">Tài Khoản</h4>
-    <div class="card overflow-hidden">
+    <div>
         <div class="row no-gutters row-bordered row-border-light">
             <div class="col-md-3 pt-0">
                 <div class="list-group list-group-flush account-settings-links">
@@ -143,6 +149,10 @@
                         Chỉ</a>
                     <a class="list-group-item list-group-item-action" data-toggle="tab" href="#account-purchase-order">Đơn
                         Mua</a>
+                </div>
+                <div class="text-right mt-3">
+                    <button type="button" class="btn btn-primary">Save changes</button>&nbsp;
+                    <button type="button" class="btn btn-default">Cancel</button>
                 </div>
             </div>
             <div class="col-md-9">
@@ -230,36 +240,99 @@
                     <div class="tab-pane fade" id="account-address">
                         <div class="card-body pb-2">
                             <div class="form-group">
-                                <label class="form-label">Tiểu Sử</label>
-                                <textarea class="form-control" rows="5"> </textarea>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Ngày Sinh</label>
-
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <label class="form-label">Địa Chỉ Của Tôi</label>
+                                    <a href="#newAddress" class="btn btn-danger btn-sm mb-3" data-toggle="tab">+ Thêm
+                                        địa chỉ mới</a>
+                                </div>
+                                <div style="height: 1px; background-color: #dbdbdb; width: 100%"></div>
                             </div>
                         </div>
                         <hr class="border-light m-0">
                         <div class="card-body pb-2">
-                            <h6 class="mb-4">Contacts</h6>
-                            <div class="form-group">
-                                <label class="form-label">Phone</label>
-                                <input type="text" class="form-control" value="+84 123 456 7891">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Website</label>
-                                <input type="text" class="form-control" value="">
+                            <h6 class="mb-4">Địa Chỉ</h6>
+                            <div id="addressList">
                             </div>
                         </div>
+                    </div>
 
+                    <div class="tab-pane fade hidden" id="newAddress">
+                        <div class="card shadow p-3" style="width: 50rem; height: 100%">
+                            <h5>Nhập địa chỉ mới</h5>
+                            <div class="form-group">
+                                <label for="name">Họ và Tên</label>
+                                <input type="text" class="form-control" id="name" placeholder="Nhập họ và tên">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">SĐT</label>
+                                <input type="text" class="form-control" id="phone" placeholder="Nhập số điện thoại">
+                            </div>
+                            <div class="form-group">
+                                <label for="city">Tỉnh/Thành phố</label>
+                                <input type="text" class="form-control" id="city" placeholder="Nhập tỉnh/thành phố">
+                            </div>
+                            <div class="form-group">
+                                <label for="district">Quận/Huyện</label>
+                                <input type="text" class="form-control" id="district" placeholder="Nhập quận/huyện">
+                            </div>
+                            <div class="form-group">
+                                <label for="ward">Phường/Xã</label>
+                                <input type="text" class="form-control" id="ward" placeholder="Nhập phường/xã">
+                            </div>
+                            <div class="form-group">
+                                <label for="ward">Địa Chỉ</label>
+                                <input type="text" class="form-control" id="SoNha" placeholder="Nhập Địa chỉ cụ thể">
+                            </div>
+                            <div class="form-group d-flex justify-content-between align-items-center mt-2 mb-2">
+                                <button type="button" onclick="addNewAddress()" class="btn btn-success">Hoàn thành
+                                </button>
+                                <button type="button" onclick="cancelAddress()" class="btn btn-secondary">Quay lại
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade hidden" id="editAddress">
+                        <div class="card shadow p-3" style="width: 50rem; height: 100%">
+                            <h5>Cập nhật địa chỉ</h5>
+                            <form>
+                                <div class="mb-3">
+                                    <label for="editName" class="form-label">Họ và tên</label>
+                                    <input type="text" class="form-control" id="editName" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editPhone" class="form-label">SĐT</label>
+                                    <input type="text" class="form-control" id="editPhone" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editCity" class="form-label">Tỉnh/Thành phố</label>
+                                    <input type="text" class="form-control" id="editCity" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editDistrict" class="form-label">Quận/Huyện</label>
+                                    <input type="text" class="form-control" id="editDistrict" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editWard" class="form-label">Phường/Xã</label>
+                                    <input type="text" class="form-control" id="editWard" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="editSoNha">Địa Chỉ</label>
+                                    <input type="text" class="form-control" id="editSoNha"
+                                           placeholder="Nhập Địa chỉ cụ thể" required>
+                                </div>
+                                <button type="button" class="btn btn-primary" onclick="saveUpdatedAddress()">Lưu
+                                </button>
+                                <button type="button" class="btn btn-secondary" onclick="cancelEditAddress()">Hủy
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
-    <div class="text-right mt-3">
-        <button type="button" class="btn btn-primary">Save changes</button>&nbsp;
-        <button type="button" class="btn btn-default">Cancel</button>
-    </div>
+
 </div>
 
 </body>
@@ -291,5 +364,9 @@
         option.textContent = year;
         yearSelect.appendChild(option);
     }
+
+
 </script>
+
+
 </html>
