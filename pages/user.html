@@ -367,6 +367,61 @@
 
 
 </script>
+<script>
+    // Hàm thêm địa chỉ mới
+    function addNewAddress() {
+        const name = document.getElementById("name").value;
+        const phone = document.getElementById("phone").value;
+        const city = document.getElementById("city").value;
+        const district = document.getElementById("district").value;
+        const ward = document.getElementById("ward").value;
+        const diachi = document.getElementById("SoNha").value;
 
+        if (!name || !phone || !city || !district || !ward || !diachi) {
+            alert("Vui lòng điền đầy đủ thông tin.");
+            return;
+        }
+
+        const newAddress = `
+    <div class="card address-card p-3 mb-3">
+        <p><strong>${name}</strong> <span class="text-muted">${phone}</span></p>
+        <p>${ward}, ${district}</p>
+        <p>${city}</p>
+        <p class="address-specific">${diachi}</p>
+        <button class="btn btn-warning btn-sm edit-btn">Chỉnh sửa</button>
+    </div>
+    `;
+
+        document.getElementById("addressList").insertAdjacentHTML("beforeend", newAddress);
+
+        document.getElementById("name").value = "";
+        document.getElementById("phone").value = "";
+        document.getElementById("city").value = "";
+        document.getElementById("district").value = "";
+        document.getElementById("ward").value = "";
+        document.getElementById("SoNha").value = "";
+
+        document.getElementById("newAddress").classList.remove("show", "active");
+        document.querySelector('[href="#account-address"]').classList.add("active");
+        document.getElementById("account-address").classList.add("show", "active");
+
+        addEditEventListeners();
+    }
+
+    function addEditEventListeners() {
+        const editButtons = document.querySelectorAll('.edit-btn');
+        editButtons.forEach(button => {
+            button.removeEventListener('click', editAddressClickHandler);
+            button.addEventListener('click', editAddressClickHandler);
+        });
+    }
+
+    function editAddressClickHandler(event) {
+        const addressCard = event.target.closest('.address-card');
+        editAddressFromCard(addressCard);
+    }
+
+
+</script>
 
 </html>
