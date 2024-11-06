@@ -420,7 +420,81 @@
         const addressCard = event.target.closest('.address-card');
         editAddressFromCard(addressCard);
     }
+ // hàm edit địac chỉ
+    function editAddressFromCard(addressCard) {
+        if (!addressCard) {
+            alert("Không tìm thấy địa chỉ để chỉnh sửa.");
+            return;
+        }
 
+        const name = addressCard.querySelector('strong').textContent;
+        const phone = addressCard.querySelector('.text-muted').textContent.trim();
+        const ward = addressCard.querySelector('p:nth-child(2)').textContent.split(',')[0];
+        const district = addressCard.querySelector('p:nth-child(2)').textContent.split(',')[1];
+        const city = addressCard.querySelector('p:nth-child(3)').textContent;
+        const address = addressCard.querySelector('.address-specific').textContent;
+
+        document.getElementById("editName").value = name;
+        document.getElementById("editPhone").value = phone;
+        document.getElementById("editCity").value = city;
+        document.getElementById("editDistrict").value = district;
+        document.getElementById("editWard").value = ward;
+        document.getElementById("editSoNha").value = address;
+
+        document.getElementById("editAddress").classList.add("show", "active");
+        document.getElementById("account-address").classList.remove("show", "active");
+        document.querySelector('[href="#editAddress"]').classList.add("active");
+        document.querySelector('[href="#account-address"]').classList.remove("active");
+
+        addressCard.classList.add("editing");
+    }
+
+    // Hàm lưu địa chỉ đã chỉnh sửa
+    function saveUpdatedAddress() {
+        const name = document.getElementById("editName").value;
+        const phone = document.getElementById("editPhone").value;
+        const city = document.getElementById("editCity").value;
+        const district = document.getElementById("editDistrict").value;
+        const ward = document.getElementById("editWard").value;
+        const address = document.getElementById("editSoNha").value;
+
+        if (!name || !phone || !city || !district || !ward || !address) {
+            alert("Vui lòng điền đầy đủ thông tin.");
+            return;
+        }
+
+        const addressCard = document.querySelector(".editing");
+        if (!addressCard) {
+            alert("Không tìm thấy địa chỉ để chỉnh sửa.");
+            return;
+        }
+
+        addressCard.querySelector('strong').textContent = name;
+        addressCard.querySelector('.text-muted').textContent = phone;
+        addressCard.querySelector('p:nth-child(2)').textContent = `${ward}, ${district}`;
+        addressCard.querySelector('p:nth-child(3)').textContent = city;
+        addressCard.querySelector('.address-specific').textContent = address;
+
+        document.getElementById("editAddress").classList.remove("show", "active");
+        document.getElementById("account-address").classList.add("show", "active");
+        document.querySelector('[href="#account-address"]').classList.add("active");
+        document.querySelector('[href="#editAddress"]').classList.remove("active");
+
+        addressCard.classList.remove("editing");
+    }
+
+    function cancelEditAddress() {
+        document.getElementById("editAddress").classList.remove("show", "active");
+        document.getElementById("account-address").classList.add("show", "active");
+        document.querySelector('[href="#account-address"]').classList.add("active");
+        document.querySelector('[href="#editAddress"]').classList.remove("active");
+
+        document.getElementById("editName").value = "";
+        document.getElementById("editPhone").value = "";
+        document.getElementById("editCity").value = "";
+        document.getElementById("editDistrict").value = "";
+        document.getElementById("editWard").value = "";
+    }
 
 </script>
 
