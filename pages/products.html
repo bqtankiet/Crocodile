@@ -21,11 +21,10 @@
                 min-width: 1200px;
             }
 
-            #triggerCategory,
-            #triggerPriceRange {
-                pointer-events: none;
-            }
-
+            /*#triggerCategory,*/
+            /*#triggerPriceRange {*/
+            /*    pointer-events: none;*/
+            /*}*/
             #products-list li {
                 width: 25%;
             }
@@ -82,6 +81,24 @@
         .dropdown-menu .dropdown-item {
             background-color: transparent;
         }
+
+        .form-check-input {
+            border: 2px solid gray;
+
+            &:hover {
+                cursor: pointer;
+                background-color: #d9e4d9;
+            }
+
+            &:checked {
+                background-color: var(--custom-bg-primary);
+                border: none;
+            }
+
+            &:focus {
+                border: 2px solid var(--custom-bg-primary);
+            }
+        }
     </style>
 
     <!--  INTERNAL JS  -->
@@ -115,7 +132,7 @@
             <nav style="--bs-breadcrumb-divider: '>'">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="home.html">Trang Chủ</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Giỏ hàng</li>
+                    <li class="breadcrumb-item active" aria-current="page">Ví da</li>
                 </ol>
             </nav>
             <hr>
@@ -123,14 +140,15 @@
 
         <!-- Products Section -->
         <div class="container">
-            <div class="row mt-4">
+            <div class="row">
                 <!-- Product Filter -->
-                <div class="col-lg-2 d-flex flex-column gap-3 pe-3">
+                <div class="col-12 d-flex flex-column gap-3">
+                    <!-- Danh muc -->
                     <div class="ms-1 ms-lg-0">
                         <div class="gap-2" role="button" id="triggerCategory" data-bs-toggle="collapse"
                              data-bs-target="#collapseCategory">
                             <div class="d-flex align-items-center gap-2">
-                                <div class="custom-icon d-lg-none">
+                                <div class="custom-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                          class="bi bi-chevron-right" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd"
@@ -145,9 +163,9 @@
                                 <h5 class="m-0 lh-sm">Danh Mục</h5>
                             </div>
                         </div>
-                        <div class="collapse d-lg-block" id="collapseCategory">
+                        <div class="collapse" id="collapseCategory">
                             <hr>
-                            <div class="d-flex align-items-center mb-2  ms-3" style="transform: translateX(-1rem)">
+                            <div class="d-flex align-items-center mb-2 ms-3" style="transform: translateX(-1rem)">
                                 <div class="custom-icon pe-1"
                                      style="--size: 0.8rem;">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -158,7 +176,7 @@
                                 </div>
                                 <a href="#" class="text-decoration-none custom-text-primary fw-bold">Ví Da</a>
                             </div>
-                            <ul class="d-grid gap-2 list-unstyled ms-3 ">
+                            <ul class="d-grid gap-2 list-unstyled ms-3 mb-2">
                                 <li><a href="#" class="text-decoration-none text-black">Áo Khoác Da</a></li>
                                 <li><a href="#" class="text-decoration-none text-black">Găng Tay Da</a></li>
                                 <li><a href="#" class="text-decoration-none text-black">Ví Da</a></li>
@@ -166,11 +184,12 @@
                             </ul>
                         </div>
                     </div>
+                    <!-- Muc gia -->
                     <div class="ms-1 ms-lg-0">
                         <div class="gap-2" role="button" id="triggerPriceRange" data-bs-toggle="collapse"
                              data-bs-target="#collapsePriceRange">
                             <div class="d-flex align-items-center gap-2">
-                                <div class="custom-icon d-lg-none">
+                                <div class="custom-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                          class="bi bi-chevron-right" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd"
@@ -185,26 +204,53 @@
                                 <h5 class="m-0 lh-sm">Mức Giá</h5>
                             </div>
                         </div>
-                        <div class="collapse d-lg-block" id="collapsePriceRange">
+                        <form class="collapse" id="collapsePriceRange">
                             <hr>
-                            <div class="d-flex align-items-center gap-1">
-                                <span>Từ</span>
-                                <input type="number" class="form-control px-1" aria-label="">
-                                <span>Đến</span>
-                                <input type="number" class="form-control px-0" aria-label="">
+                            <div class="d-flex gap-1">
+                                <div class="col">
+                                    <div class="form-check">
+                                        <input id="filter-tat-ca" class="form-check-input" type="checkbox" checked>
+                                        <label for="filter-tat-ca" class="form-check-label">Tất cả</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input id="filter-duoi-500k" class="form-check-input" type="checkbox">
+                                        <label for="filter-duoi-500k" class="form-check-label">Dưới 500.000₫</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input id="filter-500k-1tr500" class="form-check-input" type="checkbox">
+                                        <label for="filter-500k-1tr500" class="form-check-label">500.000₫ -
+                                            1.500.000₫</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-check">
+                                        <input id="filter-1tr500-3tr" class="form-check-input" type="checkbox">
+                                        <label for="filter-1tr500-3tr" class="form-check-label">1.500.000₫ -
+                                            3.000.000₫</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input id="filter-3tr-5tr" class="form-check-input" type="checkbox">
+                                        <label for="filter-3tr-5tr" class="form-check-label">3.000.000₫ -
+                                            5.000.000₫</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input id="filter-tren-5tr" class="form-check-input" type="checkbox">
+                                        <label for="filter-tren-5tr" class="form-check-label">Trên 5.000.000₫</label>
+                                    </div>
+                                </div>
                             </div>
                             <button class="btn custom-btn-primary rounded-0 w-100 text-uppercase mt-3">Áp dụng</button>
-                        </div>
+                        </form>
                     </div>
                 </div>
 
                 <!-- Products Container -->
-                <div class="col">
+                <div class="col-12 mt-4">
                     <!-- Sort bar -->
                     <div class="d-flex align-items-center p-4 mb-2" style="height: 50px; background-color: #eee">
                         <span class="me-3 fw-semibold">Sắp Xếp Theo</span>
                         <div class="d-flex gap-3">
-                            <button class="btn custom-btn-primary">Phổ Biến</button>
+                            <button class="btn custom-btn-primary">Mặc định</button>
                             <button class="btn custom-btn-primary bg-white text-black">Mới Nhất</button>
                             <button class="btn custom-btn-primary bg-white text-black">Bán Chạy</button>
                         </div>
