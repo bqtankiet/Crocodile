@@ -8,10 +8,10 @@
     <!--  bootstrap  -->
     <link rel="stylesheet" href="/public/bootstrap/css/bootstrap.css">
     <script src="/public/bootstrap/js/bootstrap.bundle.js"></script>
-    <!--  css  -->
+    <!--  custom css  -->
     <link rel="stylesheet" href="/layouts/layout.css">
     <link rel="stylesheet" href="/assets/css/main.css">
-    <!--  js  -->
+    <!--  custom js  -->
     <script src="/components/product_card/product_card_template.js"></script>
 
     <!--  Media queries  -->
@@ -21,11 +21,10 @@
                 min-width: 1200px;
             }
 
-            #triggerCategory,
-            #triggerPriceRange {
-                pointer-events: none;
-            }
-
+            /*#triggerCategory,*/
+            /*#triggerPriceRange {*/
+            /*    pointer-events: none;*/
+            /*}*/
             #products-list li {
                 width: 25%;
             }
@@ -60,12 +59,10 @@
                 width: 50%;
             }
         }
-
     </style>
 
     <!--  INTERNAL CSS  -->
     <style>
-
         .page-item.active > .page-link {
             --color: var(--custom-bg-primary);
             border-color: var(--custom-bg-primary);
@@ -77,22 +74,30 @@
             color: gray;
         }
 
-        .carousel-item {
-            height: 25rem;
-        }
-
-        .carousel-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
         .hide {
             display: none;
         }
 
         .dropdown-menu .dropdown-item {
             background-color: transparent;
+        }
+
+        .form-check-input {
+            border: 2px solid gray;
+
+            &:hover {
+                cursor: pointer;
+                background-color: #d9e4d9;
+            }
+
+            &:checked {
+                background-color: var(--custom-bg-primary);
+                border: none;
+            }
+
+            &:focus {
+                border: 2px solid var(--custom-bg-primary);
+            }
         }
     </style>
 
@@ -110,7 +115,6 @@
 
         });
     </script>
-
 </head>
 <body>
 <div id="page">
@@ -122,238 +126,225 @@
         </script>
     </div>
 
-    <!-- TODO: (Bùi Quang Tấn Kiệt) Code html trang sản phẩm ở đây -->
-    <div class="container-xl px-3 px-xl-0">
-        <!-------------------- Breadcrumb -------------------->
-        <nav class="border-bottom" style="--bs-breadcrumb-divider: '>'">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="home.html">Trang Chủ</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Ví Da</li>
-            </ol>
-        </nav>
+    <div id="CONTENT">
+        <!-- Breadcrumb Navigation-->
+        <div class="container py-1">
+            <nav style="--bs-breadcrumb-divider: '>'">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="home.html">Trang Chủ</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Ví da</li>
+                </ol>
+            </nav>
+            <hr>
+        </div>
 
-        <!-------------------- Carousel -------------------->
-        <!--        <div class="row m-0 mt-5">-->
-        <!--            <div id="my-carousel" class="carousel slide px-0" data-bs-ride="carousel">-->
-        <!--                <div class="carousel-indicators">-->
-        <!--                    <button type="button" data-bs-target="#my-carousel" data-bs-slide-to="0"-->
-        <!--                            class="active" aria-current="true" aria-label="Slide 1"></button>-->
-        <!--                    <button type="button" data-bs-target="#my-carousel" data-bs-slide-to="1"-->
-        <!--                            aria-label="Slide 2"></button>-->
-        <!--                    <button type="button" data-bs-target="#my-carousel" data-bs-slide-to="2"-->
-        <!--                            aria-label="Slide 3"></button>-->
-        <!--                </div>-->
-        <!--                <div class="carousel-inner">-->
-        <!--                    <a class="carousel-item active" href="#">-->
-        <!--                        <img src="https://cf.shopee.vn/file/vn-50009109-727a24a85a60935da5ccb9008298f681"-->
-        <!--                             class="d-block w-100" alt="...">-->
-        <!--                    </a>-->
-        <!--                    <a class="carousel-item" href="#">-->
-        <!--                        <img src="https://cf.shopee.vn/file/vn-11134258-7ras8-m0tqhapoxr4f2e"-->
-        <!--                             class="d-block w-100" alt="...">-->
-        <!--                    </a>-->
-        <!--                    <a class="carousel-item" href="#">-->
-        <!--                        <img src="https://cf.shopee.vn/file/vn-11134258-7ras8-m1w3weeevec38f" class="d-block w-100"-->
-        <!--                             alt="...">-->
-        <!--                    </a>-->
-        <!--                </div>-->
-        <!--                <button class="carousel-control-prev" type="button" data-bs-target="#my-carousel"-->
-        <!--                        data-bs-slide="prev">-->
-        <!--                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
-        <!--                    <span class="visually-hidden">Previous</span>-->
-        <!--                </button>-->
-        <!--                <button class="carousel-control-next" type="button" data-bs-target="#my-carousel"-->
-        <!--                        data-bs-slide="next">-->
-        <!--                    <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
-        <!--                    <span class="visually-hidden">Next</span>-->
-        <!--                </button>-->
-        <!--            </div>-->
-        <!--        </div>-->
-
-        <!-------------------- Products -------------------->
-        <div class="row mt-4">
-            <!-------------------- Product Filter -------------------->
-            <div class="col-lg-2 d-flex flex-column gap-3 pe-3">
-                <div class="ms-1 ms-lg-0">
-                    <div class="gap-2" role="button" id="triggerCategory" data-bs-toggle="collapse"
-                         data-bs-target="#collapseCategory">
-                        <div class="d-flex align-items-center gap-2">
-                            <div class="custom-icon d-lg-none">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                     class="bi bi-chevron-right" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                          d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
-                                </svg>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                     class="bi bi-chevron-down hide" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                          d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
-                                </svg>
-                            </div>
-                            <h5 class="m-0 lh-sm">Danh Mục</h5>
-                        </div>
-                    </div>
-                    <div class="collapse d-lg-block" id="collapseCategory">
-                        <hr>
-                        <div class="d-flex align-items-center mb-2  ms-3" style="transform: translateX(-1rem)">
-                            <div class="custom-icon pe-1"
-                                 style="--size: 0.8rem;">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                     fill="var(--custom-bg-primary)"
-                                     class="bi bi-caret-right-fill" viewBox="0 0 16 16">
-                                    <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
-                                </svg>
-                            </div>
-                            <a href="#" class="text-decoration-none custom-text-primary fw-bold">Ví Da</a>
-                        </div>
-                        <ul class="d-grid gap-2 list-unstyled ms-3 ">
-                            <li><a href="#" class="text-decoration-none text-black">Áo Khoác Da</a></li>
-                            <li><a href="#" class="text-decoration-none text-black">Găng Tay Da</a></li>
-                            <li><a href="#" class="text-decoration-none text-black">Ví Da</a></li>
-                            <li><a href="#" class="text-decoration-none text-black">Thắt Lưng Da</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="ms-1 ms-lg-0">
-                    <div class="gap-2" role="button" id="triggerPriceRange" data-bs-toggle="collapse"
-                         data-bs-target="#collapsePriceRange">
-                        <div class="d-flex align-items-center gap-2">
-                            <div class="custom-icon d-lg-none">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                     class="bi bi-chevron-right" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                          d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
-                                </svg>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                     class="bi bi-chevron-down hide" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                          d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
-                                </svg>
-                            </div>
-                            <h5 class="m-0 lh-sm">Mức Giá</h5>
-                        </div>
-                    </div>
-                    <div class="collapse d-lg-block" id="collapsePriceRange">
-                        <hr>
-                        <div class="d-flex align-items-center gap-1">
-                            <span>Từ</span>
-                            <input type="number" class="form-control px-1">
-                            <span>Đến</span>
-                            <input type="number" class="form-control px-0">
-                        </div>
-                        <button class="btn custom-btn-primary rounded-0 w-100 text-uppercase mt-3">Áp dụng</button>
-                    </div>
-                </div>
-            </div>
-
-            <!------------------- Products List -------------------->
-
-            <div class="col">
-                <div class="d-flex align-items-center p-4 mb-2" style="height: 50px; background-color: #eee">
-                    <span class="me-3 fw-semibold">Sắp Xếp Theo</span>
-                    <div class="d-flex gap-3">
-                        <button class="btn custom-btn-primary">Phổ Biến</button>
-                        <button class="btn custom-btn-primary bg-white text-black">Mới Nhất</button>
-                        <button class="btn custom-btn-primary bg-white text-black">Bán Chạy</button>
-                    </div>
-                    <div class="dropdown ms-3">
-                        <button class="btn bg-white dropdown-toggle" type="button" id="dropdownMenuButton"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                            Giá
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="#">Giá: Tăng Dần</a></li>
-                            <li><a class="dropdown-item" href="#">Giá: Giảm Dần</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <ul id="products-list" class="list-unstyled row">
-                    <li class="p-2">
-                        <a href="product-details.html" class="text-decoration-none" draggable="false">
-                            <div class="card product-card rounded-0 p-0 position-relative">
-                                <div class="discount d-flex position-absolute end-0 z-1 m-2" style="--height: 1.5rem;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                         style="height: var(--height); margin-right: -1px">
-                                        <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                              stroke="#F69113"
-                                              fill="#F69113">
-                                        </path>
+        <!-- Products Section -->
+        <div class="container">
+            <div class="row">
+                <!-- Product Filter -->
+                <div class="col-12 d-flex flex-column gap-3">
+                    <!-- Danh muc -->
+                    <div class="ms-1 ms-lg-0">
+                        <div class="gap-2" role="button" id="triggerCategory" data-bs-toggle="collapse"
+                             data-bs-target="#collapseCategory">
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="custom-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                              d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
                                     </svg>
-                                    <span class="[ product_discount ] text-white px-1"
-                                          style="background-color: #F69113;">Giảm 27%</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
-                                         style="height: var(--height); transform: rotate(180deg); margin-left: -1px">
-                                        <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                              stroke="#F69113"
-                                              fill="#F69113">
-                                        </path>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-chevron-down hide" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                              d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
                                     </svg>
                                 </div>
-                                <div class="ratio ratio-1x1 overflow-hidden">
-                                    <img src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
-                                         class="[ product_img ] card-img-top rounded-0 bg-secondary" draggable="false" alt="product image"
-                                         style="object-fit: cover">
+                                <h5 class="m-0 lh-sm">Danh Mục</h5>
+                            </div>
+                        </div>
+                        <div class="collapse" id="collapseCategory">
+                            <hr>
+                            <div class="d-flex align-items-center mb-2 ms-3" style="transform: translateX(-1rem)">
+                                <div class="custom-icon pe-1"
+                                     style="--size: 0.8rem;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                         fill="var(--custom-bg-primary)"
+                                         class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                                        <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                                    </svg>
                                 </div>
-                                <div class="card-body pt-1 d-flex flex-column">
-                                    <div class="card-title line-clamp mb-0">
-                                        <span class="[ product_badge ] badge text-bg-success">NEW</span>
-                                        <span class="[ product_name ]"> Ví gấp nam da cá sấu V7068</span>
+                                <a href="#" class="text-decoration-none custom-text-primary fw-bold">Ví Da</a>
+                            </div>
+                            <ul class="d-grid gap-2 list-unstyled ms-3 mb-2">
+                                <li><a href="#" class="text-decoration-none text-black">Áo Khoác Da</a></li>
+                                <li><a href="#" class="text-decoration-none text-black">Găng Tay Da</a></li>
+                                <li><a href="#" class="text-decoration-none text-black">Ví Da</a></li>
+                                <li><a href="#" class="text-decoration-none text-black">Thắt Lưng Da</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Muc gia -->
+                    <div class="ms-1 ms-lg-0">
+                        <div class="gap-2" role="button" id="triggerPriceRange" data-bs-toggle="collapse"
+                             data-bs-target="#collapsePriceRange">
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="custom-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                              d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
+                                    </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-chevron-down hide" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                              d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+                                    </svg>
+                                </div>
+                                <h5 class="m-0 lh-sm">Mức Giá</h5>
+                            </div>
+                        </div>
+                        <form class="collapse" id="collapsePriceRange">
+                            <hr>
+                            <div class="d-flex gap-1">
+                                <div class="col">
+                                    <div class="form-check">
+                                        <input id="filter-tat-ca" class="form-check-input" type="checkbox" checked>
+                                        <label for="filter-tat-ca" class="form-check-label">Tất cả</label>
                                     </div>
-                                    <div class="d-flex gap-1 custom-text-primary mt-2">
-                                        <span><span class="[ product_price ] fs-5">1.100.000</span><sup class="[ vnd-currency ] fs-6">₫</sup></span>
-                                        <span class="text-secondary text-decoration-line-through ms-2"><span class="[ product_base_price ]">1.500.000</span><sup>₫</sup></span>
+                                    <div class="form-check">
+                                        <input id="filter-duoi-500k" class="form-check-input" type="checkbox">
+                                        <label for="filter-duoi-500k" class="form-check-label">Dưới 500.000₫</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input id="filter-500k-1tr500" class="form-check-input" type="checkbox">
+                                        <label for="filter-500k-1tr500" class="form-check-label">500.000₫ -
+                                            1.500.000₫</label>
                                     </div>
                                 </div>
-                            </div>                        </a>
-                    </li> <!-- Ví da -->
-                    <!-- Test data -->
-                    <li class="p-2">
-                        <a class="product_card_template" href="https://www.gento.vn/wp-content/uploads/2024/06/tui-cam-tay-da-bo3.jpg"
-                           data-json='{
+                                <div class="col">
+                                    <div class="form-check">
+                                        <input id="filter-1tr500-3tr" class="form-check-input" type="checkbox">
+                                        <label for="filter-1tr500-3tr" class="form-check-label">1.500.000₫ -
+                                            3.000.000₫</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input id="filter-3tr-5tr" class="form-check-input" type="checkbox">
+                                        <label for="filter-3tr-5tr" class="form-check-label">3.000.000₫ -
+                                            5.000.000₫</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input id="filter-tren-5tr" class="form-check-input" type="checkbox">
+                                        <label for="filter-tren-5tr" class="form-check-label">Trên 5.000.000₫</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn custom-btn-primary rounded-0 w-100 text-uppercase mt-3">Áp dụng</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Products Container -->
+                <div class="col-12 mt-4">
+                    <!-- Sort bar -->
+                    <div class="d-flex align-items-center p-4 mb-2" style="height: 50px; background-color: #eee">
+                        <span class="me-3 fw-semibold">Sắp Xếp Theo</span>
+                        <div class="d-flex gap-3">
+                            <button class="btn custom-btn-primary">Mặc định</button>
+                            <button class="btn custom-btn-primary bg-white text-black">Mới Nhất</button>
+                            <button class="btn custom-btn-primary bg-white text-black">Bán Chạy</button>
+                        </div>
+                        <div class="dropdown ms-3">
+                            <button class="btn bg-white dropdown-toggle" type="button" id="dropdownMenuButton"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                Giá
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li><a class="dropdown-item" href="#">Giá: Tăng Dần</a></li>
+                                <li><a class="dropdown-item" href="#">Giá: Giảm Dần</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Product list -->
+                    <ul id="products-list" class="list-unstyled row">
+                        <li class="p-2">
+                            <a class="product_card_template" href="product-details.html"
+                               data-json='{
+                                "img": "https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg",
+                                "name": "Ví gấp nam da cá sấu V7068",
+                                "price": "1.100.000",
+                                "basePrice": "1.500.000",
+                                "discount": "Giảm 27%",
+                                "badge": "NEW"
+                                }'>
+                            </a>
+                        </li>
+
+                        <li class="p-2">
+                            <a class="product_card_template"
+                               href="https://www.gento.vn/wp-content/uploads/2024/06/tui-cam-tay-da-bo3.jpg"
+                               data-json='{
                                 "img": "https://www.gento.vn/wp-content/uploads/2024/06/tui-cam-tay-da-bo3.jpg",
                                 "name": "Ví cầm tay nam da bò dập vân cá sấu V7065",
-                                "price": "1,350,000",
-                                "basePrice": "1,700,000",
+                                "price": "1.350.000",
+                                "basePrice": "1.700.000",
                                 "discount": "Giảm 21%",
                                 "badge": "NEW"
                                 }'>
-                        </a>
-                    </li>
-                    <li class="p-2">
-                        <a class="product_card_template" href="https://www.gento.vn/wp-content/uploads/2021/10/vi-cam-tay-da-ca-sau-gs9825.jpeg"
-                             data-json='{
-                                    "img": "https://www.gento.vn/wp-content/uploads/2021/10/vi-cam-tay-da-ca-sau-gs9825.jpeg",
-                                    "name": "Ví cầm tay da cá sấu cao cấp GS982 Nâu",
-                                    "price": "1,300,000",
-                                    "basePrice": "1,900,000",
-                                    "discount": "Giảm 32%",
-                                    "badge": "NEW"
-                                    }'>
-                        </a>
-                    </li>
-                    <li class="p-2">
-                        <a class="product_card_template" href="https://www.gento.vn/wp-content/uploads/2023/11/vi-da-ca-sau-nam-cao-cap10.jpg"
-                             data-json='{
-                                    "img": "https://www.gento.vn/wp-content/uploads/2023/11/vi-da-ca-sau-nam-cao-cap10.jpg",
-                                    "name": "Ví cầm tay nam da cá sấu cao cấp Gento GS985",
-                                    "price": "1,950,000",
-                                    "basePrice": "2,350,000",
-                                    "discount": "Giảm 17%",
-                                    "badge": "NEW"
-                                    }'>
-                        </a>
-                    </li>
-                </ul>
-                <ul class="pagination pagination-lg justify-content-center m-5">
-                    <li class="page-item disabled"><a class="page-link" href="#"><</a></li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">></a></li>
-                </ul>
+                            </a>
+                        </li>
+
+                        <li class="p-2">
+                            <a class="product_card_template"
+                               href="https://www.gento.vn/wp-content/uploads/2021/10/vi-cam-tay-da-ca-sau-gs9825.jpeg"
+                               data-json='{
+                                "img": "https://www.gento.vn/wp-content/uploads/2021/10/vi-cam-tay-da-ca-sau-gs9825.jpeg",
+                                "name": "Ví cầm tay da cá sấu cao cấp GS982 Nâu",
+                                "price": "1.300.000",
+                                "basePrice": "1.900.000",
+                                "discount": "Giảm 32%",
+                                "badge": "NEW"
+                                }'>
+                            </a>
+                        </li>
+
+                        <li class="p-2">
+                            <a class="product_card_template"
+                               href="https://www.gento.vn/wp-content/uploads/2023/11/vi-da-ca-sau-nam-cao-cap10.jpg"
+                               data-json='{
+                                "img": "https://www.gento.vn/wp-content/uploads/2023/11/vi-da-ca-sau-nam-cao-cap10.jpg",
+                                "name": "Ví cầm tay nam da cá sấu cao cấp Gento GS985",
+                                "price": "1.950.000",
+                                "basePrice": "2.350.000",
+                                "discount": "Giảm 17%",
+                                "badge": "NEW"
+                                }'>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
+
+        <!-- Pagination-->
+        <div class="container">
+            <ul class="pagination pagination-lg justify-content-center m-5">
+                <li class="page-item disabled"><a class="page-link" href="#"><</a></li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="FOOTER">
+        <script>
+            $('#FOOTER').load('/includes/footer.html')
+        </script>
     </div>
 </div>
+<script src="/assets/js/loadProductCards.js"></script>
 </body>
 </html>

@@ -18,6 +18,10 @@
     /*line-height: 2;*/
 }
 
+html {
+    overflow-y: scroll;
+}
+
 .custom-text-primary {
     color: var(--custom-bg-primary);
 }
@@ -48,7 +52,7 @@
     }
 }
 
-.line-clamp {
+.line-clamp-2 {
     --line: 2;
     display: -webkit-box;
     -webkit-line-clamp: var(--line);
@@ -56,6 +60,16 @@
     overflow: hidden;
     line-height: 1.5;
     height: 3em;
+    padding-bottom: 0.15rem
+}
+
+.line-clamp-1 {
+    --line: 1;
+    height: 1.3rem;
+    display: -webkit-box;
+    -webkit-line-clamp: var(--line);
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 input::-webkit-outer-spin-button,
