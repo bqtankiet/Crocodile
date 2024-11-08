@@ -45,10 +45,10 @@
         margin-top: 0; /* remove the gap so it doesn't close */
     }
 
-    header .dropdown-menu .dropdown-item
-    {
+    header .dropdown-menu .dropdown-item {
         background-color: transparent;
     }
+
     header .dropdown-menu .dropdown-item:hover {
         color: var(--custom-bg-primary);
     }
@@ -81,7 +81,8 @@
             </form>
             <!-- Account, Cart -->
             <div class="d-flex justify-content-end lh-1 text-nowrap col-3 ms-auto gap-md-3 order-lg-2">
-                <a href="login.html" class="text-decoration-none text-black">
+                <a href="login.html" class="text-decoration-none text-black position-relative">
+                    <!--                    <span class="badge text-bg-danger position-absolute translate-middle rounded-pill">10+</span>-->
                     <div class="d-flex align-items-center justify-content-end">
                         <div class="custom-icon" style="--size: 2rem">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -97,17 +98,21 @@
                         </div>
                     </div>
                 </a>
-                <a href="#" class="text-decoration-none text-black">
+                <a id="cart-toggle" class="text-decoration-none text-black position-relative" href="#offcanvasRight" role="button"
+                   data-bs-toggle="offcanvas">
+                    <span class="badge text-bg-danger position-absolute translate-middle rounded-pill">1</span>
+
                     <div class="d-flex align-items-center justify-content-end">
                         <div class="custom-icon" style="--size: 2rem">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-cart2" viewBox="0 0 16 16">
-                                <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
+                                 class="bi bi-bag" viewBox="0 0 16 16">
+                                <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
                             </svg>
                         </div>
                         <div class="ps-2">
                             <div class="small pb-1">Giỏ hàng</div>
-                            <div class="pb-1 fw-semibold text-truncate" style="width: 10ch">0<span>₫</span></div>
+                            <div class="pb-1 fw-semibold text-truncate" style="width: 10ch">1.100.000<span>₫</span>
+                            </div>
                         </div>
                     </div>
                 </a>
@@ -132,7 +137,8 @@
                             </a>
                         </li>
                         <li class="nav-item position-relative dropdown">
-                            <a href="#" class="nav-link products-page dropdown-toggle" data-bs-toggle="dropdown" role="button">
+                            <a href="#" class="nav-link products-page dropdown-toggle" data-bs-toggle="dropdown"
+                               role="button">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-briefcase" viewBox="0 0 16 16">
                                     <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5m1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0M1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5"/>
@@ -146,7 +152,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link contact-page">
+                            <a href="contact.html" class="nav-link contact-page">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-headset" viewBox="0 0 16 16">
                                     <path d="M8 1a5 5 0 0 0-5 5v1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a6 6 0 1 1 12 0v6a2.5 2.5 0 0 1-2.5 2.5H9.366a1 1 0 0 1-.866.5h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 .866.5H11.5A1.5 1.5 0 0 0 13 12h-1a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h1V6a5 5 0 0 0-5-5"/>
@@ -170,4 +176,54 @@
         </div>
         <hr>
     </div>
+
+    <!--  Offcanvas Gio Hang  -->
+    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasRight">
+        <div class="offcanvas-header">
+            <div class="custom-icon me-1 position-relative" style="--size: 2rem">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-bag" viewBox="0 0 16 16">
+                    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
+                </svg>
+            </div>
+            <h5 class="offcanvas-title fw-bold text-uppercase" id="offcanvasRightLabel">Giỏ hàng</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column gap-3">
+            <div class="border-bottom pb-3">
+                <div class="row g-0">
+                    <div class="col-2 me-3 position-relative">
+                        <span class="position-absolute top-0 start-100 z-1 translate-middle badge rounded-pill bg-danger">
+                            1
+                        </span>
+                        <div class="ratio ratio-1x1">
+                            <img src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
+                                 class="img-fluid border rounded-2" alt="">
+                        </div>
+                    </div>
+                    <div class="col lh-1 my-auto">
+                        <div class="w-100">
+                            <div class="d-flex align-items-center">
+                                <div class="me-2">
+                                    <p class="fw-semibold mb-0 line-clamp-2" style="height: fit-content ;max-height: 2.5rem; line-height: 1.2">
+                                        Ví gấp nam da cá sấu V7068
+                                    </p>
+                                    <p class="text-muted mt-1 mb-0">Da trơn</p>
+                                </div>
+                                <div class="ms-auto fw-medium fs-6">1.100.000<sup>₫</sup></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-3">
+            <div class="d-flex gap-2 fw-bold">
+                <p>Tổng:</p>
+                <p>1.100.000<sup>₫</sup></p>
+            </div>
+            <a href="../pages/cart-details.html" class="btn custom-btn-primary mt-auto w-100 py-2 fw-medium">Xem chi tiết</a>
+        </div>
+    </div>
+
 </header>
