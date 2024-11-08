@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin tài khoản</title>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="/public/bootstrap/css/bootstrap.css">
+    <script src="/public/bootstrap/js/bootstrap.js"></script>
+    <!-- jquery -->
+    <script src="/public/jquery-3.7.1.min.js"></script>
+    <!-- css -->
+    <link rel="stylesheet" href="/layouts/layout.css">
+    <!-- js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<style>
+    body {
+        background: #f5f5f5;
+        margin-top: 20px;
+    }
+
+    .ui-w-80 {
+        width: 80px !important;
+        height: auto;
+    }
+
+    .btn-default {
+        border-color: rgba(24, 28, 33, 0.1);
+        background: rgba(0, 0, 0, 0);
+        color: #4E5155;
+    }
+
+    label.btn {
+        margin-bottom: 0;
+    }
+
+    .btn-outline-primary {
+        border-color: #26B4FF;
+        background: transparent;
+        color: #26B4FF;
+    }
+
+    .btn {
+        cursor: pointer;
+    }
+
+    .text-light {
+        color: #babbbc !important;
+    }
+
+    .btn-facebook {
+        border-color: rgba(0, 0, 0, 0);
+        background: #3B5998;
+        color: #fff;
+    }
+
+    .btn-instagram {
+        border-color: rgba(0, 0, 0, 0);
+        background: #000;
+        color: #fff;
+    }
+
+    .card {
+        background-clip: padding-box;
+        box-shadow: 0 1px 4px rgba(24, 28, 33, 0.012);
+    }
+
+    .row-bordered {
+        overflow: hidden;
+    }
+
+    .account-settings-fileinput {
+        position: absolute;
+        visibility: hidden;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+    }
+
+    .account-settings-links .list-group-item.active {
+        font-weight: bold !important;
+    }
+
+    html:not(.dark-style) .account-settings-links .list-group-item.active {
+        background: transparent !important;
+    }
+
+    .account-settings-multiselect ~ .select2-container {
+        width: 100% !important;
+    }
+
+    .light-style .account-settings-links .list-group-item {
+        padding: 0.85rem 1.5rem;
+        border-color: rgba(24, 28, 33, 0.03) !important;
+    }
+
+    .light-style .account-settings-links .list-group-item.active {
+        color: #4e5155 !important;
+    }
+
+    .material-style .account-settings-links .list-group-item {
+        padding: 0.85rem 1.5rem;
+        border-color: rgba(24, 28, 33, 0.03) !important;
+    }
+
+    .material-style .account-settings-links .list-group-item.active {
+        color: #4e5155 !important;
+    }
+
+    .dark-style .account-settings-links .list-group-item {
+        padding: 0.85rem 1.5rem;
+        border-color: rgba(255, 255, 255, 0.03) !important;
+    }
+
+    .dark-style .account-settings-links .list-group-item.active {
+        color: #fff !important;
+    }
+
+    .light-style .account-settings-links .list-group-item.active {
+        color: #4E5155 !important;
+    }
+
+    .light-style .account-settings-links .list-group-item {
+        padding: 0.85rem 1.5rem;
+        border-color: rgba(24, 28, 33, 0.03) !important;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+
+</style>
+<body>
+<div class="container light-style flex-grow-1 container-p-y">
+    <h4 class="font-weight-bold py-3 mb-4">Tài Khoản</h4>
+    <div>
+        <div class="row no-gutters row-bordered row-border-light">
+            <div class="col-md-3 pt-0">
+                <div class="list-group list-group-flush account-settings-links">
+                    <a class="list-group-item list-group-item-action active" data-toggle="tab" href="#account-general">Hồ
+                        Sơ</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="tab"
+                       href="#account-change-password">Đổi Mật Khẩu</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="tab" href="#account-info">Thông
+                        Tin</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="tab" href="#account-address">Địa
+                        Chỉ</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="tab" href="#account-purchase-order">Đơn
+                        Mua</a>
+                </div>
+                <div class="text-right mt-3">
+                    <button type="button" class="btn btn-primary">Save changes</button>&nbsp;
+                    <button type="button" class="btn btn-default">Cancel</button>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="tab-content">
+                    <div class="tab-pane fade active show" id="account-general">
+                        <div class="card-body media align-items-center">
+                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""
+                                 class="d-block ui-w-80">
+                            <div class="media-body ml-4">
+                                <label class="btn btn-outline-primary">
+                                    Tải ảnh lên
+                                    <input type="file" class="account-settings-fileinput">
+                                </label> &nbsp;
+                                <button type="button" class="btn btn-default md-btn-flat">Cài lại</button>
+                                <div class="text-light small mt-1">Cho phép lên file có dạng JPG, GIF hoặc PNG. kích
+                                    thước tối đa 2MB
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="border-light m-0">
+                        <div class="card-body">
+                            <div class="form-group ">
+                                <label class="form-label">Tên Người Dùng</label>
+                                <input type="text" class="form-control mb-1" value="anhkietlk123">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Tên</label>
+                                <input type="text" class="form-control" value="Anh Kiệt">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+                                <input type="text" class="form-control mb-1" value="22130133@st.hcmuaf.edu.vn">
+                                <div class="alert alert-warning mt-3">
+                                    Email của bạn chưa được xác minh. Vui lòng kiểm tra hộp thư.<br>
+                                    <a href="javascript:void(0)">Gửi lại thư xác minh.</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="account-change-password">
+                        <div class="card-body pb-2">
+                            <div class="form-group">
+                                <label class="form-label">Mật Khẩu Hiện Tại</label>
+                                <input type="password" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Mật Khẩu Mới</label>
+                                <input type="password" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Nhập lại Mật Khẩu Mới</label>
+                                <input type="password" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="account-info">
+                        <div class="card-body pb-2">
+                            <div class="form-group">
+                                <label class="form-label">Tiểu Sử</label>
+                                <textarea class="form-control" rows="5">
+                                    .</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Ngày Sinh</label>
+                                <div class="d-flex gap-4 mb-1">
+                                    <select class="form-select-sm " id="day"></select>
+                                    <select class="form-select-sm " id="month"></select>
+                                    <select class="form-select-sm " id="year"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="border-light m-0">
+                        <div class="card-body pb-2">
+                            <h6 class="mb-4">Contacts</h6>
+                            <div class="form-group">
+                                <label class="form-label">Phone</label>
+                                <input type="text" class="form-control" value="+84 123 456 7891">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Website</label>
+                                <input type="text" class="form-control" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="account-address">
+                        <div class="card-body pb-2">
+                            <div class="form-group">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <label class="form-label">Địa Chỉ Của Tôi</label>
+                                    <a href="#newAddress" class="btn btn-danger btn-sm mb-3" data-toggle="tab">+ Thêm
+                                        địa chỉ mới</a>
+                                </div>
+                                <div style="height: 1px; background-color: #dbdbdb; width: 100%"></div>
+                            </div>
+                        </div>
+                        <hr class="border-light m-0">
+                        <div class="card-body pb-2">
+                            <h6 class="mb-4">Địa Chỉ</h6>
+                            <div id="addressList">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade hidden" id="newAddress">
+                        <div class="card shadow p-3" style="width: 50rem; height: 100%">
+                            <h5>Nhập địa chỉ mới</h5>
+                            <div class="form-group">
+                                <label for="name">Họ và Tên</label>
+                                <input type="text" class="form-control" id="name" placeholder="Nhập họ và tên">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">SĐT</label>
+                                <input type="text" class="form-control" id="phone" placeholder="Nhập số điện thoại">
+                            </div>
+                            <div class="form-group">
+                                <label for="city">Tỉnh/Thành phố</label>
+                                <input type="text" class="form-control" id="city" placeholder="Nhập tỉnh/thành phố">
+                            </div>
+                            <div class="form-group">
+                                <label for="district">Quận/Huyện</label>
+                                <input type="text" class="form-control" id="district" placeholder="Nhập quận/huyện">
+                            </div>
+                            <div class="form-group">
+                                <label for="ward">Phường/Xã</label>
+                                <input type="text" class="form-control" id="ward" placeholder="Nhập phường/xã">
+                            </div>
+                            <div class="form-group">
+                                <label for="ward">Địa Chỉ</label>
+                                <input type="text" class="form-control" id="SoNha" placeholder="Nhập Địa chỉ cụ thể">
+                            </div>
+                            <div class="form-group d-flex justify-content-between align-items-center mt-2 mb-2">
+                                <button type="button" onclick="addNewAddress()" class="btn btn-success">Hoàn thành
+                                </button>
+                                <button type="button" onclick="cancelAddress()" class="btn btn-secondary">Quay lại
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade hidden" id="editAddress">
+                        <div class="card shadow p-3" style="width: 50rem; height: 100%">
+                            <h5>Cập nhật địa chỉ</h5>
+                            <form>
+                                <div class="mb-3">
+                                    <label for="editName" class="form-label">Họ và tên</label>
+                                    <input type="text" class="form-control" id="editName" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editPhone" class="form-label">SĐT</label>
+                                    <input type="text" class="form-control" id="editPhone" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editCity" class="form-label">Tỉnh/Thành phố</label>
+                                    <input type="text" class="form-control" id="editCity" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editDistrict" class="form-label">Quận/Huyện</label>
+                                    <input type="text" class="form-control" id="editDistrict" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editWard" class="form-label">Phường/Xã</label>
+                                    <input type="text" class="form-control" id="editWard" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="editSoNha">Địa Chỉ</label>
+                                    <input type="text" class="form-control" id="editSoNha"
+                                           placeholder="Nhập Địa chỉ cụ thể" required>
+                                </div>
+                                <button type="button" class="btn btn-primary" onclick="saveUpdatedAddress()">Lưu
+                                </button>
+                                <button type="button" class="btn btn-secondary" onclick="cancelEditAddress()">Hủy
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+<script>
+    const daySelect = document.getElementById('day');
+    for (let day = 1; day <= 31; day++) {
+        const option = document.createElement('option');
+        option.value = day;
+        option.textContent = day;
+        daySelect.appendChild(option);
+    }
+
+    // Tạo tùy chọn tháng
+    const monthSelect = document.getElementById('month');
+    for (let month = 1; month <= 12; month++) {
+        const option = document.createElement('option');
+        option.value = month;
+        option.textContent = `Tháng ${month}`;
+        monthSelect.appendChild(option);
+    }
+
+
+    // Tạo tùy chọn năm
+    const yearSelect = document.getElementById('year');
+    const currentYear = new Date().getFullYear();
+    for (let year = 1950; year <= currentYear; year++) {
+        const option = document.createElement('option');
+        option.value = year;
+        option.textContent = year;
+        yearSelect.appendChild(option);
+    }
+
+
+</script>
+<script>
+    // Hàm thêm địa chỉ mới
+    function addNewAddress() {
+        const name = document.getElementById("name").value;
+        const phone = document.getElementById("phone").value;
+        const city = document.getElementById("city").value;
+        const district = document.getElementById("district").value;
+        const ward = document.getElementById("ward").value;
+        const diachi = document.getElementById("SoNha").value;
+
+        if (!name || !phone || !city || !district || !ward || !diachi) {
+            alert("Vui lòng điền đầy đủ thông tin.");
+            return;
+        }
+
+        const newAddress = `
+    <div class="card address-card p-3 mb-3">
+        <p><strong>${name}</strong> <span class="text-muted">${phone}</span></p>
+        <p>${ward}, ${district}</p>
+        <p>${city}</p>
+        <p class="address-specific">${diachi}</p>
+        <button class="btn btn-warning btn-sm edit-btn">Chỉnh sửa</button>
+    </div>
+    `;
+
+        document.getElementById("addressList").insertAdjacentHTML("beforeend", newAddress);
+
+        document.getElementById("name").value = "";
+        document.getElementById("phone").value = "";
+        document.getElementById("city").value = "";
+        document.getElementById("district").value = "";
+        document.getElementById("ward").value = "";
+        document.getElementById("SoNha").value = "";
+
+        document.getElementById("newAddress").classList.remove("show", "active");
+        document.querySelector('[href="#account-address"]').classList.add("active");
+        document.getElementById("account-address").classList.add("show", "active");
+
+        addEditEventListeners();
+    }
+
+    function addEditEventListeners() {
+        const editButtons = document.querySelectorAll('.edit-btn');
+        editButtons.forEach(button => {
+            button.removeEventListener('click', editAddressClickHandler);
+            button.addEventListener('click', editAddressClickHandler);
+        });
+    }
+
+    function editAddressClickHandler(event) {
+        const addressCard = event.target.closest('.address-card');
+        editAddressFromCard(addressCard);
+    }
+ // hàm edit địac chỉ
+    function editAddressFromCard(addressCard) {
+        if (!addressCard) {
+            alert("Không tìm thấy địa chỉ để chỉnh sửa.");
+            return;
+        }
+
+        const name = addressCard.querySelector('strong').textContent;
+        const phone = addressCard.querySelector('.text-muted').textContent.trim();
+        const ward = addressCard.querySelector('p:nth-child(2)').textContent.split(',')[0];
+        const district = addressCard.querySelector('p:nth-child(2)').textContent.split(',')[1];
+        const city = addressCard.querySelector('p:nth-child(3)').textContent;
+        const address = addressCard.querySelector('.address-specific').textContent;
+
+        document.getElementById("editName").value = name;
+        document.getElementById("editPhone").value = phone;
+        document.getElementById("editCity").value = city;
+        document.getElementById("editDistrict").value = district;
+        document.getElementById("editWard").value = ward;
+        document.getElementById("editSoNha").value = address;
+
+        document.getElementById("editAddress").classList.add("show", "active");
+        document.getElementById("account-address").classList.remove("show", "active");
+        document.querySelector('[href="#editAddress"]').classList.add("active");
+        document.querySelector('[href="#account-address"]').classList.remove("active");
+
+        addressCard.classList.add("editing");
+    }
+
+    // Hàm lưu địa chỉ đã chỉnh sửa
+    function saveUpdatedAddress() {
+        const name = document.getElementById("editName").value;
+        const phone = document.getElementById("editPhone").value;
+        const city = document.getElementById("editCity").value;
+        const district = document.getElementById("editDistrict").value;
+        const ward = document.getElementById("editWard").value;
+        const address = document.getElementById("editSoNha").value;
+
+        if (!name || !phone || !city || !district || !ward || !address) {
+            alert("Vui lòng điền đầy đủ thông tin.");
+            return;
+        }
+
+        const addressCard = document.querySelector(".editing");
+        if (!addressCard) {
+            alert("Không tìm thấy địa chỉ để chỉnh sửa.");
+            return;
+        }
+
+        addressCard.querySelector('strong').textContent = name;
+        addressCard.querySelector('.text-muted').textContent = phone;
+        addressCard.querySelector('p:nth-child(2)').textContent = `${ward}, ${district}`;
+        addressCard.querySelector('p:nth-child(3)').textContent = city;
+        addressCard.querySelector('.address-specific').textContent = address;
+
+        document.getElementById("editAddress").classList.remove("show", "active");
+        document.getElementById("account-address").classList.add("show", "active");
+        document.querySelector('[href="#account-address"]').classList.add("active");
+        document.querySelector('[href="#editAddress"]').classList.remove("active");
+
+        addressCard.classList.remove("editing");
+    }
+
+
+    function cancelEditAddress() {
+        document.getElementById("editAddress").classList.remove("show", "active");
+        document.getElementById("account-address").classList.add("show", "active");
+        document.querySelector('[href="#account-address"]').classList.add("active");
+        document.querySelector('[href="#editAddress"]').classList.remove("active");
+
+        document.getElementById("editName").value = "";
+        document.getElementById("editPhone").value = "";
+        document.getElementById("editCity").value = "";
+        document.getElementById("editDistrict").value = "";
+        document.getElementById("editWard").value = "";
+    }
+
+</script>
+
+</html>

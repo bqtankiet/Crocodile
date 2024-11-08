@@ -186,14 +186,29 @@
     }
 
     document.querySelector('button[type="submit"]').addEventListener('click', function (event) {
-        event.preventDefault(); // Prevent form submission for testing purposes
 
-        const passwordInput = document.getElementById('password');
+        // Lấy giá trị của các trường input
+        const name = document.getElementById('name').value.trim();
+        const lastname = document.getElementById('lastname').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value.trim();
         const requirementsDiv = document.getElementById('password-requirements');
-        const password = passwordInput.value;
-        let requirements = [];
 
-        // Check password requirements only on button click
+        // Kiểm tra xem các trường bắt buộc đã được nhập chưa
+        if (!name || !lastname || !email) {
+            alert("Vui lòng điền đầy đủ tất cả các trường!");
+            return;
+        }
+
+        // Kiểm tra xem giới tính đã được chọn chưa
+        const gender = document.querySelector('input[name="gender"]:checked');
+        if (!gender) {
+            alert("Vui lòng chọn giới tính!");
+            return;
+        }
+
+        // Kiểm tra yêu cầu mật khẩu
+        let requirements = [];
         if (password.length < 8) {
             requirements.push('Mật khẩu phải ít nhất 8 ký tự');
         }
@@ -207,15 +222,17 @@
             requirements.push('và có ký tự đặc biệt');
         }
 
-        // Display requirements if there are any unmet
+        // Hiển thị yêu cầu mật khẩu nếu không đạt
         if (requirements.length > 0) {
             requirementsDiv.innerHTML = requirements.join(', ');
-            requirementsDiv.style.display = 'block'; // Ensure the requirements message is shown
+            requirementsDiv.style.display = 'block'; // Hiển thị thông báo yêu cầu mật khẩu
+            return;
         } else {
             requirementsDiv.style.display = 'none';
-            // If the password meets all criteria, submit the form here
-            // document.querySelector('form').submit(); // Uncomment for actual submission
         }
+
+        // Nếu tất cả điều kiện đều đạt, chuyển hướng đến trang home.html
+        window.location.href = 'home.html';
     });
 
 </script>
