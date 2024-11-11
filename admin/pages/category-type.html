@@ -22,7 +22,7 @@
     <!-- Core CSS -->
     <link rel="stylesheet" href="/admin/assets/vendor/css/core.css" class="template-customizer-core-css" />
     <link rel="stylesheet" href="/admin/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="/admin/assets/css/demo.css"/>
+    <link rel="stylesheet" href="/admin/assets/css/demo.css" />
 
 
     <script src="/admin/assets/vendor/js/helpers.js"></script>
@@ -252,7 +252,7 @@
                                             <span class="align-middle">Cài đặt</span>
                                         </a>
                                     </li>
-                                    
+
                                     <li>
                                         <div class="dropdown-divider"></div>
                                     </li>
@@ -272,7 +272,241 @@
 
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
-                    <!-- nội dung viết ở đây -->
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        <h4 class="fw-bold py-3 mb-4">Quản lý danh mục</h4>
+
+                        <!-- Bordered Table -->
+                        <div class="card">
+                            <h5 class="card-header">Sản phẩm</h5>
+                            <div class="card-body">
+                                <div class="table-responsive text-nowrap">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 100px;"></th>
+                                                <th style="width: 100px;">STT</th>
+                                                <th>Tên danh mục</th>
+                                                <th>Ảnh</th>
+                                                <th style="width: 100px;">hiển thị</th>
+                                                <th style="width: 100px;">Tác vụ</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- hàng 1 -->
+                                            <tr>
+                                                <td>
+                                                    <input class="form-check-input" type="checkbox" id="defaultCheck4"  />
+                                                </td>
+                                                <td >
+                                                    <strong>1</strong>
+                                                </td>
+                                                <td>
+                                                    <strong>Balo da</strong>
+                                                </td>
+
+                                                <td>
+                                                    <label for="upload" class="btn btn-primary me-2" tabindex="0">
+                                                        <span class="d-none d-sm-block">Upload new photo</span>
+                                                        <i class="bx bx-upload d-block d-sm-none"></i>
+                                                        <input
+                                                          type="file"
+                                                          id="upload"
+                                                          class="account-file-input"
+                                                          hidden
+                                                          accept="image/png, image/jpeg"
+                                                        />
+                                                      </label>
+                                                      <button type="button" class="btn btn-icon btn-outline-danger">
+                                                        <i class="bx bx-trash-alt"></i>
+                                                    </button>
+                                                </td>
+                                                
+                                                <td> 
+                                                    <div class="form-check form-switch">
+                                                        <input class="form-check-input float-end" type="checkbox" role="switch" />
+                                                      </div>
+                                                </td>
+                                                
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                            data-bs-toggle="dropdown">
+                                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="bx bx-edit-alt me-1"></i> Chỉnh sửa</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="bx bx-trash me-1"></i> Xóa</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <!-- hàng 2 -->
+                                            <tr>
+                                                <td>
+                                                    <input class="form-check-input" type="checkbox" id="defaultCheck4"  />
+                                                </td>
+                                                <td >
+                                                    <strong>1</strong>
+                                                </td>
+                                                <td>
+                                                    <strong>Balo da</strong>
+                                                </td>
+
+                                                <td>
+                                                    <label for="upload" class="btn btn-primary me-2" tabindex="0">
+                                                        <span class="d-none d-sm-block">Upload new photo</span>
+                                                        <i class="bx bx-upload d-block d-sm-none"></i>
+                                                        <input
+                                                          type="file"
+                                                          id="upload"
+                                                          class="account-file-input"
+                                                          hidden
+                                                          accept="image/png, image/jpeg"
+                                                        />
+                                                      </label>
+                                                      <button type="button" class="btn btn-icon btn-outline-danger">
+                                                        <i class="bx bx-trash-alt"></i>
+                                                    </button>
+                                                </td>
+                                                
+                                                <td> 
+                                                    <div class="form-check form-switch">
+                                                        <input class="form-check-input float-end" type="checkbox" role="switch" />
+                                                      </div>
+                                                </td>
+                                                
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                            data-bs-toggle="dropdown">
+                                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="bx bx-edit-alt me-1"></i> Chỉnh sửa</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="bx bx-trash me-1"></i> Xóa</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <!-- hàng 3 -->
+                                            <tr>
+                                                <td>
+                                                    <input class="form-check-input" type="checkbox" id="defaultCheck4"  />
+                                                </td>
+                                                <td >
+                                                    <strong>1</strong>
+                                                </td>
+                                                <td>
+                                                    <strong>Balo da</strong>
+                                                </td>
+
+                                                <td>
+                                                    <label for="upload" class="btn btn-primary me-2" tabindex="0">
+                                                        <span class="d-none d-sm-block">Upload new photo</span>
+                                                        <i class="bx bx-upload d-block d-sm-none"></i>
+                                                        <input
+                                                          type="file"
+                                                          id="upload"
+                                                          class="account-file-input"
+                                                          hidden
+                                                          accept="image/png, image/jpeg"
+                                                        />
+                                                      </label>
+                                                      <button type="button" class="btn btn-icon btn-outline-danger">
+                                                        <i class="bx bx-trash-alt"></i>
+                                                    </button>
+                                                </td>
+                                                
+                                                <td> 
+                                                    <div class="form-check form-switch">
+                                                        <input class="form-check-input float-end" type="checkbox" role="switch" />
+                                                      </div>
+                                                </td>
+                                                
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                            data-bs-toggle="dropdown">
+                                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="bx bx-edit-alt me-1"></i> Chỉnh sửa</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="bx bx-trash me-1"></i> Xóa</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <!-- hàng 4 -->
+                                            <tr>
+                                                <td>
+                                                    <input class="form-check-input" type="checkbox" id="defaultCheck4"  />
+                                                </td>
+                                                <td >
+                                                    <strong>1</strong>
+                                                </td>
+                                                <td>
+                                                    <strong>Balo da</strong>
+                                                </td>
+
+                                                <td>
+                                                    <label for="upload" class="btn btn-primary me-2" tabindex="0">
+                                                        <span class="d-none d-sm-block">Upload new photo</span>
+                                                        <i class="bx bx-upload d-block d-sm-none"></i>
+                                                        <input
+                                                          type="file"
+                                                          id="upload"
+                                                          class="account-file-input"
+                                                          hidden
+                                                          accept="image/png, image/jpeg"
+                                                        />
+                                                      </label>
+                                                      <button type="button" class="btn btn-icon btn-outline-danger">
+                                                        <i class="bx bx-trash-alt"></i>
+                                                    </button>
+                                                </td>
+                                                
+                                                <td> 
+                                                    <div class="form-check form-switch">
+                                                        <input class="form-check-input float-end" type="checkbox" role="switch" />
+                                                      </div>
+                                                </td>
+                                                
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                            data-bs-toggle="dropdown">
+                                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="bx bx-edit-alt me-1"></i> Chỉnh sửa</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="bx bx-trash me-1"></i> Xóa</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/ Bordered Table -->
+
+                        
+                        <!--/ Responsive Table -->
+                    </div>
 
                 </div>
                 <!-- Content wrapper -->
