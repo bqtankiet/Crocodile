@@ -11,19 +11,19 @@
     <script src="/public/bootstrap/js/bootstrap.bundle.js"></script>
     <!-- owl carousel -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
-        integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
-        integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+          integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
-        integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+          integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"
-        integrity="sha512-LhccdVNGe2QMEfI3x4DVV3ckMRe36TfydKss6mJpdHjNFiV07dFpS2xzeZedptKZrwxfICJpez09iNioiSZ3hA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            integrity="sha512-LhccdVNGe2QMEfI3x4DVV3ckMRe36TfydKss6mJpdHjNFiV07dFpS2xzeZedptKZrwxfICJpez09iNioiSZ3hA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!--  css  -->
     <link rel="stylesheet" href="/assets/css/home.css">
     <link rel="stylesheet" href="/assets/css/main.css">
@@ -35,724 +35,798 @@
     <!-- link font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    <!--  Load HEADER, FOOTER  -->
-    <script>
-        $(document).ready(function () {
-            $("#HEADER").load("/includes/header.html", function (response, status) {
-                if (status === "success") {
-                    $("#HEADER").find(".nav-link.home-page").addClass("active");
-                }
-            });
-            $("#FOOTER").load("/includes/footer.html");
-        });
-    </script>
-
     <script src="/components/product_gallery/product_gallery_template.js"></script>
     <script>
         $(document).ready(function () {
             $.get("/components/product_card/product_card_template.js");
         });
     </script>
+    <style>
+        #my-carousel .carousel-item img {
+            height: calc(100vh - 50px);
+            object-fit: cover;
+        }
+
+        #my-carousel .carousel-caption {
+            background-image: linear-gradient(to bottom, transparent, black);
+        }
+    </style>
 </head>
 
 <body>
 
-    <div id="page" class="layout-default">
-        <div id="HEADER"></div>
+<div id="page" class="layout-default">
+    <div id="HEADER">
+        <script>
+            $("#HEADER").load("/includes/header.html", function () {
+                $(this).find(".nav-link.home-page").addClass("active");
+            });
+        </script>
+    </div>
 
-        <div id="CONTENT">
-            <!-------------------- Carousel -------------------->
-            <div class="row m-0">
-                <div id="my-carousel" class="carousel slide px-0" data-bs-ride="carousel">
-                    <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#my-carousel" data-bs-slide-to="0" class="active"
+    <div id="CONTENT">
+        <!-------------------- Carousel -------------------->
+        <div class="row m-0">
+            <div id="my-carousel" class="carousel slide px-0" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#my-carousel" data-bs-slide-to="0" class="active"
                             aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#my-carousel" data-bs-slide-to="1"
+                    <button type="button" data-bs-target="#my-carousel" data-bs-slide-to="1"
                             aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#my-carousel" data-bs-slide-to="2"
+                    <button type="button" data-bs-target="#my-carousel" data-bs-slide-to="2"
                             aria-label="Slide 3"></button>
-                    </div>
-                    <div class="carousel-inner">
-                        <a class="carousel-item active" href="#">
-                            <img src="https://cf.shopee.vn/file/vn-50009109-727a24a85a60935da5ccb9008298f681"
-                                class="d-block w-100" alt="...">
-                        </a>
-                        <a class="carousel-item" href="#">
-                            <img src="https://cf.shopee.vn/file/vn-11134258-7ras8-m0tqhapoxr4f2e" class="d-block w-100"
-                                alt="...">
-                        </a>
-                        <a class="carousel-item" href="#">
-                            <img src="https://cf.shopee.vn/file/vn-11134258-7ras8-m1w3weeevec38f" class="d-block w-100"
-                                alt="...">
-                        </a>
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#my-carousel"
-                        data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#my-carousel"
-                        data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
+                    <button type="button" data-bs-target="#my-carousel" data-bs-slide-to="3"
+                            aria-label="Slide 4"></button>
                 </div>
-            </div>
-
-            <!-- -------------------------BEGIN SERVICE---------------------------------- -->
-            <div class="service">
-                <div class="container">
-                    <div class="row service-box">
-                        <!-- Giao hàng  -->
-                        <div class="col-3 serv">
-                            <div class="list-icon fas fa-shipping-fast"></div>
-                            <div class="list-content">
-                                <span>Giao hàng miễn phí</span>
-                                <p>Với hóa đơn trên 690k</p>
-                            </div>
-                        </div>
-
-                        <!-- Bảo hành  -->
-                        <div class="col-3 serv">
-                            <div class="list-icon fas fa-award"></div>
-                            <div class="list-content">
-                                <span>Bảo hành 36 tháng</span>
-                                <p>Theo chính sách của Khoi dz</p>
-                            </div>
-                        </div>
-
-                        <!-- Chính hãng  -->
-                        <div class="col-3 serv">
-                            <div class="list-icon fas fa-shield-alt"></div>
-                            <div class="list-content">
-                                <span>Cam kết da thật 100%</span>
-                                <p>Cam kết chất liệu da thật</p>
-                            </div>
-                        </div>
-
-                        <!-- Đổi trả  -->
-                        <div class="col-3 serv">
-                            <div class="list-icon fas fa-money-check"></div>
-                            <div class="list-content">
-                                <span>Đổi trả trong 7 ngày</span>
-                                <p>Đổi mới với lỗi từ nhà sản xuất</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <!-- -------------------------END SERVICE BOX---------------------------------- -->
-
-
-            <!-- -------------------------BEGIN CATEGORY---------------------------------- -->
-            <div class="product-category">
-                <div class="container">
-
-                    <h1 class="product-category-title">ĐỒ DA KHOIDZ</h1>
-                    <p class="product-category-subtitle">Sang trọng – Mạnh mẽ – Khí chất</p>
-                    <p class="product-category-description">
-                        Đồ da nam cao cấp Gento Các dòng sản phẩm về :
-                        <a href="#">Túi xách nam</a>
-                        hàng hiệu,
-                        <a href="#">Cặp da công sở</a>,
-                        <a href="#">Túi đeo chéo nam</a>,
-                        Túi bao tử, Túi sling bag (Đeo trước ngực), Túi da cầm tay,
-                        <a href="#">Balo nam</a>,
-                        <a href="#">Ví da nam</a>, Các phụ kiện đồ da.. phong cách cổ điển lịch lãm, sang trọng
-                    </p>
-
-                </div>
-
-                <div class="product-category-box">
-                    <div class="container">
-                        <div class="menu-box d-flex justify-content-start flex-wrap">
-
-                            <!-- túi xách nam -->
-                            <div class="item_menu bg-image" style="--bg-image-url: url('/assets/images/categories-img/suitcase.png');
-                                --bg-image-hover-url: url('/assets/images/categories-img/white-suitcase.png');">
-                                <h2>
-                                    <a href="#">Túi xách nam</a>
-                                </h2>
-                            </div>
-
-                            <!-- cặp da nam -->
-                            <div class="item_menu bg-image"
-                                style="--bg-image-url: url('/assets/images/categories-img/briefcase-line-icon.png');
-                                --bg-image-hover-url: url('/assets/images/categories-img/white-briefcase-line-icon.png');">
-                                <h2>
-                                    <a href="#">Cặp da nam</a>
-                                </h2>
-                            </div>
-
-                            <!-- balo nam -->
-                            <div class="item_menu bg-image" style="--bg-image-url: url('/assets/images/categories-img/backpack-icon.png');
-                                --bg-image-hover-url: url('/assets/images/categories-img/white-backpack-icon.png');">
-                                <h2>
-                                    <a href="#">Balo nam</a>
-                                </h2>
-                            </div>
-
-                            <!-- túi đeo chéo -->
-                            <div class="item_menu bg-image" style="--bg-image-url: url('/assets/images/categories-img/messenger-bag.png');
-                                --bg-image-hover-url: url('/assets/images/categories-img/white-messenger-bag.png');">
-                                <h2>
-                                    <a href="#">Túi đeo chéo</a>
-                                </h2>
-                            </div>
-
-                            <!-- vali -->
-                            <div class="item_menu bg-image"
-                                style="--bg-image-url: url('/assets/images/categories-img/tourist-bag-icon.png');
-                                --bg-image-hover-url: url('/assets/images/categories-img/white-tourist-bag-icon.png');">
-                                <h2>
-                                    <a href="#">Vali da</a>
-                                </h2>
-                            </div>
-
-                            <!-- túi đeo ngực -->
-                            <div class="item_menu bg-image" style="--bg-image-url: url('/assets/images/categories-img/sling-bag.png');
-                                --bg-image-hover-url: url('/assets/images/categories-img/white-sling-bag.png');">
-                                <h2>
-                                    <a href="#">Túi đeo ngực</a>
-                                </h2>
-                            </div>
-
-                            <!-- ví -->
-                            <div class="item_menu bg-image" style="--bg-image-url: url('/assets/images/categories-img/wallet-icon.png');
-                                --bg-image-hover-url: url('/assets/images/categories-img/white-wallet-icon.png');">
-                                <h2>
-                                    <a href="#">Ví da nam</a>
-                                </h2>
-                            </div>
-
-                            <!-- dây đồng hồ -->
-                            <div class="item_menu bg-image" style="--bg-image-url: url('/assets/images/categories-img/smartwatch-icon.png');
-                                --bg-image-hover-url: url('/assets/images/categories-img/white-smartwatch-icon.png');">
-                                <h2>
-                                    <a href="#">Dây đồng hồ</a>
-                                </h2>
-                            </div>
-
-                            <!-- giày da nam -->
-                            <div class="item_menu bg-image" style="--bg-image-url: url('/assets/images/categories-img/man-shoe-icon.png');
-                                --bg-image-hover-url: url('/assets/images/categories-img/white-suitcase.png');">
-                                <h2>
-                                    <a href="#">Giày da nam</a>
-                                </h2>
-                            </div>
-
-                            <!-- túi xách nữ -->
-                            <div class="item_menu bg-image" style="--bg-image-url: url('/assets/images/categories-img/handbag.png');
-                                --bg-image-hover-url: url('/assets/images/categories-img/white-suitcase.png');">
-                                <h2>
-                                    <a href="#">Túi xách nữ</a>
-                                </h2>
-                            </div>
-
-                            <!-- áo khoác -->
-                            <div class="item_menu bg-image" style="--bg-image-url: url('/assets/images/categories-img/aokhoacda.png');
-                                --bg-image-hover-url: url('/assets/images/categories-img/white-aokhoacda.png');">
-                                <h2>
-                                    <a href="#">Áo khoác </a>
-                                </h2>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <!-- -------------------------END CATEGORY---------------------------------- -->
-
-
-            <!-- -------------------------BEGIN BEST SALE PRODUCTS---------------------------------- -->
-            <div class="best-sale-product">
-                <div class="container">
-                    <h2 class="best-sale-title pb-3">Sản phẩm bán chạy</h2>
-
-                    <div class="product_gallery_template" data-owl-main='{"items": 5, "margin": 10, "dots": false}'>
-                        <div class="item">
-                            <a class="product_card_template"
-                                href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
-                                data-json='{
-                                    "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
-                                    "name": "Túi đeo chéo da cá séo",
-                                    "price": "2,200,000",
-                                    "basePrice": "2,500,000",
-                                    "discount": "Giảm 21%",
-                                    "badge": "NEW"
-                                }'>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a class="product_card_template"
-                                href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
-                                data-json='{
-                                    "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
-                                    "name": "Túi đeo chéo da cá séo",
-                                    "price": "2,200,000",
-                                    "basePrice": "2,500,000",
-                                    "discount": "Giảm 21%",
-                                    "badge": "NEW"
-                                }'>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a class="product_card_template"
-                                href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
-                                data-json='{
-                                    "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
-                                    "name": "Túi đeo chéo da cá séo",
-                                    "price": "2,200,000",
-                                    "basePrice": "2,500,000",
-                                    "discount": "Giảm 21%",
-                                    "badge": "NEW"
-                                }'>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a class="product_card_template"
-                                href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
-                                data-json='{
-                                    "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
-                                    "name": "Túi đeo chéo da cá séo",
-                                    "price": "2,200,000",
-                                    "basePrice": "2,500,000",
-                                    "discount": "Giảm 21%",
-                                    "badge": "NEW"
-                                }'>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a class="product_card_template"
-                                href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
-                                data-json='{
-                                    "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
-                                    "name": "Túi đeo chéo da cá séo",
-                                    "price": "2,200,000",
-                                    "basePrice": "2,500,000",
-                                    "discount": "Giảm 21%",
-                                    "badge": "NEW"
-                                }'>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a class="product_card_template"
-                                href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
-                                data-json='{
-                                    "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
-                                    "name": "Túi đeo chéo da cá séo",
-                                    "price": "2,200,000",
-                                    "basePrice": "2,500,000",
-                                    "discount": "Giảm 21%",
-                                    "badge": "NEW"
-                                }'>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a class="product_card_template"
-                                href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
-                                data-json='{
-                                    "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
-                                    "name": "Túi đeo chéo da cá séo",
-                                    "price": "2,200,000",
-                                    "basePrice": "2,500,000",
-                                    "discount": "Giảm 21%",
-                                    "badge": "NEW"
-                                }'>
-                            </a>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-            <!-- -------------------------END BEST SALE PRODUCTS---------------------------------- -->
-
-
-            <!-- -------------------------BEGIN SUGGESTED PRODUCTS---------------------------------- -->
-            <div class="suggested-products">
-                <div class="container">
-                    <h2 class="suggested-product-title pb-3 mt-5 text-center">Sản phẩm gợi ý</h2>
-
-                    <div class="suggested-product-list d-flex flex-wrap">
-                        <div class="suggested-product-item">
-                            <a class="product_card_template"
-                                href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
-                                data-json='{
-                                "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
-                                "name": "Túi đeo chéo da cá séo",
-                                "price": "2,200,000",
-                                "basePrice": "2,500,000",
-                                "discount": "Giảm 21%",
-                                "badge": "NEW"
-                            }'>
-                            </a>
-                        </div>
-
-                        <div class="suggested-product-item">
-                            <a class="product_card_template"
-                                href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
-                                data-json='{
-                                "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
-                                "name": "Túi đeo chéo da cá séo",
-                                "price": "2,200,000",
-                                "basePrice": "2,500,000",
-                                "discount": "Giảm 21%",
-                                "badge": "NEW"
-                            }'>
-                            </a>
-                        </div>
-
-                        <div class="suggested-product-item">
-                            <a class="product_card_template"
-                                href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
-                                data-json='{
-                                "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
-                                "name": "Túi đeo chéo da cá séo",
-                                "price": "2,200,000",
-                                "basePrice": "2,500,000",
-                                "discount": "Giảm 21%",
-                                "badge": "NEW"
-                            }'>
-                            </a>
-                        </div>
-
-                        <div class="suggested-product-item">
-                            <a class="product_card_template"
-                                href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
-                                data-json='{
-                                "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
-                                "name": "Túi đeo chéo da cá séo",
-                                "price": "2,200,000",
-                                "basePrice": "2,500,000",
-                                "discount": "Giảm 21%",
-                                "badge": "NEW"
-                            }'>
-                            </a>
-                        </div>
-
-                        <div class="suggested-product-item">
-                            <a class="product_card_template"
-                                href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
-                                data-json='{
-                                "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
-                                "name": "Túi đeo chéo da cá séo",
-                                "price": "2,200,000",
-                                "basePrice": "2,500,000",
-                                "discount": "Giảm 21%",
-                                "badge": "NEW"
-                            }'>
-                            </a>
-                        </div>
-
-                        <div class="suggested-product-item">
-                            <a class="product_card_template"
-                                href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
-                                data-json='{
-                                "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
-                                "name": "Túi đeo chéo da cá séo",
-                                "price": "2,200,000",
-                                "basePrice": "2,500,000",
-                                "discount": "Giảm 21%",
-                                "badge": "NEW"
-                            }'>
-                            </a>
-                        </div>
-
-                        <div class="suggested-product-item">
-                            <a class="product_card_template"
-                                href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
-                                data-json='{
-                                "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
-                                "name": "Túi đeo chéo da cá séo",
-                                "price": "2,200,000",
-                                "basePrice": "2,500,000",
-                                "discount": "Giảm 21%",
-                                "badge": "NEW"
-                            }'>
-                            </a>
-                        </div>
-
-                        <div class="suggested-product-item">
-                            <a class="product_card_template"
-                                href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
-                                data-json='{
-                                "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
-                                "name": "Túi đeo chéo da cá séo",
-                                "price": "2,200,000",
-                                "basePrice": "2,500,000",
-                                "discount": "Giảm 21%",
-                                "badge": "NEW"
-                            }'>
-                            </a>
-                        </div>
-
-                        <div class="suggested-product-item">
-                            <a class="product_card_template"
-                                href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
-                                data-json='{
-                                "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
-                                "name": "Túi đeo chéo da cá séo",
-                                "price": "2,200,000",
-                                "basePrice": "2,500,000",
-                                "discount": "Giảm 21%",
-                                "badge": "NEW"
-                            }'>
-                            </a>
-                        </div>
-
-                        <div class="suggested-product-item">
-                            <a class="product_card_template"
-                                href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
-                                data-json='{
-                                "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
-                                "name": "Túi đeo chéo da cá séo",
-                                "price": "2,200,000",
-                                "basePrice": "2,500,000",
-                                "discount": "Giảm 21%",
-                                "badge": "NEW"
-                            }'>
-                            </a>
-                        </div>
-
-                        <div class="suggested-product-item">
-                            <a class="product_card_template"
-                                href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
-                                data-json='{
-                                "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
-                                "name": "Túi đeo chéo da cá séo",
-                                "price": "2,200,000",
-                                "basePrice": "2,500,000",
-                                "discount": "Giảm 21%",
-                                "badge": "NEW"
-                            }'>
-                            </a>
-                        </div>
-
-                        <div class="suggested-product-item">
-                            <a class="product_card_template"
-                                href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
-                                data-json='{
-                                "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
-                                "name": "Túi đeo chéo da cá séo",
-                                "price": "2,200,000",
-                                "basePrice": "2,500,000",
-                                "discount": "Giảm 21%",
-                                "badge": "NEW"
-                            }'>
-                            </a>
-                        </div>
-
-                        <div class="suggested-product-item">
-                            <a class="product_card_template"
-                                href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
-                                data-json='{
-                                "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
-                                "name": "Túi đeo chéo da cá séo",
-                                "price": "2,200,000",
-                                "basePrice": "2,500,000",
-                                "discount": "Giảm 21%",
-                                "badge": "NEW"
-                            }'>
-                            </a>
-                        </div>
-
-                    </div>
-
-                    <p class="text-center mt-4 mb-5">
-                        <a class="see-all" href="products.html">Xem tất cả </a>
-                    </p>
-
-                </div>
-
-            </div>
-            <!-- -------------------------END SUGGESTED PRODUCTS---------------------------------- -->
-
-            <div class="news">
-                <div class="container">
-                    <h2 class="new-title">TIN TỨC</h2>
-
-                    <div class="section-blogs pt-3">
-                        <div class="row">
-                            <div class="col-6">
-                                <a href="https://casauhoanglong.com/da-ca-sau-co-ben-khong/">
-                                    <img style="width: 100%; border-radius: 10px;"
-                                        src="https://media.istockphoto.com/id/513939028/vi/anh/da-c%C3%A1-s%E1%BA%A5u.jpg?s=2048x2048&w=is&k=20&c=Zk-x8xuAaoZ-NVUDDfsmPegsGTIP5eulcGZuN5ZLAHc="
-                                        alt="">
-                                </a>
-
-                                <h3 class="py-2">
-                                    <a href="https://casauhoanglong.com/da-ca-sau-co-ben-khong/" class="blog-title">Da
-                                        cá sấu có bền không? Độ bền của từng loại da cá
-                                        sấu</a>
-                                </h3>
-
-                                <div class="media d-flex align-items-center gap-2 pb-2">
-                                    <svg style="vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" width="16"
-                                        height="16" fill="currentColor" class="bi bi-calendar3" viewBox="0 0 16 16">
-                                        <path
-                                            d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2M1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857z" />
-                                        <path
-                                            d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
-                                    </svg>
-                                    <span style="padding-right: 10px;">17/10/2024</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-alarm" viewBox="0 0 16 16">
-                                        <path
-                                            d="M8.5 5.5a.5.5 0 0 0-1 0v3.362l-1.429 2.38a.5.5 0 1 0 .858.515l1.5-2.5A.5.5 0 0 0 8.5 9z" />
-                                        <path
-                                            d="M6.5 0a.5.5 0 0 0 0 1H7v1.07a7.001 7.001 0 0 0-3.273 12.474l-.602.602a.5.5 0 0 0 .707.708l.746-.746A6.97 6.97 0 0 0 8 16a6.97 6.97 0 0 0 3.422-.892l.746.746a.5.5 0 0 0 .707-.708l-.601-.602A7.001 7.001 0 0 0 9 2.07V1h.5a.5.5 0 0 0 0-1zm1.038 3.018a6 6 0 0 1 .924 0 6 6 0 1 1-.924 0M0 3.5c0 .753.333 1.429.86 1.887A8.04 8.04 0 0 1 4.387 1.86 2.5 2.5 0 0 0 0 3.5M13.5 1c-.753 0-1.429.333-1.887.86a8.04 8.04 0 0 1 3.527 3.527A2.5 2.5 0 0 0 13.5 1" />
-                                    </svg>
-                                    <span class="">15 phút đọc</span>
+                <div class="carousel-inner">
+                    <div class="carousel-item active" href="#">
+                        <img src="https://www.kwanpen.com/cdn/shop/files/WEB_BANNER_24_05c9b547-c32b-4bb2-b4f4-aa1bb8f1456c_1400x.jpg?v=1703841410"
+                             class="d-block w-100" alt="...">
+                        <div class="carousel-caption d-block start-0 bottom-0 w-100 px-5 text-start">
+                            <div class="row">
+                                <div class="col d-flex flex-column justify-content-end" style="height: 20rem">
+                                    <h4 class="fw-semibold text-capitalize">Đẳng cấp và sang trọng</h4>
+                                    <p class="fw-light">Túi xách da cá sấu cao cấp, điểm nhấn hoàn hảo cho phong cách
+                                        của bạn. Khám phá bộ sưu tập mới nhất tại cửa hàng của chúng tôi!</p>
                                 </div>
+                                <div class="col-2 d-flex mt-auto mb-3 z-3">
+                                    <a class="btn btn-outline-light ms-auto" role="link" href="404">Xem thêm</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item" href="#">
+                        <img src="https://www.kwanpen.com/cdn/shop/files/website_sub_banner_raffles_1400x.jpg?v=1672822845"
+                             class="d-block w-100"
+                             alt="...">
+                        <div class="carousel-caption d-block start-0 bottom-0 w-100 px-5 text-start">
+                            <div class="row">
+                                <div class="col d-flex flex-column justify-content-end" style="height: 20rem">
+                                    <h4 class="fw-semibold text-capitalize">Đẳng cấp và sang trọng</h4>
+                                    <p class="fw-light">Túi xách da cá sấu cao cấp, điểm nhấn hoàn hảo cho phong cách
+                                        của bạn. Khám phá bộ sưu tập mới nhất tại cửa hàng của chúng tôi!</p>
+                                </div>
+                                <div class="col-2 d-flex mt-auto mb-3 z-3">
+                                    <a class="btn btn-outline-light ms-auto" role="link" href="404">Xem thêm</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item" href="#">
+                        <img src="https://www.kwanpen.com/cdn/shop/files/July_Banner_Crest_Collection_web_1400x.jpg?v=1691053629"
+                             class="d-block w-100"
+                             alt="...">
+                        <div class="carousel-caption d-block start-0 bottom-0 w-100 px-5 text-start">
+                            <div class="row">
+                                <div class="col d-flex flex-column justify-content-end" style="height: 20rem">
+                                    <h4 class="fw-semibold text-capitalize">Đẳng cấp và sang trọng</h4>
+                                    <p class="fw-light">Túi xách da cá sấu cao cấp, điểm nhấn hoàn hảo cho phong cách
+                                        của bạn. Khám phá bộ sưu tập mới nhất tại cửa hàng của chúng tôi!</p>
+                                </div>
+                                <div class="col-2 d-flex mt-auto mb-3 z-3">
+                                    <a class="btn btn-outline-light ms-auto" role="link" href="404">Xem thêm</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item" href="#">
+                        <img src="https://www.kwanpen.com/cdn/shop/files/DSC00843_copy_1400x.jpg?v=1651049640"
+                             class="d-block w-100"
+                             alt="...">
+                        <div class="carousel-caption d-block start-0 bottom-0 w-100 px-5 text-start">
+                            <div class="row">
+                                <div class="col d-flex flex-column justify-content-end" style="height: 20rem">
+                                    <h4 class="fw-semibold text-capitalize">Đẳng cấp và sang trọng</h4>
+                                    <p class="fw-light">Túi xách da cá sấu cao cấp, điểm nhấn hoàn hảo cho phong cách
+                                        của bạn. Khám phá bộ sưu tập mới nhất tại cửa hàng của chúng tôi!</p>
+                                </div>
+                                <div class="col-2 d-flex mt-auto mb-3 z-3">
+                                    <a class="btn btn-outline-light ms-auto" role="link" href="404">Xem thêm</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#my-carousel"
+                        data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#my-carousel"
+                        data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
 
-                                <span class="sub-title d-block" style="color: #6c757d">
+        <!-- -------------------------BEGIN SERVICE---------------------------------- -->
+        <div class="service">
+            <div class="container">
+                <div class="row service-box">
+                    <!-- Giao hàng  -->
+                    <div class="col-3 serv">
+                        <div class="list-icon fas fa-shipping-fast"></div>
+                        <div class="list-content">
+                            <span>Giao hàng miễn phí</span>
+                            <p>Với hóa đơn trên 690k</p>
+                        </div>
+                    </div>
+
+                    <!-- Bảo hành  -->
+                    <div class="col-3 serv">
+                        <div class="list-icon fas fa-award"></div>
+                        <div class="list-content">
+                            <span>Bảo hành 36 tháng</span>
+                            <p>Theo chính sách của Khoi dz</p>
+                        </div>
+                    </div>
+
+                    <!-- Chính hãng  -->
+                    <div class="col-3 serv">
+                        <div class="list-icon fas fa-shield-alt"></div>
+                        <div class="list-content">
+                            <span>Cam kết da thật 100%</span>
+                            <p>Cam kết chất liệu da thật</p>
+                        </div>
+                    </div>
+
+                    <!-- Đổi trả  -->
+                    <div class="col-3 serv">
+                        <div class="list-icon fas fa-money-check"></div>
+                        <div class="list-content">
+                            <span>Đổi trả trong 7 ngày</span>
+                            <p>Đổi mới với lỗi từ nhà sản xuất</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- -------------------------END SERVICE BOX---------------------------------- -->
+
+
+        <!-- -------------------------BEGIN CATEGORY---------------------------------- -->
+        <div class="product-category">
+            <div class="container">
+
+                <h1 class="product-category-title">ĐỒ DA KHOIDZ</h1>
+                <p class="product-category-subtitle">Sang trọng – Mạnh mẽ – Khí chất</p>
+                <p class="product-category-description">
+                    Đồ da nam cao cấp Gento Các dòng sản phẩm về :
+                    <a href="#">Túi xách nam</a>
+                    hàng hiệu,
+                    <a href="#">Cặp da công sở</a>,
+                    <a href="#">Túi đeo chéo nam</a>,
+                    Túi bao tử, Túi sling bag (Đeo trước ngực), Túi da cầm tay,
+                    <a href="#">Balo nam</a>,
+                    <a href="#">Ví da nam</a>, Các phụ kiện đồ da.. phong cách cổ điển lịch lãm, sang trọng
+                </p>
+
+            </div>
+
+            <div class="product-category-box">
+                <div class="container">
+                    <div class="menu-box d-flex justify-content-start flex-wrap">
+
+                        <!-- túi xách nam -->
+                        <div class="item_menu bg-image" style="--bg-image-url: url('/assets/images/categories-img/suitcase.png');
+                                --bg-image-hover-url: url('/assets/images/categories-img/white-suitcase.png');">
+                            <h2>
+                                <a href="#">Túi xách nam</a>
+                            </h2>
+                        </div>
+
+                        <!-- cặp da nam -->
+                        <div class="item_menu bg-image"
+                             style="--bg-image-url: url('/assets/images/categories-img/briefcase-line-icon.png');
+                                --bg-image-hover-url: url('/assets/images/categories-img/white-briefcase-line-icon.png');">
+                            <h2>
+                                <a href="#">Cặp da nam</a>
+                            </h2>
+                        </div>
+
+                        <!-- balo nam -->
+                        <div class="item_menu bg-image" style="--bg-image-url: url('/assets/images/categories-img/backpack-icon.png');
+                                --bg-image-hover-url: url('/assets/images/categories-img/white-backpack-icon.png');">
+                            <h2>
+                                <a href="#">Balo nam</a>
+                            </h2>
+                        </div>
+
+                        <!-- túi đeo chéo -->
+                        <div class="item_menu bg-image" style="--bg-image-url: url('/assets/images/categories-img/messenger-bag.png');
+                                --bg-image-hover-url: url('/assets/images/categories-img/white-messenger-bag.png');">
+                            <h2>
+                                <a href="#">Túi đeo chéo</a>
+                            </h2>
+                        </div>
+
+                        <!-- vali -->
+                        <div class="item_menu bg-image"
+                             style="--bg-image-url: url('/assets/images/categories-img/tourist-bag-icon.png');
+                                --bg-image-hover-url: url('/assets/images/categories-img/white-tourist-bag-icon.png');">
+                            <h2>
+                                <a href="#">Vali da</a>
+                            </h2>
+                        </div>
+
+                        <!-- túi đeo ngực -->
+                        <div class="item_menu bg-image" style="--bg-image-url: url('/assets/images/categories-img/sling-bag.png');
+                                --bg-image-hover-url: url('/assets/images/categories-img/white-sling-bag.png');">
+                            <h2>
+                                <a href="#">Túi đeo ngực</a>
+                            </h2>
+                        </div>
+
+                        <!-- ví -->
+                        <div class="item_menu bg-image" style="--bg-image-url: url('/assets/images/categories-img/wallet-icon.png');
+                                --bg-image-hover-url: url('/assets/images/categories-img/white-wallet-icon.png');">
+                            <h2>
+                                <a href="#">Ví da nam</a>
+                            </h2>
+                        </div>
+
+                        <!-- dây đồng hồ -->
+                        <div class="item_menu bg-image" style="--bg-image-url: url('/assets/images/categories-img/smartwatch-icon.png');
+                                --bg-image-hover-url: url('/assets/images/categories-img/white-smartwatch-icon.png');">
+                            <h2>
+                                <a href="#">Dây đồng hồ</a>
+                            </h2>
+                        </div>
+
+                        <!-- giày da nam -->
+                        <div class="item_menu bg-image" style="--bg-image-url: url('/assets/images/categories-img/man-shoe-icon.png');
+                                --bg-image-hover-url: url('/assets/images/categories-img/white-suitcase.png');">
+                            <h2>
+                                <a href="#">Giày da nam</a>
+                            </h2>
+                        </div>
+
+                        <!-- túi xách nữ -->
+                        <div class="item_menu bg-image" style="--bg-image-url: url('/assets/images/categories-img/handbag.png');
+                                --bg-image-hover-url: url('/assets/images/categories-img/white-suitcase.png');">
+                            <h2>
+                                <a href="#">Túi xách nữ</a>
+                            </h2>
+                        </div>
+
+                        <!-- áo khoác -->
+                        <div class="item_menu bg-image" style="--bg-image-url: url('/assets/images/categories-img/aokhoacda.png');
+                                --bg-image-hover-url: url('/assets/images/categories-img/white-aokhoacda.png');">
+                            <h2>
+                                <a href="#">Áo khoác </a>
+                            </h2>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- -------------------------END CATEGORY---------------------------------- -->
+
+
+        <!-- -------------------------BEGIN BEST SALE PRODUCTS---------------------------------- -->
+        <div class="best-sale-product">
+            <div class="container">
+                <h2 class="best-sale-title pb-3">Sản phẩm bán chạy</h2>
+
+                <div class="product_gallery_template" data-owl-main='{"items": 5, "margin": 10, "dots": false}'>
+                    <div class="item">
+                        <a class="product_card_template"
+                           href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
+                           data-json='{
+                                    "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
+                                    "name": "Túi đeo chéo da cá séo",
+                                    "price": "2,200,000",
+                                    "basePrice": "2,500,000",
+                                    "discount": "Giảm 21%",
+                                    "badge": "NEW"
+                                }'>
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a class="product_card_template"
+                           href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
+                           data-json='{
+                                    "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
+                                    "name": "Túi đeo chéo da cá séo",
+                                    "price": "2,200,000",
+                                    "basePrice": "2,500,000",
+                                    "discount": "Giảm 21%",
+                                    "badge": "NEW"
+                                }'>
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a class="product_card_template"
+                           href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
+                           data-json='{
+                                    "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
+                                    "name": "Túi đeo chéo da cá séo",
+                                    "price": "2,200,000",
+                                    "basePrice": "2,500,000",
+                                    "discount": "Giảm 21%",
+                                    "badge": "NEW"
+                                }'>
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a class="product_card_template"
+                           href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
+                           data-json='{
+                                    "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
+                                    "name": "Túi đeo chéo da cá séo",
+                                    "price": "2,200,000",
+                                    "basePrice": "2,500,000",
+                                    "discount": "Giảm 21%",
+                                    "badge": "NEW"
+                                }'>
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a class="product_card_template"
+                           href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
+                           data-json='{
+                                    "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
+                                    "name": "Túi đeo chéo da cá séo",
+                                    "price": "2,200,000",
+                                    "basePrice": "2,500,000",
+                                    "discount": "Giảm 21%",
+                                    "badge": "NEW"
+                                }'>
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a class="product_card_template"
+                           href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
+                           data-json='{
+                                    "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
+                                    "name": "Túi đeo chéo da cá séo",
+                                    "price": "2,200,000",
+                                    "basePrice": "2,500,000",
+                                    "discount": "Giảm 21%",
+                                    "badge": "NEW"
+                                }'>
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a class="product_card_template"
+                           href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
+                           data-json='{
+                                    "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
+                                    "name": "Túi đeo chéo da cá séo",
+                                    "price": "2,200,000",
+                                    "basePrice": "2,500,000",
+                                    "discount": "Giảm 21%",
+                                    "badge": "NEW"
+                                }'>
+                        </a>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <!-- -------------------------END BEST SALE PRODUCTS---------------------------------- -->
+
+
+        <!-- -------------------------BEGIN SUGGESTED PRODUCTS---------------------------------- -->
+        <div class="suggested-products">
+            <div class="container">
+                <h2 class="suggested-product-title pb-3 mt-5 text-center">Sản phẩm gợi ý</h2>
+
+                <div class="suggested-product-list d-flex flex-wrap">
+                    <div class="suggested-product-item">
+                        <a class="product_card_template"
+                           href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
+                           data-json='{
+                                "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
+                                "name": "Túi đeo chéo da cá séo",
+                                "price": "2,200,000",
+                                "basePrice": "2,500,000",
+                                "discount": "Giảm 21%",
+                                "badge": "NEW"
+                            }'>
+                        </a>
+                    </div>
+
+                    <div class="suggested-product-item">
+                        <a class="product_card_template"
+                           href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
+                           data-json='{
+                                "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
+                                "name": "Túi đeo chéo da cá séo",
+                                "price": "2,200,000",
+                                "basePrice": "2,500,000",
+                                "discount": "Giảm 21%",
+                                "badge": "NEW"
+                            }'>
+                        </a>
+                    </div>
+
+                    <div class="suggested-product-item">
+                        <a class="product_card_template"
+                           href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
+                           data-json='{
+                                "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
+                                "name": "Túi đeo chéo da cá séo",
+                                "price": "2,200,000",
+                                "basePrice": "2,500,000",
+                                "discount": "Giảm 21%",
+                                "badge": "NEW"
+                            }'>
+                        </a>
+                    </div>
+
+                    <div class="suggested-product-item">
+                        <a class="product_card_template"
+                           href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
+                           data-json='{
+                                "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
+                                "name": "Túi đeo chéo da cá séo",
+                                "price": "2,200,000",
+                                "basePrice": "2,500,000",
+                                "discount": "Giảm 21%",
+                                "badge": "NEW"
+                            }'>
+                        </a>
+                    </div>
+
+                    <div class="suggested-product-item">
+                        <a class="product_card_template"
+                           href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
+                           data-json='{
+                                "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
+                                "name": "Túi đeo chéo da cá séo",
+                                "price": "2,200,000",
+                                "basePrice": "2,500,000",
+                                "discount": "Giảm 21%",
+                                "badge": "NEW"
+                            }'>
+                        </a>
+                    </div>
+
+                    <div class="suggested-product-item">
+                        <a class="product_card_template"
+                           href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
+                           data-json='{
+                                "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
+                                "name": "Túi đeo chéo da cá séo",
+                                "price": "2,200,000",
+                                "basePrice": "2,500,000",
+                                "discount": "Giảm 21%",
+                                "badge": "NEW"
+                            }'>
+                        </a>
+                    </div>
+
+                    <div class="suggested-product-item">
+                        <a class="product_card_template"
+                           href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
+                           data-json='{
+                                "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
+                                "name": "Túi đeo chéo da cá séo",
+                                "price": "2,200,000",
+                                "basePrice": "2,500,000",
+                                "discount": "Giảm 21%",
+                                "badge": "NEW"
+                            }'>
+                        </a>
+                    </div>
+
+                    <div class="suggested-product-item">
+                        <a class="product_card_template"
+                           href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
+                           data-json='{
+                                "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
+                                "name": "Túi đeo chéo da cá séo",
+                                "price": "2,200,000",
+                                "basePrice": "2,500,000",
+                                "discount": "Giảm 21%",
+                                "badge": "NEW"
+                            }'>
+                        </a>
+                    </div>
+
+                    <div class="suggested-product-item">
+                        <a class="product_card_template"
+                           href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
+                           data-json='{
+                                "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
+                                "name": "Túi đeo chéo da cá séo",
+                                "price": "2,200,000",
+                                "basePrice": "2,500,000",
+                                "discount": "Giảm 21%",
+                                "badge": "NEW"
+                            }'>
+                        </a>
+                    </div>
+
+                    <div class="suggested-product-item">
+                        <a class="product_card_template"
+                           href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
+                           data-json='{
+                                "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
+                                "name": "Túi đeo chéo da cá séo",
+                                "price": "2,200,000",
+                                "basePrice": "2,500,000",
+                                "discount": "Giảm 21%",
+                                "badge": "NEW"
+                            }'>
+                        </a>
+                    </div>
+
+                    <div class="suggested-product-item">
+                        <a class="product_card_template"
+                           href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
+                           data-json='{
+                                "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
+                                "name": "Túi đeo chéo da cá séo",
+                                "price": "2,200,000",
+                                "basePrice": "2,500,000",
+                                "discount": "Giảm 21%",
+                                "badge": "NEW"
+                            }'>
+                        </a>
+                    </div>
+
+                    <div class="suggested-product-item">
+                        <a class="product_card_template"
+                           href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
+                           data-json='{
+                                "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
+                                "name": "Túi đeo chéo da cá séo",
+                                "price": "2,200,000",
+                                "basePrice": "2,500,000",
+                                "discount": "Giảm 21%",
+                                "badge": "NEW"
+                            }'>
+                        </a>
+                    </div>
+
+                    <div class="suggested-product-item">
+                        <a class="product_card_template"
+                           href="https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg"
+                           data-json='{
+                                "img": "https://www.gento.vn/wp-content/uploads/2024/10/tui-da-ca-sau-8-768x768.jpg",
+                                "name": "Túi đeo chéo da cá séo",
+                                "price": "2,200,000",
+                                "basePrice": "2,500,000",
+                                "discount": "Giảm 21%",
+                                "badge": "NEW"
+                            }'>
+                        </a>
+                    </div>
+
+                </div>
+
+                <p class="text-center mt-4 mb-5">
+                    <a class="see-all" href="products.html">Xem tất cả </a>
+                </p>
+
+            </div>
+
+        </div>
+        <!-- -------------------------END SUGGESTED PRODUCTS---------------------------------- -->
+
+        <div class="news">
+            <div class="container">
+                <h2 class="new-title">TIN TỨC</h2>
+
+                <div class="section-blogs pt-3">
+                    <div class="row">
+                        <div class="col-6">
+                            <a href="https://casauhoanglong.com/da-ca-sau-co-ben-khong/">
+                                <img style="width: 100%; border-radius: 10px;"
+                                     src="https://media.istockphoto.com/id/513939028/vi/anh/da-c%C3%A1-s%E1%BA%A5u.jpg?s=2048x2048&w=is&k=20&c=Zk-x8xuAaoZ-NVUDDfsmPegsGTIP5eulcGZuN5ZLAHc="
+                                     alt="">
+                            </a>
+
+                            <h3 class="py-2">
+                                <a href="https://casauhoanglong.com/da-ca-sau-co-ben-khong/" class="blog-title">Da
+                                    cá sấu có bền không? Độ bền của từng loại da cá
+                                    sấu</a>
+                            </h3>
+
+                            <div class="media d-flex align-items-center gap-2 pb-2">
+                                <svg style="vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" width="16"
+                                     height="16" fill="currentColor" class="bi bi-calendar3" viewBox="0 0 16 16">
+                                    <path
+                                            d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2M1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857z"/>
+                                    <path
+                                            d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+                                </svg>
+                                <span style="padding-right: 10px;">17/10/2024</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-alarm" viewBox="0 0 16 16">
+                                    <path
+                                            d="M8.5 5.5a.5.5 0 0 0-1 0v3.362l-1.429 2.38a.5.5 0 1 0 .858.515l1.5-2.5A.5.5 0 0 0 8.5 9z"/>
+                                    <path
+                                            d="M6.5 0a.5.5 0 0 0 0 1H7v1.07a7.001 7.001 0 0 0-3.273 12.474l-.602.602a.5.5 0 0 0 .707.708l.746-.746A6.97 6.97 0 0 0 8 16a6.97 6.97 0 0 0 3.422-.892l.746.746a.5.5 0 0 0 .707-.708l-.601-.602A7.001 7.001 0 0 0 9 2.07V1h.5a.5.5 0 0 0 0-1zm1.038 3.018a6 6 0 0 1 .924 0 6 6 0 1 1-.924 0M0 3.5c0 .753.333 1.429.86 1.887A8.04 8.04 0 0 1 4.387 1.86 2.5 2.5 0 0 0 0 3.5M13.5 1c-.753 0-1.429.333-1.887.86a8.04 8.04 0 0 1 3.527 3.527A2.5 2.5 0 0 0 13.5 1"/>
+                                </svg>
+                                <span class="">15 phút đọc</span>
+                            </div>
+
+                            <span class="sub-title d-block" style="color: #6c757d">
                                     Bạn đang thắc mắc da cá sấu có bền không? Da cá sấu được sử dụng để tạo ra các phụ
                                     kiện thời trang cao cấp như túi xách, dây lưng, giày…
                                 </span>
 
-                                <a href="https://casauhoanglong.com/da-ca-sau-co-ben-khong/" class="read-on">Đọc
-                                    tiếp</a>
+                            <a href="https://casauhoanglong.com/da-ca-sau-co-ben-khong/" class="read-on">Đọc
+                                tiếp</a>
+                        </div>
+
+                        <div class="col-6" style="overflow-y: auto; max-height: 400px;">
+                            <div class="blog-content">
+                                <div class="row">
+                                    <a class="col-4"
+                                       href="https://dailycasau.vn/tin-tuc/lam-the-nao-de-chon-vi-da-ca-sau-chat-luong-/">
+                                        <img style="width: 194px; height: 126px; border-radius: 10px;box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);"
+                                             src="https://dailycasau.vn/hoanghung/5/images/vi%20da%20ca%20sau%20gu%20den%20daily58.JPG"
+                                             alt="">
+                                    </a>
+                                    <div class="col-8">
+                                        <h3 class="blog-title_sub">
+                                            <a href="https://dailycasau.vn/tin-tuc/lam-the-nao-de-chon-vi-da-ca-sau-chat-luong-/">Làm
+                                                Thế Nào Để Chọn Ví Da Cá Sấu Chất Lượng?</a>
+                                        </h3>
+                                        <span class="d-block" style="color: #6c757d; font-size: 16px;">15/11/2024</span>
+                                        <span class="pb-2" style="font-size: 14px; color: #000000">Ví da cá sấu là một phụ kiện sang trọng và bền bỉ,
+                                                nhưng việc chọn được một chiếc ví da cá sấu chất lượng...                                            </span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="blog-content">
+                                <div class="row">
+                                    <a class="col-4"
+                                       href="https://dailycasau.vn/tin-tuc/lam-the-nao-de-chon-vi-da-ca-sau-chat-luong-/">
+                                        <img style="width: 194px; height: 126px; border-radius: 10px;box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);"
+                                             src="https://dailycasau.vn/hoanghung/5/images/vi%20da%20ca%20sau%20gu%20den%20daily58.JPG"
+                                             alt="">
+                                    </a>
+                                    <div class="col-8">
+                                        <h3 class="blog-title_sub">
+                                            <a href="https://dailycasau.vn/tin-tuc/lam-the-nao-de-chon-vi-da-ca-sau-chat-luong-/">Làm
+                                                Thế Nào Để Chọn Ví Da Cá Sấu Chất Lượng?</a>
+                                        </h3>
+                                        <span class="d-block" style="color: #6c757d; font-size: 16px;">15/11/2024</span>
+                                        <span class="pb-2" style="font-size: 14px; color: #000000">Ví da cá sấu là một phụ kiện sang trọng và bền bỉ,
+                                                nhưng việc chọn được một chiếc ví da cá sấu chất lượng...                                            </span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="blog-content">
+                                <div class="row">
+                                    <a class="col-4"
+                                       href="https://dailycasau.vn/tin-tuc/lam-the-nao-de-chon-vi-da-ca-sau-chat-luong-/">
+                                        <img style="width: 194px; height: 126px; border-radius: 10px;box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);"
+                                             src="https://dailycasau.vn/hoanghung/5/images/vi%20da%20ca%20sau%20gu%20den%20daily58.JPG"
+                                             alt="">
+                                    </a>
+                                    <div class="col-8">
+                                        <h3 class="blog-title_sub">
+                                            <a href="https://dailycasau.vn/tin-tuc/lam-the-nao-de-chon-vi-da-ca-sau-chat-luong-/">Làm
+                                                Thế Nào Để Chọn Ví Da Cá Sấu Chất Lượng?</a>
+                                        </h3>
+                                        <span class="d-block" style="color: #6c757d; font-size: 16px;">15/11/2024</span>
+                                        <span class="pb-2" style="font-size: 14px; color: #000000">Ví da cá sấu là một phụ kiện sang trọng và bền bỉ,
+                                                nhưng việc chọn được một chiếc ví da cá sấu chất lượng...                                            </span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="blog-content">
+                                <div class="row">
+                                    <a class="col-4"
+                                       href="https://dailycasau.vn/tin-tuc/lam-the-nao-de-chon-vi-da-ca-sau-chat-luong-/">
+                                        <img style="width: 194px; height: 126px; border-radius: 10px;box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);"
+                                             src="https://dailycasau.vn/hoanghung/5/images/vi%20da%20ca%20sau%20gu%20den%20daily58.JPG"
+                                             alt="">
+                                    </a>
+                                    <div class="col-8">
+                                        <h3 class="blog-title_sub">
+                                            <a href="https://dailycasau.vn/tin-tuc/lam-the-nao-de-chon-vi-da-ca-sau-chat-luong-/">Làm
+                                                Thế Nào Để Chọn Ví Da Cá Sấu Chất Lượng?</a>
+                                        </h3>
+                                        <span class="d-block" style="color: #6c757d; font-size: 16px;">15/11/2024</span>
+                                        <span class="pb-2" style="font-size: 14px; color: #000000">Ví da cá sấu là một phụ kiện sang trọng và bền bỉ,
+                                                nhưng việc chọn được một chiếc ví da cá sấu chất lượng...                                            </span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="blog-content">
+                                <div class="row">
+                                    <a class="col-4"
+                                       href="https://dailycasau.vn/tin-tuc/lam-the-nao-de-chon-vi-da-ca-sau-chat-luong-/">
+                                        <img style="width: 194px; height: 126px; border-radius: 10px;box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);"
+                                             src="https://dailycasau.vn/hoanghung/5/images/vi%20da%20ca%20sau%20gu%20den%20daily58.JPG"
+                                             alt="">
+                                    </a>
+                                    <div class="col-8">
+                                        <h3 class="blog-title_sub">
+                                            <a href="https://dailycasau.vn/tin-tuc/lam-the-nao-de-chon-vi-da-ca-sau-chat-luong-/">Làm
+                                                Thế Nào Để Chọn Ví Da Cá Sấu Chất Lượng?</a>
+                                        </h3>
+                                        <span class="d-block" style="color: #6c757d; font-size: 16px;">15/11/2024</span>
+                                        <span class="pb-2" style="font-size: 14px; color: #000000">Ví da cá sấu là một phụ kiện sang trọng và bền bỉ,
+                                                nhưng việc chọn được một chiếc ví da cá sấu chất lượng...                                            </span>
+                                    </div>
+
+                                </div>
                             </div>
 
-                            <div class="col-6" style="overflow-y: auto; max-height: 400px;">
-                                <div class="blog-content">
-                                    <div class="row">
-                                        <a class="col-4" href="https://dailycasau.vn/tin-tuc/lam-the-nao-de-chon-vi-da-ca-sau-chat-luong-/">
-                                            <img style="width: 194px; height: 126px; border-radius: 10px;box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);"
-                                                src="https://dailycasau.vn/hoanghung/5/images/vi%20da%20ca%20sau%20gu%20den%20daily58.JPG"
-                                                alt="">
-                                        </a>
-                                        <div class="col-8">
-                                            <h3 class="blog-title_sub">
-                                                <a href="https://dailycasau.vn/tin-tuc/lam-the-nao-de-chon-vi-da-ca-sau-chat-luong-/">Làm Thế Nào Để Chọn Ví Da Cá Sấu Chất Lượng?</a>
-                                            </h3>
-                                            <span class="d-block" style="color: #6c757d; font-size: 16px;">15/11/2024</span>
-                                            <span class="pb-2" style="font-size: 14px; color: #000000">Ví da cá sấu là một phụ kiện sang trọng và bền bỉ,
-                                                nhưng việc chọn được một chiếc ví da cá sấu chất lượng...                                            </span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="blog-content" >
-                                    <div class="row">
-                                        <a class="col-4" href="https://dailycasau.vn/tin-tuc/lam-the-nao-de-chon-vi-da-ca-sau-chat-luong-/">
-                                            <img style="width: 194px; height: 126px; border-radius: 10px;box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);"
-                                                src="https://dailycasau.vn/hoanghung/5/images/vi%20da%20ca%20sau%20gu%20den%20daily58.JPG"
-                                                alt="">
-                                        </a>
-                                        <div class="col-8">
-                                            <h3 class="blog-title_sub">
-                                                <a href="https://dailycasau.vn/tin-tuc/lam-the-nao-de-chon-vi-da-ca-sau-chat-luong-/">Làm Thế Nào Để Chọn Ví Da Cá Sấu Chất Lượng?</a>
-                                            </h3>
-                                            <span class="d-block" style="color: #6c757d; font-size: 16px;">15/11/2024</span>
-                                            <span class="pb-2" style="font-size: 14px; color: #000000">Ví da cá sấu là một phụ kiện sang trọng và bền bỉ,
-                                                nhưng việc chọn được một chiếc ví da cá sấu chất lượng...                                            </span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="blog-content">
-                                    <div class="row">
-                                        <a class="col-4" href="https://dailycasau.vn/tin-tuc/lam-the-nao-de-chon-vi-da-ca-sau-chat-luong-/">
-                                            <img style="width: 194px; height: 126px; border-radius: 10px;box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);"
-                                                src="https://dailycasau.vn/hoanghung/5/images/vi%20da%20ca%20sau%20gu%20den%20daily58.JPG"
-                                                alt="">
-                                        </a>
-                                        <div class="col-8">
-                                            <h3 class="blog-title_sub">
-                                                <a href="https://dailycasau.vn/tin-tuc/lam-the-nao-de-chon-vi-da-ca-sau-chat-luong-/">Làm Thế Nào Để Chọn Ví Da Cá Sấu Chất Lượng?</a>
-                                            </h3>
-                                            <span class="d-block" style="color: #6c757d; font-size: 16px;">15/11/2024</span>
-                                            <span class="pb-2" style="font-size: 14px; color: #000000">Ví da cá sấu là một phụ kiện sang trọng và bền bỉ,
-                                                nhưng việc chọn được một chiếc ví da cá sấu chất lượng...                                            </span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="blog-content">
-                                    <div class="row">
-                                        <a class="col-4" href="https://dailycasau.vn/tin-tuc/lam-the-nao-de-chon-vi-da-ca-sau-chat-luong-/">
-                                            <img style="width: 194px; height: 126px; border-radius: 10px;box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);"
-                                                src="https://dailycasau.vn/hoanghung/5/images/vi%20da%20ca%20sau%20gu%20den%20daily58.JPG"
-                                                alt="">
-                                        </a>
-                                        <div class="col-8">
-                                            <h3 class="blog-title_sub">
-                                                <a href="https://dailycasau.vn/tin-tuc/lam-the-nao-de-chon-vi-da-ca-sau-chat-luong-/">Làm Thế Nào Để Chọn Ví Da Cá Sấu Chất Lượng?</a>
-                                            </h3>
-                                            <span class="d-block" style="color: #6c757d; font-size: 16px;">15/11/2024</span>
-                                            <span class="pb-2" style="font-size: 14px; color: #000000">Ví da cá sấu là một phụ kiện sang trọng và bền bỉ,
-                                                nhưng việc chọn được một chiếc ví da cá sấu chất lượng...                                            </span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="blog-content">
-                                    <div class="row">
-                                        <a class="col-4" href="https://dailycasau.vn/tin-tuc/lam-the-nao-de-chon-vi-da-ca-sau-chat-luong-/">
-                                            <img style="width: 194px; height: 126px; border-radius: 10px;box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);"
-                                                src="https://dailycasau.vn/hoanghung/5/images/vi%20da%20ca%20sau%20gu%20den%20daily58.JPG"
-                                                alt="">
-                                        </a>
-                                        <div class="col-8">
-                                            <h3 class="blog-title_sub">
-                                                <a href="https://dailycasau.vn/tin-tuc/lam-the-nao-de-chon-vi-da-ca-sau-chat-luong-/">Làm Thế Nào Để Chọn Ví Da Cá Sấu Chất Lượng?</a>
-                                            </h3>
-                                            <span class="d-block" style="color: #6c757d; font-size: 16px;">15/11/2024</span>
-                                            <span class="pb-2" style="font-size: 14px; color: #000000">Ví da cá sấu là một phụ kiện sang trọng và bền bỉ,
-                                                nhưng việc chọn được một chiếc ví da cá sấu chất lượng...                                            </span>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
                         </div>
                     </div>
-
-                    <p class="text-center mt-4 mb-5">
-                        <a class="see-all" href="products.html">Xem tất cả </a>
-                    </p>
-
                 </div>
+
+                <p class="text-center mt-4 mb-5">
+                    <a class="see-all" href="products.html">Xem tất cả </a>
+                </p>
+
             </div>
-
-
-
         </div>
-        <div id="FOOTER"></div>
-    </div>
 
-    <!-- dùng để tải hình -->
-    <div class="load-image d-none">
-        <img src="/assets/images/categories-img/suitcase.png" alt="">
-        <img src="/assets/images/categories-img/white-suitcase.png" alt="">
-        <img src="/assets/images/categories-img/briefcase-line-icon.png" alt="">
-        <img src="/assets/images/categories-img/white-briefcase-line-icon.png" alt="">
-        <img src="/assets/images/categories-img/backpack-icon.png" alt="">
-        <img src="/assets/images/categories-img/white-backpack-icon.png" alt="">
-        <img src="/assets/images/categories-img/messenger-bag.png" alt="">
-        <img src="/assets/images/categories-img/white-messenger-bag.png" alt="">
-        <img src="/assets/images/categories-img/tourist-bag-icon.png" alt="">
-        <img src="/assets/images/categories-img/white-tourist-bag-icon.png" alt="">
-        <img src="/assets/images/categories-img/sling-bag.png" alt="">
-        <img src="/assets/images/categories-img/white-sling-bag.png" alt="">
-        <img src="/assets/images/categories-img/wallet-icon.png" alt="">
-        <img src="/assets/images/categories-img/white-wallet-icon.png" alt="">
-        <img src="/assets/images/categories-img/wallet-icon.png" alt="">
-        <img src="/assets/images/categories-img/white-wallet-icon.png" alt="">
-        <img src="/assets/images/categories-img/smartwatch-icon.png" alt="">
-        <img src="/assets/images/categories-img/white-smartwatch-icon.png" alt="">
-        <img src="/assets/images/categories-img/man-shoe-icon.png" alt="">
-        <!-- <img src="/assets/images/categories-img/whiteman-shoe-icon.png" alt=""> -->
-        <img src="/assets/images/categories-img/handbag.png" alt="">
-        <!-- <img src="/assets/images/categories-img/white-handbag.png" alt=""> -->
-        <img src="/assets/images/categories-img/aokhoacda.png" alt="">
-        <img src="/assets/images/categories-img/white-aokhoacda.png" alt="">
+
     </div>
+    <div id="FOOTER">
+        <script>
+            $("#FOOTER").load("/includes/footer.html");
+        </script>
+    </div>
+</div>
+
+<!-- dùng để tải hình -->
+<div class="load-image d-none">
+    <img src="/assets/images/categories-img/suitcase.png" alt="">
+    <img src="/assets/images/categories-img/white-suitcase.png" alt="">
+    <img src="/assets/images/categories-img/briefcase-line-icon.png" alt="">
+    <img src="/assets/images/categories-img/white-briefcase-line-icon.png" alt="">
+    <img src="/assets/images/categories-img/backpack-icon.png" alt="">
+    <img src="/assets/images/categories-img/white-backpack-icon.png" alt="">
+    <img src="/assets/images/categories-img/messenger-bag.png" alt="">
+    <img src="/assets/images/categories-img/white-messenger-bag.png" alt="">
+    <img src="/assets/images/categories-img/tourist-bag-icon.png" alt="">
+    <img src="/assets/images/categories-img/white-tourist-bag-icon.png" alt="">
+    <img src="/assets/images/categories-img/sling-bag.png" alt="">
+    <img src="/assets/images/categories-img/white-sling-bag.png" alt="">
+    <img src="/assets/images/categories-img/wallet-icon.png" alt="">
+    <img src="/assets/images/categories-img/white-wallet-icon.png" alt="">
+    <img src="/assets/images/categories-img/wallet-icon.png" alt="">
+    <img src="/assets/images/categories-img/white-wallet-icon.png" alt="">
+    <img src="/assets/images/categories-img/smartwatch-icon.png" alt="">
+    <img src="/assets/images/categories-img/white-smartwatch-icon.png" alt="">
+    <img src="/assets/images/categories-img/man-shoe-icon.png" alt="">
+    <!-- <img src="/assets/images/categories-img/whiteman-shoe-icon.png" alt=""> -->
+    <img src="/assets/images/categories-img/handbag.png" alt="">
+    <!-- <img src="/assets/images/categories-img/white-handbag.png" alt=""> -->
+    <img src="/assets/images/categories-img/aokhoacda.png" alt="">
+    <img src="/assets/images/categories-img/white-aokhoacda.png" alt="">
+</div>
 
 </body>
 

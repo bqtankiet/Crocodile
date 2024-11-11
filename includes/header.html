@@ -1,44 +1,50 @@
 <!--Style-->
 <style>
 
-    header hr {
-        color: gray;
+    header .navbar-wrapper {
+        background-color: var(--custom-bg-primary);
+    }
+
+    header .fixed-navbar.fixed-top {
+        opacity: 0;
+        display: none;
+        transition: all ease .25s;
+        background-color: var(--custom-bg-primary);
     }
 
     header .custom-navbar .nav-item .nav-link {
-        color: black;
+        color: white;
         display: flex;
         align-items: center;
-        font-weight: bold;
+        font-weight: 600;
         gap: 0.3rem;
 
         svg {
+            display: none;
             width: 1.2rem;
             height: 1.2rem;
         }
     }
 
     header .custom-navbar .nav-item .nav-link:hover {
-        color: var(--custom-bg-primary);
+        opacity: 0.8;
     }
 
     header .custom-navbar .nav-item .nav-link.active {
         font-weight: bold;
         position: relative;
-        border-bottom: 2px solid var(--custom-bg-primary);
-        border-top: 2px solid var(--custom-bg-primary);
-        color: var(--custom-bg-primary);
+        color: white;
     }
 
-    /*header .custom-navbar .nav-item .nav-link.active::after {*/
-    /*    content: "";*/
-    /*    width: 100%;*/
-    /*    height: 2px;*/
-    /*    background-color: var(--custom-bg-primary);*/
-    /*    position: absolute;*/
-    /*    bottom: 4px;*/
-    /*    left: 0;*/
-    /*}*/
+    header .custom-navbar .nav-item .nav-link.active::after {
+        content: "";
+        width: 100%;
+        height: 2px;
+        background-color: white;
+        position: absolute;
+        bottom: 4px;
+        left: 0;
+    }
 
     header .dropdown:hover .dropdown-menu {
         display: block;
@@ -56,16 +62,19 @@
 </style>
 
 <!--HTML-->
-<header class="text-black pt-1">
+<header class="header position-relative">
+    <!--  Text uu dai  -->
+    <div class="d-flex justify-content-center py-1" style="background-color: #f6f6f6;">
+        <p class="small custom-text-primary fw-medium mb-0">Ưu đãi đặc biệt dành cho tài khoản mới.
+            <span style="color: orangered">Giảm ngay 50%</span> cho đơn hàng đầu tiên.
+        </p>
+    </div>
+
     <!--  Search bar and other -->
-    <div class="container-xl">
-        <div class="d-flex justify-content-end flex-grow-1 gap-3 small pb-2">
-            <span>TP.Hồ Chí Minh</span>
-            <span>Tiếng Việt</span>
-        </div>
+    <div class="container-xl my-4">
         <div class="row align-items-center justify-content-center mx-auto col-11 col-lg-12">
             <a class="h1 text-decoration-none col-3 order-lg-0" href="home.html">
-                <img src="https://www.gento.vn/wp-content/uploads/2021/04/Gento_logo.png" alt="Logo" class="w-75">
+                <img src="https://www.crocodileinternational.com/img/crocodile-logo-1609222037.jpg" alt="Logo" style="width: 15rem">
             </a>
             <form class="d-flex p-2 mt-2 mt-lg-0 rounded-5 col-lg col-12 order-lg-1 order-3 mx-3"
                   style="background-color: #ededed" role="search">
@@ -80,9 +89,8 @@
                 </button>
             </form>
             <!-- Account, Cart -->
-            <div class="d-flex justify-content-end lh-1 text-nowrap col-3 ms-auto gap-md-3 order-lg-2">
-                <a href="login.html" class="text-decoration-none text-black position-relative">
-                    <!--                    <span class="badge text-bg-danger position-absolute translate-middle rounded-pill">10+</span>-->
+            <div class="d-flex justify-content-around lh-1 text-nowrap col-4 ms-auto gap-md-4 order-lg-2">
+                <a href="login.html" class="text-decoration-none position-relative custom-text-primary">
                     <div class="d-flex align-items-center justify-content-end">
                         <div class="custom-icon" style="--size: 2rem">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -98,7 +106,8 @@
                         </div>
                     </div>
                 </a>
-                <a id="cart-toggle" class="text-decoration-none text-black position-relative" href="#offcanvasRight" role="button"
+                <a id="cart-toggle" class="text-decoration-none position-relative custom-text-primary"
+                   href="#offcanvasRight" role="button"
                    data-bs-toggle="offcanvas">
                     <span class="badge text-bg-danger position-absolute translate-middle rounded-pill">1</span>
 
@@ -121,10 +130,9 @@
     </div>
 
     <!--  Navigation bar  -->
-    <div style="background-color: #ededed">
-        <hr>
+    <div class="navbar-wrapper">
         <div class="container-xl">
-            <nav class="navbar custom-navbar py-0">
+            <nav class="navbar custom-navbar">
                 <div class="d-flex flex-grow-1 justify-content-between">
                     <ul class="navbar-nav flex-grow-1 d-flex flex-row justify-content-center align-items-center gap-5 text-uppercase">
                         <li class="nav-item">
@@ -174,8 +182,42 @@
                 </div>
             </nav>
         </div>
-        <hr>
     </div>
+    <div class="fixed-navbar fixed-top">
+        <nav class="navbar custom-navbar">
+            <div class="d-flex flex-grow-1 justify-content-between">
+                <ul class="navbar-nav flex-grow-1 d-flex flex-row justify-content-center align-items-center gap-5 text-uppercase">
+                    <li class="nav-item">
+                        <a href="home.html" class="nav-link home-page">
+                            Trang chủ
+                        </a>
+                    </li>
+                    <li class="nav-item position-relative dropdown">
+                        <a href="#" class="nav-link products-page dropdown-toggle" data-bs-toggle="dropdown"
+                           role="button">
+                            Sản phẩm
+                        </a>
+                        <ul class="dropdown-menu position-absolute rounded-0">
+                            <li><a class="dropdown-item" href="products.html">Ví Da</a></li>
+                            <li><a class="dropdown-item" href="#">Áo Khoác Da</a></li>
+                            <li><a class="dropdown-item" href="#">Găng Tay Da</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contact.html" class="nav-link contact-page">
+                            Liên hệ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link about-page">
+                            Giới Thiệu
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
 
     <!--  Offcanvas Gio Hang  -->
     <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasRight">
@@ -205,7 +247,8 @@
                         <div class="w-100">
                             <div class="d-flex align-items-center">
                                 <div class="me-2">
-                                    <p class="fw-semibold mb-0 line-clamp-2" style="height: fit-content ;max-height: 2.5rem; line-height: 1.2">
+                                    <p class="fw-semibold mb-0 line-clamp-2"
+                                       style="height: fit-content ;max-height: 2.5rem; line-height: 1.2">
                                         Ví gấp nam da cá sấu V7068
                                     </p>
                                     <p class="text-muted mt-1 mb-0">Da trơn</p>
@@ -222,8 +265,22 @@
                 <p>Tổng:</p>
                 <p>1.100.000<sup>₫</sup></p>
             </div>
-            <a href="../pages/cart-details.html" class="btn custom-btn-primary mt-auto w-100 py-2 fw-medium">Xem chi tiết</a>
+            <a href="../pages/cart-details.html" class="btn custom-btn-primary mt-auto w-100 py-2 fw-medium">Xem chi
+                tiết</a>
         </div>
     </div>
 
 </header>
+
+<script>
+    window.addEventListener('scroll', function () {
+        const fixedNavbar = $(".fixed-navbar");
+        fixedNavbar.css('display', 'block');
+        if (window.scrollY > 200) {
+            fixedNavbar.css('opacity','1');
+        } else {
+            fixedNavbar.css('display', 'none');
+            fixedNavbar.css('opacity', '0');
+        }
+    });
+</script>

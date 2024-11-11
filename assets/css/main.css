@@ -9,7 +9,7 @@
 }
 
 :root {
-    --custom-bg-primary: #608e41;
+    --custom-bg-primary: #007b5f;
 }
 
 * {
@@ -23,7 +23,7 @@ html {
 }
 
 .custom-text-primary {
-    color: var(--custom-bg-primary);
+    color: #004c45;
 }
 
 .custom-bg-primary {
