@@ -75,7 +75,7 @@
     margin-right: 10px;
 
     &:hover {
-        background-image: var(--bg-image-hover-url);
+        /*background-image: var(--bg-image-hover-url);*/
     }
 }
 
@@ -84,15 +84,12 @@
     padding: 0.5rem;
     background-color: white;
     transition: all ease-in-out 0.2s;
+    text-transform: capitalize;
 
     &:hover {
-        background-color: var(--custom-bg-primary);
+        background-color: var(--bs-secondary-bg-subtle);
         outline: var(--custom-bg-primary-darker);
-        scale: 1.2;
-
-        & a {
-            color: #eef3eb;
-        }
+        scale: .95;
     }
 
 }

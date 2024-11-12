@@ -138,7 +138,7 @@
             <!-- normal navbar -->
             <nav class="navbar custom-navbar">
                 <div class="d-flex flex-grow-1 justify-content-between">
-                    <ul class="navbar-nav flex-grow-1 d-flex flex-row justify-content-center align-items-center gap-5 text-uppercase">
+                    <ul class="navbar-nav flex-grow-1 d-flex flex-row justify-content-center align-items-center gap-5 text-capitalize">
                         <li class="nav-item">
                             <a href="home.html" class="nav-link home-page">
                                 Trang chủ
@@ -149,9 +149,20 @@
                                 <div class="dropdown-toggle" data-bs-toggle="dropdown">Sản phẩm</div>
                             </a>
                             <ul class="dropdown-menu position-absolute rounded-0 custom-bg-primary-darker shadow-lg">
-                                <li><a class="dropdown-item" href="products.html">Ví Da</a></li>
-                                <li><a class="dropdown-item" href="#">Áo Khoác Da</a></li>
-                                <li><a class="dropdown-item" href="#">Găng Tay Da</a></li>
+                                <li><a class="dropdown-item" href="products.html">Ví nam</a></li>
+                                <li><a class="dropdown-item" href="#">Ví nữ</a></li>
+                                <li><a class="dropdown-item" href="#">Túi xách nam</a></li>
+                                <li><a class="dropdown-item" href="#">Túi xách nữ</a></li>
+                                <li><a class="dropdown-item" href="#">Túi đeo chéo</a></li>
+                                <li><a class="dropdown-item" href="#">Balo</a></li>
+                                <li><a class="dropdown-item" href="#">Vali</a></li>
+                                <li><a class="dropdown-item" href="#">Thắt lưng</a></li>
+                                <li><a class="dropdown-item" href="#">Áo khoác</a></li>
+                                <li><a class="dropdown-item" href="#">Giày tây</a></li>
+                                <li><a class="dropdown-item" href="#">Giày cao gót</a></li>
+                                <li><a class="dropdown-item" href="#">Dép</a></li>
+                                <li><a class="dropdown-item" href="#">Phụ kiện</a></li>
+                                <li><a class="dropdown-item" href="#">Danh mục khác</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -182,7 +193,7 @@
                         </a>
                     </div>
                     <div class="col">
-                        <ul class="navbar-nav flex-grow-1 d-flex flex-row justify-content-center align-items-center gap-5 text-uppercase">
+                        <ul class="navbar-nav flex-grow-1 d-flex flex-row justify-content-center align-items-center gap-5 text-capitalize">
                             <li class="nav-item">
                                 <a href="home.html" class="nav-link home-page">
                                     Trang chủ
@@ -193,9 +204,20 @@
                                     <div class="dropdown-toggle" data-bs-toggle="dropdown">Sản phẩm</div>
                                 </a>
                                 <ul class="dropdown-menu position-absolute rounded-0 custom-bg-primary-darker shadow-lg">
-                                    <li><a class="dropdown-item" href="products.html">Ví Da</a></li>
-                                    <li><a class="dropdown-item" href="#">Áo Khoác Da</a></li>
-                                    <li><a class="dropdown-item" href="#">Găng Tay Da</a></li>
+                                    <li><a class="dropdown-item" href="products.html">Ví nam</a></li>
+                                    <li><a class="dropdown-item" href="#">Ví nữ</a></li>
+                                    <li><a class="dropdown-item" href="#">Túi xách nam</a></li>
+                                    <li><a class="dropdown-item" href="#">Túi xách nữ</a></li>
+                                    <li><a class="dropdown-item" href="#">Túi đeo chéo</a></li>
+                                    <li><a class="dropdown-item" href="#">Balo</a></li>
+                                    <li><a class="dropdown-item" href="#">Vali</a></li>
+                                    <li><a class="dropdown-item" href="#">Thắt lưng</a></li>
+                                    <li><a class="dropdown-item" href="#">Áo khoác</a></li>
+                                    <li><a class="dropdown-item" href="#">Giày tây</a></li>
+                                    <li><a class="dropdown-item" href="#">Giày cao gót</a></li>
+                                    <li><a class="dropdown-item" href="#">Dép</a></li>
+                                    <li><a class="dropdown-item" href="#">Phụ kiện</a></li>
+                                    <li><a class="dropdown-item" href="#">Danh mục khác</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item">
@@ -304,6 +326,7 @@
 </header>
 
 <script>
+    // "SCROLL EVENT" - Toggle fixed navbar
     window.addEventListener('scroll', function () {
         const fixedNavbar = $(".fixed-navbar");
         fixedNavbar.css('display', 'block');

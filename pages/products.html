@@ -99,6 +99,31 @@
                 border: 2px solid var(--custom-bg-primary);
             }
         }
+
+        .category-item a{
+            position: relative;
+            color: black;
+            &:hover{
+                color: var(--custom-bg-primary-darker);
+            }
+        }
+        .category-item.active a {
+            font-weight: bold;
+            color: var(--custom-bg-primary-darker);
+            border-bottom: 2px solid var(--custom-bg-primary-darker);
+        }
+        .category-item.active a::before{
+            position: absolute;
+            left: -50%;
+            top: 50%;
+            transform: translateY(-50%);
+            content: "";
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgZmlsbD0idmFyKC0tY3VzdG9tLWJnLXByaW1hcnkpIiBjbGFzcz0iYmkgYmktY2FyZXQtcmlnaHQtZmlsbCIgdmlld0JveD0iMCAwIDE2IDE2Ij4gPHBhdGggZD0ibTEyLjE0IDguNzUzLTUuNDgyIDQuNzk2Yy0uNjQ2LjU2Ni0xLjY1OC4xMDYtMS42NTgtLjc1M1YzLjIwNGEgMSAxIDAgMCAxIDEuNjU5LS43NTNsNS40OCA0Ljc5NmExIDEgMCAwIDEgMCAxLjUwNnoiLz4gPC9zdmc+');
+            background-size: cover;
+        }
     </style>
 
     <!--  INTERNAL JS  -->
@@ -128,7 +153,7 @@
 
     <div id="CONTENT">
         <!-- Breadcrumb Navigation-->
-        <div class="container py-1">
+        <div class="container py-1 mt-2">
             <nav style="--bs-breadcrumb-divider: '>'">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="home.html">Trang Chủ</a></li>
@@ -144,7 +169,7 @@
                 <!-- Product Filter -->
                 <div class="col-12 d-flex flex-column gap-3">
                     <!-- Danh muc -->
-                    <div class="ms-1 ms-lg-0">
+                    <div class="ms-1 ms-lg-0 bg-secondary-subtle p-3">
                         <div class="gap-2" role="button" id="triggerCategory" data-bs-toggle="collapse"
                              data-bs-target="#collapseCategory">
                             <div class="d-flex align-items-center gap-2">
@@ -165,27 +190,21 @@
                         </div>
                         <div class="collapse" id="collapseCategory">
                             <hr>
-                            <div class="d-flex align-items-center mb-2 ms-3" style="transform: translateX(-1rem)">
-                                <div class="custom-icon pe-1"
-                                     style="--size: 0.8rem;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                         fill="var(--custom-bg-primary)"
-                                         class="bi bi-caret-right-fill" viewBox="0 0 16 16">
-                                        <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
-                                    </svg>
-                                </div>
-                                <a href="#" class="text-decoration-none custom-text-primary fw-bold">Ví Da</a>
-                            </div>
-                            <ul class="d-grid gap-2 list-unstyled ms-3 mb-2">
-                                <li><a href="#" class="text-decoration-none text-black">Áo Khoác Da</a></li>
-                                <li><a href="#" class="text-decoration-none text-black">Găng Tay Da</a></li>
-                                <li><a href="#" class="text-decoration-none text-black">Ví Da</a></li>
-                                <li><a href="#" class="text-decoration-none text-black">Thắt Lưng Da</a></li>
+                            <ul class="category-list row list-unstyled mb-2 ms-3 gy-2">
+                                <li class="category-item col-4 active"><a href="#" class="text-decoration-none">Ví Da</a></li>
+                                <li class="category-item col-4"><a href="#" class="text-decoration-none">Áo Khoác Da</a></li>
+                                <li class="category-item col-4"><a href="#" class="text-decoration-none">Găng Tay Da</a></li>
+                                <li class="category-item col-4"><a href="#" class="text-decoration-none">Thắt Lưng Da</a></li>
+                                <li class="category-item col-4"><a href="#" class="text-decoration-none">Ví Da</a></li>
+                                <li class="category-item col-4"><a href="#" class="text-decoration-none">Áo Khoác Da</a></li>
+                                <li class="category-item col-4"><a href="#" class="text-decoration-none">Găng Tay Da</a></li>
+                                <li class="category-item col-4"><a href="#" class="text-decoration-none">Thắt Lưng Da</a></li>
+
                             </ul>
                         </div>
                     </div>
                     <!-- Muc gia -->
-                    <div class="ms-1 ms-lg-0">
+                    <div class="ms-1 ms-lg-0 bg-secondary-subtle p-3">
                         <div class="gap-2" role="button" id="triggerPriceRange" data-bs-toggle="collapse"
                              data-bs-target="#collapsePriceRange">
                             <div class="d-flex align-items-center gap-2">
@@ -247,7 +266,7 @@
                 <!-- Products Container -->
                 <div class="col-12 mt-4">
                     <!-- Sort bar -->
-                    <div class="d-flex align-items-center p-4 mb-2" style="height: 50px; background-color: #eee">
+                    <div class="d-flex align-items-center p-4 mb-2 bg-secondary-subtle" style="height: 50px;">
                         <span class="me-3 fw-semibold">Sắp Xếp Theo</span>
                         <div class="d-flex gap-3">
                             <button class="btn custom-btn-primary">Mặc định</button>

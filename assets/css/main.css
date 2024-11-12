@@ -36,7 +36,11 @@ html {
 }
 
 .custom-border-primary-darker {
-    border: 1px solid var(--custom-bg-primary-darker);
+    --bs-border-color: var(--custom-bg-primary-darker);
+}
+
+.custom-border-primary {
+    --bs-border-color: var(--custom-bg-primary);
 }
 
 .custom-icon {
