@@ -10,6 +10,7 @@
 
 :root {
     --custom-bg-primary: #007b5f;
+    --custom-bg-primary-darker: #004c45;
 }
 
 * {
@@ -26,8 +27,16 @@ html {
     color: #004c45;
 }
 
+.custom-bg-primary-darker {
+    background-color: var(--custom-bg-primary-darker);
+}
+
 .custom-bg-primary {
     background-color: var(--custom-bg-primary);
+}
+
+.custom-border-primary-darker {
+    border: 1px solid var(--custom-bg-primary-darker);
 }
 
 .custom-icon {
