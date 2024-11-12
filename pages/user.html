@@ -13,6 +13,11 @@
     <link rel="stylesheet" href="/layouts/layout.css">
     <link rel="stylesheet" href="/assets/css/main.css">
     <!--  js  -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </head>
 <style>
     body {
@@ -130,12 +135,43 @@
         display: none;
     }
 
+    .address-card {
+        border: 1px solid #dbdbdb;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+    .address-card p {
+        margin: 0;
+        color: #333;
+    }
+
+    .address-card .separator {
+        margin: 0 8px;
+        color: #ccc;
+        font-weight: normal;
+    }
+
+    .address-card i.fa-map-marker-alt {
+        color: #ff6347;
+    }
+
+    .address-specific {
+        color: #555;
+        font-size: 0.9em;
+    }
+
+    .edit-btn {
+        margin-top: 8px;
+    }
+
 
 </style>
 <style>
-    .nav.nav-pills .nav-link{
+    .nav.nav-pills .nav-link {
         color: gray;
-        &.active{
+
+        &.active {
             color: white;
         }
     }
@@ -156,7 +192,8 @@
                     <div class="col-3 me-1">
                         <div class="text-bg-secondary rounded-circle ratio-1x1 ratio" style="width: 4rem;">
                             <div class="custom-icon" style="--size: 3rem">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-person" viewBox="0 0 16 16">
                                     <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
                                 </svg>
                             </div>
@@ -167,10 +204,14 @@
                         <div class="text-muted">#anhkiet123</div>
                     </div>
                 </div>
+                <div>
+
+                </div>
                 <div class="nav nav-pills flex-column gap-3" id="v-pills-tab" role="tablist">
                     <div role="button" class="nav-link active" data-bs-toggle="pill" data-bs-target="#account-general">
                         <div class="custom-icon me-2 float-start" style="--size: 1.5rem">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-person" viewBox="0 0 16 16">
                                 <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
                             </svg>
                         </div>
@@ -178,7 +219,8 @@
                     </div>
                     <div role="button" class="nav-link" data-bs-toggle="pill" data-bs-target="#account-purchase-order">
                         <div class="custom-icon me-2 float-start" style="--size: 1.5rem">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-receipt" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-receipt" viewBox="0 0 16 16">
                                 <path d="M1.92.506a.5.5 0 0 1 .434.14L3 1.293l.646-.647a.5.5 0 0 1 .708 0L5 1.293l.646-.647a.5.5 0 0 1 .708 0L7 1.293l.646-.647a.5.5 0 0 1 .708 0L9 1.293l.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .801.13l.5 1A.5.5 0 0 1 15 2v12a.5.5 0 0 1-.053.224l-.5 1a.5.5 0 0 1-.8.13L13 14.707l-.646.647a.5.5 0 0 1-.708 0L11 14.707l-.646.647a.5.5 0 0 1-.708 0L9 14.707l-.646.647a.5.5 0 0 1-.708 0L7 14.707l-.646.647a.5.5 0 0 1-.708 0L5 14.707l-.646.647a.5.5 0 0 1-.708 0L3 14.707l-.646.647a.5.5 0 0 1-.801-.13l-.5-1A.5.5 0 0 1 1 14V2a.5.5 0 0 1 .053-.224l.5-1a.5.5 0 0 1 .367-.27m.217 1.338L2 2.118v11.764l.137.274.51-.51a.5.5 0 0 1 .707 0l.646.647.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.509.509.137-.274V2.118l-.137-.274-.51.51a.5.5 0 0 1-.707 0L12 1.707l-.646.647a.5.5 0 0 1-.708 0L10 1.707l-.646.647a.5.5 0 0 1-.708 0L8 1.707l-.646.647a.5.5 0 0 1-.708 0L6 1.707l-.646.647a.5.5 0 0 1-.708 0L4 1.707l-.646.647a.5.5 0 0 1-.708 0z"/>
                                 <path d="M3 4.5a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5m8-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5"/>
                             </svg>
@@ -188,7 +230,8 @@
                     <!--                    <div role="button" class="nav-link" data-bs-toggle="pill" data-bs-target="#account-info">Thông Tin</div>-->
                     <div role="button" class="nav-link" data-bs-toggle="pill" data-bs-target="#account-address">
                         <div class="custom-icon me-2 float-start" style="--size: 1.5rem">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-geo-alt" viewBox="0 0 16 16">
                                 <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
                                 <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
                             </svg>
@@ -197,7 +240,8 @@
                     </div>
                     <div role="button" class="nav-link" data-bs-toggle="pill" data-bs-target="#account-change-password">
                         <div class="custom-icon float-start me-2" style="--size: 1.5rem">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-key" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-key" viewBox="0 0 16 16">
                                 <path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8m4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5"/>
                                 <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
                             </svg>
@@ -206,9 +250,12 @@
                     </div>
                     <div role="button" class="nav-link text-danger fw-semibold ">
                         <div class="custom-icon me-2 float-start" style="--size: 1.5rem">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z"/>
-                                <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                      d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z"/>
+                                <path fill-rule="evenodd"
+                                      d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z"/>
                             </svg>
                         </div>
                         Đăng xuất
@@ -227,7 +274,8 @@
                             <div class="row">
                                 <label for="username" class="col-form-label col-sm-2 text-muted">Tên đăng nhập</label>
                                 <div class="col-sm-10">
-                                    <input type="text" readonly class="form-control-plaintext" id="username" value="anhkiet123" >
+                                    <input type="text" readonly class="form-control-plaintext" id="username"
+                                           value="anhkiet123">
                                 </div>
                             </div>
                             <div class="row">
@@ -239,20 +287,24 @@
                             <div class="row">
                                 <label for="email" class="col-form-label col-sm-2 text-muted">Email</label>
                                 <div class="col-sm-10">
-                                    <input type="text" readonly class="form-control-plaintext" id="email" value="anhkiet123@gmail.com">
+                                    <input type="text" readonly class="form-control-plaintext" id="email"
+                                           value="anhkiet123@gmail.com">
                                 </div>
                             </div>
                             <div class="row">
-                                <label for="phone-number" class="col-form-label col-sm-2 text-muted">Số điện thoại</label>
+                                <label for="phone-number" class="col-form-label col-sm-2 text-muted">Số điện
+                                    thoại</label>
                                 <div class="col-sm-10">
-                                    <input type="text" readonly class="form-control-plaintext" id="phone-number" value="0123 456 789">
+                                    <input type="text" readonly class="form-control-plaintext" id="phone-number"
+                                           value="0123 456 789">
                                 </div>
                             </div>
                             <div class="row">
                                 <label class="col-form-label col-sm-2 text-muted">Giới tính </label>
                                 <div class="col-sm-10">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" id="gender-male" checked>
+                                        <input class="form-check-input" type="radio" name="gender" id="gender-male"
+                                               checked>
                                         <label class="form-check-label" for="gender-male">Nam</label>
                                     </div>
                                     <div class="form-check form-check-inline">
@@ -268,10 +320,13 @@
                             <div class="row">
                                 <label for="birth-date" class="col-form-label col-sm-2 text-muted">Ngày sinh</label>
                                 <div class="col-sm-10">
-                                    <input type="date" class="form-control-plaintext" id="birth-date" value="2004-01-01" style="width: min-content;">
+                                    <input type="date" class="form-control-plaintext" id="birth-date" value="2004-01-01"
+                                           style="width: min-content;">
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary px-4 py-2 ms-auto disabled" style="width: max-content">Lưu thay đổi</button>
+                            <button type="submit" class="btn btn-primary px-4 py-2 ms-auto disabled"
+                                    style="width: max-content">Lưu thay đổi
+                            </button>
                         </form>
                     </div>
                     <div class="tab-pane fade" id="account-change-password">
@@ -281,31 +336,37 @@
                         </div>
                         <form class="d-flex flex-column gap-4">
                             <div class="row">
-                                <label for="current-password" class="col-form-label text-muted">Mật khẩu hiện tại</label>
+                                <label for="current-password" class="col-form-label text-muted">Mật khẩu hiện
+                                    tại</label>
                                 <div class="col-12">
-                                    <input type="password" class="form-control" id="current-password" value="password" >
+                                    <input type="password" class="form-control" id="current-password" value="password">
                                 </div>
                             </div>
                             <div class="row">
                                 <label for="new-password" class="col-form-label text-muted">
                                     Mật khẩu mới
-                                    <span class="text-danger" data-bs-toggle="tooltip" data-bs-title="Mật khẩu mới phải chứa ít nhất 8 kí tự. Có ít nhất 1 kí tự in hoa và số" data-bs-placement="right">*</span>
+                                    <span class="text-danger" data-bs-toggle="tooltip"
+                                          data-bs-title="Mật khẩu mới phải chứa ít nhất 8 kí tự. Có ít nhất 1 kí tự in hoa và số"
+                                          data-bs-placement="right">*</span>
                                 </label>
                                 <div class="col-12">
-                                    <input type="password" class="form-control" id="new-password" value="" >
+                                    <input type="password" class="form-control" id="new-password" value="">
                                 </div>
                             </div>
                             <div class="row">
                                 <label for="new-password-check" class="col-form-label text-muted">
                                     Nhập lại mật khẩu mới
-                                    <span class="text-danger" data-bs-toggle="tooltip" data-bs-title="Mật khẩu phải khớp với mật khẩu mới" data-bs-placement="right">*</span>
+                                    <span class="text-danger" data-bs-toggle="tooltip"
+                                          data-bs-title="Mật khẩu phải khớp với mật khẩu mới" data-bs-placement="right">*</span>
                                 </label>
                                 <div class="col-12">
-                                    <input type="password" class="form-control" id="new-password-check" value="" >
+                                    <input type="password" class="form-control" id="new-password-check" value="">
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-primary px-4 py-2 ms-auto disabled" style="width: max-content">Lưu thay đổi</button>
+                            <button type="submit" class="btn btn-primary px-4 py-2 ms-auto disabled"
+                                    style="width: max-content">Lưu thay đổi
+                            </button>
                         </form>
                     </div>
                     <!--                    <div class="tab-pane fade" id="account-info">-->
@@ -337,7 +398,7 @@
                     <!--                            </div>-->
                     <!--                        </div>-->
                     <!--                    </div>-->
-                    <div class="tab-pane fade" id="account-address">
+                    <div class="tab-pane fade active" id="account-address">
                         <div class="card-body pb-2">
                             <div class="form-group">
                                 <div class="d-flex justify-content-between align-items-center">
@@ -355,7 +416,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade hidden" id="newAddress">
+                    <div class="tab-pane fade " id="newAddress">
                         <div class="card shadow p-3" style="width: 50rem; height: 100%">
                             <h5>Nhập địa chỉ mới</h5>
                             <div class="form-group">
@@ -480,17 +541,22 @@
             return;
         }
 
-        const newAddress = `
+        document.querySelectorAll(".address-card").forEach(card => card.classList.remove("editing"));
+
+        const newAddressHTML = `
     <div class="card address-card p-3 mb-3">
-        <p><strong>${name}</strong> <span class="text-muted">${phone}</span></p>
-        <p>${ward}, ${district}</p>
-        <p>${city}</p>
-        <p class="address-specific">${diachi}</p>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <p class="mb-0"><strong>${name}</strong> <span class="text-muted">${phone}</span></p>
+        </div>
+        <p class="mb-1"><i class="fa fa-map-marker-alt"></i> ${ward}, ${district}</p>
+        <p class="mb-1">${city}</p>
+        <p class="address-specific mb-2">${diachi}</p>
         <button class="btn btn-warning btn-sm edit-btn">Chỉnh sửa</button>
     </div>
-    `;
+`;
 
-        document.getElementById("addressList").insertAdjacentHTML("beforeend", newAddress);
+
+        document.getElementById("addressList").insertAdjacentHTML("beforeend", newAddressHTML);
 
         document.getElementById("name").value = "";
         document.getElementById("phone").value = "";
@@ -500,7 +566,6 @@
         document.getElementById("SoNha").value = "";
 
         document.getElementById("newAddress").classList.remove("show", "active");
-        document.querySelector('[href="#account-address"]').classList.add("active");
         document.getElementById("account-address").classList.add("show", "active");
 
         addEditEventListeners();
@@ -519,7 +584,6 @@
         editAddressFromCard(addressCard);
     }
 
-    // hàm edit địac chỉ
     function editAddressFromCard(addressCard) {
         if (!addressCard) {
             alert("Không tìm thấy địa chỉ để chỉnh sửa.");
@@ -531,7 +595,7 @@
         const ward = addressCard.querySelector('p:nth-child(2)').textContent.split(',')[0];
         const district = addressCard.querySelector('p:nth-child(2)').textContent.split(',')[1];
         const city = addressCard.querySelector('p:nth-child(3)').textContent;
-        const address = addressCard.querySelector('.address-specific').textContent;
+        const address = addressCard.querySelector('.address-specific').textContent || '';
 
         document.getElementById("editName").value = name;
         document.getElementById("editPhone").value = phone;
@@ -542,8 +606,6 @@
 
         document.getElementById("editAddress").classList.add("show", "active");
         document.getElementById("account-address").classList.remove("show", "active");
-        document.querySelector('[href="#editAddress"]').classList.add("active");
-        document.querySelector('[href="#account-address"]').classList.remove("active");
 
         addressCard.classList.add("editing");
     }
@@ -569,32 +631,32 @@
         }
 
         addressCard.querySelector('strong').textContent = name;
-        addressCard.querySelector('.text-muted').textContent = phone;
+        addressCard.querySelector('.text-muted').textContent = `| ${phone}`;
         addressCard.querySelector('p:nth-child(2)').textContent = `${ward}, ${district}`;
         addressCard.querySelector('p:nth-child(3)').textContent = city;
         addressCard.querySelector('.address-specific').textContent = address;
 
         document.getElementById("editAddress").classList.remove("show", "active");
         document.getElementById("account-address").classList.add("show", "active");
-        document.querySelector('[href="#account-address"]').classList.add("active");
-        document.querySelector('[href="#editAddress"]').classList.remove("active");
 
         addressCard.classList.remove("editing");
     }
 
-
     function cancelEditAddress() {
         document.getElementById("editAddress").classList.remove("show", "active");
         document.getElementById("account-address").classList.add("show", "active");
-        document.querySelector('[href="#account-address"]').classList.add("active");
-        document.querySelector('[href="#editAddress"]').classList.remove("active");
 
+        // Clear edit form fields
         document.getElementById("editName").value = "";
         document.getElementById("editPhone").value = "";
         document.getElementById("editCity").value = "";
         document.getElementById("editDistrict").value = "";
         document.getElementById("editWard").value = "";
+        document.getElementById("editSoNha").value = "";
     }
+
+    document.addEventListener("DOMContentLoaded", addEditEventListeners);
+
 </script>
 
 <script>
