@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/layouts/layout.css">
     <link rel="stylesheet" href="/assets/css/main.css">
     <!--  js  -->
-        <script src="/assets/js/loadVNAddress.js"></script>
+    <script src="/assets/js/loadVNAddress.js"></script>
 </head>
 <style>
     .hidden {
@@ -28,6 +28,26 @@
             background-color: var(--custom-bg-primary);
         }
     }
+
+    .eye-icon {
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+    }
+
+    .tooltip-custom .tooltip-inner {
+        background-color: #ffdddd; /* Màu nền nhạt hơn */
+        color: #b30000; /* Màu chữ nổi bật */
+        border: 1px solid #b30000; /* Khung viền đỏ */
+        padding: 8px;
+        font-weight: bold;
+        border-radius: 5px;
+    }
+
+    .tooltip-custom .tooltip-arrow::before {
+        border-top-color: #ffdddd; /* Màu nền mũi tên */
+    }
+
 </style>
 <body class="p-0">
 <div id="HEADER">
@@ -216,8 +236,8 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-primary px-4 py-2 ms-auto disabled"
-                                    style="width: max-content">Lưu thay đổi
+                            <button type="submit" id="save-password-btn" class="btn btn-primary px-4 py-2 ms-auto "
+                                    style="width: max-content">Lưu
                             </button>
                         </form>
                     </div>
@@ -240,7 +260,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal fade" tabindex="-1" id="newAddressModal" data-bs-backdrop="static" data-bs-keyboard="false">
+                    <div class="modal fade" tabindex="-1" id="newAddressModal" data-bs-backdrop="static"
+                         data-bs-keyboard="false">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content p-2">
                                 <div class="modal-header">
@@ -267,21 +288,24 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <input class="form-control" id="district" name="districtName" autocomplete="off"
+                                            <input class="form-control" id="district" name="districtName"
+                                                   autocomplete="off"
                                                    list="districtList"
                                                    placeholder="Nhập quận/huyện" aria-label="">
                                             <datalist id="districtList"></datalist>
                                         </div>
 
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id="ward" name="wardName" autocomplete="off"
+                                            <input type="text" class="form-control" id="ward" name="wardName"
+                                                   autocomplete="off"
                                                    list="wardList"
                                                    placeholder="Nhập phường/xã" aria-label="">
                                             <datalist id="wardList"></datalist>
                                         </div>
 
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id="soNha" name="soNha" autocomplete="off"
+                                            <input type="text" class="form-control" id="soNha" name="soNha"
+                                                   autocomplete="off"
                                                    placeholder="Nhập địa chỉ cụ thể" aria-label="">
                                         </div>
 
@@ -346,7 +370,49 @@
 </div>
 </body>
 <script>
-    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    document.getElementById('save-password-btn').addEventListener('click', function (event) {
+        const newPassword = document.getElementById('new-password');
+        const newPasswordCheck = document.getElementById('new-password-check');
+
+        // Kiểm tra độ dài mật khẩu mới, có ít nhất 1 kí tự in hoa và số
+        const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+        let isValid = true;
+
+        // Tạo tooltip tùy chỉnh cho mật khẩu mới
+        if (!passwordRegex.test(newPassword.value)) {
+            new bootstrap.Tooltip(newPassword, {
+                title: 'Mật khẩu mới phải chứa ít nhất 8 kí tự, có ít nhất 1 kí tự in hoa và số',
+                placement: 'right',
+                trigger: 'manual',
+                customClass: 'tooltip-custom' // Thêm lớp tùy chỉnh
+            }).show();
+            isValid = false;
+        }
+
+        // Kiểm tra mật khẩu mới và mật khẩu nhập lại có khớp không
+        if (newPassword.value !== newPasswordCheck.value) {
+            new bootstrap.Tooltip(newPasswordCheck, {
+                title: 'Mật khẩu nhập lại không khớp với mật khẩu mới',
+                placement: 'right',
+                trigger: 'manual',
+                customClass: 'tooltip-custom' // Thêm lớp tùy chỉnh
+            }).show();
+            isValid = false;
+        }
+
+        if (!isValid) {
+            event.preventDefault(); // Ngăn không cho gửi form nếu không hợp lệ
+        } else {
+            // Ẩn các tooltip khi hợp lệ
+            bootstrap.Tooltip.getInstance(newPassword)?.hide();
+            bootstrap.Tooltip.getInstance(newPasswordCheck)?.hide();
+        }
+
+        // Ẩn tooltip khi người dùng bắt đầu chỉnh sửa lại
+        newPassword.addEventListener('input', () => bootstrap.Tooltip.getInstance(newPassword)?.hide());
+        newPasswordCheck.addEventListener('input', () => bootstrap.Tooltip.getInstance(newPasswordCheck)?.hide());
+    });
+
+
 </script>
 </html>
