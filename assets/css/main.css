@@ -9,7 +9,8 @@
 }
 
 :root {
-    --custom-bg-primary: #608e41;
+    --custom-bg-primary: #007b5f;
+    --custom-bg-primary-darker: #004c45;
 }
 
 * {
@@ -23,11 +24,23 @@ html {
 }
 
 .custom-text-primary {
-    color: var(--custom-bg-primary);
+    color: #004c45;
+}
+
+.custom-bg-primary-darker {
+    background-color: var(--custom-bg-primary-darker);
 }
 
 .custom-bg-primary {
     background-color: var(--custom-bg-primary);
+}
+
+.custom-border-primary-darker {
+    --bs-border-color: var(--custom-bg-primary-darker);
+}
+
+.custom-border-primary {
+    --bs-border-color: var(--custom-bg-primary);
 }
 
 .custom-icon {
