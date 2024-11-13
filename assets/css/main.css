@@ -23,6 +23,8 @@ html {
     overflow-y: scroll;
 }
 
+
+/* CUSTOM UTILS */
 .custom-text-primary {
     color: #004c45;
 }
@@ -65,6 +67,7 @@ html {
     }
 }
 
+/* LINE CLAMP */
 .line-clamp-2 {
     --line: 2;
     display: -webkit-box;
@@ -89,4 +92,17 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+
+/*BREAD CRUMB*/
+.breadcrumb {
+    padding-top: 1rem;
+}
+.breadcrumb .breadcrumb-item a{
+    color: var(--custom-bg-primary-darker);
+    font-weight: 500;
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
+    }
 }
