@@ -240,6 +240,26 @@
                                     style="width: max-content">Lưu
                             </button>
                         </form>
+                        <div class="modal fade" id="passwordChangeSuccessModal" tabindex="-1"
+                             aria-labelledby="passwordChangeSuccessModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content p-2">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="passwordChangeSuccessModalLabel">Thông báo</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Thay đổi mật khẩu thành công!
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Đóng
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="tab-pane fade active" id="account-address">
                         <div class="card-body pb-2">
@@ -370,6 +390,9 @@
 </div>
 </body>
 <script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+
     document.getElementById('save-password-btn').addEventListener('click', function (event) {
         const newPassword = document.getElementById('new-password');
         const newPasswordCheck = document.getElementById('new-password-check');
@@ -381,7 +404,7 @@
         // Tạo tooltip tùy chỉnh cho mật khẩu mới
         if (!passwordRegex.test(newPassword.value)) {
             new bootstrap.Tooltip(newPassword, {
-                title: 'Mật khẩu mới phải chứa ít nhất 8 kí tự, có ít nhất 1 kí tự in hoa và số',
+                title: 'Mật khẩu phải chứa ít nhất 8 kí tự, bao gồm chữ viết hoa, số và kí tự đặc biệt',
                 placement: 'right',
                 trigger: 'manual',
                 customClass: 'tooltip-custom' // Thêm lớp tùy chỉnh
@@ -406,13 +429,16 @@
             // Ẩn các tooltip khi hợp lệ
             bootstrap.Tooltip.getInstance(newPassword)?.hide();
             bootstrap.Tooltip.getInstance(newPasswordCheck)?.hide();
+
+            // Hiển thị modal thành công
+            const successModal = new bootstrap.Modal(document.getElementById('passwordChangeSuccessModal'));
+            successModal.show();
         }
 
         // Ẩn tooltip khi người dùng bắt đầu chỉnh sửa lại
         newPassword.addEventListener('input', () => bootstrap.Tooltip.getInstance(newPassword)?.hide());
         newPasswordCheck.addEventListener('input', () => bootstrap.Tooltip.getInstance(newPasswordCheck)?.hide());
     });
-
-
 </script>
+
 </html>
