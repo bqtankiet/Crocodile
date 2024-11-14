@@ -29,6 +29,10 @@ html {
     color: #004c45;
 }
 
+.custom-text-primary-lighter {
+    color: var(--custom-bg-primary);
+}
+
 .custom-bg-primary-darker {
     background-color: var(--custom-bg-primary-darker);
 }
