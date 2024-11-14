@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Thanh toán</title>
+    <title>Crocodile - Thanh toán</title>
     <!--  jquery  -->
     <script src="/public/jquery-3.7.1.min.js"></script>
     <!--  bootstrap  -->
@@ -23,19 +23,22 @@
     </script>
 
     <style>
-        .payment-method-wrapper{
+        .payment-method-wrapper {
             position: relative;
             overflow: hidden;
-            .payment-radio{
+
+            .payment-radio {
                 position: absolute;
                 top: 50%;
                 transform: translateY(-70%);
                 left: 1rem;
             }
-            .payment-radio:checked + .payment-label{
+
+            .payment-radio:checked + .payment-label {
                 background-color: var(--bs-primary-bg-subtle);
                 color: var(--bs-primary-text-emphasis);
             }
+
             .payment-label {
                 width: 100%;
                 font-weight: 600;
@@ -112,22 +115,27 @@
                                 <input type="radio" class="payment-radio form-check-input"
                                        style="border: 1px solid gray"
                                        name="payment-method" id="payment-cash" checked>
-                                <label for="payment-cash" class="payment-label" style="cursor: pointer">Thanh toán khi nhận hàng</label>
+                                <label for="payment-cash" class="payment-label" style="cursor: pointer">Thanh toán khi
+                                    nhận hàng</label>
                             </div>
                             <div class="payment-method-wrapper rounded-2 border-secondary-subtle border">
                                 <input type="radio" class="payment-radio form-check-input"
                                        style="border: 1px solid gray"
                                        name="payment-method" id="payment-momo">
-                                <label for="payment-momo" class="payment-label" style="cursor: pointer">Thanh toán qua Momo
-                                    <img src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png" class="ms-2" style="width: 1.5rem; height: 1.5rem" alt="">
+                                <label for="payment-momo" class="payment-label" style="cursor: pointer">Thanh toán qua
+                                    Momo
+                                    <img src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png" class="ms-2"
+                                         style="width: 1.5rem; height: 1.5rem" alt="">
                                 </label>
                             </div>
                             <div class="payment-method-wrapper rounded-2 border-secondary-subtle border">
                                 <input type="radio" class="payment-radio form-check-input"
                                        style="border: 1px solid gray"
                                        name="payment-method" id="payment-zalopay">
-                                <label for="payment-zalopay" class="payment-label" style="cursor: pointer">Thanh toán qua ZaloPay
-                                    <img src="https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-ZaloPay-Square.png" class="ms-2" style="width: 1.5rem; height: 1.5rem" alt="">
+                                <label for="payment-zalopay" class="payment-label" style="cursor: pointer">Thanh toán
+                                    qua ZaloPay
+                                    <img src="https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-ZaloPay-Square.png"
+                                         class="ms-2" style="width: 1.5rem; height: 1.5rem" alt="">
                                 </label>
                             </div>
                         </div>
@@ -200,5 +208,12 @@
         </div>
     </div>
 </div>
+
+<div id="FOOTER">
+    <script>
+        $("#FOOTER").load("/includes/footer.html");
+    </script>
+</div>
+
 </body>
 </html>
