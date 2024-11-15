@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Signup</title>
+    <title>Crodocile - Đăng ký</title>
     <!--  jquery  -->
     <script src="/public/jquery-3.7.1.min.js"></script>
     <!--  bootstrap  -->
@@ -55,6 +55,12 @@
 </head>
 <body>
 <div id="page">
+        <div id="HEADER">
+            <script>
+                $("#HEADER").load("/includes/header.html");
+            </script>
+        </div>
+
     <div class="container d-flex align-items-center justify-content-center gap-xxl-5 "
          style="min-height: 49rem; min-width: 40rem">
         <div class="">
@@ -179,8 +185,13 @@
             </div>
         </div>
     </div>
-    <div id="FOOTER"></div>
+    <div id="FOOTER">
+        <script>
+            $("#FOOTER").load("/includes/footer.html");
+        </script>
+    </div>
 </div>
+
 <script>
     // Tạo tùy chọn ngày
     const daySelect = document.getElementById('day');

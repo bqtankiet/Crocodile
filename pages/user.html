@@ -134,6 +134,7 @@
                     </div>
                 </div>
             </div>
+
             <!-- right side -->
             <div class="col bg-white rounded-2 shadow p-5">
                 <div class="tab-content" id="v-pills-tabContent">
@@ -158,17 +159,21 @@
                             </div>
                             <div class="row">
                                 <label for="email" class="col-form-label col-sm-2 text-muted">Email</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-10 d-flex align-items-center">
                                     <input type="text" readonly class="form-control-plaintext" id="email"
                                            value="anhkiet123@gmail.com">
+                                    <a href="" class="text-nowrap" data-bs-toggle="modal"
+                                       data-bs-target="#modal-edit-email">Thay đổi</a>
                                 </div>
                             </div>
                             <div class="row">
                                 <label for="phone-number" class="col-form-label col-sm-2 text-muted">Số điện
                                     thoại</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-10 d-flex align-items-center">
                                     <input type="text" readonly class="form-control-plaintext" id="phone-number"
                                            value="0123 456 789">
+                                    <a href="" class="text-nowrap" data-bs-toggle="modal"
+                                       data-bs-target="#modal-edit-phone">Thay đổi</a>
                                 </div>
                             </div>
                             <div class="row">
@@ -196,7 +201,7 @@
                                            style="width: min-content;">
                                 </div>
                             </div>
-                            <button type="submit" class="btn custom-btn-primary btn-block w-100 p-2 ms-auto "
+                            <button type="submit" class="btn custom-btn-primary btn-block p-2 ms-auto w-100"
                                     style="width: max-content">Lưu thay đổi
                             </button>
                         </form>
@@ -261,7 +266,7 @@
                         </div>
 
                     </div>
-                    <div class="tab-pane fade active" id="account-address">
+                    <div class="tab-pane fade" id="account-address">
                         <div class="card-body pb-2">
                             <div class="form-group">
                                 <div class="d-flex justify-content-between align-items-center">
@@ -280,102 +285,56 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal fade" tabindex="-1" id="newAddressModal" data-bs-backdrop="static"
-                         data-bs-keyboard="false">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content p-2">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Nhập địa chỉ mới</h1>
+                    <div class="tab-pane fade" id="account-purchase-order">
+                        <div class="tab-header">
+                            <h4 class="fw-semibold">Đơn mua </h4>
+                            <hr>
+                        </div>
+                        <div class="tab-body d-grid gap-4">
+                            <div class="order-item p-3 bg-secondary-subtle">
+                                <div class="order-info d-flex">
+                                    <div>
+                                        <span class="order-id">2406069WHSDP56</span>
+                                        <span class="px-2">-</span>
+                                        <span class="order-date col">
+                                        10:22 01/01/2024
+                                    </span>
+                                    </div>
+                                    <div class="order-status ms-auto">
+                                        <span class="badge text-bg-danger">Hoàn thành</span>
+                                    </div>
                                 </div>
-                                <div class="modal-body">
-                                    <form action="" class="d-flex flex-column gap-3" id="newAddressForm">
-                                        <div class="row">
-                                            <div class="col-6 form-group">
-                                                <input class="form-control" id="name" name="name"
-                                                       placeholder="Nhập họ và tên" aria-label="">
+                                <hr>
+                                <div class="order-product row g-0">
+                                    <div class="col-2 me-3 position-relative" style="width: 5em;">
+                                        <div class="ratio ratio-1x1">
+                                            <img src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
+                                                 class="img-fluid border rounded-2" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col lh-1 my-auto">
+                                        <div class="w-100">
+                                            <div class="d-flex align-items-center">
+                                                <div class="me-2">
+                                                    <p class="fw-semibold mb-0 line-clamp-2"
+                                                       style="height: fit-content ;max-height: 2.5rem; line-height: 1.2">
+                                                        Ví gấp nam da cá sấu V7068
+                                                    </p>
+                                                    <p class="text-muted mt-1 mb-0">Da trơn</p>
+                                                </div>
+                                                <div class="ms-auto fw-medium fs-6">1.100.000<sup>₫</sup> × 1</div>
                                             </div>
-                                            <div class="col-6 form-group">
-                                                <input type="text" class="form-control" id="phone" name="phone"
-                                                       placeholder="Nhập số điện thoại" aria-label="">
-                                            </div>
                                         </div>
-
-                                        <div class="form-group">
-                                            <input class="form-control" id="city" name="cityName" autocomplete="off"
-                                                   list="cityList"
-                                                   placeholder="Nhập tỉnh/thành phố" aria-label="">
-                                            <datalist id="cityList"></datalist>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <input class="form-control" id="district" name="districtName"
-                                                   autocomplete="off"
-                                                   list="districtList"
-                                                   placeholder="Nhập quận/huyện" aria-label="">
-                                            <datalist id="districtList"></datalist>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="ward" name="wardName"
-                                                   autocomplete="off"
-                                                   list="wardList"
-                                                   placeholder="Nhập phường/xã" aria-label="">
-                                            <datalist id="wardList"></datalist>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="soNha" name="soNha"
-                                                   autocomplete="off"
-                                                   placeholder="Nhập địa chỉ cụ thể" aria-label="">
-                                        </div>
-
-                                    </form>
+                                    </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-success" form="newAddressForm">
-                                        Hoàn thành
-                                    </button>
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                        Quay lại
-                                    </button>
+                                <hr>
+                                <div class="order-total">
+                                    <div class="text-end">
+                                        Thành tiền:
+                                        <span class="fw-medium text-danger fs-5">1.100.000₫</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade hidden" id="editAddress">
-                        <div class="card shadow p-3" style="width: 50rem; height: 100%">
-                            <h5>Cập nhật địa chỉ</h5>
-                            <form>
-                                <div class="mb-3">
-                                    <label for="editName" class="form-label">Họ và tên</label>
-                                    <input type="text" class="form-control" id="editName" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="editPhone" class="form-label">SĐT</label>
-                                    <input type="text" class="form-control" id="editPhone" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="editCity" class="form-label">Tỉnh/Thành phố</label>
-                                    <input type="text" class="form-control" id="editCity" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="editDistrict" class="form-label">Quận/Huyện</label>
-                                    <input type="text" class="form-control" id="editDistrict" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="editWard" class="form-label">Phường/Xã</label>
-                                    <input type="text" class="form-control" id="editWard" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="editSoNha">Địa Chỉ</label>
-                                    <input type="text" class="form-control" id="editSoNha"
-                                           placeholder="Nhập Địa chỉ cụ thể" required>
-                                </div>
-                                <button type="button" class="btn custom-btn-primary btn-block w-100 p-2" onclick="saveUpdatedAddress()">Lưu
-                                </button>
-                                <button type="button" class="btn custom-btn-primary btn-block w-100 p-2" onclick="cancelEditAddress()">Hủy
-                                </button>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -383,6 +342,121 @@
         </div>
     </div>
 </div>
+
+<!--######### MODAL ########-->
+
+<!-- Modal edit phone -->
+<div class="modal fade" tabindex="-1" id="modal-edit-phone">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Chỉnh sửa số điện thoại</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="" id="form-edit-phone">
+                    <label for="edit-phone">Số điện thoại mới</label>
+                    <input type="tel" autocomplete="none" name="edit-phone" id="edit-phone" class="form-control">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quay lại</button>
+                <button type="submit" form="form-edit-phone" class="btn custom-btn-primary">Lưu thay đổi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal edit email -->
+<div class="modal fade" tabindex="-1" id="modal-edit-email">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Chỉnh sửa email</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="" id="form-edit-email">
+                    <label for="edit-email">Nhập email mới</label>
+                    <input type="tel" autocomplete="none" name="edit-email" id="edit-email" class="form-control">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quay lại</button>
+                <button type="submit" form="form-edit-email" class="btn custom-btn-primary">Lưu thay đổi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Address -->
+<div class="modal fade" tabindex="-1" id="newAddressModal" data-bs-backdrop="static"
+     data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-2">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Nhập địa chỉ mới</h1>
+            </div>
+            <div class="modal-body">
+                <form action="" class="d-flex flex-column gap-3" id="newAddressForm">
+                    <div class="row">
+                        <div class="col-6 form-group">
+                            <input class="form-control" id="name" name="name"
+                                   placeholder="Nhập họ và tên" aria-label="">
+                        </div>
+                        <div class="col-6 form-group">
+                            <input type="text" class="form-control" id="phone" name="phone"
+                                   placeholder="Nhập số điện thoại" aria-label="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input class="form-control" id="city" name="cityName" autocomplete="off"
+                               list="cityList"
+                               placeholder="Nhập tỉnh/thành phố" aria-label="">
+                        <datalist id="cityList"></datalist>
+                    </div>
+
+                    <div class="form-group">
+                        <input class="form-control" id="district" name="districtName"
+                               autocomplete="off"
+                               list="districtList"
+                               placeholder="Nhập quận/huyện" aria-label="">
+                        <datalist id="districtList"></datalist>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="ward" name="wardName"
+                               autocomplete="off"
+                               list="wardList"
+                               placeholder="Nhập phường/xã" aria-label="">
+                        <datalist id="wardList"></datalist>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="soNha" name="soNha"
+                               autocomplete="off"
+                               placeholder="Nhập địa chỉ cụ thể" aria-label="">
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success" form="newAddressForm">
+                    Hoàn thành
+                </button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Quay lại
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ########## END MODAL ############ -->
+
 <div id="FOOTER">
     <script>
         $("#FOOTER").load("/includes/footer.html");
