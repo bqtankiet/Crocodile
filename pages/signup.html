@@ -12,6 +12,11 @@
     <link rel="stylesheet" href="/layouts/layout.css">
     <link rel="stylesheet" href="/assets/css/main.css">
     <!--  js  -->
+    <script>
+        $(document).ready(function () {
+            $("#FOOTER").load("/includes/footer.html");
+        });
+    </script>
     <style>
         .card {
             min-height: 40rem; /* Đảm bảo chiều cao tối thiểu của card */
@@ -167,6 +172,7 @@
             </div>
         </div>
     </div>
+    <div id="FOOTER"></div>
 </div>
 <script>
     // Tạo tùy chọn ngày
