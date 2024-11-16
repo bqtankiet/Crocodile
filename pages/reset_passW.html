@@ -12,26 +12,7 @@
     <link rel="stylesheet" href="/layouts/layout.css">
     <link rel="stylesheet" href="/assets/css/main.css">
     <!--  js  -->
-    <style>
-        .eye-icon {
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-        }
 
-        .tooltip-custom .tooltip-inner {
-            background-color: white;
-            color: black;
-            border: 1px solid #339933;
-            padding: 8px;
-            font-weight: bold;
-            border-radius: 5px;
-        }
-
-        .tooltip-custom .tooltip-arrow::before {
-            /*border-top-color: black; !* Màu nền mũi tên *!*/
-        }
-    </style>
     <script>
         $(document).ready(function () {
             $("#FOOTER").load("/includes/footer.html");
@@ -39,12 +20,12 @@
     </script>
 <body>
 <div id="page">
-    <div class="container d-flex justify-content-center align-items-center gap-xxl-5"
-         style="min-height: 38rem; min-width: 40rem">
-        <div class="">
+    <div class="container-fluid d-flex justify-content-center align-items-center flex-wrap gap-4 py-5">
+        <div class="mb-4">
             <img src="https://www.crocodileinternational.com/img/crocodile-logo-1609222037.jpg"
-                 style="width: 30rem; height: auto;"
-                 alt="...">
+                 class="img-fluid"
+                 style="max-width: 100%; height: auto;"
+                 alt="Logo">
         </div>
         <div class="card shadow-sm" style="height: 22rem; width: 25rem">
             <div class="card-body">
