@@ -25,11 +25,34 @@
     <link rel="stylesheet" href="/admin/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="/admin/assets/css/demo.css" />
 
-
+    <!-- Javascript  -->
     <script src="/admin/assets/vendor/js/helpers.js"></script>
-
-
     <script src="/admin/assets/js/config.js"></script>
+
+     <!-- Data table -->
+     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+    <!-- Kích hoạt Data table  -->
+    <script>
+        $(document).ready(function () {
+            $('#products-table').DataTable({
+                "language": {
+                    "search": "Tìm kiếm:",
+                    "lengthMenu": "Hiển thị _MENU_ mục",
+                    "info": "Hiển thị _START_ đến _END_ trong tổng số _TOTAL_ mục",
+                    "paginate": {
+                        "first": "Đầu",
+                        "last": "Cuối",
+                        "next": "Sau",
+                        "previous": "Trước"
+                    }
+                }
+            });
+        });
+    </script>
+    <!-- Data table -->
 
 </head>
 
@@ -43,7 +66,7 @@
                 <div class="app-brand demo">
                     <a class="h1 text-decoration-none col-3 order-lg-0" href="home.html">
                         <img src="https://www.crocodileinternational.com/img/crocodile-logo-1609222037.jpg" alt="Logo"
-                             style="width: 12rem">
+                            style="width: 12rem">
                     </a>
 
                 </div>
@@ -234,89 +257,29 @@
 
                         <!-- Bordered Table -->
                         <div class="card">
-                            <h5 class="card-header"><strong>Sản phẩm</strong></h5>
-
                             <!-- ------------------------------Bảng sản phẩm------------------------------ -->
                             <div class="card-body">
-
-                                <div class="control-bar d-flex gap-4 mb-4">
-                                    <!-- thanh tìm kiếm -->
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="tf-icons bx bx-search"></i></span>
-                                        <input type="text" class="form-control" placeholder="Tìm kiếm..." />
-                                    </div>
-
-
-                                    <!-- lọc theo danh mục -->
-                                    <select style="max-width: 170px;" class="form-select placement-dropdown "
-                                        id="selectPlacement">
-                                        <option value="" selected hidden>Theo danh mục</option>
-                                        <option value="">Túi xách</option>
-                                        <option value="">Ví</option>
-                                        <option value="">Thắt lưng</option>
-                                        <option value="">Giày</option>
-                                        <option value="">Dép</option>
-                                        <option value="">Phụ kiện</option>
-                                        <option value="">Áo khoác</option>
-                                        <option value="">Balo</option>
-                                        <option value="">Vali</option>
-                                        <option value="">Dây đồng Hồ</option>
-                                    </select>
-
-                                    <!-- thanh hiển thị tùy chọn -->
-                                    <select style="max-width: 170px;" class="form-select placement-dropdown "
-                                        id="selectPlacement">
-                                        <option value="" selected hidden>Tất cả sản phẩm</option>
-                                        <option value="">Sản phẩm đang hiện</option>
-                                        <option value="">Sản phẩm đang ẩn</option>
-
-                                    </select>
-
-                                    <!-- nút lưu-->
-                                    <button type="button" class="btn rounded-pill btn-info">Lưu</button>
-
-                                    <!-- nút thêm sản phẩm -->
-                                    <button type="button" class="btn rounded-pill btn-success">
-                                        <a href="add-product-form.html" class="text-white">Thêm</a>
-                                    </button>
-
-                                    <!-- nút xóa sản phẩm -->
-                                    <button type="button" class="btn rounded-pill btn-danger">Xóa</button>
-                                </div>
-                                <div class="table-responsive text-nowrap">
-                                    <table class="table table-bordered">
-                                        <thead>
+                                <div class="container">
+                                    <h2>Danh sách sản phẩm</h2>
+                                    <table class="table table-striped table-hover my-3 pt-3" id="products-table">
+                                        <thead class="table-primary">
                                             <tr>
-                                                <th style="width: 5%;">
-                                                    <input class="form-check-input" type="checkbox"
-                                                        id="defaultCheck4" />
-                                                </th>
-                                                <th style="width: 5%;">STT</th>
-                                                <th>Tên sản phẩm</th>
-                                                <th style="width: 170px">Loại danh mục</th>
-                                                <th>Hình ảnh</th>
-                                                <th>Nhà cung cấp</th>
-                                                <th style="width: 5%;">Giá tiền</th>
-                                                <th style="width: 5%;">Kho</th>
-                                                <th style="width: 5%;">Hiện</th>
-                                                <th style="width: 5%;">Sửa</th>
+                                                <th scope="col" class="align-middle">#</th>
+                                                <th scope="col">Tên sản phẩm</th>
+                                                <th scope="col">Loại danh mục</th>
+                                                <th scope="col">Hình ảnh</th>
+                                                <th scope="col">Nhà cung cấp</th>
+                                                <th scope="col">Giá tiền</th>
+                                                <th scope="col" class="align-middle">Kho</th>
+                                                <th scope="col">Trạng thái</th>
+                                                <th scope="col">Tác vụ</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <!-- hàng 1 -->
+                                            <!-- Hàng 1 -->
                                             <tr>
-                                                <td>
-                                                    <input class="form-check-input" type="checkbox"
-                                                        id="defaultCheck4" />
-                                                </td>
-                                                <td>
-                                                    <strong>1</strong>
-                                                </td>
-
-                                                <td style="max-width: 200px;" class="text-truncate">
-                                                    <strong>Balo</strong>
-                                                </td>
-
+                                                <th scope="row">1</th>
+                                                <td>Balo</td>
                                                 <td>
                                                     <select style="max-width: 170px;"
                                                         class="form-select placement-dropdown " id="selectPlacement">
@@ -332,30 +295,15 @@
                                                         <option value="">Dây đồng Hồ</option>
                                                     </select>
                                                 </td>
-
                                                 <td>
-                                                        <img style="max-height: 80px;" class="img-fluid"  src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg" alt="">
-                                                        <input type="file" id="upload" class="account-file-input" hidden
-                                                            accept="image/png, image/jpeg" />
+                                                    <img style="max-height: 80px;" class="img-fluid"
+                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
+                                                        alt="">
                                                 </td>
-
-                                                <td style="max-width: 190px;" class="text-truncate">
-                                                    <strong>Louis Vuitton</strong>
-                                                </td>
-
+                                                <td>Louis Vuitton</td>
                                                 <td>500.000</td>
-
-                                                <td>
-                                                    <strong>99</strong>
-                                                </td>
-
-                                                <td>
-                                                    <div class="form-check form-switch">
-                                                        <input class="form-check-input float-end" type="checkbox"
-                                                            role="switch" />
-                                                    </div>
-                                                </td>
-
+                                                <td>69</td>
+                                                <td>Hiển thị</td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -371,21 +319,10 @@
                                                     </div>
                                                 </td>
                                             </tr>
-
-                                            <!-- hàng 2 -->
+                                            <!-- Hàng 1 -->
                                             <tr>
-                                                <td>
-                                                    <input class="form-check-input" type="checkbox"
-                                                        id="defaultCheck4" />
-                                                </td>
-                                                <td>
-                                                    <strong>1</strong>
-                                                </td>
-
-                                                <td style="max-width: 200px;" class="text-truncate">
-                                                    <strong>Balo</strong>
-                                                </td>
-
+                                                <th scope="row">1</th>
+                                                <td>Balo</td>
                                                 <td>
                                                     <select style="max-width: 170px;"
                                                         class="form-select placement-dropdown " id="selectPlacement">
@@ -401,30 +338,15 @@
                                                         <option value="">Dây đồng Hồ</option>
                                                     </select>
                                                 </td>
-
                                                 <td>
-                                                    <img style="max-height: 80px;" class="img-fluid"  src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg" alt="">
-                                                        <input type="file" id="upload" class="account-file-input" hidden
-                                                            accept="image/png, image/jpeg" />
+                                                    <img style="max-height: 80px;" class="img-fluid"
+                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
+                                                        alt="">
                                                 </td>
-
-                                                <td style="max-width: 190px;" class="text-truncate">
-                                                    <strong>Louis Vuitton</strong>
-                                                </td>
-
+                                                <td>Louis Vuitton</td>
                                                 <td>500.000</td>
-
-                                                <td>
-                                                    <strong>99</strong>
-                                                </td>
-
-                                                <td>
-                                                    <div class="form-check form-switch">
-                                                        <input class="form-check-input float-end" type="checkbox"
-                                                            role="switch" />
-                                                    </div>
-                                                </td>
-
+                                                <td>69</td>
+                                                <td>Hiển thị</td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -440,21 +362,10 @@
                                                     </div>
                                                 </td>
                                             </tr>
-
-                                            <!-- hàng 3 -->
+                                            <!-- Hàng 1 -->
                                             <tr>
-                                                <td>
-                                                    <input class="form-check-input" type="checkbox"
-                                                        id="defaultCheck4" />
-                                                </td>
-                                                <td>
-                                                    <strong>1</strong>
-                                                </td>
-
-                                                <td style="max-width: 200px;" class="text-truncate">
-                                                    <strong>Balo</strong>
-                                                </td>
-
+                                                <th scope="row">1</th>
+                                                <td>Balo</td>
                                                 <td>
                                                     <select style="max-width: 170px;"
                                                         class="form-select placement-dropdown " id="selectPlacement">
@@ -470,30 +381,15 @@
                                                         <option value="">Dây đồng Hồ</option>
                                                     </select>
                                                 </td>
-
                                                 <td>
-                                                    <img style="max-height: 80px;" class="img-fluid"  src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg" alt="">
-                                                        <input type="file" id="upload" class="account-file-input" hidden
-                                                            accept="image/png, image/jpeg" />
+                                                    <img style="max-height: 80px;" class="img-fluid"
+                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
+                                                        alt="">
                                                 </td>
-
-                                                <td style="max-width: 190px;" class="text-truncate">
-                                                    <strong>Louis Vuitton</strong>
-                                                </td>
-
+                                                <td>Louis Vuitton</td>
                                                 <td>500.000</td>
-
-                                                <td>
-                                                    <strong>99</strong>
-                                                </td>
-
-                                                <td>
-                                                    <div class="form-check form-switch">
-                                                        <input class="form-check-input float-end" type="checkbox"
-                                                            role="switch" />
-                                                    </div>
-                                                </td>
-
+                                                <td>69</td>
+                                                <td>Hiển thị</td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -509,21 +405,10 @@
                                                     </div>
                                                 </td>
                                             </tr>
-
-                                            <!-- hàng 4 -->
+                                            <!-- Hàng 1 -->
                                             <tr>
-                                                <td>
-                                                    <input class="form-check-input" type="checkbox"
-                                                        id="defaultCheck4" />
-                                                </td>
-                                                <td>
-                                                    <strong>1</strong>
-                                                </td>
-
-                                                <td style="max-width: 200px;" class="text-truncate">
-                                                    <strong>Balo</strong>
-                                                </td>
-
+                                                <th scope="row">1</th>
+                                                <td>Balo</td>
                                                 <td>
                                                     <select style="max-width: 170px;"
                                                         class="form-select placement-dropdown " id="selectPlacement">
@@ -539,30 +424,15 @@
                                                         <option value="">Dây đồng Hồ</option>
                                                     </select>
                                                 </td>
-
                                                 <td>
-                                                    <img style="max-height: 80px;" class="img-fluid"  src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg" alt="">
-                                                        <input type="file" id="upload" class="account-file-input" hidden
-                                                            accept="image/png, image/jpeg" />
+                                                    <img style="max-height: 80px;" class="img-fluid"
+                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
+                                                        alt="">
                                                 </td>
-
-                                                <td style="max-width: 190px;" class="text-truncate">
-                                                    <strong>Louis Vuitton</strong>
-                                                </td>
-
+                                                <td>Louis Vuitton</td>
                                                 <td>500.000</td>
-
-                                                <td>
-                                                    <strong>99</strong>
-                                                </td>
-
-                                                <td>
-                                                    <div class="form-check form-switch">
-                                                        <input class="form-check-input float-end" type="checkbox"
-                                                            role="switch" />
-                                                    </div>
-                                                </td>
-
+                                                <td>69</td>
+                                                <td>Hiển thị</td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -578,21 +448,10 @@
                                                     </div>
                                                 </td>
                                             </tr>
-
-                                            <!-- hàng 5 -->
+                                            <!-- Hàng 1 -->
                                             <tr>
-                                                <td>
-                                                    <input class="form-check-input" type="checkbox"
-                                                        id="defaultCheck4" />
-                                                </td>
-                                                <td>
-                                                    <strong>1</strong>
-                                                </td>
-
-                                                <td style="max-width: 200px;" class="text-truncate">
-                                                    <strong>Balo</strong>
-                                                </td>
-
+                                                <th scope="row">1</th>
+                                                <td>Balo</td>
                                                 <td>
                                                     <select style="max-width: 170px;"
                                                         class="form-select placement-dropdown " id="selectPlacement">
@@ -608,30 +467,15 @@
                                                         <option value="">Dây đồng Hồ</option>
                                                     </select>
                                                 </td>
-
                                                 <td>
-                                                    <img style="max-height: 80px;" class="img-fluid"  src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg" alt="">
-                                                        <input type="file" id="upload" class="account-file-input" hidden
-                                                            accept="image/png, image/jpeg" />
+                                                    <img style="max-height: 80px;" class="img-fluid"
+                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
+                                                        alt="">
                                                 </td>
-
-                                                <td style="max-width: 190px;" class="text-truncate">
-                                                    <strong>Louis Vuitton</strong>
-                                                </td>
-
+                                                <td>Louis Vuitton</td>
                                                 <td>500.000</td>
-
-                                                <td>
-                                                    <strong>99</strong>
-                                                </td>
-
-                                                <td>
-                                                    <div class="form-check form-switch">
-                                                        <input class="form-check-input float-end" type="checkbox"
-                                                            role="switch" />
-                                                    </div>
-                                                </td>
-
+                                                <td>69</td>
+                                                <td>Hiển thị</td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -647,21 +491,10 @@
                                                     </div>
                                                 </td>
                                             </tr>
-
-                                            <!-- hàng 6 -->
+                                            <!-- Hàng 1 -->
                                             <tr>
-                                                <td>
-                                                    <input class="form-check-input" type="checkbox"
-                                                        id="defaultCheck4" />
-                                                </td>
-                                                <td>
-                                                    <strong>1</strong>
-                                                </td>
-
-                                                <td style="max-width: 200px;" class="text-truncate">
-                                                    <strong>Balo</strong>
-                                                </td>
-
+                                                <th scope="row">1</th>
+                                                <td>Balo</td>
                                                 <td>
                                                     <select style="max-width: 170px;"
                                                         class="form-select placement-dropdown " id="selectPlacement">
@@ -677,30 +510,15 @@
                                                         <option value="">Dây đồng Hồ</option>
                                                     </select>
                                                 </td>
-
                                                 <td>
-                                                    <img style="max-height: 80px;" class="img-fluid"  src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg" alt="">
-                                                        <input type="file" id="upload" class="account-file-input" hidden
-                                                            accept="image/png, image/jpeg" />
+                                                    <img style="max-height: 80px;" class="img-fluid"
+                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
+                                                        alt="">
                                                 </td>
-
-                                                <td style="max-width: 190px;" class="text-truncate">
-                                                    <strong>Louis Vuitton</strong>
-                                                </td>
-
+                                                <td>Louis Vuitton</td>
                                                 <td>500.000</td>
-
-                                                <td>
-                                                    <strong>99</strong>
-                                                </td>
-
-                                                <td>
-                                                    <div class="form-check form-switch">
-                                                        <input class="form-check-input float-end" type="checkbox"
-                                                            role="switch" />
-                                                    </div>
-                                                </td>
-
+                                                <td>69</td>
+                                                <td>Hiển thị</td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -716,21 +534,10 @@
                                                     </div>
                                                 </td>
                                             </tr>
-
-                                            <!-- hàng 7 -->
+                                            <!-- Hàng 1 -->
                                             <tr>
-                                                <td>
-                                                    <input class="form-check-input" type="checkbox"
-                                                        id="defaultCheck4" />
-                                                </td>
-                                                <td>
-                                                    <strong>1</strong>
-                                                </td>
-
-                                                <td style="max-width: 200px;" class="text-truncate">
-                                                    <strong>Balo</strong>
-                                                </td>
-
+                                                <th scope="row">1</th>
+                                                <td>Balo</td>
                                                 <td>
                                                     <select style="max-width: 170px;"
                                                         class="form-select placement-dropdown " id="selectPlacement">
@@ -746,30 +553,15 @@
                                                         <option value="">Dây đồng Hồ</option>
                                                     </select>
                                                 </td>
-
                                                 <td>
-                                                    <img style="max-height: 80px;" class="img-fluid"  src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg" alt="">
-                                                        <input type="file" id="upload" class="account-file-input" hidden
-                                                            accept="image/png, image/jpeg" />
+                                                    <img style="max-height: 80px;" class="img-fluid"
+                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
+                                                        alt="">
                                                 </td>
-
-                                                <td style="max-width: 190px;" class="text-truncate">
-                                                    <strong>Louis Vuitton</strong>
-                                                </td>
-
+                                                <td>Louis Vuitton</td>
                                                 <td>500.000</td>
-
-                                                <td>
-                                                    <strong>99</strong>
-                                                </td>
-
-                                                <td>
-                                                    <div class="form-check form-switch">
-                                                        <input class="form-check-input float-end" type="checkbox"
-                                                            role="switch" />
-                                                    </div>
-                                                </td>
-
+                                                <td>69</td>
+                                                <td>Hiển thị</td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -785,57 +577,312 @@
                                                     </div>
                                                 </td>
                                             </tr>
-
-
+                                            <!-- Hàng 1 -->
+                                            <tr>
+                                                <th scope="row">1</th>
+                                                <td>Balo</td>
+                                                <td>
+                                                    <select style="max-width: 170px;"
+                                                        class="form-select placement-dropdown " id="selectPlacement">
+                                                        <option value="">Túi xách</option>
+                                                        <option value="">Ví</option>
+                                                        <option value="">Thắt lưng</option>
+                                                        <option value="">Giày</option>
+                                                        <option value="">Dép</option>
+                                                        <option value="">Phụ kiện</option>
+                                                        <option value="">Áo khoác</option>
+                                                        <option value="">Balo</option>
+                                                        <option value="">Vali</option>
+                                                        <option value="">Dây đồng Hồ</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <img style="max-height: 80px;" class="img-fluid"
+                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
+                                                        alt="">
+                                                </td>
+                                                <td>Louis Vuitton</td>
+                                                <td>500.000</td>
+                                                <td>69</td>
+                                                <td>Hiển thị</td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                            data-bs-toggle="dropdown">
+                                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="bx bx-edit-alt me-1"></i> Chỉnh sửa</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="bx bx-trash me-1"></i> Xóa</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- Hàng 1 -->
+                                            <tr>
+                                                <th scope="row">1</th>
+                                                <td>Balo</td>
+                                                <td>
+                                                    <select style="max-width: 170px;"
+                                                        class="form-select placement-dropdown " id="selectPlacement">
+                                                        <option value="">Túi xách</option>
+                                                        <option value="">Ví</option>
+                                                        <option value="">Thắt lưng</option>
+                                                        <option value="">Giày</option>
+                                                        <option value="">Dép</option>
+                                                        <option value="">Phụ kiện</option>
+                                                        <option value="">Áo khoác</option>
+                                                        <option value="">Balo</option>
+                                                        <option value="">Vali</option>
+                                                        <option value="">Dây đồng Hồ</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <img style="max-height: 80px;" class="img-fluid"
+                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
+                                                        alt="">
+                                                </td>
+                                                <td>Louis Vuitton</td>
+                                                <td>500.000</td>
+                                                <td>69</td>
+                                                <td>Hiển thị</td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                            data-bs-toggle="dropdown">
+                                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="bx bx-edit-alt me-1"></i> Chỉnh sửa</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="bx bx-trash me-1"></i> Xóa</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- Hàng 1 -->
+                                            <tr>
+                                                <th scope="row">1</th>
+                                                <td>Balo</td>
+                                                <td>
+                                                    <select style="max-width: 170px;"
+                                                        class="form-select placement-dropdown " id="selectPlacement">
+                                                        <option value="">Túi xách</option>
+                                                        <option value="">Ví</option>
+                                                        <option value="">Thắt lưng</option>
+                                                        <option value="">Giày</option>
+                                                        <option value="">Dép</option>
+                                                        <option value="">Phụ kiện</option>
+                                                        <option value="">Áo khoác</option>
+                                                        <option value="">Balo</option>
+                                                        <option value="">Vali</option>
+                                                        <option value="">Dây đồng Hồ</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <img style="max-height: 80px;" class="img-fluid"
+                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
+                                                        alt="">
+                                                </td>
+                                                <td>Louis Vuitton</td>
+                                                <td>500.000</td>
+                                                <td>69</td>
+                                                <td>Hiển thị</td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                            data-bs-toggle="dropdown">
+                                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="bx bx-edit-alt me-1"></i> Chỉnh sửa</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="bx bx-trash me-1"></i> Xóa</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- Hàng 1 -->
+                                            <tr>
+                                                <th scope="row">1</th>
+                                                <td>Balo</td>
+                                                <td>
+                                                    <select style="max-width: 170px;"
+                                                        class="form-select placement-dropdown " id="selectPlacement">
+                                                        <option value="">Túi xách</option>
+                                                        <option value="">Ví</option>
+                                                        <option value="">Thắt lưng</option>
+                                                        <option value="">Giày</option>
+                                                        <option value="">Dép</option>
+                                                        <option value="">Phụ kiện</option>
+                                                        <option value="">Áo khoác</option>
+                                                        <option value="">Balo</option>
+                                                        <option value="">Vali</option>
+                                                        <option value="">Dây đồng Hồ</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <img style="max-height: 80px;" class="img-fluid"
+                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
+                                                        alt="">
+                                                </td>
+                                                <td>Louis Vuitton</td>
+                                                <td>500.000</td>
+                                                <td>69</td>
+                                                <td>Hiển thị</td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                            data-bs-toggle="dropdown">
+                                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="bx bx-edit-alt me-1"></i> Chỉnh sửa</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="bx bx-trash me-1"></i> Xóa</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- Hàng 1 -->
+                                            <tr>
+                                                <th scope="row">1</th>
+                                                <td>Balo</td>
+                                                <td>
+                                                    <select style="max-width: 170px;"
+                                                        class="form-select placement-dropdown " id="selectPlacement">
+                                                        <option value="">Túi xách</option>
+                                                        <option value="">Ví</option>
+                                                        <option value="">Thắt lưng</option>
+                                                        <option value="">Giày</option>
+                                                        <option value="">Dép</option>
+                                                        <option value="">Phụ kiện</option>
+                                                        <option value="">Áo khoác</option>
+                                                        <option value="">Balo</option>
+                                                        <option value="">Vali</option>
+                                                        <option value="">Dây đồng Hồ</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <img style="max-height: 80px;" class="img-fluid"
+                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
+                                                        alt="">
+                                                </td>
+                                                <td>Louis Vuitton</td>
+                                                <td>500.000</td>
+                                                <td>69</td>
+                                                <td>Hiển thị</td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                            data-bs-toggle="dropdown">
+                                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="bx bx-edit-alt me-1"></i> Chỉnh sửa</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="bx bx-trash me-1"></i> Xóa</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- Hàng 1 -->
+                                            <tr>
+                                                <th scope="row">1</th>
+                                                <td>Balo</td>
+                                                <td>
+                                                    <select style="max-width: 170px;"
+                                                        class="form-select placement-dropdown " id="selectPlacement">
+                                                        <option value="">Túi xách</option>
+                                                        <option value="">Ví</option>
+                                                        <option value="">Thắt lưng</option>
+                                                        <option value="">Giày</option>
+                                                        <option value="">Dép</option>
+                                                        <option value="">Phụ kiện</option>
+                                                        <option value="">Áo khoác</option>
+                                                        <option value="">Balo</option>
+                                                        <option value="">Vali</option>
+                                                        <option value="">Dây đồng Hồ</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <img style="max-height: 80px;" class="img-fluid"
+                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
+                                                        alt="">
+                                                </td>
+                                                <td>Louis Vuitton</td>
+                                                <td>500.000</td>
+                                                <td>69</td>
+                                                <td>Hiển thị</td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                            data-bs-toggle="dropdown">
+                                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="bx bx-edit-alt me-1"></i> Chỉnh sửa</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="bx bx-trash me-1"></i> Xóa</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- Hàng 1 -->
+                                            <tr>
+                                                <th scope="row">1</th>
+                                                <td>Balo</td>
+                                                <td>
+                                                    <select style="max-width: 170px;"
+                                                        class="form-select placement-dropdown " id="selectPlacement">
+                                                        <option value="">Túi xách</option>
+                                                        <option value="">Ví</option>
+                                                        <option value="">Thắt lưng</option>
+                                                        <option value="">Giày</option>
+                                                        <option value="">Dép</option>
+                                                        <option value="">Phụ kiện</option>
+                                                        <option value="">Áo khoác</option>
+                                                        <option value="">Balo</option>
+                                                        <option value="">Vali</option>
+                                                        <option value="">Dây đồng Hồ</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <img style="max-height: 80px;" class="img-fluid"
+                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
+                                                        alt="">
+                                                </td>
+                                                <td>Louis Vuitton</td>
+                                                <td>500.000</td>
+                                                <td>69</td>
+                                                <td>Hiển thị</td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                            data-bs-toggle="dropdown">
+                                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="bx bx-edit-alt me-1"></i> Chỉnh sửa</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="bx bx-trash me-1"></i> Xóa</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
 
-
-                                <!-- Thanh chuyển trang -->
-                                <div class="demo-inline-spacing">
-                                    <nav aria-label="Page navigation">
-                                        <ul class="pagination justify-content-center">
-                                            <li class="page-item first">
-                                                <a class="page-link" href="javascript:void(0);"><i
-                                                        class="tf-icon bx bx-chevrons-left"></i></a>
-                                            </li>
-                                            <li class="page-item prev">
-                                                <a class="page-link" href="javascript:void(0);"><i
-                                                        class="tf-icon bx bx-chevron-left"></i></a>
-                                            </li>
-                                            <li class="page-item active">
-                                                <a class="page-link" href="javascript:void(0);">1</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="javascript:void(0);">2</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="javascript:void(0);">3</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="javascript:void(0);">4</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="javascript:void(0);">5</a>
-                                            </li>
-                                            <li class="page-item next">
-                                                <a class="page-link" href="javascript:void(0);"><i
-                                                        class="tf-icon bx bx-chevron-right"></i></a>
-                                            </li>
-                                            <li class="page-item last">
-                                                <a class="page-link" href="javascript:void(0);"><i
-                                                        class="tf-icon bx bx-chevrons-right"></i></a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
-
-                            </div>
-
                         </div>
-
-                        <!--/ Responsive Table -->
                     </div>
 
                 </div>
