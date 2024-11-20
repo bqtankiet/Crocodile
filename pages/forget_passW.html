@@ -27,6 +27,28 @@
             border-radius: 5px;
         }
 
+        /*.card-custom {*/
+        /*    max-width: 100%;*/
+        /*    padding: 1.5rem;*/
+        /*}*/
+
+        /*@media (max-width: 768px) {*/
+        /*    .card-custom {*/
+        /*        max-width: 90%; !* Giảm kích thước card cho màn hình nhỏ *!*/
+        /*        margin: 0 auto;*/
+        /*    }*/
+
+        /*    .container-fluid {*/
+        /*        flex-direction: column; !* Sắp xếp theo chiều dọc *!*/
+        /*        align-items: stretch;*/
+        /*    }*/
+
+        /*    img {*/
+        /*        max-width: 80%; !* Thu nhỏ logo trên màn hình nhỏ *!*/
+        /*        margin-bottom: 1rem;*/
+        /*    }*/
+        /*}*/
+
     </style>
     <script>
         $(document).ready(function () {
@@ -36,12 +58,12 @@
 </head>
 <body>
 <div id="page">
-    <div class="container d-flex justify-content-center align-items-center gap-xxl-5"
-         style="min-height: 49rem; min-width: 40rem">
-        <div class="">
+    <div class="container-fluid d-flex flex-wrap justify-content-center align-items-center gap-4 py-5">
+        <div class="mb-4">
             <img src="https://www.crocodileinternational.com/img/crocodile-logo-1609222037.jpg"
-                 style="width: 30rem; height: auto;"
-                 alt="...">
+                 class="img-fluid"
+                 style="max-width: 100%; height: auto;"
+                 alt="Logo">
         </div>
         <div class="card shadow-sm card-custom">
             <div class="card-body">
@@ -50,45 +72,38 @@
                 <p class="text-center mt-3">Vui lòng nhập số điện thoại hoặc email đã được liên kết với tài khoản
                     Crocodile của bạn.</p>
                 <form id="forgotPasswordForm">
-                    <!-- Nhập email hoặc số điện thoại -->
                     <div class="form-group mb-3">
-                        <input type="text" class="form-control" id="usernameOrEmail" required>
+                        <input type="text" class="form-control" id="usernameOrEmail"
+                               placeholder="Email hoặc Số điện thoại" required>
                     </div>
-
-                    <!-- Nút gửi mã xác nhận -->
                     <div class="d-flex justify-content-center gap-4">
                         <button type="button" class="btn btn-secondary" onclick="window.location.href='login.html'">
                             Huỷ
                         </button>
-
                         <button type="button" class="btn custom-btn-primary" id="sendCodeBtn">Gửi Mã</button>
                     </div>
                     <div style="height: 2px; background-color: #dbdbdb; width: 100%; margin: 15px 0;"></div>
-
-                    <!-- Trường nhập mã xác nhận -->
                     <div class="form-group mb-2" id="verificationCodeField" style="display: none">
                         <label for="verificationCode" class="mb-2">Nhập mã xác nhận</label>
                         <input type="text" class="form-control" id="verificationCode" placeholder="Nhập mã gồm 6 chữ số"
                                maxlength="6" required>
-
                         <div class="d-flex justify-content-center mt-3">
                             <button type="submit" class="btn custom-btn-primary">Tìm Kiếm</button>
                         </div>
                     </div>
                 </form>
             </div>
-
         </div>
     </div>
+
+
     <div id="FOOTER"></div>
 
 </div>
 
 <script>
-    <!-- Your existing HTML structure -->
 
     $(document).ready(function () {
-        // Initialize Bootstrap tooltips
         const emailOrPhoneTooltip = new bootstrap.Tooltip($('#usernameOrEmail')[0], {
             title: 'Vui lòng nhập đúng định dạng Email hoặc Số điện thoại.',
             trigger: 'manual',
@@ -133,7 +148,6 @@
             }
         });
 
-        // Hide tooltip when user starts typing
         $('#usernameOrEmail').on('input', () => emailOrPhoneTooltip.hide());
         $('#verificationCode').on('input', () => verificationCodeTooltip.hide());
     });
