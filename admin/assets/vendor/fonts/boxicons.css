@@ -1,14 +1,4 @@
-@font-face {
-  font-family: "boxicons";
-  font-weight: normal;
-  font-style: normal;
-  src: url("/admin/assets/vendor/fonts/boxicons/boxicons.eot");
-  src: url("/admin/assets/vendor/fonts/boxicons/boxicons.eot") 
-    format("embedded-opentype"), url("/admin/assets/vendor/fonts/boxicons/boxicons.woff2") 
-    format("woff2"), url("/admin/assets/vendor/fonts/boxicons/boxicons.woff") format("woff"),
-     url("/admin/assets/vendor/fonts/boxicons/boxicons.ttf") format("truetype"),
-     url("/admin/assets/vendor/fonts/boxicons/boxicons.svg?#boxicons") format("svg");
-}
+
 .bx {
   font-family: "boxicons" !important;
   font-weight: normal;
