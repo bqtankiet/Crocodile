@@ -20,15 +20,15 @@
     <link rel="stylesheet" href="/admin/assets/vendor/fonts/boxicons.css" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-
     <!-- Core CSS -->
     <link rel="stylesheet" href="/admin/assets/vendor/css/core.css" class="template-customizer-core-css" />
     <link rel="stylesheet" href="/admin/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="/admin/assets/css/demo.css"/>
+    <link rel="stylesheet" href="/admin/assets/css/demo.css" />
 
-    
+
     <script src="/admin/assets/vendor/js/helpers.js"></script>
-
+    
+    
     <script src="/admin/assets/js/config.js"></script>
 
 </head>
@@ -58,7 +58,7 @@
                     </li>
 
                     <!-- Account setting -->
-                    <li class="menu-item active">
+                    <li class="menu-item">
                         <a href="account-setting.html" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-dock-top"></i>
                             <div data-i18n="Analytics">Thông tin tài khoản</div>
@@ -66,7 +66,7 @@
                     </li>
 
                     <!-- Category manager -->
-                    <li class="menu-item">
+                    <li class="menu-item active open">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons bx bx-table"></i>
                             <div data-i18n="Basic">Quản lý danh mục</div>
@@ -77,7 +77,7 @@
                                     <div data-i18n="Accordion">Loại danh mục</div>
                                 </a>
                             </li>
-                            <li class="menu-item">
+                            <li class="menu-item active">
                                 <a href="products.html" class="menu-link">
                                     <div data-i18n="Alerts">Sản phẩm</div>
                                 </a>
@@ -209,12 +209,12 @@
                                             <span class="align-middle">Cài đặt</span>
                                         </a>
                                     </li>
-                                    
+
                                     <li>
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="login.html">
+                                        <a class="dropdown-item" href="auth-login-basic.html">
                                             <i class="bx bx-power-off me-2"></i>
                                             <span class="align-middle">Đăng xuất</span>
                                         </a>
@@ -229,20 +229,133 @@
 
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
-                    <!-- nội dung viết ở đây -->
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        <h4 class="fw-bold py-3 mb-4">Quản lý sản phẩm</h4>
 
+                        <!-- Bordered Table -->
+                        <div class="card">
+                            <h5 class="card-header"><strong>Thêm sản phẩm</strong></h5>
+
+                            <!-- --------------------------------Bảng thêm sản phẩm------------------------------- -->
+                             <div id="add-product-form" class="card-body ">
+                                <!-- Form tải hình ảnh -->
+                                <div class="mb-3 row">
+                                    <label for="formFile" class="col-md-2 col-form-label">Hình ảnh</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="file" id="formFile" />
+                                    </div>
+                                </div>
+
+                                <!-- Tên sản phẩm  -->
+                                <div class="mb-3 row">
+                                    <label for="product-name" class="col-md-2 col-form-label">Tên sản phẩm</label>
+                                    <div class="col-md-10">
+                                      <input class="form-control" type="text" id="product-name" />
+                                    </div>
+                                </div>
+                                
+                                <!-- Nhà cung cấp  -->
+                                <div class="mb-3 row">
+                                    <label for="supplier" class="col-md-2 col-form-label">Nhà cung cấp</label>
+                                    <div class="col-md-10">
+                                    <input class="form-control" type="text" id="supplier" />
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 row">
+                                    <!-- Mã sản phẩm  -->
+                                    <label for="product-code" class="col-md-2 col-form-label">Mã sản phẩm</label>
+                                    <div class="col-md-4">
+                                      <input class="form-control" type="search" id="product-code" />
+                                    </div>
+
+                                    
+                                </div>
+
+                                <!-- Danh mục sản phẩm-->
+                                <div class="mb-3 row">
+                                    <label class="col-md-2 col-form-label">Danh mục</label>
+                                    <div class="col-md-4">
+                                      <select class="form-select placement-dropdown " id="selectPlacement">
+                                        <option value="" selected hidden>Chọn danh mục</option> 
+                                        <option value="">Túi xách</option>
+                                        <option value="">Ví</option>
+                                        <option value="">Thắt lưng</option>
+                                        <option value="">Giày</option>
+                                        <option value="">Dép</option>
+                                        <option value="">Phụ kiện</option>
+                                        <option value="">Áo khoác</option>
+                                        <option value="">Balo</option>
+                                        <option value="">Vali</option>
+                                        <option value="">Dây đồng Hồ</option>
+                                    </select>
+                                    </div>
+                                </div>
+                                                          
+                                <!-- Giá sản phẩm  -->
+                                <div class="mb-3 row">
+                                    <label for="product-price" class="col-md-2 col-form-label">Giá</label>
+                                    <div class="col-md-2">
+                                      <input class="form-control" type="text" id="product-price" />
+                                    </div>                                 
+                                </div>
+
+                                <!-- Khuyến mãi  -->
+                                <div class="mb-3 row">
+                                    <label for="product-discount" class="col-md-2 col-form-label">Khuyến mãi</label>
+                                    <div class="col-md-2">
+                                      <input class="form-control" type="text" id="product-discount" />
+                                    </div>
+                                </div>
+
+                                <!-- Số lượng  -->
+                                <div class="mb-3 row">
+                                    <label for="product-quantity" class="col-md-2 col-form-label">Số lượng</label>
+                                    <div class="col-md-2">
+                                      <input class="form-control" type="text" id="product-quantity" />
+                                    </div>
+                                </div>
+
+                                <!-- Mô tả sản phẩm  -->
+                                <div class="mb-3 row">
+                                    <label for="product-description" class="col-md-2 col-form-label">Mô tả sản phẩm</label>
+                                    <div class="col-md-10">
+                                        <textarea
+                                            id="product-description"
+                                            class="form-control"
+                                            rows="5">
+                                        </textarea>
+                                    </div>
+                                </div>
+                                
+
+                                <div class="btn-box d-flex justify-content-center gap-3">
+                                    <!-- nút lưu-->
+                                    <a href="products.html" class="btn btn-success">Lưu</a>
+    
+                                    <!-- nút thoát -->
+                                    <a href="products.html" class="btn btn-danger">Thoát</a>
+                                </div>
+                                <!-- ---------------------end bảng thêm sản phẩm---------------------------- -->
+                                  
+                             </div>
+
+                            <!--/ Responsive Table -->
+                        </div>
+
+                    </div>
+                    <!-- Content wrapper -->
                 </div>
-                <!-- Content wrapper -->
+                <!-- / Layout page -->
             </div>
-            <!-- / Layout page -->
+
         </div>
 
-    </div>
+        <script src="/admin/assets/vendor/js/bootstrap.js"></script>
+        
+        <script src="/admin/assets/vendor/js/menu.js"></script>
+        <script src="/admin/assets/js/main.js"></script>
 
-    <script src="/admin/assets/vendor/js/bootstrap.js"></script>
-
-    <script src="/admin/assets/vendor/js/menu.js"></script>
-    <script src="/admin/assets/js/main.js"></script>
 
 </body>
 
