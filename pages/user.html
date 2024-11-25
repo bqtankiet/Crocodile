@@ -241,7 +241,8 @@
                                 </div>
                             </div>
 
-                            <button type="submit" id="save-password-btn" class="btn custom-btn-primary btn-block w-100 p-2 ms-auto "
+                            <button type="submit" id="save-password-btn"
+                                    class="btn custom-btn-primary btn-block w-100 p-2 ms-auto "
                                     style="width: max-content">Lưu
                             </button>
                         </form>
@@ -271,7 +272,8 @@
                             <div class="form-group">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h4 class="fw-semibold">Địa chỉ của tôi</h4>
-                                    <button type="button" class="btn custom-btn-primary btn-block p-2 mb-3" data-bs-toggle="modal"
+                                    <button type="button" class="btn custom-btn-primary btn-block p-2 mb-3"
+                                            data-bs-toggle="modal"
                                             data-bs-target="#newAddressModal">+ Thêm địa chỉ mới
                                     </button>
                                 </div>
@@ -389,7 +391,6 @@
     </div>
 </div>
 
-
 <!-- Modal Address -->
 <div class="modal fade" tabindex="-1" id="newAddressModal" data-bs-backdrop="static"
      data-bs-keyboard="false">
@@ -443,7 +444,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-success" form="newAddressForm">
+                <button type="submit" id="submitAddess" class="btn btn-success" form="newAddressForm">
                     Hoàn thành
                 </button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -454,8 +455,6 @@
     </div>
 </div>
 
-
-<!-- ########## END MODAL ############ -->
 
 <div id="FOOTER">
     <script>
@@ -513,6 +512,52 @@
         newPassword.addEventListener('input', () => bootstrap.Tooltip.getInstance(newPassword)?.hide());
         newPasswordCheck.addEventListener('input', () => bootstrap.Tooltip.getInstance(newPasswordCheck)?.hide());
     });
+    document.getElementById('newAddressForm').addEventListener('submit', function (event) {
+        event.preventDefault(); // Ngăn chặn hành động mặc định của form
+
+        // Lấy dữ liệu từ các input trong form
+        const name = document.getElementById('name').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const city = document.getElementById('city').value.trim();
+        const district = document.getElementById('district').value.trim();
+        const ward = document.getElementById('ward').value.trim();
+        const soNha = document.getElementById('soNha').value.trim();
+
+        // Kiểm tra dữ liệu nhập
+        if (!name || !phone || !city || !district || !ward || !soNha) {
+            alert('Vui lòng điền đầy đủ thông tin!');
+            return;
+        }
+
+        // Tạo một phần tử mới để hiển thị địa chỉ
+        const addressList = document.getElementById('addressList');
+        const newAddress = document.createElement('div');
+        newAddress.className = 'card mb-3 p-3';
+        newAddress.innerHTML = `
+        <h6 class="fw-bold">${name}</h6>
+        <p>Số điện thoại: ${phone}</p>
+        <p>Địa chỉ: ${soNha}, ${ward}, ${district}, ${city}</p>
+        <button class="btn custom-btn-primary btn-sm mt-2" onclick="removeAddress(this)">Xóa</button>
+    `;
+
+        // Thêm địa chỉ mới vào danh sách
+        addressList.appendChild(newAddress);
+
+        // Đóng modal sau khi thêm địa chỉ
+        const modal = bootstrap.Modal.getInstance(document.getElementById('newAddressModal'));
+        modal.hide();
+
+        // Reset form
+        document.getElementById('newAddressForm').reset();
+    });
+
+    // Hàm để xóa địa chỉ
+    function removeAddress(button) {
+        const addressCard = button.parentElement;
+        addressCard.remove();
+    }
+
+
 </script>
 
 </html>
