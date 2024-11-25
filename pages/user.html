@@ -36,9 +36,9 @@
     }
 
     .tooltip-custom .tooltip-inner {
-        background-color: #ffdddd; /* Màu nền nhạt hơn */
-        color: #b30000; /* Màu chữ nổi bật */
-        border: 1px solid #b30000; /* Khung viền đỏ */
+        background-color: white; /* Màu nền nhạt hơn */
+        color: black; /* Màu chữ nổi bật */
+        border: 1px solid #339933; /* Khung viền đỏ */
         padding: 8px;
         font-weight: bold;
         border-radius: 5px;
@@ -512,6 +512,56 @@
         newPassword.addEventListener('input', () => bootstrap.Tooltip.getInstance(newPassword)?.hide());
         newPasswordCheck.addEventListener('input', () => bootstrap.Tooltip.getInstance(newPasswordCheck)?.hide());
     });
+    // Danh sách các địa chỉ mẫu
+    const sampleAddresses = [
+        {
+            name: "Đặng Anh Kiệt",
+            phone: "22130133",
+            city: "TP Hồ Chí Minh",
+            district: "Thủ Đức",
+            ward: "Phường Long Thạnh Mỹ",
+            soNha: "54/2 đường số 2D"
+        },
+        {
+            name: "Bùi Quang Tấn Kiệt",
+            phone: "22130132",
+            city: "Đồng Nai",
+            district: "Biên Hoà",
+            ward: "...",
+            soNha: "Số 88, Đường Nguyễn Huệ"
+        },
+        {
+            name: "Đặng Minh Khôi",
+            phone: "22130126",
+            city: "TP Hồ Chí Minh",
+            district: "Thủ Đức",
+            ward: "Phường Linh Trung",
+            soNha: "Số 26, KTX khu A"
+        }
+    ];
+
+    // Hàm hiển thị một địa chỉ
+    function renderAddress(address) {
+        const addressList = document.getElementById('addressList');
+        const newAddress = document.createElement('div');
+        newAddress.className = 'card mb-3 p-3';
+        newAddress.innerHTML = `
+        <h6 class="fw-bold">${address.name}</h6>
+        <p>Số điện thoại: ${address.phone}</p>
+        <p>Địa chỉ: ${address.soNha}, ${address.ward}, Thành Phố ${address.district}, ${address.city}</p>
+        <button class="btn custom-btn-primary btn-sm mt-2" onclick="removeAddress(this)">Xóa</button>
+    `;
+        addressList.appendChild(newAddress);
+    }
+
+    // Hàm để hiển thị danh sách địa chỉ mẫu
+    function loadSampleAddresses() {
+        sampleAddresses.forEach(address => {
+            renderAddress(address);
+        });
+    }
+
+    // Hàm xử lý sự kiện thêm địa chỉ mới
     document.getElementById('newAddressForm').addEventListener('submit', function (event) {
         event.preventDefault(); // Ngăn chặn hành động mặc định của form
 
@@ -525,23 +575,23 @@
 
         // Kiểm tra dữ liệu nhập
         if (!name || !phone || !city || !district || !ward || !soNha) {
-            alert('Vui lòng điền đầy đủ thông tin!');
+            // Hiển thị tooltip trên các trường bị thiếu
+            showValidationTooltips({name, phone, city, district, ward, soNha});
             return;
         }
 
-        // Tạo một phần tử mới để hiển thị địa chỉ
-        const addressList = document.getElementById('addressList');
-        const newAddress = document.createElement('div');
-        newAddress.className = 'card mb-3 p-3';
-        newAddress.innerHTML = `
-        <h6 class="fw-bold">${name}</h6>
-        <p>Số điện thoại: ${phone}</p>
-        <p>Địa chỉ: ${soNha}, ${ward}, ${district}, ${city}</p>
-        <button class="btn custom-btn-primary btn-sm mt-2" onclick="removeAddress(this)">Xóa</button>
-    `;
+        // Tạo một đối tượng địa chỉ mới
+        const newAddress = {
+            name,
+            phone,
+            city,
+            district,
+            ward,
+            soNha
+        };
 
-        // Thêm địa chỉ mới vào danh sách
-        addressList.appendChild(newAddress);
+        // Hiển thị địa chỉ mới trong danh sách
+        renderAddress(newAddress);
 
         // Đóng modal sau khi thêm địa chỉ
         const modal = bootstrap.Modal.getInstance(document.getElementById('newAddressModal'));
@@ -551,11 +601,44 @@
         document.getElementById('newAddressForm').reset();
     });
 
+    // Hàm để hiển thị tooltip trên các trường bị thiếu
+    function showValidationTooltips(fields) {
+        Object.keys(fields).forEach(key => {
+            const value = fields[key];
+            const inputElement = document.getElementById(key);
+
+            if (!value) {
+                // Gắn tooltip vào các trường bị thiếu
+                const tooltip = new bootstrap.Tooltip(inputElement, {
+                    title: 'Vui lòng nhập thông tin này!',
+                    placement: 'top',
+                    trigger: 'manual',
+                    customClass: 'tooltip-custom'
+
+                });
+                tooltip.show();
+
+                // Ẩn tooltip sau 3 giây
+                setTimeout(() => {
+                    tooltip.dispose();
+                }, 3000);
+
+                inputElement.classList.add('is-invalid');
+            } else {
+                inputElement.classList.remove('is-invalid');
+            }
+        });
+    }
+
+
     // Hàm để xóa địa chỉ
     function removeAddress(button) {
         const addressCard = button.parentElement;
         addressCard.remove();
     }
+
+    // Gọi hàm để tải danh sách địa chỉ mẫu khi trang tải xong
+    document.addEventListener('DOMContentLoaded', loadSampleAddresses);
 
 
 </script>
