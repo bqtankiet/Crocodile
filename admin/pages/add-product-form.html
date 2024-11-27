@@ -25,12 +25,20 @@
     <link rel="stylesheet" href="/admin/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="/admin/assets/css/demo.css" />
 
+    <!--  jquery  -->
+    <script src="/public/jquery-3.7.1.min.js"></script>
 
     <script src="/admin/assets/vendor/js/helpers.js"></script>
-    
-    
+
+
     <script src="/admin/assets/js/config.js"></script>
 
+    <style>
+        .upload-image.disabled{
+            pointer-events: none;
+            opacity: 0.6;
+        }
+    </style>
 </head>
 
 <body>
@@ -237,12 +245,71 @@
                             <h5 class="card-header"><strong>Thêm sản phẩm</strong></h5>
 
                             <!-- --------------------------------Bảng thêm sản phẩm------------------------------- -->
-                             <div id="add-product-form" class="card-body ">
+                             <form method="post" id="add-product-form" class="card-body ">
                                 <!-- Form tải hình ảnh -->
-                                <div class="mb-3 row">
-                                    <label for="formFile" class="col-md-2 col-form-label">Hình ảnh</label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" type="file" id="formFile" />
+                                <div class="mb-3 input-group">
+                                    <span class="col-md-2 col-form-label">Hình ảnh</span>
+                                    <div class="col-md-10 d-flex gap-3" id="upload-img-container">
+                                        <div class="[ upload-image ]">
+                                            <input class="form-control d-none" type="file" accept="image/jpeg, image/jpg, image/png"
+                                                   id="uploadImage0" name="image0" onchange="updatePreviewImage(this, 0)"/>
+                                            <label for="uploadImage0" class="cursor-pointer">
+                                            <span class="position-relative">
+                                                <!--https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg-->
+                                                <img src="" alt="" id="preview0" class="[ preview ] d-block border border-danger" style="width: 5rem; height: 5rem; object-fit: cover">
+                                                <span class="[ add-img-icon ] fs-1 position-absolute translate-middle top-50 start-50">+</span>
+                                            </span>
+                                                <span class="d-block text-center mt-1">Ảnh bìa</span>
+                                            </label>
+                                        </div>
+                                        <div class="[ upload-image ] disabled">
+                                            <input class="form-control d-none" type="file" accept="image/jpeg, image/jpg, image/png"
+                                                   id="uploadImage1" name="image1" onchange="updatePreviewImage(this, 1)"/>
+                                            <label for="uploadImage1" class="cursor-pointer">
+                                                <span class="position-relative">
+                                                    <!--https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg-->
+                                                    <img src="" alt="" class="[ preview ] d-block" style="width: 5rem; height: 5rem; object-fit: cover">
+                                                    <span class="[ add-img-icon ] fs-1 position-absolute translate-middle top-50 start-50">+</span>
+                                                </span>
+                                                <span class="d-block text-center mt-1">Ảnh (1/4)</span>
+                                            </label>
+                                        </div>
+                                        <div class="[ upload-image ] disabled">
+                                            <input class="form-control d-none" type="file" accept="image/jpeg, image/jpg, image/png"
+                                                   id="uploadImage2" name="image1" onchange="updatePreviewImage(this, 2)"/>
+                                            <label for="uploadImage2" class="cursor-pointer">
+                                                <span class="position-relative">
+                                                    <!--https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg-->
+                                                    <img src="" alt="" class="[ preview ] d-block" style="width: 5rem; height: 5rem; object-fit: cover">
+                                                    <span class="[ add-img-icon ] fs-1 position-absolute translate-middle top-50 start-50">+</span>
+                                                </span>
+                                                <span class="d-block text-center mt-1">Ảnh (2/4)</span>
+                                            </label>
+                                        </div>
+                                        <div class="[ upload-image ] disabled">
+                                            <input class="form-control d-none" type="file" accept="image/jpeg, image/jpg, image/png"
+                                                   id="uploadImage3" name="image3" onchange="updatePreviewImage(this, 3)"/>
+                                            <label for="uploadImage3" class="cursor-pointer">
+                                                <span class="position-relative">
+                                                    <!--https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg-->
+                                                    <img src="" alt="" class="[ preview ] d-block" style="width: 5rem; height: 5rem; object-fit: cover">
+                                                    <span class="[ add-img-icon ] fs-1 position-absolute translate-middle top-50 start-50">+</span>
+                                                </span>
+                                                <span class="d-block text-center mt-1">Ảnh (3/4)</span>
+                                            </label>
+                                        </div>
+                                        <div class="[ upload-image ] disabled">
+                                            <input class="form-control d-none" type="file" accept="image/jpeg, image/jpg, image/png"
+                                                   id="uploadImage4" name="image4" onchange="updatePreviewImage(this, 4)"/>
+                                            <label for="uploadImage4" class="cursor-pointer">
+                                                <span class="position-relative">
+                                                    <!--https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg-->
+                                                    <img src="" alt="" class="[ preview ] d-block" style="width: 5rem; height: 5rem; object-fit: cover">
+                                                    <span class="[ add-img-icon ] fs-1 position-absolute translate-middle top-50 start-50">+</span>
+                                                </span>
+                                                <span class="d-block text-center mt-1">Ảnh (4/4)</span>
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -253,7 +320,7 @@
                                       <input class="form-control" type="text" id="product-name" />
                                     </div>
                                 </div>
-                                
+
                                 <!-- Nhà cung cấp  -->
                                 <div class="mb-3 row">
                                     <label for="supplier" class="col-md-2 col-form-label">Nhà cung cấp</label>
@@ -269,7 +336,7 @@
                                       <input class="form-control" type="search" id="product-code" />
                                     </div>
 
-                                    
+
                                 </div>
 
                                 <!-- Danh mục sản phẩm-->
@@ -277,7 +344,7 @@
                                     <label class="col-md-2 col-form-label">Danh mục</label>
                                     <div class="col-md-4">
                                       <select class="form-select placement-dropdown " id="selectPlacement">
-                                        <option value="" selected hidden>Chọn danh mục</option> 
+                                        <option value="" selected hidden>Chọn danh mục</option>
                                         <option value="">Túi xách</option>
                                         <option value="">Ví</option>
                                         <option value="">Thắt lưng</option>
@@ -291,13 +358,13 @@
                                     </select>
                                     </div>
                                 </div>
-                                                          
+
                                 <!-- Giá sản phẩm  -->
                                 <div class="mb-3 row">
                                     <label for="product-price" class="col-md-2 col-form-label">Giá</label>
                                     <div class="col-md-2">
                                       <input class="form-control" type="text" id="product-price" />
-                                    </div>                                 
+                                    </div>
                                 </div>
 
                                 <!-- Khuyến mãi  -->
@@ -327,18 +394,18 @@
                                         </textarea>
                                     </div>
                                 </div>
-                                
+
 
                                 <div class="btn-box d-flex justify-content-center gap-3">
                                     <!-- nút lưu-->
-                                    <a href="products.html" class="btn btn-success">Lưu</a>
-    
+                                    <button class="btn btn-success" type="submit">Lưu</button>
+
                                     <!-- nút thoát -->
                                     <a href="products.html" class="btn btn-danger">Thoát</a>
                                 </div>
                                 <!-- ---------------------end bảng thêm sản phẩm---------------------------- -->
-                                  
-                             </div>
+
+                             </form>
 
                             <!--/ Responsive Table -->
                         </div>
@@ -352,11 +419,11 @@
         </div>
 
         <script src="/admin/assets/vendor/js/bootstrap.js"></script>
-        
         <script src="/admin/assets/vendor/js/menu.js"></script>
         <script src="/admin/assets/js/main.js"></script>
+        <script src="/admin/assets/js/updatePreviewImage.js"></script>
 
-
+    </div>
 </body>
 
 </html>
