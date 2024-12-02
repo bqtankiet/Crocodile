@@ -32,7 +32,7 @@
 
     <!-- Data table -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/public/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 
     <!-- Kích hoạt Data table  -->
@@ -74,13 +74,6 @@
 
                 <ul class="menu-inner py-1">
                     <!-- Dashboard -->
-                    <li class="menu-item">
-                        <a href="home.html" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                            <div data-i18n="Analytics">Trang chủ</div>
-                        </a>
-                    </li>
-
                     <!-- Account setting -->
                     <li class="menu-item">
                         <a href="account-setting.html" class="menu-link">
@@ -110,37 +103,6 @@
                         </ul>
                     </li>
 
-                    <!-- Extended components -->
-                    <li class="menu-item">
-                        <a href="javascript:void(0)" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-detail"></i>
-                            <div data-i18n="Extended UI">Quản lý giao diện</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="#" class="menu-link">
-                                    <div data-i18n="Text Divider">Hình ảnh</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#" class="menu-link">
-                                    <div data-i18n="Text Divider">Hỗ trợ trực tuyến</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#" class="menu-link">
-                                    <div data-i18n="Text Divider">Thông tin</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#" class="menu-link">
-                                    <div data-i18n="Text Divider">Nội dung khác</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-
                     <!-- Information Manager -->
                     <li class="menu-item">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -150,7 +112,7 @@
                         <ul class="menu-sub">
                             <li class="menu-item">
                                 <a href="order-list.html" class="menu-link">
-                                    <div data-i18n="Basic Inputs">Danh sách đơn hàng</div>
+                                    <div data-i18n="Basic Inputs">Đơn hàng</div>
                                 </a>
                             </li>
 
@@ -226,14 +188,7 @@
                                             <i class="bx bx-user me-2"></i>
                                             <span class="align-middle">Hồ sơ</span>
                                         </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="bx bx-cog me-2"></i>
-                                            <span class="align-middle">Cài đặt</span>
-                                        </a>
-                                    </li>
-
+                                    </li>                                  
                                     <li>
                                         <div class="dropdown-divider"></div>
                                     </li>
@@ -254,7 +209,10 @@
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <h4 class="fw-bold py-3 mb-4">Quản lý danh mục</h4>
+                        <h4 class="fw-bold py-3 mb-4">
+                            <span class="text-muted fw-light">Quản lý danh mục /</span>
+                             Loại danh mục
+                        </h4>
 
                         <!-- Bordered Table -->
                         <div class="card">
@@ -269,7 +227,6 @@
                                                 <th scope="col">#</th>
                                                 <th scope="col">Tên danh mục</th>
                                                 <th scope="col">Hình ảnh</th>
-                                                <th scope="col">Trạng thái</th>
                                                 <th scope="col">Tác vụ</th>
                                                 
                                             </tr>
@@ -283,7 +240,7 @@
                                                 <td>
                                                     <img style="max-height: 50px;" class="img-fluid"  src="/assets/images/categories-img/handbag.png" alt="">
                                                 </td>
-                                                <td>Hiển thị</td>
+                                                
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -306,7 +263,7 @@
                                                 <td>
                                                     <img style="max-height: 50px;" class="img-fluid"  src="/assets/images/categories-img/wallet-icon.png" alt="">
                                                 </td>
-                                                <td>Hiển thị</td>
+                                                
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -329,7 +286,7 @@
                                                 <td>
                                                     <img style="max-height: 50px;" class="img-fluid"  src="/assets/images/categories-img/man-belt-icon.png" alt="">
                                                 </td>
-                                                <td>Hiển thị</td>
+                                                
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -352,7 +309,7 @@
                                                 <td>
                                                     <img style="max-height: 50px;" class="img-fluid"  src="/assets/images/categories-img/man-shoe-icon.png" alt="">
                                                 </td>
-                                                <td>Hiển thị</td>
+                                                
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -375,7 +332,7 @@
                                                 <td>
                                                     <img style="max-height: 50px;" class="img-fluid"  src="https://cdn4.iconfinder.com/data/icons/elasto-style/26/ELASTOFONT-READY-GLUE_male-shoes-128.png" alt="">
                                                 </td>
-                                                <td>Hiển thị</td>
+                                                
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -398,7 +355,7 @@
                                                 <td>
                                                     <img style="max-height: 50px;" class="img-fluid"  src="/assets/images/categories-img/smartwatch-icon.png" alt="">
                                                 </td>
-                                                <td>Hiển thị</td>
+                                                
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -421,7 +378,7 @@
                                                 <td>
                                                     <img style="max-height: 50px;" class="img-fluid"  src="/assets/images/categories-img/aokhoacda.png" alt="">
                                                 </td>
-                                                <td>Hiển thị</td>
+                                                
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -444,7 +401,7 @@
                                                 <td>
                                                     <img style="max-height: 50px;" class="img-fluid"  src="/assets/images/categories-img/backpack-icon.png" alt="">
                                                 </td>
-                                                <td>Hiển thị</td>
+                                                
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -467,7 +424,7 @@
                                                 <td>
                                                     <img style="max-height: 50px;" class="img-fluid"  src="/assets/images/categories-img/tourist-bag-icon.png" alt="">
                                                 </td>
-                                                <td>Hiển thị</td>
+                                                
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -491,7 +448,7 @@
                                                 <td>
                                                     <img style="max-height: 50px;" class="img-fluid"  src="https://cdn0.iconfinder.com/data/icons/elasto-style/26/high-heels-128.png" alt="">
                                                 </td>
-                                                <td>Hiển thị</td>
+                                                
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -514,7 +471,7 @@
                                                 <td>
                                                     <img style="max-height: 50px;" class="img-fluid"  src="/assets/images/categories-img/purse.png" alt="">
                                                 </td>
-                                                <td>Hiển thị</td>
+                                                
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -538,7 +495,7 @@
                                                 <td>
                                                     <img style="max-height: 50px;" class="img-fluid"  src="/assets/images/categories-img/briefcase-line-icon.png" alt="">
                                                 </td>
-                                                <td>Hiển thị</td>
+                                                
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -562,7 +519,7 @@
                                                 <td>
                                                     <img style="max-height: 50px;" class="img-fluid"  src="/assets/images/categories-img/sling-bag.png" alt="">
                                                 </td>
-                                                <td>Hiển thị</td>
+                                                
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -586,7 +543,7 @@
                                                 <td>
                                                     <img style="max-height: 50px;" class="img-fluid"  src="https://static.thenounproject.com/png/637282-200.png" alt="">
                                                 </td>
-                                                <td>Hiển thị</td>
+                                                
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"

@@ -32,7 +32,7 @@
 
     <!-- Data table -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/public/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 
     <!-- Kích hoạt Data table  -->
@@ -74,13 +74,6 @@
 
                 <ul class="menu-inner py-1">
                     <!-- Dashboard -->
-                    <li class="menu-item">
-                        <a href="home.html" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                            <div data-i18n="Analytics">Trang chủ</div>
-                        </a>
-                    </li>
-
                     <!-- Account setting -->
                     <li class="menu-item">
                         <a href="account-setting.html" class="menu-link">
@@ -90,13 +83,13 @@
                     </li>
 
                     <!-- Category manager -->
-                    <li class="menu-item active open">
+                    <li class="menu-item">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons bx bx-table"></i>
                             <div data-i18n="Basic">Quản lý danh mục</div>
                         </a>
                         <ul class="menu-sub">
-                            <li class="menu-item active">
+                            <li class="menu-item">
                                 <a href="categories.html" class="menu-link">
                                     <div data-i18n="Accordion">Loại danh mục</div>
                                 </a>
@@ -110,39 +103,8 @@
                         </ul>
                     </li>
 
-                    <!-- Extended components -->
-                    <li class="menu-item">
-                        <a href="javascript:void(0)" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-detail"></i>
-                            <div data-i18n="Extended UI">Quản lý giao diện</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="#" class="menu-link">
-                                    <div data-i18n="Text Divider">Hình ảnh</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#" class="menu-link">
-                                    <div data-i18n="Text Divider">Hỗ trợ trực tuyến</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#" class="menu-link">
-                                    <div data-i18n="Text Divider">Thông tin</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#" class="menu-link">
-                                    <div data-i18n="Text Divider">Nội dung khác</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-
                     <!-- Information Manager -->
-                    <li class="menu-item">
+                    <li class="menu-item active open">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons bx bx-box"></i>
                             <div data-i18n="Form Elements">Quản lý thông tin</div>
@@ -150,7 +112,7 @@
                         <ul class="menu-sub">
                             <li class="menu-item">
                                 <a href="order-list.html" class="menu-link">
-                                    <div data-i18n="Basic Inputs">Danh sách đơn hàng</div>
+                                    <div data-i18n="Basic Inputs">Đơn hàng</div>
                                 </a>
                             </li>
 
@@ -227,12 +189,6 @@
                                             <span class="align-middle">Hồ sơ</span>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="bx bx-cog me-2"></i>
-                                            <span class="align-middle">Cài đặt</span>
-                                        </a>
-                                    </li>
 
                                     <li>
                                         <div class="dropdown-divider"></div>
@@ -254,10 +210,10 @@
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     <div class="container-xxl flex-grow-1 container-p-y">
-            
+
                         <h4 class="fw-bold py-3 mb-4">
                             <span class="text-muted fw-light">Quản lý thông tin /</span>
-                             Chi tiết
+                            Chi tiết
                         </h4>
                         <!-- Bordered Table -->
                         <div class="card mb-5">
@@ -272,7 +228,6 @@
                                                 <th scope="col">Tên khách hàng</th>
                                                 <th scope="col">SĐT</th>
                                                 <th scope="col">Email</th>
-                                                <th scope="col">Ngày sinh</th>
                                                 <th scope="col">Địa chỉ</th>
 
                                             </tr>
@@ -283,9 +238,9 @@
                                                 <td scope="row">DavidBecKhôi</td>
                                                 <td>0123456789</td>
                                                 <td>mkhoi@gmail.com</td>
-                                                <td>31/12/2003</td>
                                                 <td>
-                                                    Đại học Nông Lâm - Tp.HCM
+                                                    Số 26, KTX khu A, Phường Linh Trung,
+                                                    Thành Phố Thủ Đức, TP Hồ Chí Minh
                                                 </td>
                                             </tr>
 
@@ -313,9 +268,7 @@
                                                 <th scope="col">Số lượng</th>
                                                 <th scope="col">Giá tiền</th>
                                                 <th scope="col">Thành tiền</th>
-                                                <th scope="col">Hình thức thanh toán</th>
-                                                <th scope="col">Trạng thái thanh toán</th>
-
+                                                <th scope="col">Phương thức thanh toán</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -333,7 +286,7 @@
                                                 <td>500.000</td>
                                                 <td>1.000.000</td>
                                                 <td>Thanh toán khi nhận hàng</td>
-                                                <td>Chưa thanh toán</td>
+
                                             </tr>
 
                                             <!-- sản phẩm 2 -->
@@ -350,18 +303,18 @@
                                                 <td>200.000</td>
                                                 <td>200.000</td>
                                                 <td>Thanh toán khi nhận hàng</td>
-                                                <td>Chưa thanh toán</td>
+
                                             </tr>
 
                                         </tbody>
 
                                         <tfoot>
                                             <tr>
-                                                <td colspan="8" class="text-end">
+                                                <td colspan="7" class="text-end">
                                                     <h3>Tổng tiền:</h3>
                                                 </td>
                                                 <td>
-                                                    <h3>1.200.000</h3>
+                                                    <h2 style="color: #004C45;">1.200.000</h2>
                                                 </td>
                                             </tr>
                                         </tfoot>

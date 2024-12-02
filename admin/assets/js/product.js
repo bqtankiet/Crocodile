@@ -37,28 +37,6 @@ $(document).ready(function () {
         );
         const $editPrice = $('#edit-prod-price');
 
-        // Kho
-        const $prodQuantity = row.find('.product-quantity');
-        const currentQuantity = $prodQuantity.text();
-        $prodQuantity.html(
-            `<input type="text" 
-                class="form-control border-0 shadow-none" 
-                id="edit-prod-quantity" value="${currentQuantity}">`
-        );
-        const $editQuantity = $('#edit-prod-quantity');
-
-        // Trạng thái hiển thị
-        const $status = row.find('.status');
-        const currentStatus = $status.text();
-        const $statusSelectBox = row.find('.status-dropdown');
-        $status.toggleClass('d-none');
-        $statusSelectBox.toggleClass('d-none');
-
-        let statusValue = currentStatus;
-        $statusSelectBox.off('change').change(function () {
-            statusValue = $(this).find("option:selected").text();
-        });
-
         // Tác vụ
         const $optionBox = row.find('.option-box');
         $optionBox.toggleClass('d-none');
@@ -67,14 +45,11 @@ $(document).ready(function () {
         $btnBox.toggleClass('d-none');
 
         // Lưu 
-        const $save = row.find('.btn-success');
+        const $save = row.find('.btn-save');
         $save.off('click').on('click', function () {
             // ẩn hiện danh mục
             $cateName.toggleClass('d-none');
             $cateSelectBox.toggleClass('d-none');
-            // ẩn hiện trạng thái
-            $status.toggleClass('d-none');
-            $statusSelectBox.toggleClass('d-none');
             // ẩn hiện tác vụ
             $optionBox.toggleClass('d-none');
             $btnBox.toggleClass('d-none');
@@ -82,20 +57,15 @@ $(document).ready(function () {
             $prodName.text(editProdName.val());
             $cateName.text(editCateName);
             $prodPrice.text($editPrice.val());
-            $prodQuantity.text($editQuantity.val());
-            $status.text(statusValue);
         });
 
         // Hủy
-        const $cancel = row.find('.btn-danger');
+        const $cancel = row.find('.btn-cancel');
         $cancel.off('click').on('click', function () {
             if (confirm("Bạn có chắc chắn muốn bỏ chỉnh sửa này không?")) {
                 // ẩn hiện danh mục
                 $cateName.toggleClass('d-none');
                 $cateSelectBox.toggleClass('d-none');
-                // ẩn hiện trạng thái
-                $status.toggleClass('d-none');
-                $statusSelectBox.toggleClass('d-none');
                 // ẩn hiện tác vụ
                 $optionBox.toggleClass('d-none');
                 $btnBox.toggleClass('d-none');
@@ -103,8 +73,6 @@ $(document).ready(function () {
                 $prodName.text(currentName);
                 $cateName.text(currentCateName);
                 $prodPrice.text(currentPrice);
-                $prodQuantity.text(currentQuantity);
-                $status.text(currentStatus);
             }
         });
     });

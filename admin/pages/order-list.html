@@ -32,7 +32,7 @@
 
     <!-- Data table -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/public/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 
     <!-- Kích hoạt Data table  -->
@@ -73,13 +73,6 @@
 
                 <ul class="menu-inner py-1">
                     <!-- Dashboard -->
-                    <li class="menu-item">
-                        <a href="home.html" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                            <div data-i18n="Analytics">Trang chủ</div>
-                        </a>
-                    </li>
-
                     <!-- Account setting -->
                     <li class="menu-item">
                         <a href="account-setting.html" class="menu-link">
@@ -106,36 +99,6 @@
                                 </a>
                             </li>
 
-                        </ul>
-                    </li>
-
-                    <!-- Extended components -->
-                    <li class="menu-item">
-                        <a href="javascript:void(0)" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-detail"></i>
-                            <div data-i18n="Extended UI">Quản lý giao diện</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="#" class="menu-link">
-                                    <div data-i18n="Text Divider">Hình ảnh</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#" class="menu-link">
-                                    <div data-i18n="Text Divider">Hỗ trợ trực tuyến</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#" class="menu-link">
-                                    <div data-i18n="Text Divider">Thông tin</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#" class="menu-link">
-                                    <div data-i18n="Text Divider">Nội dung khác</div>
-                                </a>
-                            </li>
                         </ul>
                     </li>
 
@@ -226,12 +189,6 @@
                                             <span class="align-middle">Hồ sơ</span>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="bx bx-cog me-2"></i>
-                                            <span class="align-middle">Cài đặt</span>
-                                        </a>
-                                    </li>
 
                                     <li>
                                         <div class="dropdown-divider"></div>
@@ -271,7 +228,7 @@
                                                 <th scope="col">Khách hàng</th>
                                                 <th scope="col">Số điện thoại</th>
                                                 <th scope="col">Tổng tiền</th>
-                                                <th scope="col">Thanh toán</th>
+                                                <th scope="col">Phương thức thanh toán</th>
                                                 <th scope="col">Trạng thái đơn hàng</th>
                                                 <th scope="col" class="align-middle">Ngày đặt</th>
                                                 <th scope="col">Tác vụ</th>
@@ -284,7 +241,7 @@
                                                 <td>DavidBecKhôi</td>
                                                 <td>0123456789</td>
                                                 <td>1.200.000</td>
-                                                <td>Chưa thanh toán</td>
+                                                <td>COD</td>
                                                 <td>Đang vận chuyển</td>
                                                 <td>20/11/2022 15:30:30</td>
                                                 <td>
@@ -310,7 +267,7 @@
                                                 <td>Nguyễn Thị Lan</td>
                                                 <td>0987654321</td>
                                                 <td>700.000</td>
-                                                <td>Đã thanh toán</td>
+                                                <td>Ví điện tử MoMo</td>
                                                 <td>Đang vận chuyển</td>
                                                 <td>21/11/2022 16:00:45</td>
                                                 <td>
@@ -336,7 +293,7 @@
                                                 <td>Trần Văn Tùng</td>
                                                 <td>0912345678</td>
                                                 <td>1.000.000</td>
-                                                <td>Chưa thanh toán</td>
+                                                <td>COD</td>
                                                 <td>Đang vận chuyển</td>
                                                 <td>22/11/2022 14:10:10</td>
                                                 <td>
@@ -362,7 +319,7 @@
                                                 <td>Phan Thị Mai</td>
                                                 <td>0981234567</td>
                                                 <td>600.000</td>
-                                                <td>Đã thanh toán</td>
+                                                <td>Ví điện tử MoMo</td>
                                                 <td>Chưa vận chuyển</td>
                                                 <td>23/11/2022 13:45:20</td>
                                                 <td>
@@ -388,7 +345,7 @@
                                                 <td>Lê Thị Lan</td>
                                                 <td>0901234567</td>
                                                 <td>400.000</td>
-                                                <td>Chưa thanh toán</td>
+                                                <td>COD</td>
                                                 <td>Đang vận chuyển</td>
                                                 <td>24/11/2022 12:50:25</td>
                                                 <td>
@@ -414,7 +371,7 @@
                                                 <td>Nguyễn Văn An</td>
                                                 <td>0945678901</td>
                                                 <td>900.000</td>
-                                                <td>Đã thanh toán</td>
+                                                <td>Ví điện tử MoMo</td>
                                                 <td>Chưa vận chuyển</td>
                                                 <td>25/11/2022 11:30:35</td>
                                                 <td>
@@ -440,7 +397,7 @@
                                                 <td>Hoàng Minh Tuấn</td>
                                                 <td>0956781234</td>
                                                 <td>1.200.000</td>
-                                                <td>Chưa thanh toán</td>
+                                                <td>COD</td>
                                                 <td>Đang vận chuyển</td>
                                                 <td>26/11/2022 10:25:50</td>
                                                 <td>
@@ -466,7 +423,7 @@
                                                 <td>Trương Thị Như</td>
                                                 <td>0967891234</td>
                                                 <td>650.000</td>
-                                                <td>Đã thanh toán</td>
+                                                <td>Ví điện tử MoMo</td>
                                                 <td>Chưa vận chuyển</td>
                                                 <td>27/11/2022 09:10:15</td>
                                                 <td>
@@ -492,7 +449,7 @@
                                                 <td>Phạm Minh Tân</td>
                                                 <td>0978901234</td>
                                                 <td>300.000</td>
-                                                <td>Chưa thanh toán</td>
+                                                <td>COD</td>
                                                 <td>Đang vận chuyển</td>
                                                 <td>28/11/2022 08:55:10</td>
                                                 <td>
@@ -518,7 +475,7 @@
                                                 <td>Vũ Thanh Hằng</td>
                                                 <td>0923456789</td>
                                                 <td>850.000</td>
-                                                <td>Đã thanh toán</td>
+                                                <td>Ví điện tử MoMo</td>
                                                 <td>Chưa vận chuyển</td>
                                                 <td>29/11/2022 07:40:30</td>
                                                 <td>
@@ -544,7 +501,7 @@
                                                 <td>Nguyễn Quang Hieu</td>
                                                 <td>0987654321</td>
                                                 <td>1.500.000</td>
-                                                <td>Chưa thanh toán</td>
+                                                <td>COD</td>
                                                 <td>Đang vận chuyển</td>
                                                 <td>30/11/2022 06:25:10</td>
                                                 <td>
@@ -570,7 +527,7 @@
                                                 <td>Trần Lê Tú</td>
                                                 <td>0912345678</td>
                                                 <td>750.000</td>
-                                                <td>Đã thanh toán</td>
+                                                <td>Ví điện tử MoMo</td>
                                                 <td>Chưa vận chuyển</td>
                                                 <td>01/12/2022 05:15:05</td>
                                                 <td>
@@ -596,7 +553,7 @@
                                                 <td>Vũ Ngọc Anh</td>
                                                 <td>0901234567</td>
                                                 <td>1.000.000</td>
-                                                <td>Chưa thanh toán</td>
+                                                <td>COD</td>
                                                 <td>Đang vận chuyển</td>
                                                 <td>02/12/2022 04:05:40</td>
                                                 <td>
@@ -622,7 +579,7 @@
                                                 <td>Nguyễn Tiến Dũng</td>
                                                 <td>0911122333</td>
                                                 <td>1.200.000</td>
-                                                <td>Đã thanh toán</td>
+                                                <td>Ví điện tử MoMo</td>
                                                 <td>Chưa vận chuyển</td>
                                                 <td>03/12/2022 03:50:10</td>
                                                 <td>
@@ -648,7 +605,7 @@
                                                 <td>Phan Thanh Hà</td>
                                                 <td>0922334455</td>
                                                 <td>1.000.000</td>
-                                                <td>Chưa thanh toán</td>
+                                                <td>COD</td>
                                                 <td>Đang vận chuyển</td>
                                                 <td>04/12/2022 02:30:20</td>
                                                 <td>
