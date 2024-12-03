@@ -1,52 +1,60 @@
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/"
-    data-template="vertical-menu-template-free">
+      data-template="vertical-menu-template-free">
 
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
 
-    <title>Dashboard - Analytics</title>
+    <title>Thêm sản phẩm</title>
 
-    <meta name="description" content="" />
+    <meta name="description" content=""/>
 
     <!-- Fonts -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-        rel="stylesheet" />
+            href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+            rel="stylesheet"/>
 
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="/admin/assets/vendor/fonts/boxicons.css" />
+    <link rel="stylesheet" href="/admin/assets/vendor/fonts/boxicons.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="/admin/assets/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="/admin/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="/admin/assets/css/demo.css" />
+    <link rel="stylesheet" href="/admin/assets/vendor/css/core.css" class="template-customizer-core-css"/>
+    <link rel="stylesheet" href="/admin/assets/vendor/css/theme-default.css" class="template-customizer-theme-css"/>
+    <link rel="stylesheet" href="/admin/assets/css/demo.css"/>
 
+    <!--  jquery  -->
+    <script src="/public/jquery-3.7.1.min.js"></script>
 
     <script src="/admin/assets/vendor/js/helpers.js"></script>
-    
-    
+
+
     <script src="/admin/assets/js/config.js"></script>
 
+    <style>
+        .upload-image.disabled {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+    </style>
 </head>
 
 <body>
-    <!-- Layout wrapper -->
-    <div class="layout-wrapper layout-content-navbar">
-        <div class="layout-container">
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
 
-            <!-- Menu -->
-            <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-                <div class="app-brand demo">
-                    <a class="h1 text-decoration-none col-3 order-lg-0" href="home.html">
-                        <img src="https://www.crocodileinternational.com/img/crocodile-logo-1609222037.jpg" alt="Logo"
-                             style="width: 12rem">
-                    </a>
+        <!-- Menu -->
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+            <div class="app-brand demo">
+                <a class="h1 text-decoration-none col-3 order-lg-0" href="home.html">
+                    <img src="https://www.crocodileinternational.com/img/crocodile-logo-1609222037.jpg" alt="Logo"
+                         style="width: 12rem">
+                </a>
 
-                </div>
+            </div>
 
                 <ul class="menu-inner py-1">
                     <!-- Dashboard -->
@@ -58,26 +66,30 @@
                         </a>
                     </li>
 
-                    <!-- Category manager -->
-                    <li class="menu-item active open">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-table"></i>
-                            <div data-i18n="Basic">Quản lý danh mục</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="categories.html" class="menu-link">
-                                    <div data-i18n="Accordion">Loại danh mục</div>
-                                </a>
-                            </li>
-                            <li class="menu-item active">
-                                <a href="products.html" class="menu-link">
-                                    <div data-i18n="Alerts">Sản phẩm</div>
-                                </a>
-                            </li>
+                <!-- Category manager -->
+                <li class="menu-item active open">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class="menu-icon tf-icons bx bx-table"></i>
+                        <div data-i18n="Basic">Quản lý danh mục</div>
+                    </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a href="categories.html" class="menu-link">
+                                <div data-i18n="Accordion">Loại danh mục</div>
+                            </a>
+                        </li>
+                        <li class="menu-item active">
+                            <a href="products.html" class="menu-link">
+                                <div data-i18n="Alerts">Sản phẩm</div>
+                            </a>
+                        </li>
 
                         </ul>
                     </li>
+
+    
+                    
+
 
                     <!-- Information Manager -->
                     <li class="menu-item">
@@ -92,42 +104,42 @@
                                 </a>
                             </li>
 
-                        </ul>
-                    </li>
+                    </ul>
+                </li>
 
-                    <!-- Account setting -->
-                    <li class="menu-item">
-                        <a href="user-management.html" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-crown"></i>
-                            <div data-i18n="Form Layouts">Quản lý người dùng</div>
-                        </a>
-                    </li>
+                <!-- Account setting -->
+                <li class="menu-item">
+                    <a href="user-management.html" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-crown"></i>
+                        <div data-i18n="Form Layouts">Quản lý người dùng</div>
+                    </a>
+                </li>
 
-                </ul>
-            </aside>
-            <!-- / Menu -->
+            </ul>
+        </aside>
+        <!-- / Menu -->
 
-            <!-- Layout container -->
-            <div class="layout-page">
-                <!-- Navbar -->
-                <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-                    id="layout-navbar">
-                    <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-                        <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                            <i class="bx bx-menu bx-sm"></i>
-                        </a>
-                    </div>
+        <!-- Layout container -->
+        <div class="layout-page">
+            <!-- Navbar -->
+            <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+                 id="layout-navbar">
+                <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+                    <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                        <i class="bx bx-menu bx-sm"></i>
+                    </a>
+                </div>
 
-                    <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-                        <!-- Search -->
-                        <div class="navbar-nav align-items-center">
-                            <div class="nav-item d-flex align-items-center">
-                                <i class="bx bx-search fs-4 lh-0"></i>
-                                <input type="text" class="form-control border-0 shadow-none" placeholder="Tìm kiếm..."
-                                    aria-label="Search..." />
-                            </div>
+                <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+                    <!-- Search -->
+                    <div class="navbar-nav align-items-center">
+                        <div class="nav-item d-flex align-items-center">
+                            <i class="bx bx-search fs-4 lh-0"></i>
+                            <input type="text" class="form-control border-0 shadow-none" placeholder="Tìm kiếm..."
+                                   aria-label="Search..."/>
                         </div>
-                        <!-- /Search -->
+                    </div>
+                    <!-- /Search -->
 
                         <ul class="navbar-nav flex-row align-items-center ms-auto">
                             <!-- User -->
@@ -165,154 +177,254 @@
                                             <span class="align-middle">Hồ sơ</span>
                                         </a>
                                     </li>
-
-                                    <li>
-                                        <div class="dropdown-divider"></div>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="auth-login-basic.html">
-                                            <i class="bx bx-power-off me-2"></i>
-                                            <span class="align-middle">Đăng xuất</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <!--/ User -->
-                        </ul>
-                    </div>
-                </nav>
-
-
-                <!-- Content wrapper -->
-                <div class="content-wrapper">
-                    <div class="container-xxl flex-grow-1 container-p-y">
-                        <h4 class="fw-bold py-3 mb-4">Quản lý sản phẩm</h4>
-
-                        <!-- Bordered Table -->
-                        <div class="card">
-                            <h5 class="card-header"><strong>Thêm sản phẩm</strong></h5>
-
-                            <!-- --------------------------------Bảng thêm sản phẩm------------------------------- -->
-                             <div id="add-product-form" class="card-body ">
-                                <!-- Form tải hình ảnh -->
-                                <div class="mb-3 row">
-                                    <label for="formFile" class="col-md-2 col-form-label">Hình ảnh</label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" type="file" id="formFile" />
-                                    </div>
-                                </div>
-
-                                <!-- Tên sản phẩm  -->
-                                <div class="mb-3 row">
-                                    <label for="product-name" class="col-md-2 col-form-label">Tên sản phẩm</label>
-                                    <div class="col-md-10">
-                                      <input class="form-control" type="text" id="product-name" />
-                                    </div>
-                                </div>
-                                
-                                <!-- Nhà cung cấp  -->
-                                <div class="mb-3 row">
-                                    <label for="supplier" class="col-md-2 col-form-label">Nhà cung cấp</label>
-                                    <div class="col-md-10">
-                                    <input class="form-control" type="text" id="supplier" />
-                                    </div>
-                                </div>
-
-                                <div class="mb-3 row">
-                                    <!-- Mã sản phẩm  -->
-                                    <label for="product-code" class="col-md-2 col-form-label">Mã sản phẩm</label>
-                                    <div class="col-md-4">
-                                      <input class="form-control" type="search" id="product-code" />
-                                    </div>
-
-                                    
-                                </div>
-
-                                <!-- Danh mục sản phẩm-->
-                                <div class="mb-3 row">
-                                    <label class="col-md-2 col-form-label">Danh mục</label>
-                                    <div class="col-md-4">
-                                      <select class="form-select placement-dropdown " id="selectPlacement">
-                                        <option value="" selected hidden>Chọn danh mục</option> 
-                                        <option value="">Túi xách</option>
-                                        <option value="">Ví</option>
-                                        <option value="">Thắt lưng</option>
-                                        <option value="">Giày</option>
-                                        <option value="">Dép</option>
-                                        <option value="">Phụ kiện</option>
-                                        <option value="">Áo khoác</option>
-                                        <option value="">Balo</option>
-                                        <option value="">Vali</option>
-                                        <option value="">Dây đồng Hồ</option>
-                                    </select>
-                                    </div>
-                                </div>
-                                                          
-                                <!-- Giá sản phẩm  -->
-                                <div class="mb-3 row">
-                                    <label for="product-price" class="col-md-2 col-form-label">Giá</label>
-                                    <div class="col-md-2">
-                                      <input class="form-control" type="text" id="product-price" />
-                                    </div>                                 
-                                </div>
-
-                                <!-- Khuyến mãi  -->
-                                <div class="mb-3 row">
-                                    <label for="product-discount" class="col-md-2 col-form-label">Khuyến mãi</label>
-                                    <div class="col-md-2">
-                                      <input class="form-control" type="text" id="product-discount" />
-                                    </div>
-                                </div>
-
-                                <!-- Số lượng  -->
-                                <div class="mb-3 row">
-                                    <label for="product-quantity" class="col-md-2 col-form-label">Số lượng</label>
-                                    <div class="col-md-2">
-                                      <input class="form-control" type="text" id="product-quantity" />
-                                    </div>
-                                </div>
-
-                                <!-- Mô tả sản phẩm  -->
-                                <div class="mb-3 row">
-                                    <label for="product-description" class="col-md-2 col-form-label">Mô tả sản phẩm</label>
-                                    <div class="col-md-10">
-                                        <textarea
-                                            id="product-description"
-                                            class="form-control"
-                                            rows="5">
-                                        </textarea>
-                                    </div>
-                                </div>
-                                
-
-                                <div class="btn-box d-flex justify-content-center gap-3">
-                                    <!-- nút lưu-->
-                                    <a href="products.html" class="btn btn-success">Lưu</a>
     
-                                    <!-- nút thoát -->
-                                    <a href="products.html" class="btn btn-danger">Thoát</a>
-                                </div>
-                                <!-- ---------------------end bảng thêm sản phẩm---------------------------- -->
-                                  
-                             </div>
 
-                            <!--/ Responsive Table -->
-                        </div>
-
-                    </div>
-                    <!-- Content wrapper -->
+                                <li>
+                                    <div class="dropdown-divider"></div>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="auth-login-basic.html">
+                                        <i class="bx bx-power-off me-2"></i>
+                                        <span class="align-middle">Đăng xuất</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--/ User -->
+                    </ul>
                 </div>
-                <!-- / Layout page -->
-            </div>
+            </nav>
 
+
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <h4 class="fw-bold py-3 mb-4">Quản lý sản phẩm</h4>
+
+                    <!-- Bordered Table -->
+                    <div class="card">
+                        <h5 class="card-header"><strong>Thêm sản phẩm</strong></h5>
+
+                        <!-- --------------------------------Bảng thêm sản phẩm------------------------------- -->
+                        <form method="post" id="add-product-form" class="card-body needs-validation">
+                            <!-- Form tải hình ảnh -->
+                            <div class="mb-3 input-group">
+                                <span class="col-md-2 col-form-label">Hình ảnh</span>
+                                <div class="col-md-10 d-flex gap-3" id="product-images">
+                                    <div class="[ upload-image ]">
+                                        <input class="form-control d-none" type="file"
+                                               accept="image/jpeg, image/jpg, image/png"
+                                               id="uploadImage0" name="image0" 
+                                               required/>
+                                        <label for="uploadImage0" class="cursor-pointer">
+                                                <span class="position-relative">
+                                                    <!--https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg-->
+                                                    <img src="" alt="" id="preview0"
+                                                         class="[ preview ] d-block border border-danger"
+                                                         style="width: 5rem; height: 5rem; object-fit: cover">
+                                                    <span class="[ add-img-icon ] fs-1 position-absolute translate-middle top-50 start-50">+</span>
+                                                </span>
+                                            <span class="d-block text-center mt-1">Ảnh bìa</span>
+                                        </label>
+                                    </div>
+                                    <div class="[ upload-image ]">
+                                        <input class="form-control d-none" type="file"
+                                               accept="image/jpeg, image/jpg, image/png"
+                                               id="uploadImage1" name="image1" />
+                                        <label for="uploadImage1" class="cursor-pointer">
+                                                <span class="position-relative">
+                                                    <!--https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg-->
+                                                    <img src="" alt="" class="[ preview ] d-block"
+                                                         style="width: 5rem; height: 5rem; object-fit: cover">
+                                                    <span class="[ add-img-icon ] fs-1 position-absolute translate-middle top-50 start-50">+</span>
+                                                </span>
+                                            <span class="d-block text-center mt-1">Ảnh (1/4)</span>
+                                        </label>
+                                    </div>
+                                    <div class="[ upload-image ]">
+                                        <input class="form-control d-none" type="file"
+                                               accept="image/jpeg, image/jpg, image/png"
+                                               id="uploadImage2" name="image2" />
+                                        <label for="uploadImage2" class="cursor-pointer">
+                                                <span class="position-relative">
+                                                    <!--https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg-->
+                                                    <img src="" alt="" class="[ preview ] d-block"
+                                                         style="width: 5rem; height: 5rem; object-fit: cover">
+                                                    <span class="[ add-img-icon ] fs-1 position-absolute translate-middle top-50 start-50">+</span>
+                                                </span>
+                                            <span class="d-block text-center mt-1">Ảnh (2/4)</span>
+                                        </label>
+                                    </div>
+                                    <div class="[ upload-image ]">
+                                        <input class="form-control d-none" type="file"
+                                               accept="image/jpeg, image/jpg, image/png"
+                                               id="uploadImage3" name="image3" />
+                                        <label for="uploadImage3" class="cursor-pointer">
+                                                <span class="position-relative">
+                                                    <!--https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg-->
+                                                    <img src="" alt="" class="[ preview ] d-block"
+                                                         style="width: 5rem; height: 5rem; object-fit: cover">
+                                                    <span class="[ add-img-icon ] fs-1 position-absolute translate-middle top-50 start-50">+</span>
+                                                </span>
+                                            <span class="d-block text-center mt-1">Ảnh (3/4)</span>
+                                        </label>
+                                    </div>
+                                    <div class="[ upload-image ]">
+                                        <input class="form-control d-none" type="file"
+                                               accept="image/jpeg, image/jpg, image/png"
+                                               id="uploadImage4" name="image4" />
+                                        <label for="uploadImage4" class="cursor-pointer">
+                                                <span class="position-relative">
+                                                    <!--https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg-->
+                                                    <img src="" alt="" class="[ preview ] d-block"
+                                                         style="width: 5rem; height: 5rem; object-fit: cover">
+                                                    <span class="[ add-img-icon ] fs-1 position-absolute translate-middle top-50 start-50">+</span>
+                                                </span>
+                                            <span class="d-block text-center mt-1">Ảnh (4/4)</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Tên sản phẩm  -->
+                            <div class="mb-3 row">
+                                <label for="product-name" class="col-md-2 col-form-label">Tên sản phẩm</label>
+                                <div class="col-md-10">
+                                    <input class="form-control" type="text" id="product-name" name="product-name" required/>
+                                </div>
+                            </div>
+
+                            <!--                                <div class="mb-3 row">-->
+                            <!--                                    &lt;!&ndash; Mã sản phẩm  &ndash;&gt;-->
+                            <!--                                    <label for="product-code" class="col-md-2 col-form-label">Mã sản phẩm</label>-->
+                            <!--                                    <div class="col-md-4">-->
+                            <!--                                      <input class="form-control" type="search" id="product-code" />-->
+                            <!--                                    </div>-->
+                            <!--                                </div>-->
+
+                            <!-- Danh mục sản phẩm-->
+                            <div class="mb-3 row">
+                                <label class="col-md-2 col-form-label">Danh mục</label>
+                                <div class="col-md-4">
+                                    <select style="width: max-content" class="form-select placement-dropdown"
+                                            id="selectPlacement" aria-label="" name="category">
+                                        <option value="1">Ví nam</option>
+                                        <option value="2">Ví nữ</option>
+                                        <option value="3">Túi xách nam</option>
+                                        <option value="4">Túi xách nữ</option>
+                                        <option value="5">Túi đeo chéo</option>
+                                        <option value="6">Balo</option>
+                                        <option value="7">Vali</option>
+                                        <option value="8">Thắt lưng</option>
+                                        <option value="9">Áo khoác</option>
+                                        <option value="10">Giày tây</option>
+                                        <option value="11">Giày cao gót</option>
+                                        <option value="12">Phụ kiện</option>
+                                        <option value="13">Danh mục khác</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Mô tả sản phẩm  -->
+                            <div class="mb-3 row">
+                                <label for="product-description" class="col-md-2 col-form-label">Mô tả sản phẩm</label>
+                                <div class="col-md-10">
+                                    <textarea id="product-description" class="form-control" rows="7" name="description"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Giá sản phẩm  -->
+                            <div class="mb-3 row">
+                                <label for="product-price" class="col-md-2 col-form-label">Giá</label>
+                                <div class="col-md-2">
+                                    <input class="form-control" type="number" id="product-price" name="price"/>
+                                </div>
+                            </div>
+
+                            <!-- Khuyến mãi  -->
+                            <div class="mb-3 row">
+                                <label for="product-discount" class="col-md-2 col-form-label">Khuyến mãi</label>
+                                <div class="col-md-2">
+                                    <input class="form-control" type="number" id="product-discount" name="discount"/>
+                                </div>
+                            </div>
+
+                            <!-- Số lượng  -->
+                            <div class="mb-3 row">
+                                <label for="product-quantity" class="col-md-2 col-form-label">Số lượng</label>
+                                <div class="col-md-2">
+                                    <input class="form-control" type="number" id="product-quantity" name="stock"/>
+                                </div>
+                            </div>
+
+                            <!-- Phan loai hang -->
+                            <div class="mb-3 row">
+                                <label class="col-md-2 col-form-label">Phân loại hàng </label>
+                                <div class="col-md-10">
+                                    <div id="option-group" class="p-2" style="background-color: #e8e8e8">
+                                        <div class="d-flex align-items-center">
+                                            <input type="text" aria-label="" placeholder="Tên phân loại" class="form-control w-50" name="option-group">
+                                            <button type="button" class="btn-close ms-auto"></button>
+                                        </div>
+                                        <hr>
+                                        <div id="option-container" class="d-flex flex-wrap mt-2" style="column-gap: 2rem; row-gap: 1rem">
+                                            <div class="[ option ] d-flex align-items-center w-25">
+                                                <div class="[ upload-image ] me-2 d-flex">
+                                                    <input class="option-img form-control d-none " type="file"
+                                                           accept="image/jpeg, image/jpg, image/png"
+                                                           id="uploadOptionImg1" name="optionImg1"/>
+                                                    <label for="uploadOptionImg1" class="cursor-pointer">
+                                                        <span class="position-relative">
+                                                            <img src="" alt="" class="[ preview ] d-block" style="width: 2rem; height: 2rem; object-fit: cover">
+                                                            <span class="[ add-img-icon ] fs-2 position-absolute translate-middle top-50 start-50">+</span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                <input type="text" aria-label="" name="option1" placeholder="Nhập phân loại" class="option-value form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="btn-box d-flex justify-content-center gap-3">
+                                <!-- nút lưu-->
+                                <button class="btn btn-success" type="submit">Lưu</button>
+
+                                <!-- nút thoát -->
+                                <a href="products.html" class="btn btn-danger">Thoát</a>
+                            </div>
+                            <!-- ---------------------end bảng thêm sản phẩm---------------------------- -->
+
+                        </form>
+
+                        <!--/ Responsive Table -->
+                    </div>
+
+                </div>
+                <!-- Content wrapper -->
+            </div>
+            <!-- / Layout page -->
         </div>
 
-        <script src="/admin/assets/vendor/js/bootstrap.js"></script>
-        
-        <script src="/admin/assets/vendor/js/menu.js"></script>
-        <script src="/admin/assets/js/main.js"></script>
+    </div>
 
-
+    <script src="/admin/assets/vendor/js/bootstrap.js"></script>
+    <script src="/admin/assets/vendor/js/menu.js"></script>
+    <script src="/admin/assets/js/main.js"></script>
+    <script src="/admin/assets/js/updatePreviewImage.js"></script>
+    <script src="/admin/assets/js/updateOptionInput.js"></script>
+    <script>
+        $('#add-product-form').on('submit', function() {
+            let count = 1;
+           $('.option').each(function() {
+               $(this).find('.option-value').attr('name',`option${count}`);
+               $(this).find('.option-img').attr('name',`optionImg${count}`);
+               count++;
+            });
+        });
+    </script>
+</div>
 </body>
 
 </html>
