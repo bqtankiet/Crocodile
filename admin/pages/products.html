@@ -7,7 +7,7 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Dashboard - Analytics</title>
+    <title>Quản lý sản phẩm</title>
 
     <meta name="description" content="" />
 
@@ -29,9 +29,10 @@
     <script src="/admin/assets/vendor/js/helpers.js"></script>
     <script src="/admin/assets/js/config.js"></script>
 
+
     <!-- Data table -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/public/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 
     <!-- Kích hoạt Data table  -->
@@ -73,13 +74,6 @@
 
                 <ul class="menu-inner py-1">
                     <!-- Dashboard -->
-                    <li class="menu-item">
-                        <a href="home.html" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                            <div data-i18n="Analytics">Trang chủ</div>
-                        </a>
-                    </li>
-
                     <!-- Account setting -->
                     <li class="menu-item">
                         <a href="account-setting.html" class="menu-link">
@@ -109,47 +103,16 @@
                         </ul>
                     </li>
 
-                    <!-- Extended components -->
-                    <li class="menu-item">
-                        <a href="javascript:void(0)" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-detail"></i>
-                            <div data-i18n="Extended UI">Quản lý giao diện</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="#" class="menu-link">
-                                    <div data-i18n="Text Divider">Hình ảnh</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#" class="menu-link">
-                                    <div data-i18n="Text Divider">Hỗ trợ trực tuyến</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#" class="menu-link">
-                                    <div data-i18n="Text Divider">Thông tin</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#" class="menu-link">
-                                    <div data-i18n="Text Divider">Nội dung khác</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-
                     <!-- Information Manager -->
                     <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <a href="javascript:void(0)" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons bx bx-box"></i>
                             <div data-i18n="Form Elements">Quản lý thông tin</div>
                         </a>
                         <ul class="menu-sub">
                             <li class="menu-item">
                                 <a href="order-list.html" class="menu-link">
-                                    <div data-i18n="Basic Inputs">Danh sách đơn hàng</div>
+                                    <div data-i18n="Basic Inputs">Đơn hàng</div>
                                 </a>
                             </li>
 
@@ -226,12 +189,6 @@
                                             <span class="align-middle">Hồ sơ</span>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="bx bx-cog me-2"></i>
-                                            <span class="align-middle">Cài đặt</span>
-                                        </a>
-                                    </li>
 
                                     <li>
                                         <div class="dropdown-divider"></div>
@@ -253,17 +210,22 @@
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <h4 class="fw-bold py-3 mb-4">Quản lý danh mục</h4>
+                        <h4 class="fw-bold py-3 mb-4">
+                            <span class="text-muted fw-light">Quản lý danh mục /</span>
+                            Sản phẩm
+                        </h4>
 
                         <!-- Bordered Table -->
                         <div class="card">
                             <!-- ------------------------------Bảng sản phẩm------------------------------ -->
                             <div class="card-body">
                                 <div class="container">
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <h2>Danh sách sản phẩm</h2>
-                                        <a href="add-product-form.html" class="btn btn-primary">Thêm sản phẩm </a>
-                                    </div>
+                                    <h2>
+                                        Danh sách sản phẩm
+                                        <a href="add-product-form.html" 
+                                        class="btn btn-secondary float-end text-white">Thêm</a>
+                                    </h2>
+
                                     <table class="table table-striped table-hover my-3 pt-3" id="products-table">
                                         <thead class="table-primary">
                                             <tr>
@@ -271,21 +233,23 @@
                                                 <th scope="col">Tên sản phẩm</th>
                                                 <th scope="col">Loại danh mục</th>
                                                 <th scope="col">Hình ảnh</th>
-                                                <th scope="col">Nhà cung cấp</th>
                                                 <th scope="col">Giá tiền</th>
-                                                <th scope="col" class="align-middle">Kho</th>
-                                                <th scope="col">Trạng thái</th>
                                                 <th scope="col">Tác vụ</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <!-- Hàng 1 -->
                                             <tr>
-                                                <th scope="row">1</th>
-                                                <td>Balo da</td>
+                                                <th scope="row">
+                                                    <strong>1</strong>
+                                                </th>
                                                 <td>
+                                                    <strong class="product-name">Balo da</strong>
+                                                </td>
+                                                <td>
+                                                    <strong class="category-name">Ví nam</strong>
                                                     <select style="max-width: 170px;"
-                                                        class="form-select placement-dropdown" id="selectPlacement">
+                                                        class="form-select category-dropdown d-none">
                                                         <option value="">Ví nam</option>
                                                         <option value="">Ví nữ</option>
                                                         <option value="">Túi xách nam</option>
@@ -305,12 +269,17 @@
                                                         src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
                                                         alt="">
                                                 </td>
-                                                <td>Louis Vuitton</td>
-                                                <td>500.000</td>
-                                                <td>69</td>
-                                                <td>Hiển thị</td>
                                                 <td>
-                                                    <div class="dropdown">
+                                                    <strong class="product-price">500.000</strong>
+                                                </td>
+                                                
+                                                </td>
+                                                <td>
+                                                    <div class="btn-box d-none">
+                                                        <i class="bx bx-check me-2 btn-save fs-3 cursor-pointer"></i>
+                                                        <i class="bx bx-undo me-2 btn-cancel fs-3 cursor-pointer"></i>
+                                                    </div>
+                                                    <div class="dropdown option-box">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                                                             data-bs-toggle="dropdown">
                                                             <i class="bx bx-dots-vertical-rounded"></i>
@@ -327,11 +296,16 @@
 
                                             <!-- Hàng 2 -->
                                             <tr>
-                                                <th scope="row">2</th>
-                                                <td>Ví</td>
+                                                <th scope="row">
+                                                    <strong>2</strong>
+                                                </th>
                                                 <td>
+                                                    <strong class="product-name">Ví da nam</strong>
+                                                </td>
+                                                <td>
+                                                    <strong class="category-name">Ví nam</strong>
                                                     <select style="max-width: 170px;"
-                                                        class="form-select placement-dropdown" id="selectPlacement">
+                                                        class="form-select category-dropdown d-none">
                                                         <option value="">Ví nam</option>
                                                         <option value="">Ví nữ</option>
                                                         <option value="">Túi xách nam</option>
@@ -348,15 +322,18 @@
                                                 </td>
                                                 <td>
                                                     <img style="max-height: 80px;" class="img-fluid"
-                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-4.jpg"
+                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-1.jpg"
                                                         alt="">
                                                 </td>
-                                                <td>Gucci</td>
-                                                <td>350.000</td>
-                                                <td>45</td>
-                                                <td>Hiển thị</td>
                                                 <td>
-                                                    <div class="dropdown">
+                                                    <strong class="product-price">700.000</strong>
+                                                </td>
+                                                <td>
+                                                    <div class="btn-box d-none">
+                                                        <i class="bx bx-check me-2 btn-save fs-3 cursor-pointer"></i>
+                                                        <i class="bx bx-undo me-2 btn-cancel fs-3 cursor-pointer"></i>
+                                                    </div>
+                                                    <div class="dropdown option-box">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                                                             data-bs-toggle="dropdown">
                                                             <i class="bx bx-dots-vertical-rounded"></i>
@@ -373,11 +350,16 @@
 
                                             <!-- Hàng 3 -->
                                             <tr>
-                                                <th scope="row">3</th>
-                                                <td>Giày</td>
+                                                <th scope="row">
+                                                    <strong>3</strong>
+                                                </th>
                                                 <td>
+                                                    <strong class="product-name">Túi đeo chéo</strong>
+                                                </td>
+                                                <td>
+                                                    <strong class="category-name">Túi đeo chéo</strong>
                                                     <select style="max-width: 170px;"
-                                                        class="form-select placement-dropdown" id="selectPlacement">
+                                                        class="form-select category-dropdown d-none">
                                                         <option value="">Ví nam</option>
                                                         <option value="">Ví nữ</option>
                                                         <option value="">Túi xách nam</option>
@@ -394,15 +376,18 @@
                                                 </td>
                                                 <td>
                                                     <img style="max-height: 80px;" class="img-fluid"
-                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/giay-nam-1.jpg"
+                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/tui-deo-cheo-1.jpg"
                                                         alt="">
                                                 </td>
-                                                <td>Prada</td>
-                                                <td>1.000.000</td>
-                                                <td>100</td>
-                                                <td>Hiển thị</td>
                                                 <td>
-                                                    <div class="dropdown">
+                                                    <strong class="product-price">850.000</strong>
+                                                </td>
+                                                <td>
+                                                    <div class="btn-box d-none">
+                                                        <i class="bx bx-check me-2 btn-save fs-3 cursor-pointer"></i>
+                                                        <i class="bx bx-undo me-2 btn-cancel fs-3 cursor-pointer"></i>
+                                                    </div>
+                                                    <div class="dropdown option-box">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                                                             data-bs-toggle="dropdown">
                                                             <i class="bx bx-dots-vertical-rounded"></i>
@@ -419,11 +404,16 @@
 
                                             <!-- Hàng 4 -->
                                             <tr>
-                                                <th scope="row">4</th>
-                                                <td>Áo khoác</td>
+                                                <th scope="row">
+                                                    <strong>4</strong>
+                                                </th>
                                                 <td>
+                                                    <strong class="product-name">Túi xách nữ</strong>
+                                                </td>
+                                                <td>
+                                                    <strong class="category-name">Túi xách nữ</strong>
                                                     <select style="max-width: 170px;"
-                                                        class="form-select placement-dropdown" id="selectPlacement">
+                                                        class="form-select category-dropdown d-none">
                                                         <option value="">Ví nam</option>
                                                         <option value="">Ví nữ</option>
                                                         <option value="">Túi xách nam</option>
@@ -440,15 +430,18 @@
                                                 </td>
                                                 <td>
                                                     <img style="max-height: 80px;" class="img-fluid"
-                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/ao-khoac-nam.jpg"
+                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/tui-xach-nu.jpg"
                                                         alt="">
                                                 </td>
-                                                <td>Burberry</td>
-                                                <td>3.000.000</td>
-                                                <td>30</td>
-                                                <td>Hiển thị</td>
                                                 <td>
-                                                    <div class="dropdown">
+                                                    <strong class="product-price">1.200.000</strong>
+                                                </td>
+                                                <td>
+                                                    <div class="btn-box d-none">
+                                                        <i class="bx bx-check me-2 btn-save fs-3 cursor-pointer"></i>
+                                                        <i class="bx bx-undo me-2 btn-cancel fs-3 cursor-pointer"></i>
+                                                    </div>
+                                                    <div class="dropdown option-box">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                                                             data-bs-toggle="dropdown">
                                                             <i class="bx bx-dots-vertical-rounded"></i>
@@ -465,11 +458,16 @@
 
                                             <!-- Hàng 5 -->
                                             <tr>
-                                                <th scope="row">5</th>
-                                                <td>Thắt lưng</td>
+                                                <th scope="row">
+                                                    <strong>5</strong>
+                                                </th>
                                                 <td>
+                                                    <strong class="product-name">Vali kéo</strong>
+                                                </td>
+                                                <td>
+                                                    <strong class="category-name">Vali</strong>
                                                     <select style="max-width: 170px;"
-                                                        class="form-select placement-dropdown" id="selectPlacement">
+                                                        class="form-select category-dropdown d-none">
                                                         <option value="">Ví nam</option>
                                                         <option value="">Ví nữ</option>
                                                         <option value="">Túi xách nam</option>
@@ -486,15 +484,18 @@
                                                 </td>
                                                 <td>
                                                     <img style="max-height: 80px;" class="img-fluid"
-                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/that-lung-nam.jpg"
+                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/vali-keo.jpg"
                                                         alt="">
                                                 </td>
-                                                <td>Celine</td>
-                                                <td>1.500.000</td>
-                                                <td>25</td>
-                                                <td>Hiển thị</td>
                                                 <td>
-                                                    <div class="dropdown">
+                                                    <strong class="product-price">2.000.000</strong>
+                                                </td>
+                                                <td>
+                                                    <div class="btn-box d-none">
+                                                        <i class="bx bx-check me-2 btn-save fs-3 cursor-pointer"></i>
+                                                        <i class="bx bx-undo me-2 btn-cancel fs-3 cursor-pointer"></i>
+                                                    </div>
+                                                    <div class="dropdown option-box">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                                                             data-bs-toggle="dropdown">
                                                             <i class="bx bx-dots-vertical-rounded"></i>
@@ -511,11 +512,16 @@
 
                                             <!-- Hàng 6 -->
                                             <tr>
-                                                <th scope="row">6</th>
-                                                <td>Phụ kiện</td>
+                                                <th scope="row">
+                                                    <strong>6</strong>
+                                                </th>
                                                 <td>
+                                                    <strong class="product-name">Giày tây nam</strong>
+                                                </td>
+                                                <td>
+                                                    <strong class="category-name">Giày tây</strong>
                                                     <select style="max-width: 170px;"
-                                                        class="form-select placement-dropdown" id="selectPlacement">
+                                                        class="form-select category-dropdown d-none">
                                                         <option value="">Ví nam</option>
                                                         <option value="">Ví nữ</option>
                                                         <option value="">Túi xách nam</option>
@@ -532,15 +538,18 @@
                                                 </td>
                                                 <td>
                                                     <img style="max-height: 80px;" class="img-fluid"
-                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/phu-kien.jpg"
+                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/giay-tay-nam.jpg"
                                                         alt="">
                                                 </td>
-                                                <td>Chanel</td>
-                                                <td>800.000</td>
-                                                <td>40</td>
-                                                <td>Hiển thị</td>
                                                 <td>
-                                                    <div class="dropdown">
+                                                    <strong class="product-price">1.500.000</strong>
+                                                </td>
+                                                <td>
+                                                    <div class="btn-box d-none">
+                                                        <i class="bx bx-check me-2 btn-save fs-3 cursor-pointer"></i>
+                                                        <i class="bx bx-undo me-2 btn-cancel fs-3 cursor-pointer"></i>
+                                                    </div>
+                                                    <div class="dropdown option-box">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                                                             data-bs-toggle="dropdown">
                                                             <i class="bx bx-dots-vertical-rounded"></i>
@@ -557,11 +566,16 @@
 
                                             <!-- Hàng 7 -->
                                             <tr>
-                                                <th scope="row">7</th>
-                                                <td>Vali</td>
+                                                <th scope="row">
+                                                    <strong>7</strong>
+                                                </th>
                                                 <td>
+                                                    <strong class="product-name">Giày cao gót</strong>
+                                                </td>
+                                                <td>
+                                                    <strong class="category-name">Giày cao gót</strong>
                                                     <select style="max-width: 170px;"
-                                                        class="form-select placement-dropdown" id="selectPlacement">
+                                                        class="form-select category-dropdown d-none">
                                                         <option value="">Ví nam</option>
                                                         <option value="">Ví nữ</option>
                                                         <option value="">Túi xách nam</option>
@@ -578,15 +592,18 @@
                                                 </td>
                                                 <td>
                                                     <img style="max-height: 80px;" class="img-fluid"
-                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/vali-nam.jpg"
+                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/giay-cao-got.jpg"
                                                         alt="">
                                                 </td>
-                                                <td>Samsonite</td>
-                                                <td>2.500.000</td>
-                                                <td>20</td>
-                                                <td>Hiển thị</td>
                                                 <td>
-                                                    <div class="dropdown">
+                                                    <strong class="product-price">1.800.000</strong>
+                                                </td>
+                                                <td>
+                                                    <div class="btn-box d-none">
+                                                        <i class="bx bx-check me-2 btn-save fs-3 cursor-pointer"></i>
+                                                        <i class="bx bx-undo me-2 btn-cancel fs-3 cursor-pointer"></i>
+                                                    </div>
+                                                    <div class="dropdown option-box">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                                                             data-bs-toggle="dropdown">
                                                             <i class="bx bx-dots-vertical-rounded"></i>
@@ -603,11 +620,16 @@
 
                                             <!-- Hàng 8 -->
                                             <tr>
-                                                <th scope="row">8</th>
-                                                <td>Dép</td>
+                                                <th scope="row">
+                                                    <strong>8</strong>
+                                                </th>
                                                 <td>
+                                                    <strong class="product-name">Thắt lưng da</strong>
+                                                </td>
+                                                <td>
+                                                    <strong class="category-name">Thắt lưng</strong>
                                                     <select style="max-width: 170px;"
-                                                        class="form-select placement-dropdown" id="selectPlacement">
+                                                        class="form-select category-dropdown d-none">
                                                         <option value="">Ví nam</option>
                                                         <option value="">Ví nữ</option>
                                                         <option value="">Túi xách nam</option>
@@ -624,15 +646,18 @@
                                                 </td>
                                                 <td>
                                                     <img style="max-height: 80px;" class="img-fluid"
-                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/dep-nam.jpg"
+                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/that-lung-da.jpg"
                                                         alt="">
                                                 </td>
-                                                <td>Reebok</td>
-                                                <td>300.000</td>
-                                                <td>80</td>
-                                                <td>Hiển thị</td>
                                                 <td>
-                                                    <div class="dropdown">
+                                                    <strong class="product-price">600.000</strong>
+                                                </td>
+                                                <td>
+                                                    <div class="btn-box d-none">
+                                                        <i class="bx bx-check me-2 btn-save fs-3 cursor-pointer"></i>
+                                                        <i class="bx bx-undo me-2 btn-cancel fs-3 cursor-pointer"></i>
+                                                    </div>
+                                                    <div class="dropdown option-box">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                                                             data-bs-toggle="dropdown">
                                                             <i class="bx bx-dots-vertical-rounded"></i>
@@ -649,11 +674,16 @@
 
                                             <!-- Hàng 9 -->
                                             <tr>
-                                                <th scope="row">9</th>
-                                                <td>Áo thun</td>
+                                                <th scope="row">
+                                                    <strong>9</strong>
+                                                </th>
                                                 <td>
+                                                    <strong class="product-name">Áo khoác da</strong>
+                                                </td>
+                                                <td>
+                                                    <strong class="category-name">Áo khoác</strong>
                                                     <select style="max-width: 170px;"
-                                                        class="form-select placement-dropdown" id="selectPlacement">
+                                                        class="form-select category-dropdown d-none">
                                                         <option value="">Ví nam</option>
                                                         <option value="">Ví nữ</option>
                                                         <option value="">Túi xách nam</option>
@@ -670,15 +700,18 @@
                                                 </td>
                                                 <td>
                                                     <img style="max-height: 80px;" class="img-fluid"
-                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/ao-thun.jpg"
+                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/ao-khoac-da.jpg"
                                                         alt="">
                                                 </td>
-                                                <td>H&M</td>
-                                                <td>150.000</td>
-                                                <td>120</td>
-                                                <td>Hiển thị</td>
                                                 <td>
-                                                    <div class="dropdown">
+                                                    <strong class="product-price">2.500.000</strong>
+                                                </td>
+                                                <td>
+                                                    <div class="btn-box d-none">
+                                                        <i class="bx bx-check me-2 btn-save fs-3 cursor-pointer"></i>
+                                                        <i class="bx bx-undo me-2 btn-cancel fs-3 cursor-pointer"></i>
+                                                    </div>
+                                                    <div class="dropdown option-box">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                                                             data-bs-toggle="dropdown">
                                                             <i class="bx bx-dots-vertical-rounded"></i>
@@ -695,11 +728,16 @@
 
                                             <!-- Hàng 10 -->
                                             <tr>
-                                                <th scope="row">10</th>
-                                                <td>Giày thể thao</td>
+                                                <th scope="row">
+                                                    <strong>10</strong>
+                                                </th>
                                                 <td>
+                                                    <strong class="product-name">Phụ kiện da</strong>
+                                                </td>
+                                                <td>
+                                                    <strong class="category-name">Phụ kiện</strong>
                                                     <select style="max-width: 170px;"
-                                                        class="form-select placement-dropdown" id="selectPlacement">
+                                                        class="form-select category-dropdown d-none">
                                                         <option value="">Ví nam</option>
                                                         <option value="">Ví nữ</option>
                                                         <option value="">Túi xách nam</option>
@@ -716,245 +754,18 @@
                                                 </td>
                                                 <td>
                                                     <img style="max-height: 80px;" class="img-fluid"
-                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/giay-the-thao.jpg"
+                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/phu-kien-da.jpg"
                                                         alt="">
                                                 </td>
-                                                <td>Nike</td>
-                                                <td>1.200.000</td>
-                                                <td>60</td>
-                                                <td>Hiển thị</td>
                                                 <td>
-                                                    <div class="dropdown">
-                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                            data-bs-toggle="dropdown">
-                                                            <i class="bx bx-dots-vertical-rounded"></i>
-                                                        </button>
-                                                        <div class="dropdown-menu">
-                                                            <a class="dropdown-item" href="javascript:void(0);"><i
-                                                                    class="bx bx-edit-alt me-1"></i> Chỉnh sửa</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);"><i
-                                                                    class="bx bx-trash me-1"></i> Xóa</a>
-                                                        </div>
+                                                    <strong class="product-price">700.000</strong>
+                                                </td>
+                                                <td>
+                                                    <div class="btn-box d-none">
+                                                        <i class="bx bx-check me-2 btn-save fs-3 cursor-pointer"></i>
+                                                        <i class="bx bx-undo me-2 btn-cancel fs-3 cursor-pointer"></i>
                                                     </div>
-                                                </td>
-                                            </tr>
-
-                                            <!-- Hàng 11 -->
-                                            <tr>
-                                                <th scope="row">11</th>
-                                                <td>Phụ kiện</td>
-                                                <td>
-                                                    <select style="max-width: 170px;"
-                                                        class="form-select placement-dropdown" id="selectPlacement">
-                                                        <option value="">Ví nam</option>
-                                                        <option value="">Ví nữ</option>
-                                                        <option value="">Túi xách nam</option>
-                                                        <option value="">Túi xách nữ</option>
-                                                        <option value="">Túi đeo chéo</option>
-                                                        <option value="">Balo</option>
-                                                        <option value="">Vali</option>
-                                                        <option value="">Thắt lưng</option>
-                                                        <option value="">Áo khoác</option>
-                                                        <option value="">Giày tây</option>
-                                                        <option value="">Giày cao gót</option>
-                                                        <option value="">Phụ kiện</option>
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <img style="max-height: 80px;" class="img-fluid"
-                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/phu-kien.jpg"
-                                                        alt="">
-                                                </td>
-                                                <td>Chanel</td>
-                                                <td>800.000</td>
-                                                <td>40</td>
-                                                <td>Hiển thị</td>
-                                                <td>
-                                                    <div class="dropdown">
-                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                            data-bs-toggle="dropdown">
-                                                            <i class="bx bx-dots-vertical-rounded"></i>
-                                                        </button>
-                                                        <div class="dropdown-menu">
-                                                            <a class="dropdown-item" href="javascript:void(0);"><i
-                                                                    class="bx bx-edit-alt me-1"></i> Chỉnh sửa</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);"><i
-                                                                    class="bx bx-trash me-1"></i> Xóa</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <!-- Hàng 12 -->
-                                            <tr>
-                                                <th scope="row">12</th>
-                                                <td>Vali</td>
-                                                <td>
-                                                    <select style="max-width: 170px;"
-                                                        class="form-select placement-dropdown" id="selectPlacement">
-                                                        <option value="">Ví nam</option>
-                                                        <option value="">Ví nữ</option>
-                                                        <option value="">Túi xách nam</option>
-                                                        <option value="">Túi xách nữ</option>
-                                                        <option value="">Túi đeo chéo</option>
-                                                        <option value="">Balo</option>
-                                                        <option value="">Vali</option>
-                                                        <option value="">Thắt lưng</option>
-                                                        <option value="">Áo khoác</option>
-                                                        <option value="">Giày tây</option>
-                                                        <option value="">Giày cao gót</option>
-                                                        <option value="">Phụ kiện</option>
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <img style="max-height: 80px;" class="img-fluid"
-                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/vali-nam.jpg"
-                                                        alt="">
-                                                </td>
-                                                <td>Samsonite</td>
-                                                <td>2.500.000</td>
-                                                <td>20</td>
-                                                <td>Hiển thị</td>
-                                                <td>
-                                                    <div class="dropdown">
-                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                            data-bs-toggle="dropdown">
-                                                            <i class="bx bx-dots-vertical-rounded"></i>
-                                                        </button>
-                                                        <div class="dropdown-menu">
-                                                            <a class="dropdown-item" href="javascript:void(0);"><i
-                                                                    class="bx bx-edit-alt me-1"></i> Chỉnh sửa</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);"><i
-                                                                    class="bx bx-trash me-1"></i> Xóa</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <!-- Hàng 13 -->
-                                            <tr>
-                                                <th scope="row">13</th>
-                                                <td>Dép</td>
-                                                <td>
-                                                    <select style="max-width: 170px;"
-                                                        class="form-select placement-dropdown" id="selectPlacement">
-                                                        <option value="">Ví nam</option>
-                                                        <option value="">Ví nữ</option>
-                                                        <option value="">Túi xách nam</option>
-                                                        <option value="">Túi xách nữ</option>
-                                                        <option value="">Túi đeo chéo</option>
-                                                        <option value="">Balo</option>
-                                                        <option value="">Vali</option>
-                                                        <option value="">Thắt lưng</option>
-                                                        <option value="">Áo khoác</option>
-                                                        <option value="">Giày tây</option>
-                                                        <option value="">Giày cao gót</option>
-                                                        <option value="">Phụ kiện</option>
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <img style="max-height: 80px;" class="img-fluid"
-                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/dep-nam.jpg"
-                                                        alt="">
-                                                </td>
-                                                <td>Reebok</td>
-                                                <td>300.000</td>
-                                                <td>80</td>
-                                                <td>Hiển thị</td>
-                                                <td>
-                                                    <div class="dropdown">
-                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                            data-bs-toggle="dropdown">
-                                                            <i class="bx bx-dots-vertical-rounded"></i>
-                                                        </button>
-                                                        <div class="dropdown-menu">
-                                                            <a class="dropdown-item" href="javascript:void(0);"><i
-                                                                    class="bx bx-edit-alt me-1"></i> Chỉnh sửa</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);"><i
-                                                                    class="bx bx-trash me-1"></i> Xóa</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <!-- Hàng 14 -->
-                                            <tr>
-                                                <th scope="row">14</th>
-                                                <td>Áo thun</td>
-                                                <td>
-                                                    <select style="max-width: 170px;"
-                                                        class="form-select placement-dropdown" id="selectPlacement">
-                                                        <option value="">Ví nam</option>
-                                                        <option value="">Ví nữ</option>
-                                                        <option value="">Túi xách nam</option>
-                                                        <option value="">Túi xách nữ</option>
-                                                        <option value="">Túi đeo chéo</option>
-                                                        <option value="">Balo</option>
-                                                        <option value="">Vali</option>
-                                                        <option value="">Thắt lưng</option>
-                                                        <option value="">Áo khoác</option>
-                                                        <option value="">Giày tây</option>
-                                                        <option value="">Giày cao gót</option>
-                                                        <option value="">Phụ kiện</option>
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <img style="max-height: 80px;" class="img-fluid"
-                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/ao-thun.jpg"
-                                                        alt="">
-                                                </td>
-                                                <td>H&M</td>
-                                                <td>150.000</td>
-                                                <td>120</td>
-                                                <td>Hiển thị</td>
-                                                <td>
-                                                    <div class="dropdown">
-                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                            data-bs-toggle="dropdown">
-                                                            <i class="bx bx-dots-vertical-rounded"></i>
-                                                        </button>
-                                                        <div class="dropdown-menu">
-                                                            <a class="dropdown-item" href="javascript:void(0);"><i
-                                                                    class="bx bx-edit-alt me-1"></i> Chỉnh sửa</a>
-                                                            <a class="dropdown-item" href="javascript:void(0);"><i
-                                                                    class="bx bx-trash me-1"></i> Xóa</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <!-- Hàng 15 -->
-                                            <tr>
-                                                <th scope="row">15</th>
-                                                <td>Giày thể thao</td>
-                                                <td>
-                                                    <select style="max-width: 170px;"
-                                                        class="form-select placement-dropdown" id="selectPlacement">
-                                                        <option value="">Ví nam</option>
-                                                        <option value="">Ví nữ</option>
-                                                        <option value="">Túi xách nam</option>
-                                                        <option value="">Túi xách nữ</option>
-                                                        <option value="">Túi đeo chéo</option>
-                                                        <option value="">Balo</option>
-                                                        <option value="">Vali</option>
-                                                        <option value="">Thắt lưng</option>
-                                                        <option value="">Áo khoác</option>
-                                                        <option value="">Giày tây</option>
-                                                        <option value="">Giày cao gót</option>
-                                                        <option value="">Phụ kiện</option>
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <img style="max-height: 80px;" class="img-fluid"
-                                                        src="https://www.gento.vn/wp-content/uploads/2024/05/giay-the-thao.jpg"
-                                                        alt="">
-                                                </td>
-                                                <td>Nike</td>
-                                                <td>1.200.000</td>
-                                                <td>60</td>
-                                                <td>Hiển thị</td>
-                                                <td>
-                                                    <div class="dropdown">
+                                                    <div class="dropdown option-box">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                                                             data-bs-toggle="dropdown">
                                                             <i class="bx bx-dots-vertical-rounded"></i>
@@ -984,12 +795,11 @@
 
         </div>
 
-        <script src="/admin/assets/vendor/js/bootstrap.js"></script>
 
+        <script src="/admin/assets/js/product.js"></script>
+        <script src="/admin/assets/vendor/js/bootstrap.js"></script>
         <script src="/admin/assets/vendor/js/menu.js"></script>
         <script src="/admin/assets/js/main.js"></script>
-
-
 </body>
 
 </html>
