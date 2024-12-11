@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>nlu.fit.nhom50</groupId>
-    <artifactId>dynamic_web</artifactId>
+    <artifactId>crocodile</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>dynamic_web</name>
+    <name>crocodile</name>
     <packaging>war</packaging>
 
     <properties>
@@ -36,6 +36,28 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- CUSTOM DEPENDENCIES -->
+        <!-- https://mvnrepository.com/artifact/jakarta.servlet.jsp.jstl/jakarta.servlet.jsp.jstl-api -->
+        <dependency>
+            <groupId>jakarta.servlet.jsp.jstl</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.glassfish.web/jakarta.servlet.jsp.jstl -->
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.glassfish.web/jstl-impl -->
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>jstl-impl</artifactId>
+            <version>1.2</version>
+            <scope>runtime</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
