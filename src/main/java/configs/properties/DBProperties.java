@@ -1,9 +1,4 @@
-package configs.dbConfig;
-
-import configs.appConfig.ApplicationProperties;
-
-import java.io.IOException;
-import java.util.Properties;
+package configs.properties;
 
 public class DBProperties extends ApplicationProperties {
 

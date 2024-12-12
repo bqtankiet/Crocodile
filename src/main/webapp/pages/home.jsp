@@ -221,10 +221,11 @@
                     <h2 class="text-white text-center fw-bold text-uppercase">Danh Mục Nổi Bật</h2>
 
                     <div class="menu-box d-flex justify-content-center flex-wrap py-3 gap-2">
-                        <!-- Vi nam -->
                         <c:forEach var="category" items="${applicationScope.categories}">
                             <div class="item_menu">
-                                <c:url var="categoryUrl" value="/category?id=${category.id}"/>
+                                <c:url var="categoryUrl" value="${applicationScope.url['url.category']}">
+                                    <c:param name="id" value="${category.id}"/>
+                                </c:url>
                                 <a href="${categoryUrl}">
                                     <img src="<c:url value="${category.image}"/>" alt="img">
                                     <p class="pt-1">${category.name}</p>

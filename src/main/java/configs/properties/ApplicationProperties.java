@@ -1,6 +1,4 @@
-package configs.appConfig;
-
-import configs.dbConfig.DBProperties;
+package configs.properties;
 
 import java.io.IOException;
 import java.util.Properties;

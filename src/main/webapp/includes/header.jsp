@@ -1,5 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<c:url var="homeUrl" value="${applicationScope.url['url.home']}"/>
+<c:url var="contactUrl" value="${applicationScope.url['url.contact']}"/>
+<c:url var="aboutUrl" value="${applicationScope.url['url.about']}"/>
+
 <!--Style-->
 <style>
 
@@ -77,7 +82,9 @@
   <!--  Search bar and other -->
   <div class="container-xl my-4">
     <div class="row align-items-center justify-content-center mx-auto col-11 col-lg-12">
-      <a class="h1 text-decoration-none col-3 order-lg-0" href="home.html">
+      <a class="h1 text-decoration-none col-3 order-lg-0"
+      <c:url var="url" value="${applicationScope.url['url.home']}"/>
+      href="${url}">
         <img src="https://www.crocodileinternational.com/img/crocodile-logo-1609222037.jpg" alt="Logo"
              style="width: 15rem">
       </a>
@@ -142,7 +149,7 @@
         <div class="d-flex flex-grow-1 justify-content-between">
           <ul class="navbar-nav flex-grow-1 d-flex flex-row justify-content-center align-items-center gap-5 text-capitalize">
             <li class="nav-item">
-              <a href="home.html" class="nav-link home-page">
+              <a href="${homeUrl}" class="nav-link home-page">
                 Trang chủ
               </a>
             </li>
@@ -152,18 +159,20 @@
               </a>
               <ul class="dropdown-menu position-absolute rounded-0 custom-bg-primary-darker shadow-lg">
                   <c:forEach var="category" items="${applicationScope.categories}">
-                    <c:url var="categoryUrl" value="/category?id=${category.id}"/>
+                    <c:url var="categoryUrl" value="${applicationScope.url['url.category']}">
+                      <c:param name="id" value="${category.id}"/>
+                    </c:url>
                     <li><a class="dropdown-item" href="${categoryUrl}">${category.name}</a></li>
                   </c:forEach>
               </ul>
             </li>
             <li class="nav-item">
-              <a href="contact.html" class="nav-link contact-page">
+              <a href="${contactUrl}" class="nav-link contact-page">
                 Liên hệ
               </a>
             </li>
             <li class="nav-item">
-              <a href="../pages/about-us.html" class="nav-link about-page">
+              <a href="${aboutUrl}" class="nav-link about-page">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                      class="bi bi-info-circle" viewBox="0 0 16 16">
                   <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
@@ -179,7 +188,7 @@
       <nav class="fixed-navbar fixed-top navbar custom-navbar shadow-lg px-0">
         <div class="container">
           <div class="col-3">
-            <a href="../pages/home.html">
+            <a href="${homeUrl}">
               <img src="https://www.crocodileinternational.com/themes/crocs_child/assets/img/logo.svg"
                    style="height: 2.5rem" alt="Logo">
             </a>
@@ -187,7 +196,7 @@
           <div class="col">
             <ul class="navbar-nav flex-grow-1 d-flex flex-row justify-content-center align-items-center gap-5 text-capitalize">
               <li class="nav-item">
-                <a href="home.html" class="nav-link home-page">
+                <a href="${homeUrl}" class="nav-link home-page">
                   Trang chủ
                 </a>
               </li>
@@ -197,18 +206,20 @@
                 </a>
                 <ul class="dropdown-menu position-absolute rounded-0 custom-bg-primary-darker shadow-lg">
                   <c:forEach var="category" items="${applicationScope.categories}">
-                    <c:url var="categoryUrl" value="/category?id=${category.id}"/>
+                    <c:url var="categoryUrl" value="${applicationScope.url['url.category']}">
+                      <c:param name="id" value="${category.id}"/>
+                    </c:url>
                     <li><a class="dropdown-item" href="${categoryUrl}">${category.name}</a></li>
                   </c:forEach>
                 </ul>
               </li>
               <li class="nav-item">
-                <a href="contact.html" class="nav-link contact-page">
+                <a href="${contactUrl}" class="nav-link contact-page">
                   Liên hệ
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link about-page">
+                <a href="${aboutUrl}" class="nav-link about-page">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                        class="bi bi-info-circle" viewBox="0 0 16 16">
                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>

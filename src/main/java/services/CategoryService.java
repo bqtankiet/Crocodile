@@ -1,6 +1,6 @@
 package services;
 
-import configs.appConfig.AssetsProperties;
+import configs.properties.AssetsProperties;
 import dao.category.CategoryDao;
 import dao.category.CategoryDaoImpl;
 import models.Category;

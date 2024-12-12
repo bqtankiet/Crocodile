@@ -1,6 +1,6 @@
-package configs.appConfig;
+package configs.properties;
 
-public class AssetsProperties extends ApplicationProperties{
+public class AssetsProperties extends ApplicationProperties {
 
     public static String categories_img(){
         return getProperty("categories_img");
