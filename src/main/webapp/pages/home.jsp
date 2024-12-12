@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -58,99 +59,45 @@
     <div id="CONTENT">
         <!-------------------- Carousel -------------------->
         <div class="row m-0">
-            <%--      TODO: implement carousel      --%>
-
-            <%--            <div id="my-carousel" class="carousel slide px-0" data-bs-ride="carousel">--%>
-            <%--                <div class="carousel-indicators">--%>
-            <%--                    <button type="button" data-bs-target="#my-carousel" data-bs-slide-to="0" class="active"--%>
-            <%--                            aria-current="true" aria-label="Slide 1"></button>--%>
-            <%--                    <button type="button" data-bs-target="#my-carousel" data-bs-slide-to="1"--%>
-            <%--                            aria-label="Slide 2"></button>--%>
-            <%--                    <button type="button" data-bs-target="#my-carousel" data-bs-slide-to="2"--%>
-            <%--                            aria-label="Slide 3"></button>--%>
-            <%--                    <button type="button" data-bs-target="#my-carousel" data-bs-slide-to="3"--%>
-            <%--                            aria-label="Slide 4"></button>--%>
-            <%--                </div>--%>
-            <%--                <div class="carousel-inner">--%>
-            <%--                    <div class="carousel-item active" href="#">--%>
-            <%--                        <img src="https://www.kwanpen.com/cdn/shop/files/WEB_BANNER_24_05c9b547-c32b-4bb2-b4f4-aa1bb8f1456c_1400x.jpg?v=1703841410"--%>
-            <%--                             class="d-block w-100" alt="...">--%>
-            <%--                        <div class="carousel-caption d-block start-0 bottom-0 w-100 px-5 text-start">--%>
-            <%--                            <div class="row">--%>
-            <%--                                <div class="col d-flex flex-column justify-content-end" style="height: 20rem">--%>
-            <%--                                    <h4 class="fw-semibold text-capitalize">Đẳng cấp và sang trọng</h4>--%>
-            <%--                                    <p class="fw-light">Túi xách da cá sấu cao cấp, điểm nhấn hoàn hảo cho phong cách--%>
-            <%--                                        của bạn. Khám phá bộ sưu tập mới nhất tại cửa hàng của chúng tôi!</p>--%>
-            <%--                                </div>--%>
-            <%--                                <div class="col-2 d-flex mt-auto mb-3 z-3">--%>
-            <%--                                    <a class="btn btn-outline-light ms-auto" role="link" href="404">Xem thêm</a>--%>
-            <%--                                </div>--%>
-            <%--                            </div>--%>
-            <%--                        </div>--%>
-            <%--                    </div>--%>
-            <%--                    <div class="carousel-item" href="#">--%>
-            <%--                        <img src="https://www.kwanpen.com/cdn/shop/files/website_sub_banner_raffles_1400x.jpg?v=1672822845"--%>
-            <%--                             class="d-block w-100"--%>
-            <%--                             alt="...">--%>
-            <%--                        <div class="carousel-caption d-block start-0 bottom-0 w-100 px-5 text-start">--%>
-            <%--                            <div class="row">--%>
-            <%--                                <div class="col d-flex flex-column justify-content-end" style="height: 20rem">--%>
-            <%--                                    <h4 class="fw-semibold text-capitalize">Đẳng cấp và sang trọng</h4>--%>
-            <%--                                    <p class="fw-light">Túi xách da cá sấu cao cấp, điểm nhấn hoàn hảo cho phong cách--%>
-            <%--                                        của bạn. Khám phá bộ sưu tập mới nhất tại cửa hàng của chúng tôi!</p>--%>
-            <%--                                </div>--%>
-            <%--                                <div class="col-2 d-flex mt-auto mb-3 z-3">--%>
-            <%--                                    <a class="btn btn-outline-light ms-auto" role="link" href="404">Xem thêm</a>--%>
-            <%--                                </div>--%>
-            <%--                            </div>--%>
-            <%--                        </div>--%>
-            <%--                    </div>--%>
-            <%--                    <div class="carousel-item" href="#">--%>
-            <%--                        <img src="https://www.kwanpen.com/cdn/shop/files/July_Banner_Crest_Collection_web_1400x.jpg?v=1691053629"--%>
-            <%--                             class="d-block w-100"--%>
-            <%--                             alt="...">--%>
-            <%--                        <div class="carousel-caption d-block start-0 bottom-0 w-100 px-5 text-start">--%>
-            <%--                            <div class="row">--%>
-            <%--                                <div class="col d-flex flex-column justify-content-end" style="height: 20rem">--%>
-            <%--                                    <h4 class="fw-semibold text-capitalize">Đẳng cấp và sang trọng</h4>--%>
-            <%--                                    <p class="fw-light">Túi xách da cá sấu cao cấp, điểm nhấn hoàn hảo cho phong cách--%>
-            <%--                                        của bạn. Khám phá bộ sưu tập mới nhất tại cửa hàng của chúng tôi!</p>--%>
-            <%--                                </div>--%>
-            <%--                                <div class="col-2 d-flex mt-auto mb-3 z-3">--%>
-            <%--                                    <a class="btn btn-outline-light ms-auto" role="link" href="404">Xem thêm</a>--%>
-            <%--                                </div>--%>
-            <%--                            </div>--%>
-            <%--                        </div>--%>
-            <%--                    </div>--%>
-            <%--                    <div class="carousel-item" href="#">--%>
-            <%--                        <img src="https://www.kwanpen.com/cdn/shop/files/DSC00843_copy_1400x.jpg?v=1651049640"--%>
-            <%--                             class="d-block w-100"--%>
-            <%--                             alt="...">--%>
-            <%--                        <div class="carousel-caption d-block start-0 bottom-0 w-100 px-5 text-start">--%>
-            <%--                            <div class="row">--%>
-            <%--                                <div class="col d-flex flex-column justify-content-end" style="height: 20rem">--%>
-            <%--                                    <h4 class="fw-semibold text-capitalize">Đẳng cấp và sang trọng</h4>--%>
-            <%--                                    <p class="fw-light">Túi xách da cá sấu cao cấp, điểm nhấn hoàn hảo cho phong cách--%>
-            <%--                                        của bạn. Khám phá bộ sưu tập mới nhất tại cửa hàng của chúng tôi!</p>--%>
-            <%--                                </div>--%>
-            <%--                                <div class="col-2 d-flex mt-auto mb-3 z-3">--%>
-            <%--                                    <a class="btn btn-outline-light ms-auto" role="link" href="404">Xem thêm</a>--%>
-            <%--                                </div>--%>
-            <%--                            </div>--%>
-            <%--                        </div>--%>
-            <%--                    </div>--%>
-            <%--                </div>--%>
-            <%--                <button class="carousel-control-prev" type="button" data-bs-target="#my-carousel"--%>
-            <%--                        data-bs-slide="prev">--%>
-            <%--                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>--%>
-            <%--                    <span class="visually-hidden">Previous</span>--%>
-            <%--                </button>--%>
-            <%--                <button class="carousel-control-next" type="button" data-bs-target="#my-carousel"--%>
-            <%--                        data-bs-slide="next">--%>
-            <%--                    <span class="carousel-control-next-icon" aria-hidden="true"></span>--%>
-            <%--                    <span class="visually-hidden">Next</span>--%>
-            <%--                </button>--%>
-            <%--            </div>--%>
+            <div id="my-carousel" class="carousel slide px-0" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <c:forEach var="i" begin="0" end="${fn:length(requestScope.carousels)-1}">
+                        <button type="button" data-bs-target="#my-carousel" data-bs-slide-to="${i}"
+                                class="<c:if test="${i == 0}">active</c:if>">
+                        </button>
+                    </c:forEach>
+                </div>
+                <div class="carousel-inner">
+                    <c:forEach var="carousel" items="${requestScope.carousels}" varStatus="status">
+                        <div class="carousel-item <c:if test="${status.first}">active</c:if>">
+                            <img src="<c:url value="${carousel.image}"/>"
+                                 class="d-block w-100" alt="">
+                            <div class="carousel-caption d-block start-0 bottom-0 w-100 px-5 text-start">
+                                <div class="row">
+                                    <div class="col d-flex flex-column justify-content-end" style="height: 20rem">
+                                        <h4 class="fw-semibold text-capitalize">${carousel.title}</h4>
+                                        <p class="fw-light">${carousel.description}</p>
+                                    </div>
+                                    <div class="col-2 d-flex mt-auto mb-3 z-3">
+                                        <a class="btn btn-outline-light ms-auto" role="link" href="${carousel.link}">Xem
+                                            thêm</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#my-carousel"
+                        data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#my-carousel"
+                        data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
         </div>
 
         <!-- -------------------------BEGIN SERVICE---------------------------------- -->

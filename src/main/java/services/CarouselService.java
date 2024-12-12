@@ -4,12 +4,11 @@ import configs.properties.AssetsProperties;
 import dao.carousel.CarouselDao;
 import dao.carousel.CarouselDaoImpl;
 import models.Carousel;
-import models.Category;
 
 import java.util.List;
 
 public class CarouselService {
-    private static final String IMAGE_FOLDER = AssetsProperties.categories_img();
+    private static final String IMAGE_FOLDER = AssetsProperties.carouselsImageDir();
     private final CarouselDao carouselDao;
 
     public CarouselService() {
@@ -17,7 +16,9 @@ public class CarouselService {
     }
 
     public List<Carousel> getAllCarousel() {
-        return carouselDao.getAllCarousel();
+        List<Carousel> result = carouselDao.getAllCarousel();
+        result.forEach(c -> c.setImage(IMAGE_FOLDER + "/" + c.getImage()));
+        return result;
     }
 
 }

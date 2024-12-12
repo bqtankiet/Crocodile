@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface CarouselDao {
 
-    public List<Carousel> getAllCarousel();
+    List<Carousel> getAllCarousel();
 
 }

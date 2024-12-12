@@ -8,7 +8,7 @@ import models.Category;
 import java.util.List;
 
 public class CategoryService {
-    private static final String IMAGE_FOLDER = AssetsProperties.categories_img();
+    private static final String IMAGE_FOLDER = AssetsProperties.categoriesImageDir();
     private final CategoryDao categoryDao;
 
     public CategoryService() {

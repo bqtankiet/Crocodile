@@ -2,11 +2,15 @@ package configs.properties;
 
 public class AssetsProperties extends ApplicationProperties {
 
-    public static String categories_img(){
-        return getProperty("categories_img");
+    public static String baseDir(){
+        return getProperty("assets");
     }
 
-    public static String assets_dir(){
-        return getProperty("assets_dir");
+    public static String categoriesImageDir(){
+        return getProperty("assets.images.categories");
+    }
+
+    public static String carouselsImageDir(){
+        return getProperty("assets.images.carousels");
     }
 }
