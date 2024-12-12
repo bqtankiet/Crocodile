@@ -52,7 +52,7 @@
 
 <div id="page">
     <div id="HEADER">
-        <c:import url="/includes/header.jsp"/>
+        <jsp:include page="/includes/header.jsp"/>
     </div>
 
     <div id="CONTENT">
@@ -222,10 +222,15 @@
 
                     <div class="menu-box d-flex justify-content-center flex-wrap py-3 gap-2">
                         <!-- Vi nam -->
-                        <div class="item_menu">
-                            <img src="<c:url value="/assets/images/categories-img/wallet-icon.png"/>" alt="img">
-                            <h2><a href="#">Ví nam</a></h2>
-                        </div>
+                        <c:forEach var="category" items="${applicationScope.categories}">
+                            <div class="item_menu">
+                                <c:url var="categoryUrl" value="/category?id=${category.id}"/>
+                                <a href="${categoryUrl}">
+                                    <img src="<c:url value="${category.image}"/>" alt="img">
+                                    <p class="pt-1">${category.name}</p>
+                                </a>
+                            </div>
+                        </c:forEach>
                     </div>
                 </div>
             </div>
@@ -460,7 +465,7 @@
 
     </div>
         <div id="FOOTER">
-            <c:import url="/includes/footer.jsp"/>
+            <jsp:include page="/includes/footer.jsp"/>
         </div>
 </div>
 

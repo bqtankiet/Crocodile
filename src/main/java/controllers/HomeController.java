@@ -11,13 +11,6 @@ import java.util.List;
 
 @WebServlet(name = "HomeController", value = "")
 public class HomeController extends HttpServlet {
-    private CategoryService categoryService;
-
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        categoryService = new CategoryService();
-    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -1,7 +1,6 @@
-package dao.dbconfig;
+package configs.dbConfig;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
-import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
 
 import java.sql.SQLException;

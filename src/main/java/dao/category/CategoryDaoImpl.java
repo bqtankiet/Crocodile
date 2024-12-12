@@ -1,6 +1,6 @@
 package dao.category;
 
-import dao.dbconfig.JdbiConnect;
+import configs.dbConfig.JdbiConnect;
 import models.Category;
 
 import java.util.List;

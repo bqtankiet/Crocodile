@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!--Style-->
 <style>
@@ -150,20 +151,10 @@
                 <div class="dropdown-toggle" data-bs-toggle="dropdown">Sản phẩm</div>
               </a>
               <ul class="dropdown-menu position-absolute rounded-0 custom-bg-primary-darker shadow-lg">
-                <li><a class="dropdown-item" href="products.html">Ví nam</a></li>
-                <li><a class="dropdown-item" href="#">Ví nữ</a></li>
-                <li><a class="dropdown-item" href="#">Túi xách nam</a></li>
-                <li><a class="dropdown-item" href="#">Túi xách nữ</a></li>
-                <li><a class="dropdown-item" href="#">Túi đeo chéo</a></li>
-                <li><a class="dropdown-item" href="#">Balo</a></li>
-                <li><a class="dropdown-item" href="#">Vali</a></li>
-                <li><a class="dropdown-item" href="#">Thắt lưng</a></li>
-                <li><a class="dropdown-item" href="#">Áo khoác</a></li>
-                <li><a class="dropdown-item" href="#">Giày tây</a></li>
-                <li><a class="dropdown-item" href="#">Giày cao gót</a></li>
-                <li><a class="dropdown-item" href="#">Dép</a></li>
-                <li><a class="dropdown-item" href="#">Phụ kiện</a></li>
-                <li><a class="dropdown-item" href="#">Danh mục khác</a></li>
+                  <c:forEach var="category" items="${applicationScope.categories}">
+                    <c:url var="categoryUrl" value="/category?id=${category.id}"/>
+                    <li><a class="dropdown-item" href="${categoryUrl}">${category.name}</a></li>
+                  </c:forEach>
               </ul>
             </li>
             <li class="nav-item">
@@ -205,20 +196,10 @@
                   <div class="dropdown-toggle" data-bs-toggle="dropdown">Sản phẩm</div>
                 </a>
                 <ul class="dropdown-menu position-absolute rounded-0 custom-bg-primary-darker shadow-lg">
-                  <li><a class="dropdown-item" href="products.html">Ví nam</a></li>
-                  <li><a class="dropdown-item" href="#">Ví nữ</a></li>
-                  <li><a class="dropdown-item" href="#">Túi xách nam</a></li>
-                  <li><a class="dropdown-item" href="#">Túi xách nữ</a></li>
-                  <li><a class="dropdown-item" href="#">Túi đeo chéo</a></li>
-                  <li><a class="dropdown-item" href="#">Balo</a></li>
-                  <li><a class="dropdown-item" href="#">Vali</a></li>
-                  <li><a class="dropdown-item" href="#">Thắt lưng</a></li>
-                  <li><a class="dropdown-item" href="#">Áo khoác</a></li>
-                  <li><a class="dropdown-item" href="#">Giày tây</a></li>
-                  <li><a class="dropdown-item" href="#">Giày cao gót</a></li>
-                  <li><a class="dropdown-item" href="#">Dép</a></li>
-                  <li><a class="dropdown-item" href="#">Phụ kiện</a></li>
-                  <li><a class="dropdown-item" href="#">Danh mục khác</a></li>
+                  <c:forEach var="category" items="${applicationScope.categories}">
+                    <c:url var="categoryUrl" value="/category?id=${category.id}"/>
+                    <li><a class="dropdown-item" href="${categoryUrl}">${category.name}</a></li>
+                  </c:forEach>
                 </ul>
               </li>
               <li class="nav-item">
