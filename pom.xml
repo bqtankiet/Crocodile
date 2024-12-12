@@ -38,6 +38,8 @@
         </dependency>
 
         <!-- CUSTOM DEPENDENCIES -->
+
+        <!-- # jstl -->
         <!-- https://mvnrepository.com/artifact/jakarta.servlet.jsp.jstl/jakarta.servlet.jsp.jstl-api -->
         <dependency>
             <groupId>jakarta.servlet.jsp.jstl</groupId>
@@ -56,6 +58,22 @@
             <artifactId>jstl-impl</artifactId>
             <version>1.2</version>
             <scope>runtime</scope>
+        </dependency>
+
+        <!-- # mysql-connector -->
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version>
+        </dependency>
+
+        <!-- # jdbi-->
+        <!-- https://mvnrepository.com/artifact/org.jdbi/jdbi3-core -->
+        <dependency>
+            <groupId>org.jdbi</groupId>
+            <artifactId>jdbi3-core</artifactId>
+            <version>3.47.0</version>
         </dependency>
 
     </dependencies>
