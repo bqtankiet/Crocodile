@@ -58,97 +58,99 @@
     <div id="CONTENT">
         <!-------------------- Carousel -------------------->
         <div class="row m-0">
-            <div id="my-carousel" class="carousel slide px-0" data-bs-ride="carousel">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#my-carousel" data-bs-slide-to="0" class="active"
-                            aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#my-carousel" data-bs-slide-to="1"
-                            aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#my-carousel" data-bs-slide-to="2"
-                            aria-label="Slide 3"></button>
-                    <button type="button" data-bs-target="#my-carousel" data-bs-slide-to="3"
-                            aria-label="Slide 4"></button>
-                </div>
-                <div class="carousel-inner">
-                    <div class="carousel-item active" href="#">
-                        <img src="https://www.kwanpen.com/cdn/shop/files/WEB_BANNER_24_05c9b547-c32b-4bb2-b4f4-aa1bb8f1456c_1400x.jpg?v=1703841410"
-                             class="d-block w-100" alt="...">
-                        <div class="carousel-caption d-block start-0 bottom-0 w-100 px-5 text-start">
-                            <div class="row">
-                                <div class="col d-flex flex-column justify-content-end" style="height: 20rem">
-                                    <h4 class="fw-semibold text-capitalize">Đẳng cấp và sang trọng</h4>
-                                    <p class="fw-light">Túi xách da cá sấu cao cấp, điểm nhấn hoàn hảo cho phong cách
-                                        của bạn. Khám phá bộ sưu tập mới nhất tại cửa hàng của chúng tôi!</p>
-                                </div>
-                                <div class="col-2 d-flex mt-auto mb-3 z-3">
-                                    <a class="btn btn-outline-light ms-auto" role="link" href="404">Xem thêm</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item" href="#">
-                        <img src="https://www.kwanpen.com/cdn/shop/files/website_sub_banner_raffles_1400x.jpg?v=1672822845"
-                             class="d-block w-100"
-                             alt="...">
-                        <div class="carousel-caption d-block start-0 bottom-0 w-100 px-5 text-start">
-                            <div class="row">
-                                <div class="col d-flex flex-column justify-content-end" style="height: 20rem">
-                                    <h4 class="fw-semibold text-capitalize">Đẳng cấp và sang trọng</h4>
-                                    <p class="fw-light">Túi xách da cá sấu cao cấp, điểm nhấn hoàn hảo cho phong cách
-                                        của bạn. Khám phá bộ sưu tập mới nhất tại cửa hàng của chúng tôi!</p>
-                                </div>
-                                <div class="col-2 d-flex mt-auto mb-3 z-3">
-                                    <a class="btn btn-outline-light ms-auto" role="link" href="404">Xem thêm</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item" href="#">
-                        <img src="https://www.kwanpen.com/cdn/shop/files/July_Banner_Crest_Collection_web_1400x.jpg?v=1691053629"
-                             class="d-block w-100"
-                             alt="...">
-                        <div class="carousel-caption d-block start-0 bottom-0 w-100 px-5 text-start">
-                            <div class="row">
-                                <div class="col d-flex flex-column justify-content-end" style="height: 20rem">
-                                    <h4 class="fw-semibold text-capitalize">Đẳng cấp và sang trọng</h4>
-                                    <p class="fw-light">Túi xách da cá sấu cao cấp, điểm nhấn hoàn hảo cho phong cách
-                                        của bạn. Khám phá bộ sưu tập mới nhất tại cửa hàng của chúng tôi!</p>
-                                </div>
-                                <div class="col-2 d-flex mt-auto mb-3 z-3">
-                                    <a class="btn btn-outline-light ms-auto" role="link" href="404">Xem thêm</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item" href="#">
-                        <img src="https://www.kwanpen.com/cdn/shop/files/DSC00843_copy_1400x.jpg?v=1651049640"
-                             class="d-block w-100"
-                             alt="...">
-                        <div class="carousel-caption d-block start-0 bottom-0 w-100 px-5 text-start">
-                            <div class="row">
-                                <div class="col d-flex flex-column justify-content-end" style="height: 20rem">
-                                    <h4 class="fw-semibold text-capitalize">Đẳng cấp và sang trọng</h4>
-                                    <p class="fw-light">Túi xách da cá sấu cao cấp, điểm nhấn hoàn hảo cho phong cách
-                                        của bạn. Khám phá bộ sưu tập mới nhất tại cửa hàng của chúng tôi!</p>
-                                </div>
-                                <div class="col-2 d-flex mt-auto mb-3 z-3">
-                                    <a class="btn btn-outline-light ms-auto" role="link" href="404">Xem thêm</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#my-carousel"
-                        data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#my-carousel"
-                        data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
+            <%--      TODO: implement carousel      --%>
+
+            <%--            <div id="my-carousel" class="carousel slide px-0" data-bs-ride="carousel">--%>
+            <%--                <div class="carousel-indicators">--%>
+            <%--                    <button type="button" data-bs-target="#my-carousel" data-bs-slide-to="0" class="active"--%>
+            <%--                            aria-current="true" aria-label="Slide 1"></button>--%>
+            <%--                    <button type="button" data-bs-target="#my-carousel" data-bs-slide-to="1"--%>
+            <%--                            aria-label="Slide 2"></button>--%>
+            <%--                    <button type="button" data-bs-target="#my-carousel" data-bs-slide-to="2"--%>
+            <%--                            aria-label="Slide 3"></button>--%>
+            <%--                    <button type="button" data-bs-target="#my-carousel" data-bs-slide-to="3"--%>
+            <%--                            aria-label="Slide 4"></button>--%>
+            <%--                </div>--%>
+            <%--                <div class="carousel-inner">--%>
+            <%--                    <div class="carousel-item active" href="#">--%>
+            <%--                        <img src="https://www.kwanpen.com/cdn/shop/files/WEB_BANNER_24_05c9b547-c32b-4bb2-b4f4-aa1bb8f1456c_1400x.jpg?v=1703841410"--%>
+            <%--                             class="d-block w-100" alt="...">--%>
+            <%--                        <div class="carousel-caption d-block start-0 bottom-0 w-100 px-5 text-start">--%>
+            <%--                            <div class="row">--%>
+            <%--                                <div class="col d-flex flex-column justify-content-end" style="height: 20rem">--%>
+            <%--                                    <h4 class="fw-semibold text-capitalize">Đẳng cấp và sang trọng</h4>--%>
+            <%--                                    <p class="fw-light">Túi xách da cá sấu cao cấp, điểm nhấn hoàn hảo cho phong cách--%>
+            <%--                                        của bạn. Khám phá bộ sưu tập mới nhất tại cửa hàng của chúng tôi!</p>--%>
+            <%--                                </div>--%>
+            <%--                                <div class="col-2 d-flex mt-auto mb-3 z-3">--%>
+            <%--                                    <a class="btn btn-outline-light ms-auto" role="link" href="404">Xem thêm</a>--%>
+            <%--                                </div>--%>
+            <%--                            </div>--%>
+            <%--                        </div>--%>
+            <%--                    </div>--%>
+            <%--                    <div class="carousel-item" href="#">--%>
+            <%--                        <img src="https://www.kwanpen.com/cdn/shop/files/website_sub_banner_raffles_1400x.jpg?v=1672822845"--%>
+            <%--                             class="d-block w-100"--%>
+            <%--                             alt="...">--%>
+            <%--                        <div class="carousel-caption d-block start-0 bottom-0 w-100 px-5 text-start">--%>
+            <%--                            <div class="row">--%>
+            <%--                                <div class="col d-flex flex-column justify-content-end" style="height: 20rem">--%>
+            <%--                                    <h4 class="fw-semibold text-capitalize">Đẳng cấp và sang trọng</h4>--%>
+            <%--                                    <p class="fw-light">Túi xách da cá sấu cao cấp, điểm nhấn hoàn hảo cho phong cách--%>
+            <%--                                        của bạn. Khám phá bộ sưu tập mới nhất tại cửa hàng của chúng tôi!</p>--%>
+            <%--                                </div>--%>
+            <%--                                <div class="col-2 d-flex mt-auto mb-3 z-3">--%>
+            <%--                                    <a class="btn btn-outline-light ms-auto" role="link" href="404">Xem thêm</a>--%>
+            <%--                                </div>--%>
+            <%--                            </div>--%>
+            <%--                        </div>--%>
+            <%--                    </div>--%>
+            <%--                    <div class="carousel-item" href="#">--%>
+            <%--                        <img src="https://www.kwanpen.com/cdn/shop/files/July_Banner_Crest_Collection_web_1400x.jpg?v=1691053629"--%>
+            <%--                             class="d-block w-100"--%>
+            <%--                             alt="...">--%>
+            <%--                        <div class="carousel-caption d-block start-0 bottom-0 w-100 px-5 text-start">--%>
+            <%--                            <div class="row">--%>
+            <%--                                <div class="col d-flex flex-column justify-content-end" style="height: 20rem">--%>
+            <%--                                    <h4 class="fw-semibold text-capitalize">Đẳng cấp và sang trọng</h4>--%>
+            <%--                                    <p class="fw-light">Túi xách da cá sấu cao cấp, điểm nhấn hoàn hảo cho phong cách--%>
+            <%--                                        của bạn. Khám phá bộ sưu tập mới nhất tại cửa hàng của chúng tôi!</p>--%>
+            <%--                                </div>--%>
+            <%--                                <div class="col-2 d-flex mt-auto mb-3 z-3">--%>
+            <%--                                    <a class="btn btn-outline-light ms-auto" role="link" href="404">Xem thêm</a>--%>
+            <%--                                </div>--%>
+            <%--                            </div>--%>
+            <%--                        </div>--%>
+            <%--                    </div>--%>
+            <%--                    <div class="carousel-item" href="#">--%>
+            <%--                        <img src="https://www.kwanpen.com/cdn/shop/files/DSC00843_copy_1400x.jpg?v=1651049640"--%>
+            <%--                             class="d-block w-100"--%>
+            <%--                             alt="...">--%>
+            <%--                        <div class="carousel-caption d-block start-0 bottom-0 w-100 px-5 text-start">--%>
+            <%--                            <div class="row">--%>
+            <%--                                <div class="col d-flex flex-column justify-content-end" style="height: 20rem">--%>
+            <%--                                    <h4 class="fw-semibold text-capitalize">Đẳng cấp và sang trọng</h4>--%>
+            <%--                                    <p class="fw-light">Túi xách da cá sấu cao cấp, điểm nhấn hoàn hảo cho phong cách--%>
+            <%--                                        của bạn. Khám phá bộ sưu tập mới nhất tại cửa hàng của chúng tôi!</p>--%>
+            <%--                                </div>--%>
+            <%--                                <div class="col-2 d-flex mt-auto mb-3 z-3">--%>
+            <%--                                    <a class="btn btn-outline-light ms-auto" role="link" href="404">Xem thêm</a>--%>
+            <%--                                </div>--%>
+            <%--                            </div>--%>
+            <%--                        </div>--%>
+            <%--                    </div>--%>
+            <%--                </div>--%>
+            <%--                <button class="carousel-control-prev" type="button" data-bs-target="#my-carousel"--%>
+            <%--                        data-bs-slide="prev">--%>
+            <%--                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>--%>
+            <%--                    <span class="visually-hidden">Previous</span>--%>
+            <%--                </button>--%>
+            <%--                <button class="carousel-control-next" type="button" data-bs-target="#my-carousel"--%>
+            <%--                        data-bs-slide="next">--%>
+            <%--                    <span class="carousel-control-next-icon" aria-hidden="true"></span>--%>
+            <%--                    <span class="visually-hidden">Next</span>--%>
+            <%--                </button>--%>
+            <%--            </div>--%>
         </div>
 
         <!-- -------------------------BEGIN SERVICE---------------------------------- -->
@@ -246,48 +248,50 @@
                     <p class="text-center">#Top sản phẩm mua nhiều nhất trong tháng</p>
                     <hr>
                 </div>
-                <div class="product_gallery_template" data-owl-main='{"items": 4, "margin": 10, "dots": false}'>
-                    <a class="product_card_template"
-                       href="https://www.gento.vn/wp-content/uploads/2021/10/vi-cam-tay-da-ca-sau-gs9825.jpeg"
-                       data-json='{
-                                "img": "https://www.gento.vn/wp-content/uploads/2021/10/vi-cam-tay-da-ca-sau-gs9825.jpeg",
-                                "name": "Ví cầm tay da cá sấu cao cấp GS982 Nâu",
-                                "price": "1.300.000",
-                                "basePrice": "1.900.000",
-                                "discount": "Giảm 32%",
-                                "badge": "NEW"
-                                }'>
-                    </a>
-                    <a class="product_card_template" href="404"
-                       data-json='{
-                                "img":"https://casauhoanglong.com/wp-content/uploads/2024/01/Bop-da-ca-sau-nam-2-mat-da-bung-VN70HM.jpeg",
-                                "name":"Ví cầm tay nam da cá sấu cao cấp Gento GS985",
-                                "price":"1.100.000",
-                                "basePrice":null,
-                                "discount":null,
-                                "badge":null
-                                }'>
-                    </a>
-                    <a class="product_card_template"
-                       href="404"
-                       data-json='{
-                                "img": "https://lavatino.com/wp-content/uploads/2021/08/tui-da-nu-cao-cap-hsf30-da-ca-sau-4.jpg",
-                                "name": "Túi xách nữ cao cấp HSF30 da cá sấu thật",
-                                "price": "14.200.000"
-                                }'>
-                    </a>
-                    <a class="product_card_template" href="404"
-                       data-json='{
-                                "img":"https://lavatino.com/wp-content/uploads/2021/08/tui-xach-nu-thoi-trang-da-ca-sau-hsf21-2-1.jpg",
-                                "name":"Túi xách nữ thời trang da cá sấu mã HSF21",
-                                "price":"12 .100.000",
-                                "basePrice":null,
-                                "discount":null,
-                                "badge":null
-                                }'>
-                    </a>
+                <%--       TODO:          --%>
 
-                </div>
+                <%--                <div class="product_gallery_template" data-owl-main='{"items": 4, "margin": 10, "dots": false}'>--%>
+                <%--                    <a class="product_card_template"--%>
+                <%--                       href="https://www.gento.vn/wp-content/uploads/2021/10/vi-cam-tay-da-ca-sau-gs9825.jpeg"--%>
+                <%--                       data-json='{--%>
+                <%--                                "img": "https://www.gento.vn/wp-content/uploads/2021/10/vi-cam-tay-da-ca-sau-gs9825.jpeg",--%>
+                <%--                                "name": "Ví cầm tay da cá sấu cao cấp GS982 Nâu",--%>
+                <%--                                "price": "1.300.000",--%>
+                <%--                                "basePrice": "1.900.000",--%>
+                <%--                                "discount": "Giảm 32%",--%>
+                <%--                                "badge": "NEW"--%>
+                <%--                                }'>--%>
+                <%--                    </a>--%>
+                <%--                    <a class="product_card_template" href="404"--%>
+                <%--                       data-json='{--%>
+                <%--                                "img":"https://casauhoanglong.com/wp-content/uploads/2024/01/Bop-da-ca-sau-nam-2-mat-da-bung-VN70HM.jpeg",--%>
+                <%--                                "name":"Ví cầm tay nam da cá sấu cao cấp Gento GS985",--%>
+                <%--                                "price":"1.100.000",--%>
+                <%--                                "basePrice":null,--%>
+                <%--                                "discount":null,--%>
+                <%--                                "badge":null--%>
+                <%--                                }'>--%>
+                <%--                    </a>--%>
+                <%--                    <a class="product_card_template"--%>
+                <%--                       href="404"--%>
+                <%--                       data-json='{--%>
+                <%--                                "img": "https://lavatino.com/wp-content/uploads/2021/08/tui-da-nu-cao-cap-hsf30-da-ca-sau-4.jpg",--%>
+                <%--                                "name": "Túi xách nữ cao cấp HSF30 da cá sấu thật",--%>
+                <%--                                "price": "14.200.000"--%>
+                <%--                                }'>--%>
+                <%--                    </a>--%>
+                <%--                    <a class="product_card_template" href="404"--%>
+                <%--                       data-json='{--%>
+                <%--                                "img":"https://lavatino.com/wp-content/uploads/2021/08/tui-xach-nu-thoi-trang-da-ca-sau-hsf21-2-1.jpg",--%>
+                <%--                                "name":"Túi xách nữ thời trang da cá sấu mã HSF21",--%>
+                <%--                                "price":"12 .100.000",--%>
+                <%--                                "basePrice":null,--%>
+                <%--                                "discount":null,--%>
+                <%--                                "badge":null--%>
+                <%--                                }'>--%>
+                <%--                    </a>--%>
+
+                <%--                </div>--%>
             </div>
         </div>
         <!-- -------------------------END BEST SALE PRODUCTS---------------------------------- -->
@@ -301,206 +305,171 @@
                 </div>
 
                 <div class="d-flex flex-column gap-4">
-                    <div class="product-group p-3">
-                        <div class="product-group-title d-flex mb-2
-                             border-bottom border-2 custom-border-primary-darker">
-                            <h1 class="custom-bg-primary-darker text-white fw-bold m-0 px-2">#1</h1>
-                            <h3 class="fw-semibold custom-bg-primary text-white py-2 px-3 m-0 ">Túi xách nữ</h3>
-                            <a href="404" class="ms-auto my-auto">Xem thêm </a>
-                        </div>
-                        <div class="product_gallery_template" data-owl-main='{"items": 4, "margin": 10, "dots": false}'>
-                            <a class="product_card_template"
-                               href="404"
-                               data-json='{
-                                "img": "https://lavatino.com/wp-content/uploads/2021/08/tui-da-nu-cao-cap-hsf30-da-ca-sau-4.jpg",
-                                "name": "Túi xách nữ cao cấp HSF30 da cá sấu thật",
-                                "price": "14.200.000"
-                                }'>
-                            </a>
-                            <a class="product_card_template"
-                               href="404"
-                               data-json='{
-                                "img":"https://lavatino.com/wp-content/uploads/2021/08/tui-xach-nu-thoi-trang-da-ca-sau-hsf21-2-1.jpg",
-                                "name":"Túi xách nữ thời trang da cá sấu mã HSF21",
-                                "price":"12 .100.000",
-                                "basePrice":null,
-                                "discount":null,
-                                "badge":null
-                                }'>
-                            </a>
-                            <a class="product_card_template"
-                               href="404"
-                               data-json='{
-                                "img":"https://lavatino.com/wp-content/uploads/2024/07/HIHI6008-xong-595x595.jpg",
-                                "name":"Túi Xách Nữ Da Cá Sấu Chính Hãng Lavatino",
-                                "price":"15 .100.000",
-                                "basePrice":null,
-                                "discount":null,
-                                "badge":null
-                                }'>
-                            </a>
-                            <a class="product_card_template"
-                               href="404"
-                               data-json='{
-                                "img":"https://lavatino.com/wp-content/uploads/2021/07/tui-nu-da-ca-sau-tron-2.jpg",
-                                "name":"Mẫu túi xách nữ da cá sấu trơn HSF18 thời trang",
-                                "price":"20 .100.000",
-                                "basePrice":null,
-                                "discount":null,
-                                "badge":null
-                                }'>
-                            </a>
+                    <%--        TODO:             --%>
 
-                        </div>
-                    </div>
+                    <%--                    <div class="product-group p-3">--%>
+                    <%--                        <div class="product-group-title d-flex mb-2--%>
+                    <%--                             border-bottom border-2 custom-border-primary-darker">--%>
+                    <%--                            <h1 class="custom-bg-primary-darker text-white fw-bold m-0 px-2">#1</h1>--%>
+                    <%--                            <h3 class="fw-semibold custom-bg-primary text-white py-2 px-3 m-0 ">Túi xách nữ</h3>--%>
+                    <%--                            <a href="404" class="ms-auto my-auto">Xem thêm </a>--%>
+                    <%--                        </div>--%>
+                    <%--                        <div class="product_gallery_template" data-owl-main='{"items": 4, "margin": 10, "dots": false}'>--%>
+                    <%--                            <a class="product_card_template"--%>
+                    <%--                               href="404"--%>
+                    <%--                               data-json='{--%>
+                    <%--                                "img": "https://lavatino.com/wp-content/uploads/2021/08/tui-da-nu-cao-cap-hsf30-da-ca-sau-4.jpg",--%>
+                    <%--                                "name": "Túi xách nữ cao cấp HSF30 da cá sấu thật",--%>
+                    <%--                                "price": "14.200.000"--%>
+                    <%--                                }'>--%>
+                    <%--                            </a>--%>
+                    <%--                            <a class="product_card_template"--%>
+                    <%--                               href="404"--%>
+                    <%--                               data-json='{--%>
+                    <%--                                "img":"https://lavatino.com/wp-content/uploads/2021/08/tui-xach-nu-thoi-trang-da-ca-sau-hsf21-2-1.jpg",--%>
+                    <%--                                "name":"Túi xách nữ thời trang da cá sấu mã HSF21",--%>
+                    <%--                                "price":"12 .100.000",--%>
+                    <%--                                "basePrice":null,--%>
+                    <%--                                "discount":null,--%>
+                    <%--                                "badge":null--%>
+                    <%--                                }'>--%>
+                    <%--                            </a>--%>
+                    <%--                            <a class="product_card_template"--%>
+                    <%--                               href="404"--%>
+                    <%--                               data-json='{--%>
+                    <%--                                "img":"https://lavatino.com/wp-content/uploads/2024/07/HIHI6008-xong-595x595.jpg",--%>
+                    <%--                                "name":"Túi Xách Nữ Da Cá Sấu Chính Hãng Lavatino",--%>
+                    <%--                                "price":"15 .100.000",--%>
+                    <%--                                "basePrice":null,--%>
+                    <%--                                "discount":null,--%>
+                    <%--                                "badge":null--%>
+                    <%--                                }'>--%>
+                    <%--                            </a>--%>
+                    <%--                            <a class="product_card_template"--%>
+                    <%--                               href="404"--%>
+                    <%--                               data-json='{--%>
+                    <%--                                "img":"https://lavatino.com/wp-content/uploads/2021/07/tui-nu-da-ca-sau-tron-2.jpg",--%>
+                    <%--                                "name":"Mẫu túi xách nữ da cá sấu trơn HSF18 thời trang",--%>
+                    <%--                                "price":"20 .100.000",--%>
+                    <%--                                "basePrice":null,--%>
+                    <%--                                "discount":null,--%>
+                    <%--                                "badge":null--%>
+                    <%--                                }'>--%>
+                    <%--                            </a>--%>
 
-                    <div class="product-group p-3">
-                        <div class="product-group-title d-flex mb-2
-                             border-bottom border-2 custom-border-primary-darker">
-                            <h1 class="custom-bg-primary-darker text-white fw-bold m-0 px-2">#2</h1>
-                            <h3 class="fw-semibold custom-bg-primary text-white py-2 px-3 m-0">Giày tây</h3>
-                            <a href="404" class="ms-auto my-auto">Xem thêm </a>
-                        </div>
-                        <div class="product_gallery_template" data-owl-main='{"items": 4, "margin": 10, "dots": false}'>
-                            <a class="product_card_template"
-                               href="404"
-                               data-json='{
-                                "img": "https://crocoleather.com/resources/uploads/images/automatic/gi%C3%A0y_m%E1%BB%8Di_da_c%C3%A1_s%E1%BA%A5u_1.JPG",
-                                "name": "Giày da cá sấu nam GCS57",
-                                "price": "5.300.000",
-                                "basePrice": null,
-                                "discount": null,
-                                "badge": null
-                                }'>
-                            </a>
-                            <a class="product_card_template"
-                               href="404"
-                               data-json='{
-                                "img":"https://crocoleather.com/resources/uploads/images/automatic/giay-da-ca-sau-gcs01-2.jpg",
-                                "name":"Giày lười da cá sấu GCS03",
-                                "price":"4.100.000",
-                                "basePrice":null,
-                                "discount":null,
-                                "badge":null
-                                }'>
-                            </a>
-                            <a class="product_card_template"
-                               href="404"
-                               data-json='{
-                                "img": "https://img.myipadbox.com/upload/store/detail_raw/TBD0382542003A_2.jpg",
-                                "name": "Giày tây sang trọng da cá sấu bóng cho nam",
-                                "price": "9.500.000"
-                                }'>
-                            </a>
-                            <a class="product_card_template"
-                               href="404"
-                               data-json='{
-                                "img":"https://img.myipadbox.com/upload/store/detail_raw/TBD0415456008C_1.jpg",
-                                "name":"Giày công sở nam Giày da cá sấu Sọc mũi nhọn",
-                                "price":"8.990.000",
-                                "basePrice":null,
-                                "discount":null,
-                                "badge":null
-                                }'>
-                            </a>
-                        </div>
-                    </div>
+                    <%--                        </div>--%>
+                    <%--                    </div>--%>
 
-                    <div class="product-group p-3">
-                        <div class="product-group-title d-flex mb-2
-                             border-bottom border-2 custom-border-primary-darker">
-                            <h1 class="custom-bg-primary-darker text-white fw-bold m-0 px-2">#3</h1>
-                            <h3 class="fw-semibold custom-bg-primary text-white py-2 px-3 m-0">Ví nam</h3>
-                            <a href="404" class="ms-auto my-auto">Xem thêm </a>
-                        </div>
-                        <div class="product_gallery_template" data-owl-main='{"items": 4, "margin": 10, "dots": false}'>
-                            <a class="product_card_template"
-                               href="https://www.gento.vn/wp-content/uploads/2021/10/vi-cam-tay-da-ca-sau-gs9825.jpeg"
-                               data-json='{
-                                "img": "https://www.gento.vn/wp-content/uploads/2021/10/vi-cam-tay-da-ca-sau-gs9825.jpeg",
-                                "name": "Ví cầm tay da cá sấu cao cấp GS982 Nâu",
-                                "price": "1.300.000",
-                                "basePrice": "1.900.000",
-                                "discount": "Giảm 32%",
-                                "badge": "NEW"
-                                }'>
-                            </a>
-                            <a class="product_card_template" href="404"
-                               data-json='{
-                                "img":"https://casauhoanglong.com/wp-content/uploads/2024/01/Bop-da-ca-sau-nam-2-mat-da-bung-VN70HM.jpeg",
-                                "name":"Ví cầm tay nam da cá sấu cao cấp Gento GS985",
-                                "price":"1.100.000",
-                                "basePrice":null,
-                                "discount":null,
-                                "badge":null
-                                }'>
-                            </a>
-                            <a class="product_card_template"
-                               href="https://tamanh.net/wp-content/uploads/2020/01/vi-da-hong-ca-sau-VTA1500N-H-D-1.jpg"
-                               data-json='{
-                                "img": "https://tamanh.net/wp-content/uploads/2020/01/vi-da-hong-ca-sau-VTA1500N-H-D-1.jpg",
-                                "name": "Ví da cá sấu 2 mặt dáng ngang da hông cao cấp VTA1500N-H-D",
-                                "price": "1.550.000"
-                                }'>
-                            </a>
-                            <a class="product_card_template"
-                               href="https://casauhoanglong.com/wp-content/uploads/2023/10/vi-da-ca-sau-VNA201-2-600x820.jpg"
-                               data-json='{
-                                "img": "https://casauhoanglong.com/wp-content/uploads/2023/10/vi-da-ca-sau-VNA201-2-600x820.jpg",
-                                "name": "Ví nam da cá sấu vân bụng màu đen – VN42",
-                                "price": "900.000"
-                                }'>
-                            </a>
-                        </div>
-                    </div>
+                    <%--                    <div class="product-group p-3">--%>
+                    <%--                        <div class="product-group-title d-flex mb-2--%>
+                    <%--                             border-bottom border-2 custom-border-primary-darker">--%>
+                    <%--                            <h1 class="custom-bg-primary-darker text-white fw-bold m-0 px-2">#2</h1>--%>
+                    <%--                            <h3 class="fw-semibold custom-bg-primary text-white py-2 px-3 m-0">Giày tây</h3>--%>
+                    <%--                            <a href="404" class="ms-auto my-auto">Xem thêm </a>--%>
+                    <%--                        </div>--%>
+                    <%--                        <div class="product_gallery_template" data-owl-main='{"items": 4, "margin": 10, "dots": false}'>--%>
+                    <%--                            <a class="product_card_template"--%>
+                    <%--                               href="404"--%>
+                    <%--                               data-json='{--%>
+                    <%--                                "img": "https://crocoleather.com/resources/uploads/images/automatic/gi%C3%A0y_m%E1%BB%8Di_da_c%C3%A1_s%E1%BA%A5u_1.JPG",--%>
+                    <%--                                "name": "Giày da cá sấu nam GCS57",--%>
+                    <%--                                "price": "5.300.000",--%>
+                    <%--                                "basePrice": null,--%>
+                    <%--                                "discount": null,--%>
+                    <%--                                "badge": null--%>
+                    <%--                                }'>--%>
+                    <%--                            </a>--%>
+                    <%--                            <a class="product_card_template"--%>
+                    <%--                               href="404"--%>
+                    <%--                               data-json='{--%>
+                    <%--                                "img":"https://crocoleather.com/resources/uploads/images/automatic/giay-da-ca-sau-gcs01-2.jpg",--%>
+                    <%--                                "name":"Giày lười da cá sấu GCS03",--%>
+                    <%--                                "price":"4.100.000",--%>
+                    <%--                                "basePrice":null,--%>
+                    <%--                                "discount":null,--%>
+                    <%--                                "badge":null--%>
+                    <%--                                }'>--%>
+                    <%--                            </a>--%>
+                    <%--                            <a class="product_card_template"--%>
+                    <%--                               href="404"--%>
+                    <%--                               data-json='{--%>
+                    <%--                                "img": "https://img.myipadbox.com/upload/store/detail_raw/TBD0382542003A_2.jpg",--%>
+                    <%--                                "name": "Giày tây sang trọng da cá sấu bóng cho nam",--%>
+                    <%--                                "price": "9.500.000"--%>
+                    <%--                                }'>--%>
+                    <%--                            </a>--%>
+                    <%--                            <a class="product_card_template"--%>
+                    <%--                               href="404"--%>
+                    <%--                               data-json='{--%>
+                    <%--                                "img":"https://img.myipadbox.com/upload/store/detail_raw/TBD0415456008C_1.jpg",--%>
+                    <%--                                "name":"Giày công sở nam Giày da cá sấu Sọc mũi nhọn",--%>
+                    <%--                                "price":"8.990.000",--%>
+                    <%--                                "basePrice":null,--%>
+                    <%--                                "discount":null,--%>
+                    <%--                                "badge":null--%>
+                    <%--                                }'>--%>
+                    <%--                            </a>--%>
+                    <%--                        </div>--%>
+                    <%--                    </div>--%>
+
+                    <%--                    <div class="product-group p-3">--%>
+                    <%--                        <div class="product-group-title d-flex mb-2--%>
+                    <%--                             border-bottom border-2 custom-border-primary-darker">--%>
+                    <%--                            <h1 class="custom-bg-primary-darker text-white fw-bold m-0 px-2">#3</h1>--%>
+                    <%--                            <h3 class="fw-semibold custom-bg-primary text-white py-2 px-3 m-0">Ví nam</h3>--%>
+                    <%--                            <a href="404" class="ms-auto my-auto">Xem thêm </a>--%>
+                    <%--                        </div>--%>
+                    <%--                        <div class="product_gallery_template" data-owl-main='{"items": 4, "margin": 10, "dots": false}'>--%>
+                    <%--                            <a class="product_card_template"--%>
+                    <%--                               href="https://www.gento.vn/wp-content/uploads/2021/10/vi-cam-tay-da-ca-sau-gs9825.jpeg"--%>
+                    <%--                               data-json='{--%>
+                    <%--                                "img": "https://www.gento.vn/wp-content/uploads/2021/10/vi-cam-tay-da-ca-sau-gs9825.jpeg",--%>
+                    <%--                                "name": "Ví cầm tay da cá sấu cao cấp GS982 Nâu",--%>
+                    <%--                                "price": "1.300.000",--%>
+                    <%--                                "basePrice": "1.900.000",--%>
+                    <%--                                "discount": "Giảm 32%",--%>
+                    <%--                                "badge": "NEW"--%>
+                    <%--                                }'>--%>
+                    <%--                            </a>--%>
+                    <%--                            <a class="product_card_template" href="404"--%>
+                    <%--                               data-json='{--%>
+                    <%--                                "img":"https://casauhoanglong.com/wp-content/uploads/2024/01/Bop-da-ca-sau-nam-2-mat-da-bung-VN70HM.jpeg",--%>
+                    <%--                                "name":"Ví cầm tay nam da cá sấu cao cấp Gento GS985",--%>
+                    <%--                                "price":"1.100.000",--%>
+                    <%--                                "basePrice":null,--%>
+                    <%--                                "discount":null,--%>
+                    <%--                                "badge":null--%>
+                    <%--                                }'>--%>
+                    <%--                            </a>--%>
+                    <%--                            <a class="product_card_template"--%>
+                    <%--                               href="https://tamanh.net/wp-content/uploads/2020/01/vi-da-hong-ca-sau-VTA1500N-H-D-1.jpg"--%>
+                    <%--                               data-json='{--%>
+                    <%--                                "img": "https://tamanh.net/wp-content/uploads/2020/01/vi-da-hong-ca-sau-VTA1500N-H-D-1.jpg",--%>
+                    <%--                                "name": "Ví da cá sấu 2 mặt dáng ngang da hông cao cấp VTA1500N-H-D",--%>
+                    <%--                                "price": "1.550.000"--%>
+                    <%--                                }'>--%>
+                    <%--                            </a>--%>
+                    <%--                            <a class="product_card_template"--%>
+                    <%--                               href="https://casauhoanglong.com/wp-content/uploads/2023/10/vi-da-ca-sau-VNA201-2-600x820.jpg"--%>
+                    <%--                               data-json='{--%>
+                    <%--                                "img": "https://casauhoanglong.com/wp-content/uploads/2023/10/vi-da-ca-sau-VNA201-2-600x820.jpg",--%>
+                    <%--                                "name": "Ví nam da cá sấu vân bụng màu đen – VN42",--%>
+                    <%--                                "price": "900.000"--%>
+                    <%--                                }'>--%>
+                    <%--                            </a>--%>
+                    <%--                        </div>--%>
+                    <%--                    </div>--%>
                 </div>
-
-                <!--                <p class="text-center mt-4 mb-5">-->
-                <!--                    <a class="see-all" href="products.html">Xem tất cả </a>-->
-                <!--                </p>-->
-
             </div>
 
         </div>
         <!-- -------------------------END SUGGESTED PRODUCTS---------------------------------- -->
 
     </div>
-        <div id="FOOTER">
-            <jsp:include page="/includes/footer.jsp"/>
-        </div>
+    <div id="FOOTER">
+        <jsp:include page="/includes/footer.jsp"/>
+    </div>
 </div>
-
-<!-- dùng để tải hình -->
-<%--<div class="load-image d-none">--%>
-<%--    <img src="/assets/images/categories-img/suitcase.png" alt="">--%>
-<%--    <img src="/assets/images/categories-img/white-suitcase.png" alt="">--%>
-<%--    <img src="/assets/images/categories-img/briefcase-line-icon.png" alt="">--%>
-<%--    <img src="/assets/images/categories-img/white-briefcase-line-icon.png" alt="">--%>
-<%--    <img src="/assets/images/categories-img/backpack-icon.png" alt="">--%>
-<%--    <img src="/assets/images/categories-img/white-backpack-icon.png" alt="">--%>
-<%--    <img src="/assets/images/categories-img/messenger-bag.png" alt="">--%>
-<%--    <img src="/assets/images/categories-img/white-messenger-bag.png" alt="">--%>
-<%--    <img src="/assets/images/categories-img/tourist-bag-icon.png" alt="">--%>
-<%--    <img src="/assets/images/categories-img/white-tourist-bag-icon.png" alt="">--%>
-<%--    <img src="/assets/images/categories-img/sling-bag.png" alt="">--%>
-<%--    <img src="/assets/images/categories-img/white-sling-bag.png" alt="">--%>
-<%--    <img src="/assets/images/categories-img/wallet-icon.png" alt="">--%>
-<%--    <img src="/assets/images/categories-img/white-wallet-icon.png" alt="">--%>
-<%--    <img src="/assets/images/categories-img/wallet-icon.png" alt="">--%>
-<%--    <img src="/assets/images/categories-img/white-wallet-icon.png" alt="">--%>
-<%--    <img src="/assets/images/categories-img/smartwatch-icon.png" alt="">--%>
-<%--    <img src="/assets/images/categories-img/white-smartwatch-icon.png" alt="">--%>
-<%--    <img src="/assets/images/categories-img/man-shoe-icon.png" alt="">--%>
-<%--    <img src="/assets/images/categories-img/white-man-shoe-icon.png" alt="">--%>
-<%--    <img src="/assets/images/categories-img/handbag.png" alt="">--%>
-<%--    <img src="/assets/images/categories-img/white-handbag.png" alt="">--%>
-<%--    <img src="/assets/images/categories-img/aokhoacda.png" alt="">--%>
-<%--    <img src="/assets/images/categories-img/white-aokhoacda.png" alt="">--%>
-<%--    <img src="/assets/images/categories-img/purse.png" alt="">--%>
-<%--    <img src="/assets/images/categories-img/white-purse.png" alt="">--%>
-<%--    <img src="/assets/images/categories-img/white-man-belt-icon.png" alt="">--%>
-<%--    <img src="/assets/images/categories-img/man-belt-icon.png" alt="">--%>
-<%--</div>--%>
 
 </body>
 

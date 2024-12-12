@@ -1,4 +1,7 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<c:url var="url.home" value="${applicationScope.url['url.home']}"/>
 <!--Style-->
 <style>
     :root {
@@ -78,7 +81,7 @@
 
         <!-- LOGO  -->
         <p class="text-center">
-            <a href="/Project_LapTrinhWeb/pages/home.html">
+            <a href="${url.home}">
                 <img class="logo" src="https://www.crocodileinternational.com/themes/crocs_child/assets/img/logo.svg" alt="">
             </a>
         </p>
