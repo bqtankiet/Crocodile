@@ -1,6 +1,4 @@
-package models;
-
-import org.jdbi.v3.core.mapper.reflect.ColumnName;
+package vn.edu.hcmuaf.fit.crocodile.model.entity;
 
 import java.io.Serializable;
 

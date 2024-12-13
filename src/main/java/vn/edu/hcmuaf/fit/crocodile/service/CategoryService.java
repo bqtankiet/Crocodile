@@ -1,9 +1,9 @@
-package services;
+package vn.edu.hcmuaf.fit.crocodile.service;
 
-import configs.properties.AssetsProperties;
-import dao.category.CategoryDao;
-import dao.category.CategoryDaoImpl;
-import models.Category;
+import vn.edu.hcmuaf.fit.crocodile.config.properties.AssetsProperties;
+import vn.edu.hcmuaf.fit.crocodile.dao.category.CategoryDao;
+import vn.edu.hcmuaf.fit.crocodile.dao.category.CategoryDaoImpl;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.Category;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
-package dao.carousel;
+package vn.edu.hcmuaf.fit.crocodile.dao.carousel;
 
-import configs.dbConfig.JdbiConnect;
-import models.Carousel;
+import vn.edu.hcmuaf.fit.crocodile.config.JdbiConnect;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.Carousel;
 
 import java.util.List;
 

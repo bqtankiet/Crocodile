@@ -1,4 +1,4 @@
-package models;
+package vn.edu.hcmuaf.fit.crocodile.model.entity;
 
 import java.io.Serializable;
 

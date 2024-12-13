@@ -1,4 +1,4 @@
-package configs.properties;
+package vn.edu.hcmuaf.fit.crocodile.config.properties;
 
 import java.io.IOException;
 import java.util.Properties;

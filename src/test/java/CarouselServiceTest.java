@@ -1,6 +1,6 @@
-import models.Carousel;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.Carousel;
 import org.junit.jupiter.api.Test;
-import services.CarouselService;
+import vn.edu.hcmuaf.fit.crocodile.service.CarouselService;
 
 import java.util.List;
 

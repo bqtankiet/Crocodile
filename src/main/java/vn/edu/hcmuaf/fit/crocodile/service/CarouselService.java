@@ -1,9 +1,9 @@
-package services;
+package vn.edu.hcmuaf.fit.crocodile.service;
 
-import configs.properties.AssetsProperties;
-import dao.carousel.CarouselDao;
-import dao.carousel.CarouselDaoImpl;
-import models.Carousel;
+import vn.edu.hcmuaf.fit.crocodile.config.properties.AssetsProperties;
+import vn.edu.hcmuaf.fit.crocodile.dao.carousel.CarouselDao;
+import vn.edu.hcmuaf.fit.crocodile.dao.carousel.CarouselDaoImpl;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.Carousel;
 
 import java.util.List;
 

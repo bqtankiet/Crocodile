@@ -1,39 +1,40 @@
-package configs.dbConfig;
+package vn.edu.hcmuaf.fit.crocodile.config;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
-import configs.properties.DBProperties;
+import vn.edu.hcmuaf.fit.crocodile.config.properties.DBProperties;
 import org.jdbi.v3.core.Jdbi;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class JdbiConnect {
-    private static Jdbi jdbi;
+    private static final Jdbi JDBI;
+    public static final String DATABASE_URL = "jdbc:mysql://" + DBProperties.host() + ":" + DBProperties.port() + "/" + DBProperties.dbname() + "?" + DBProperties.option();
 
     static {
         try {
-            makeConnect();
+            JDBI = createJdbi();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     public static Jdbi getJdbi() {
-        return jdbi;
+        return JDBI;
     }
 
-    private static void makeConnect() throws SQLException {
+    private static Jdbi createJdbi() throws SQLException {
         MysqlDataSource dataSource = new MysqlDataSource();
         dataSource.setServerName(DBProperties.host());
         dataSource.setPortNumber(DBProperties.port());
         dataSource.setUser(DBProperties.user());
         dataSource.setPassword(DBProperties.password());
         dataSource.setDatabaseName(DBProperties.dbname());
-        dataSource.setUrl("jdbc:mysql://" + DBProperties.host() + ":" + DBProperties.port() + "/" + DBProperties.dbname() + "?" + DBProperties.option());
+        dataSource.setUrl(DATABASE_URL);
         dataSource.setUseCompression(true);
         dataSource.setAutoReconnect(true);
 
-        jdbi = Jdbi.create(dataSource);
+        return Jdbi.create(dataSource);
     }
 
     // TEST

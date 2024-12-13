@@ -1,7 +1,7 @@
-package dao.category;
+package vn.edu.hcmuaf.fit.crocodile.dao.category;
 
-import configs.dbConfig.JdbiConnect;
-import models.Category;
+import vn.edu.hcmuaf.fit.crocodile.config.JdbiConnect;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.Category;
 
 import java.util.List;
 

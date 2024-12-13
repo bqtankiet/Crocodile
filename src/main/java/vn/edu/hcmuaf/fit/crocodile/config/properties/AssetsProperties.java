@@ -1,4 +1,4 @@
-package configs.properties;
+package vn.edu.hcmuaf.fit.crocodile.config.properties;
 
 public class AssetsProperties extends ApplicationProperties {
 
