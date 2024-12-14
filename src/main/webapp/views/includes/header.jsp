@@ -219,7 +219,7 @@
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a href="${contactUrl}" class="nav-link contact-page">
+                                <a href="${contactUrl}" class="nav-link contact-page ${param.activePage == 'contact'? 'active' : ''}">
                                     Liên hệ
                                 </a>
                             </li>
