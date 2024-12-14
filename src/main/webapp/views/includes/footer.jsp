@@ -2,81 +2,81 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <c:url var="homeUrl" value="${applicationScope.url['url.home']}"/>
-<!--Style-->
-<style>
-    :root {
-        --icon-color: white;
-    }
-
-    .logo {
-        width: 250px;
-        height: auto;
-        padding: 50px 0 20px;
-    }
-
-    ul {
-        list-style-type: none;
-        padding-left: 0;
-        margin-bottom: 3rem;
-    }
-
-
-    .social-icon {
-        color: white;
-        padding: 5px 10px 0;
-        cursor: pointer;
-    }
-
-    .widget-title {
-        font-size: 18px;
-        text-transform: uppercase;
-        font-weight: 700;
-        letter-spacing: 2px;
-        margin-bottom: 25px;
-        padding-bottom: 4px;
-    }
-
-    .widget-text {
-        font-size: 16px;
-        text-decoration: none;
-        color: white;
-
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-
-    .title {
-        font-size: 21px;
-        line-height: 20px;
-        color: white;
-        word-spacing: 7px;
-        letter-spacing: 2px;
-        margin-bottom: 10px;
-        font-weight: 700;
-    }
-
-    .sub-title {
-        font-size: 16px;
-        color: white;
-        line-height: 1.8;
-        margin-bottom: 20px;
-    }
-
-    .info {
-        font-size: 18px;
-        line-height: 20px;
-        color: white;
-        font-weight: 700;
-    }
-
-    .information a {
-        line-height: 1.8;
-    }
-</style>
-
 <!-- HTML -->
 <footer class="custom-bg-primary pb-5">
+    <!--Style-->
+    <style>
+        :root {
+            --icon-color: white;
+        }
+
+        .logo {
+            width: 250px;
+            height: auto;
+            padding: 50px 0 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin-bottom: 3rem;
+        }
+
+
+        .social-icon {
+            color: white;
+            padding: 5px 10px 0;
+            cursor: pointer;
+        }
+
+        .widget-title {
+            font-size: 18px;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            padding-bottom: 4px;
+        }
+
+        .widget-text {
+            font-size: 16px;
+            text-decoration: none;
+            color: white;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        .title {
+            font-size: 21px;
+            line-height: 20px;
+            color: white;
+            word-spacing: 7px;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .sub-title {
+            font-size: 16px;
+            color: white;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .info {
+            font-size: 18px;
+            line-height: 20px;
+            color: white;
+            font-weight: 700;
+        }
+
+        .information a {
+            line-height: 1.8;
+        }
+    </style>
+
     <div class="container">
 
         <!-- LOGO  -->
