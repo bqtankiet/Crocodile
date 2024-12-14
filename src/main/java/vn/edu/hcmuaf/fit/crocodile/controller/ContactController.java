@@ -1,4 +1,4 @@
-package controllers;
+package vn.edu.hcmuaf.fit.crocodile.controller;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -6,12 +6,11 @@ import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 
-@WebServlet(name = "HomeController", value = "")
-public class HomeController extends HttpServlet {
+@WebServlet(name = "ContactController", value = "/contact")
+public class ContactController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/home.jsp");
-        dispatcher.forward(request, response);
+        request.getRequestDispatcher("/views/contact.jsp").forward(request, response);
     }
 
     @Override
