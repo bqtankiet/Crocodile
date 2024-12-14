@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import vn.edu.hcmuaf.fit.crocodile.service.CarouselService;
-import vn.edu.hcmuaf.fit.crocodile.util.MyLogger;
 
 import java.io.IOException;
 

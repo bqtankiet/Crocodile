@@ -97,20 +97,20 @@
         <button class="bg-transparent border-0 me-2" type="submit">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1.3rem" height="1.3rem"
                fill="gray">
-            <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/>
+            <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"></path>
           </svg>
         </button>
       </form>
       <!-- Account, Cart -->
       <div class="d-flex justify-content-around lh-1 text-nowrap col-3 col-lg-3 ms-auto me-5 gap-5 gap-lg-4 order-lg-2">
-        <a href="login.html" class="text-decoration-none position-relative custom-text-primary col-6">
+        <a href="<%-- TODO login.html--%>" class="text-decoration-none position-relative custom-text-primary col-6">
           <div class="d-flex align-items-center justify-content-end">
             <div class="custom-icon" style="--size: 2rem">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                    class="bi bi-person-circle" viewBox="0 0 16 16">
-                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"></path>
                 <path fill-rule="evenodd"
-                      d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                      d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"></path>
               </svg>
             </div>
             <div class="ps-2">
@@ -127,7 +127,7 @@
               <span class="badge text-bg-danger position-absolute translate-middle rounded-pill">1</span>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                    class="bi bi-bag" viewBox="0 0 16 16">
-                <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
+                <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"></path>
               </svg>
             </div>
             <div class="ps-2">
@@ -149,12 +149,12 @@
         <div class="d-flex flex-grow-1 justify-content-between">
           <ul class="navbar-nav flex-grow-1 d-flex flex-row justify-content-center align-items-center gap-5 text-capitalize">
             <li class="nav-item">
-              <a href="${homeUrl}" class="nav-link home-page">
+              <a href="${homeUrl}" class="nav-link home-page ${param.pageName == 'home'? 'active' : ''}">
                 Trang chủ
               </a>
             </li>
             <li class="nav-item position-relative dropdown">
-              <a href="#" class="nav-link products-page">
+              <a href="#" class="nav-link products-page ${param.pageName == 'product-list'? 'active' : ''}">
                 <div class="dropdown-toggle" data-bs-toggle="dropdown">Sản phẩm</div>
               </a>
               <ul class="dropdown-menu position-absolute rounded-0 custom-bg-primary-darker shadow-lg">
@@ -167,16 +167,16 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a href="${contactUrl}" class="nav-link contact-page">
+              <a href="${contactUrl}" class="nav-link contact-page ${param.pageName == 'contact'? 'active' : ''}">
                 Liên hệ
               </a>
             </li>
             <li class="nav-item">
-              <a href="${aboutUrl}" class="nav-link about-page">
+              <a href="${aboutUrl}" class="nav-link about-page ${param.pageName == 'about'? 'active' : ''}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                      class="bi bi-info-circle" viewBox="0 0 16 16">
-                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                  <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path>
+                  <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"></path>
                 </svg>
                 Giới Thiệu
               </a>
@@ -196,7 +196,7 @@
           <div class="col">
             <ul class="navbar-nav flex-grow-1 d-flex flex-row justify-content-center align-items-center gap-5 text-capitalize">
               <li class="nav-item">
-                <a href="${homeUrl}" class="nav-link home-page">
+                <a href="${homeUrl}" class="nav-link home-page ${param.pageName == 'home'? 'active' : ''}">
                   Trang chủ
                 </a>
               </li>
@@ -222,8 +222,8 @@
                 <a href="${aboutUrl}" class="nav-link about-page">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                        class="bi bi-info-circle" viewBox="0 0 16 16">
-                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path>
+                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"></path>
                   </svg>
                   Giới Thiệu
                 </a>
@@ -235,17 +235,18 @@
               <div class="custom-icon text-white" style="--size: 1.7rem">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="16" height="16"
                      fill="currentColor">
-                  <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/>
+                  <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"></path>
                 </svg>
               </div>
             </a>
-            <a href="../pages/login.html">
+
+            <a href="<%-- TODO: login url --%>">
               <div class="custom-icon text-white" style="--size: 2rem">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                      class="bi bi-person-circle" viewBox="0 0 16 16">
-                  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"></path>
                   <path fill-rule="evenodd"
-                        d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                        d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"></path>
                 </svg>
               </div>
             </a>
@@ -254,7 +255,7 @@
                 <span class="badge text-bg-danger position-absolute translate-middle rounded-pill">1</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                      class="bi bi-bag" viewBox="0 0 16 16">
-                  <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
+                  <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"></path>
                 </svg>
               </div>
             </a>
@@ -271,7 +272,7 @@
       <div class="custom-icon me-1 position-relative" style="--size: 2rem">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
              class="bi bi-bag" viewBox="0 0 16 16">
-          <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
+          <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"></path>
         </svg>
       </div>
       <h5 class="offcanvas-title fw-bold text-uppercase" id="offcanvasRightLabel">Giỏ hàng</h5>
@@ -311,7 +312,7 @@
         <p>Tổng:</p>
         <p>1.100.000<sup>₫</sup></p>
       </div>
-      <a href="../pages/cart-details.html" class="btn custom-btn-primary mt-auto w-100 py-2 fw-medium">Xem chi
+      <a href="<%-- TODO: ../pages/cart-details.html--%>" class="btn custom-btn-primary mt-auto w-100 py-2 fw-medium">Xem chi
         tiết</a>
     </div>
   </div>

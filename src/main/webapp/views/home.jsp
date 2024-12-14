@@ -53,7 +53,9 @@
 
 <div id="page">
     <div id="HEADER">
-        <jsp:include page="/includes/header.jsp"/>
+        <jsp:include page="/includes/header.jsp">
+            <jsp:param name="pageName" value="home"/>
+        </jsp:include>
     </div>
 
     <div id="CONTENT">
