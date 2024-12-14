@@ -1,6 +1,6 @@
-import models.Category;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.Category;
 import org.junit.jupiter.api.Test;
-import services.CategoryService;
+import vn.edu.hcmuaf.fit.crocodile.service.CategoryService;
 
 import java.util.List;
 
