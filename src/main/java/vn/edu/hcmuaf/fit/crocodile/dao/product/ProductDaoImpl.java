@@ -117,7 +117,7 @@ public class ProductDaoImpl implements ProductDao {
                   po.idProduct, p.`name`
                 FROM products p
                 JOIN product_options po ON p.id = po.idProduct
-                JOIN product_images pi ON po.idImage = pi.id
+                LEFT JOIN product_images pi ON po.idImage = pi.id
                 WHERE p.id = :productId AND po.`group` = :group
                 """;
 

@@ -34,13 +34,13 @@ public class ProductDaoImplTest {
 //        System.out.println(images);
 
         // test findAllOptionsByProductId()
-//        ProductDaoImpl dao = new ProductDaoImpl();
-//        List<Product.ProductOption> options = dao.findAllOptionsByProductId(1, 1);
-//        options.forEach(System.out::println);
+        ProductDaoImpl dao = new ProductDaoImpl();
+        List<Product.ProductOption> options = dao.findAllOptionsByProductId(2, 1);
+        options.forEach(System.out::println);
 
         // test getProductOptionGroupById()
 //        ProductService productService = new ProductService();
-//        Product.ProductOptionGroup optionGroup = productService.getProductOptionGroupById(1, 1);
+//        Product.ProductOptionGroup optionGroup = productService.getProductOptionGroupById(2, 1);
 //        System.out.println(optionGroup);
     }
 

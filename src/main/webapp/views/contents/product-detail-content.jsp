@@ -74,9 +74,12 @@
                                                    id="idOption${o.id}" value="${o.id}" required
                                                    onclick="updateProductStock()">
                                             <label for="idOption${o.id}" class="btn btn-outline-dark"
-                                                   onclick=window.location.href='#${o.idImage}'>
-                                                <img src="${o.image}"
-                                                     alt="" class="img-fluid me-1" style="height: 2rem">
+                                                    <c:if test="${o.idImage != null}">
+                                                        onclick=window.location.href='#${o.idImage}'
+                                                    </c:if>>
+                                                <c:if test="${o.image != null}">
+                                                    <img src="${o.image}" alt="" class="img-fluid me-1" style="height: 2rem">
+                                                </c:if>
                                                     ${o.value}
                                             </label>
                                         </c:forEach>
@@ -105,7 +108,7 @@
                                 <input id="submit-idVariant" type="number" name="idVariant" value="?" hidden="hidden">
                                 <input id="submit-quantity" type="number" name="quantity" value="?" hidden="hidden">
                                 <button class="btn custom-btn-primary flex-grow-1 text-uppercase text-center custom-bg-primary p-3 fw-semibold"
-                                   role="button" type="submit" onclick="handleSubmitBuyNow()">
+                                        role="button" type="submit" onclick="handleSubmitBuyNow()">
                                     Đặt mua ngay
                                 </button>
                                 <button class="btn custom-btn-primary custom-icon px-4"
@@ -205,6 +208,9 @@
     <script>
         const productVariants = JSON.parse('${requestScope.productVariantsJson}');
 
+        if (productVariants.length === 1) {
+            updateProductStock()
+        }
         // console.log(productVariants)
 
         function updateProductStock() {
@@ -220,7 +226,7 @@
             // console.log(matchedVariant)
 
             if (matchedVariant) {
-                $productStock.text(matchedVariant.stock +" sản phẩm có sẵn");
+                $productStock.text(matchedVariant.stock + " sản phẩm có sẵn");
             } else {
                 $productStock.text("");
             }
