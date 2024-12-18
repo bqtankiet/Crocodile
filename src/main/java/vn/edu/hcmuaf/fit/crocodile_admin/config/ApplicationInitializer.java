@@ -1,10 +1,10 @@
-package vn.edu.hcmuaf.fit.crocodileadmin.config;
+package vn.edu.hcmuaf.fit.crocodile_admin.config;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
-import vn.edu.hcmuaf.fit.crocodileadmin.config.properties.UrlProperties;
+import vn.edu.hcmuaf.fit.crocodile_admin.config.properties.UrlProperties;
 
 import java.util.HashMap;
 

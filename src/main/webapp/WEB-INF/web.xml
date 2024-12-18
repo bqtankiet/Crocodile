@@ -3,4 +3,11 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
+
+    <!--  Cấu hình page not found  -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/Error404</location>
+    </error-page>
 </web-app>
+

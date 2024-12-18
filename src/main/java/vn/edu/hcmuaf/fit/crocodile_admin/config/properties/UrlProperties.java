@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.crocodileadmin.config.properties;
+package vn.edu.hcmuaf.fit.crocodile_admin.config.properties;
 
 import vn.edu.hcmuaf.fit.crocodile.config.properties.ApplicationProperties;
 

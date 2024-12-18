@@ -1,4 +1,3 @@
-<%@ page import="java.util.Map" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -29,8 +28,9 @@
         </li>
 
         <!-- Category manager -->
-        <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <li class="menu-item
+            ${param.activePage == 'category' || param.activePage == 'product' ? 'active open' : ''}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle menu-drop">
                 <i class="menu-icon tf-icons bx bx-table"></i>
                 <div>Quản lý danh mục</div>
             </a>
@@ -81,7 +81,8 @@
 
 
         <!-- Information Manager -->
-        <li class="menu-item ">
+        <li class="menu-item
+        ${param.activePage == 'orderlist' ? 'active open' : ''}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-box"></i>
                 <div >Quản lý thông tin</div>
@@ -107,17 +108,3 @@
     </ul>
 </aside>
 
-<script src="<c:url value="/public/jquery-3.7.1.min.js"/>"></script>
-
-<%--<script>--%>
-<%--    function activateMenuItem(event) {--%>
-<%--        // Lấy phần tử <li> của mục "Quản lý danh mục"--%>
-<%--        var parentMenuItem = $(event.target).closest('li.menu-item');--%>
-
-<%--        // Thêm class active và open vào <li> của "Quản lý danh mục"--%>
-<%--        parentMenuItem.addClass('active open');--%>
-
-<%--        // Optional: Tắt các menu khác nếu bạn muốn chỉ mở 1 mục tại một thời điểm--%>
-<%--        $('li.menu-item').not(parentMenuItem).removeClass('active open');--%>
-<%--    }--%>
-<%--</script>--%>

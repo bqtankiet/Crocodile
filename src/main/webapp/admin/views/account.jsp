@@ -35,21 +35,29 @@
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
 
-            <!-- Menu -->
+            <!-- Sidebar -->
             <jsp:include page="/admin/views/includes/sidebar.jsp">
                 <jsp:param name="activePage" value="account"/>
             </jsp:include>
-            <!-- / Menu -->
+            <!-- / Sidebar -->
+            <div class="layout-page">
 
-            <!-- Layout container -->
-            <jsp:include page="/admin/views/contents/account-content.jsp"/>
-            <!-- / Layout page -->
+                <!-- Header -->
+                <jsp:include page="/admin/views/includes/header.jsp" />
+                <!-- / Header -->
+
+                <!-- Content -->
+                <jsp:include page="/admin/views/contents/account-content.jsp"/>
+                <!-- / Content -->
+            </div>
+
         </div>
 
     </div>
-<script src="<c:url value="/admin/assets/vendor/js/bootstrap.js"/>"></script>
 
-<script src="<c:url value="/admin/assets/vendor/js/menu.js"/>"></script>
-<script src="<c:url value="/admin/assets/js/main.js"/>"></script>
+
+    <script src="<c:url value="/admin/assets/vendor/js/bootstrap.js"/>"></script>
+    <script src="<c:url value="/admin/assets/vendor/js/menu.js"/>"></script>
+    <script src="<c:url value="/admin/assets/js/main.js"/>"></script>
 </body>
 </html>
