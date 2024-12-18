@@ -6,11 +6,11 @@ import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 
-@WebServlet(name = "AccountController", value = "/admin/")
-public class AccountController extends HttpServlet {
+@WebServlet(name = "CategoryController", value = "/admin/category")
+public class CategoryController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/admin/views/account.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/views/category.jsp").forward(request, response);
     }
 
     @Override

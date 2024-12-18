@@ -32,21 +32,21 @@
 </head>
 
 <body>
-<div class="layout-wrapper layout-content-navbar">
-    <div class="layout-container">
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
 
-        <!-- Menu -->
-        <jsp:include page="/admin/components/sidebar.jsp">
-            <jsp:param name="activePage" value="account"/>
-        </jsp:include>
-        <!-- / Menu -->
+            <!-- Menu -->
+            <jsp:include page="/admin/views/includes/sidebar.jsp">
+                <jsp:param name="activePage" value="account"/>
+            </jsp:include>
+            <!-- / Menu -->
 
-        <!-- Layout container -->
-        <jsp:include page="/admin/views/contents/account-content.jsp"/>
-        <!-- / Layout page -->
+            <!-- Layout container -->
+            <jsp:include page="/admin/views/contents/account-content.jsp"/>
+            <!-- / Layout page -->
+        </div>
+
     </div>
-
-</div>
 <script src="<c:url value="/admin/assets/vendor/js/bootstrap.js"/>"></script>
 
 <script src="<c:url value="/admin/assets/vendor/js/menu.js"/>"></script>

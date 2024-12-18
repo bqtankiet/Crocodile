@@ -1,20 +1,18 @@
-
+<%@ page import="java.util.Map" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:url var="accountUrl" value="${applicationScope.url['admin.account']}"/>
-<c:url var="categoryUrl" value="${applicationScope.url['admin.category']}"/>
-<c:url var="productUrl" value="${applicationScope.url['admin.product']}"/>
-<c:url var="orderListUrl" value="${applicationScope.url['admin.orderlist']}"/>
-<c:url var="userManagementUrl" value="${applicationScope.url['admin.usermanagement']}"/>
-
-
+<c:url var="accountUrl" value="${applicationScope.urls['admin.account']}"/>
+<c:url var="categoryUrl" value="${applicationScope.urls['admin.category']}"/>
+<c:url var="productUrl" value="${applicationScope.urls['admin.product']}"/>
+<c:url var="orderUrl" value="${applicationScope.urls['admin.order']}"/>
+<c:url var="userUrl" value="${applicationScope.urls['admin.user']}"/>
 
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
         <a class="h1 text-decoration-none col-3 order-lg-0"
 
-           href="${accountUrl}">
+           href="${accountUrl} ">
             <img src="https://www.crocodileinternational.com/img/crocodile-logo-1609222037.jpg" alt="Logo"
                  style="width: 12rem">
         </a>
@@ -32,7 +30,7 @@
 
         <!-- Category manager -->
         <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle" onclick="activateMenuItem(event)">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-table"></i>
                 <div>Quản lý danh mục</div>
             </a>
@@ -83,15 +81,15 @@
 
 
         <!-- Information Manager -->
-        <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle" onclick="activateMenuItem(event)">
+        <li class="menu-item ">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-box"></i>
                 <div >Quản lý thông tin</div>
             </a>
             <ul class="menu-sub">
                 <li class="menu-item ${param.activePage == 'orderlist' ? 'active' : ''}">
-                    <a href="${orderListUrl}" class="menu-link">
-                        <div data-i18n="Basic Inputs">Danh sách đơn hàng</div>
+                    <a href="${orderUrl}" class="menu-link">
+                        <div >Danh sách đơn hàng</div>
                     </a>
                 </li>
 
@@ -100,9 +98,9 @@
 
         <!-- Account setting -->
         <li class="menu-item">
-            <a href="${userManagementUrl}" class="menu-link">
+            <a href="${userUrl}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-crown"></i>
-                <div data-i18n="Form Layouts">Quản lý người dùng</div>
+                <div >Quản lý người dùng</div>
             </a>
         </li>
 
@@ -111,15 +109,15 @@
 
 <script src="<c:url value="/public/jquery-3.7.1.min.js"/>"></script>
 
-<script>
-    function activateMenuItem(event) {
-        // Lấy phần tử <li> của mục "Quản lý danh mục"
-        var parentMenuItem = $(event.target).closest('li.menu-item');
+<%--<script>--%>
+<%--    function activateMenuItem(event) {--%>
+<%--        // Lấy phần tử <li> của mục "Quản lý danh mục"--%>
+<%--        var parentMenuItem = $(event.target).closest('li.menu-item');--%>
 
-        // Thêm class active và open vào <li> của "Quản lý danh mục"
-        parentMenuItem.addClass('active open');
+<%--        // Thêm class active và open vào <li> của "Quản lý danh mục"--%>
+<%--        parentMenuItem.addClass('active open');--%>
 
-        // Optional: Tắt các menu khác nếu bạn muốn chỉ mở 1 mục tại một thời điểm
-        $('li.menu-item').not(parentMenuItem).removeClass('active open');
-    }
-</script>
+<%--        // Optional: Tắt các menu khác nếu bạn muốn chỉ mở 1 mục tại một thời điểm--%>
+<%--        $('li.menu-item').not(parentMenuItem).removeClass('active open');--%>
+<%--    }--%>
+<%--</script>--%>
