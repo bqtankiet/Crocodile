@@ -8,9 +8,15 @@ import java.util.List;
 public class CategoryDaoImpl implements CategoryDao {
 
     @Override
-    public List<Category> getAllCategory() {
-        List<Category> results;
+    public Category findById(Integer integer) {
+        return null;
+    }
+
+    @Override
+    public List<Category> findAll() {
         String sql = "SELECT * FROM categories WHERE active=1";
+
+        List<Category> results;
         results = JdbiConnect.getJdbi().withHandle(handle ->
             handle.createQuery(sql)
                     .mapToBean(Category.class)

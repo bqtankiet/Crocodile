@@ -16,7 +16,7 @@ public class CategoryService {
     }
 
     public List<Category> getAllCategory(){
-        List<Category> result = categoryDao.getAllCategory();
+        List<Category> result = categoryDao.findAll();
         result.forEach(c -> c.setImage(IMAGE_FOLDER +"/"+ c.getImage()));
         return result;
     }

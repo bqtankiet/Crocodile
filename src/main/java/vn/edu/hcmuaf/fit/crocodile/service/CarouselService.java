@@ -16,7 +16,7 @@ public class CarouselService {
     }
 
     public List<Carousel> getAllCarousel() {
-        List<Carousel> result = carouselDao.getAllCarousel();
+        List<Carousel> result = carouselDao.findAll();
         result.forEach(c -> c.setImage(IMAGE_FOLDER + "/" + c.getImage()));
         return result;
     }

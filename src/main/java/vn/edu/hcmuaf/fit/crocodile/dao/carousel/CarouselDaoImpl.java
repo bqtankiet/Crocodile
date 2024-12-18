@@ -8,9 +8,15 @@ import java.util.List;
 public class CarouselDaoImpl implements CarouselDao {
 
     @Override
-    public List<Carousel> getAllCarousel() {
-        List<Carousel> result;
+    public Carousel findById(Integer integer) {
+        return null;
+    }
+
+    @Override
+    public List<Carousel> findAll() {
         String sql = "SELECT * FROM carousels WHERE active=1";
+
+        List<Carousel> result;
         result = JdbiConnect.getJdbi().withHandle(handle ->
             handle.createQuery(sql)
                     .mapToBean(Carousel.class)
