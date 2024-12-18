@@ -2,6 +2,7 @@ package vn.edu.hcmuaf.fit.crocodile.dao.product;
 
 import vn.edu.hcmuaf.fit.crocodile.config.JdbiConnect;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Product;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.Product.*;
 
 import java.util.List;
 
@@ -9,7 +10,10 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public Product findById(Integer id) {
         String sql = """
-                SELECT p.*, c.id as categoryId, c.`name` as categoryName
+                SELECT
+                    p.id, p.idCategory, p.`name`, p.image,p.price,
+                    p.description, p.createDate, p.active,
+                    c.id as categoryId, c.`name` as categoryName
                 FROM products p
                 JOIN categories c ON p.idCategory = c.id
                 WHERE p.id = :id
@@ -23,6 +27,7 @@ public class ProductDaoImpl implements ProductDao {
                         .findFirst()
                         .orElse(null)
         );
+
         return result;
 
     }
@@ -41,6 +46,7 @@ public class ProductDaoImpl implements ProductDao {
                     .map(new ProductRowMapper())
                     .list()
         );
+
         return result;
     }
 
@@ -58,6 +64,89 @@ public class ProductDaoImpl implements ProductDao {
             handle.createQuery(sql)
                     .bind("categoryId", categoryId)
                     .map(new ProductRowMapper())
+                    .list()
+        );
+
+        return result;
+    }
+
+    @Override
+    public List<ProductImage> findAllImagesByProductId(int productId) {
+        String sql = """
+                SELECT id, idProduct, image
+                FROM product_images
+                WHERE idProduct = :productId
+                """;
+
+        List<ProductImage> result;
+        result = JdbiConnect.getJdbi().withHandle(handle ->
+            handle.createQuery(sql)
+                    .bind("productId", productId)
+                    .mapToBean(ProductImage.class)
+                    .list()
+        );
+
+        return result;
+    }
+
+    @Override
+    public List<ProductDetail> findAllDetailsByProductId(int productId) {
+        String sql = """
+                SELECT id, idProduct, `key`, `value`
+                FROM product_details
+                WHERE idProduct = :productId
+                """;
+
+        List<ProductDetail> result;
+        result = JdbiConnect.getJdbi().withHandle(handle ->
+            handle.createQuery(sql)
+                    .bind("productId", productId)
+                    .mapToBean(ProductDetail.class)
+                    .list()
+        );
+
+        return result;
+    }
+
+    @Override
+    public List<ProductOption> findAllOptionsByProductId(int productId, int group) {
+        String sql = """
+                SELECT
+                  po.id, po.`group`, po.`key`, po.`value`,
+                  po.idImage, pi.image,
+                  po.idProduct, p.`name`
+                FROM products p
+                JOIN product_options po ON p.id = po.idProduct
+                JOIN product_images pi ON po.idImage = pi.id
+                WHERE p.id = :productId AND po.`group` = :group
+                """;
+
+        List<ProductOption> result;
+        result = JdbiConnect.getJdbi().withHandle(handle ->
+            handle.createQuery(sql)
+                    .bind("productId", productId)
+                    .bind("group", group)
+                    .mapToBean(ProductOption.class)
+                    .list()
+        );
+
+        return result;
+    }
+
+    @Override
+    public List<ProductVariant> findAllVariantsByProductId(int productId) {
+        String sql = """
+                SELECT
+                  id, idProduct, sku, idOption1, idOption2, stock
+                FROM product_variants
+                WHERE idProduct = :productId
+                """;
+
+        List<ProductVariant> result;
+        result = JdbiConnect.getJdbi().withHandle(handle ->
+            handle.createQuery(sql)
+                    .bind("productId", productId)
+                    .mapToBean(ProductVariant.class)
                     .list()
         );
 

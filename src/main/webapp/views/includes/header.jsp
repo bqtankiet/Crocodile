@@ -156,7 +156,7 @@
                         </li>
                         <li class="nav-item position-relative dropdown">
                             <a href="#"
-                               class="nav-link products-page ${param.activePage == 'product-list'? 'active' : ''}">
+                               class="nav-link products-page ${param.activePage == 'products'? 'active' : ''}">
                                 <div class="dropdown-toggle" data-bs-toggle="dropdown">Sản phẩm</div>
                             </a>
                             <ul class="dropdown-menu position-absolute rounded-0 custom-bg-primary-darker shadow-lg">
@@ -205,8 +205,8 @@
                                     Trang chủ
                                 </a>
                             </li>
-                            <li class="nav-item position-relative dropdown">
-                                <a href="#" class="nav-link products-page">
+                            <li class="nav-item position-relative dropdown ">
+                                <a href="#" class="nav-link products-page ${param.activePage == 'products'? 'active' : ''}">
                                     <div class="dropdown-toggle" data-bs-toggle="dropdown">Sản phẩm</div>
                                 </a>
                                 <ul class="dropdown-menu position-absolute rounded-0 custom-bg-primary-darker shadow-lg">
