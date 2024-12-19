@@ -57,27 +57,29 @@
     <!-- Data table -->
 </head>
 <body>
-<div class="layout-wrapper layout-content-navbar">
-    <div class="layout-container">
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+            <!-- Sidebar -->
+            <jsp:include page="/admin/views/includes/sidebar.jsp">
+                <jsp:param name="activePage" value="category"/>
+            </jsp:include>
+            <!-- / Sidebar -->
 
-        <!-- Sidebar -->
-        <jsp:include page="/admin/views/includes/sidebar.jsp">
-            <jsp:param name="activePage" value="category"/>
-        </jsp:include>
-        <!-- / Sidebar -->
-        <div class="layout-page">
+            <div class="layout-page">
+                <!-- Header -->
+                <jsp:include page="/admin/views/includes/header.jsp" />
+                <!-- / Header -->
 
-            <!-- Header -->
-            <jsp:include page="/admin/views/includes/header.jsp" />
-            <!-- / Header -->
-
-            <!-- Content -->
-            <jsp:include page="/admin/views/contents/category-content.jsp"/>
-            <!-- / Content -->
+                <!-- Content -->
+                <jsp:include page="/admin/views/contents/category-content.jsp"/>
+                <!-- / Content -->
+            </div>
         </div>
 
     </div>
 
-</div>
+    <script src="<c:url value="/admin/assets/vendor/js/bootstrap.js"/>"></script>
+    <script src="<c:url value="/admin/assets/vendor/js/menu.js"/>"></script>
+    <script src="<c:url value="/admin/assets/js/main.js"/>"></script>
 </body>
 </html>

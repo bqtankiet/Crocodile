@@ -18,4 +18,39 @@ public class CategoryDaoImpl implements CategoryDao {
         );
         return results;
     }
+
+    // ------------------------ Begin admin method ------------------------
+    @Override
+    public List<Category> getAllCategoryAdmin() {
+        String sql = "SELECT * FROM categories";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(sql)
+                        .mapToBean(Category.class)
+                        .list()
+        );
+    }
+
+    @Override
+    public void updateCategory(Category category) {
+
+    }
+
+    @Override
+    public void insertCategory(Category category) {
+
+    }
+
+    @Override
+    public void deleteCategory(int id) {
+        String sql = "DELETE FROM categories WHERE id = :id";
+
+        JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createUpdate(sql)
+                        .bind("id", id)
+                        .execute()
+        );
+    }
+
+
+    // ------------------------ End admin method ------------------------
 }

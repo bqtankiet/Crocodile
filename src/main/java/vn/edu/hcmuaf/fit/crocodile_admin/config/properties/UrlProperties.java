@@ -13,4 +13,6 @@ public class UrlProperties extends ApplicationProperties {
     public static String order() { return getProperty("admin.order"); }
 
     public static String user() { return getProperty("admin.user"); }
+
+    public static String delCate() { return getProperty("admin.delete.category"); }
 }
