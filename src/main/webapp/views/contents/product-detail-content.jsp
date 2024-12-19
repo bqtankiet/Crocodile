@@ -24,7 +24,8 @@
             <div class="col-6">
                 <div class="col-12">
                     <div id="gallery-main" class="product_gallery_template"
-                         data-owl-main='{"items": 1, "dots": false}' data-owl-thumb='{"items": 4, "margin": 10}'>
+                         data-owl-main='{"items": 1, "dots": false, "startPosition": "URLHash"}'
+                         data-owl-thumb='{"items": 4, "margin": 10, "dots": false}'>
                         <%-- TODO: Hiển thị hình ảnh bìa của sản phẩm (data-hash = 0)--%>
                         <div class="item" data-hash="0">
                             <img src="${requestScope.product.image}" alt="">

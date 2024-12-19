@@ -1,5 +1,4 @@
 const linkHTML = "/crocodile/components/product_gallery/product_gallery.html";
-
 $(document).ready(function () {
     const $templates = $('.product_gallery_template');
     $templates.each(function () {
@@ -13,8 +12,10 @@ $(document).ready(function () {
                 $template.find(".main-carousel").html(items);
             }
             if (owlThumbnail) {
-                $template.find(".thumbnail-carousel").removeClass("d-none");
-                $template.find(".thumbnail-carousel").html(items);
+                const $thumbnailCarousel = $template.find('.thumbnail-carousel');
+                $thumbnailCarousel.removeClass("d-none");
+                $thumbnailCarousel.html(items);
+                $thumbnailCarousel.find('.item').removeAttr('data-hash');
             }
 
             createOwlCarousel($template, owlMain, owlThumbnail);
@@ -22,7 +23,7 @@ $(document).ready(function () {
     });
 });
 
-function createOwlCarousel($template, owlMain, owlThumbnail){
+function createOwlCarousel($template, owlMain, owlThumbnail) {
     // Khởi tạo carousel cho hình ảnh lớn
     const mainCarousel = $template.find('.main-carousel').owlCarousel(owlMain);
 
@@ -30,15 +31,15 @@ function createOwlCarousel($template, owlMain, owlThumbnail){
     const thumbnailCarousel = $template.find('.thumbnail-carousel').owlCarousel(owlThumbnail);
 
     // Sự kiện khi nhấp vào thumbnail để đồng bộ với main-carousel
-    thumbnailCarousel.find('.item').click(function () {
-        var index = $(this).parent().index(); // Lấy chỉ số của thumbnail
+    thumbnailCarousel.on('click', '.owl-item', function () {
+        let index = $(this).index();
         mainCarousel.trigger('to.owl.carousel', [index, 500]); // Chuyển main-carousel đến ảnh tương ứng
+        console.log('thumbnail on click - item index:', index);
     });
 
     // Đồng bộ thumbnail khi main-carousel thay đổi
     mainCarousel.on('changed.owl.carousel', function (event) {
-        var currentIndex = event.item.index;
-
+        let currentIndex = event.item.index;
         // Đánh dấu ảnh thumbnail tương ứng
         thumbnailCarousel.find(".owl-item").removeClass("current-thumbnail");
         thumbnailCarousel.find(".owl-item").eq(currentIndex).addClass("current-thumbnail");
