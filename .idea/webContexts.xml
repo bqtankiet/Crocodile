@@ -3,7 +3,13 @@
   <component name="WebContextManager">
     <option name="state">
       <map>
+<<<<<<< HEAD
         <entry key="file://$PROJECT_DIR$/src/main/webapp/views/contents/home-content.jsp" value="file://$PROJECT_DIR$/src/main/webapp/views/contents" />
+=======
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/views/contents/account-content.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin/views/contents" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/views/includes/account.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin/views/includes" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/views/includes/sidebar.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin/views/includes" />
+>>>>>>> mkhoi
       </map>
     </option>
   </component>

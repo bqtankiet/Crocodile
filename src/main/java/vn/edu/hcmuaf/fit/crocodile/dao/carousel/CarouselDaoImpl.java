@@ -5,6 +5,7 @@ import vn.edu.hcmuaf.fit.crocodile.model.entity.Carousel;
 
 import java.util.List;
 
+
 public class CarouselDaoImpl implements CarouselDao {
 
     @Override
