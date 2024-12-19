@@ -1,7 +1,8 @@
+<%@ page import="vn.edu.hcmuaf.fit.crocodile.config.properties.UrlProperties" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<c:url var="homeUrl" value="${applicationScope.url['url.home']}"/>
+<c:url var="homeUrl" value="<%= UrlProperties.home() %>"/>
 <!-- HTML -->
 <footer class="custom-bg-primary pb-5">
     <!--Style-->

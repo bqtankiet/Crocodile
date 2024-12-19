@@ -1,10 +1,15 @@
+<%@ page import="vn.edu.hcmuaf.fit.crocodile.config.properties.UrlProperties" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<c:url var="homeUrl" value="${applicationScope.url['url.home']}"/>
-<c:url var="contactUrl" value="${applicationScope.url['url.contact']}"/>
-<c:url var="aboutUrl" value="${applicationScope.url['url.about']}"/>
+<c:url var="homeUrl" value="<%= UrlProperties.home() %>"/>
+<c:url var="contactUrl" value="<%= UrlProperties.contact() %>"/>
+<c:url var="aboutUrl" value="<%= UrlProperties.about() %>"/>
 
+<c:set var="activeHome" value="home"/>
+<c:set var="activeAbout" value="about"/>
+<c:set var="activeContact" value="contact"/>
+<c:set var="activeProducts" value="products"/>
 <!--HTML-->
 <header class="header position-relative">
     <!--Style-->
@@ -82,9 +87,7 @@
     <!--  Search bar and other -->
     <div class="container-xl my-4">
         <div class="row align-items-center justify-content-center mx-auto col-11 col-lg-12">
-            <a class="h1 text-decoration-none col-3 order-lg-0"
-                    <c:url var="url" value="${applicationScope.url['url.home']}"/>
-               href="${url}">
+            <a class="h1 text-decoration-none col-3 order-lg-0" href="${homeUrl}">
                 <img src="https://www.crocodileinternational.com/img/crocodile-logo-1609222037.jpg" alt="Logo"
                      style="width: 15rem">
             </a>
@@ -150,33 +153,34 @@
                 <div class="d-flex flex-grow-1 justify-content-between">
                     <ul class="navbar-nav flex-grow-1 d-flex flex-row justify-content-center align-items-center gap-5 text-capitalize">
                         <li class="nav-item">
-                            <a href="${homeUrl}" class="nav-link home-page ${param.activePage == 'home'? 'active' : ''}">
+                            <a href="${homeUrl}"
+                               class="nav-link home-page ${param.activePage == activeHome ? 'active' : ''}">
                                 Trang chủ
                             </a>
                         </li>
                         <li class="nav-item position-relative dropdown">
                             <a href="#"
-                               class="nav-link products-page ${param.activePage == 'products'? 'active' : ''}">
+                               class="nav-link products-page ${param.activePage == activeProducts ? 'active' : ''}">
                                 <div class="dropdown-toggle" data-bs-toggle="dropdown">Sản phẩm</div>
                             </a>
                             <ul class="dropdown-menu position-absolute rounded-0 custom-bg-primary-darker shadow-lg">
                                 <c:forEach var="category" items="${applicationScope.categories}">
-                                    <c:url var="categoryUrl" value="${applicationScope.url['url.category']}">
+                                    <c:url var="url_categoryId" value="<%=UrlProperties.category()%>">
                                         <c:param name="id" value="${category.id}"/>
                                     </c:url>
-                                    <li><a class="dropdown-item" href="${categoryUrl}">${category.name}</a></li>
+                                    <li><a class="dropdown-item" href="${url_categoryId}">${category.name}</a></li>
                                 </c:forEach>
                             </ul>
                         </li>
                         <li class="nav-item">
                             <a href="${contactUrl}"
-                               class="nav-link contact-page ${param.activePage == 'contact'? 'active' : ''}">
+                               class="nav-link contact-page ${param.activePage == activeContact ? 'active' : ''}">
                                 Liên hệ
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="${aboutUrl}"
-                               class="nav-link about-page ${param.activePage == 'about'? 'active' : ''}">
+                               class="nav-link about-page ${param.activePage == activeAbout ? 'active' : ''}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-info-circle" viewBox="0 0 16 16">
                                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path>
@@ -201,30 +205,33 @@
                         <ul class="navbar-nav flex-grow-1 d-flex flex-row justify-content-center align-items-center gap-5 text-capitalize">
                             <li class="nav-item">
                                 <a href="${homeUrl}"
-                                   class="nav-link home-page ${param.activePage == 'home'? 'active' : ''}">
+                                   class="nav-link home-page ${param.activePage == activeHome ? 'active' : ''}">
                                     Trang chủ
                                 </a>
                             </li>
                             <li class="nav-item position-relative dropdown ">
-                                <a href="#" class="nav-link products-page ${param.activePage == 'products'? 'active' : ''}">
+                                <a href="#"
+                                   class="nav-link products-page ${param.activePage == activeProducts ? 'active' : ''}">
                                     <div class="dropdown-toggle" data-bs-toggle="dropdown">Sản phẩm</div>
                                 </a>
                                 <ul class="dropdown-menu position-absolute rounded-0 custom-bg-primary-darker shadow-lg">
                                     <c:forEach var="category" items="${applicationScope.categories}">
-                                        <c:url var="categoryUrl" value="${applicationScope.url['url.category']}">
+                                        <c:url var="url_categoryId" value="<%=UrlProperties.category()%>">
                                             <c:param name="id" value="${category.id}"/>
                                         </c:url>
-                                        <li><a class="dropdown-item" href="${categoryUrl}">${category.name}</a></li>
+                                        <li><a class="dropdown-item" href="${url_categoryId}">${category.name}</a></li>
                                     </c:forEach>
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a href="${contactUrl}" class="nav-link contact-page ${param.activePage == 'contact'? 'active' : ''}">
+                                <a href="${contactUrl}"
+                                   class="nav-link contact-page ${param.activePage == activeContact ? 'active' : ''}">
                                     Liên hệ
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="${aboutUrl}" class="nav-link about-page ${param.activePage == 'about'? 'active' : ''}">
+                                <a href="${aboutUrl}"
+                                   class="nav-link about-page ${param.activePage == activeAbout ? 'active' : ''}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                          class="bi bi-info-circle" viewBox="0 0 16 16">
                                         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path>

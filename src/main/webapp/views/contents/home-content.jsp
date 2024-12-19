@@ -1,6 +1,8 @@
+<%@ page import="vn.edu.hcmuaf.fit.crocodile.config.properties.UrlProperties" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <div id="home-content">
     <style>
         #my-carousel .carousel-item img {
@@ -128,10 +130,10 @@
                 <div class="menu-box d-flex justify-content-center flex-wrap py-3 gap-2">
                     <c:forEach var="category" items="${applicationScope.categories}">
                         <div class="item_menu">
-                            <c:url var="categoryUrl" value="${applicationScope.url['url.category']}">
+                            <c:url var="url_categoryId" value="<%=UrlProperties.category()%>">
                                 <c:param name="id" value="${category.id}"/>
                             </c:url>
-                            <a href="${categoryUrl}">
+                            <a href="${url_categoryId}">
                                 <img src="<c:url value="${category.image}"/>" alt="img">
                                 <p class="pt-1">${category.name}</p>
                             </a>

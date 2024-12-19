@@ -1,16 +1,22 @@
+<%@ page import="vn.edu.hcmuaf.fit.crocodile.config.properties.UrlProperties" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <fmt:setLocale value="vi_VN"/>
 
+<c:url var="url_home" value="<%= UrlProperties.home()%>"/>
+<c:url var="url_categoryId" value="<%= UrlProperties.category()%>">
+    <c:param name="id" value="${requestScope.product.category.id}"/>
+</c:url>
+
 <div id="CONTENT">
     <!-------------------- Breadcrumb -------------------->
     <div class="container">
         <nav style="--bs-breadcrumb-divider: '>'">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="home.html">Trang Chủ</a></li>
-                <li class="breadcrumb-item"><a href="products.html">${requestScope.product.category.name}</a></li>
+                <li class="breadcrumb-item"><a href="${url_home}">Trang Chủ</a></li>
+                <li class="breadcrumb-item"><a href="${url_categoryId}">${requestScope.product.category.name}</a></li>
                 <li class="breadcrumb-item active" aria-current="page">${requestScope.product.name}</li>
             </ol>
         </nav>
@@ -23,6 +29,7 @@
             <%-- Prodct Gallery --%>
             <div class="col-6">
                 <div class="col-12">
+                    <%-- template product_gallery_template.js --%>
                     <div id="gallery-main" class="product_gallery_template"
                          data-owl-main='{"items": 1, "dots": false, "startPosition": "URLHash"}'
                          data-owl-thumb='{"items": 4, "margin": 10, "dots": false}'>
@@ -50,7 +57,7 @@
                             <fmt:formatNumber value="${requestScope.product.price}" type="currency" currencySymbol="₫"
                                               groupingUsed="true"/>
                         </span>
-                        <%-- TODO--%>
+                        <%-- TODO Giá tiền chưa giảm của sản phẩm --%>
                         <%-- <span class="fs-5 text-decoration-line-through text-secondary">1,500,000<sup>₫</sup></span>--%>
                     </div>
                     <div class="lh-lg mt-4 ps-4">
@@ -93,7 +100,7 @@
                         <div class="d-flex gap-2 row">
                             <p class="fw-semibold col-2 my-auto">Số lượng</p>
                             <div class="col-3">
-                                <div class="quantity-control input-group" data-min="1" data-max="200">
+                                <div class="quantity-control input-group" data-min="1" data-max="1000">
                                     <button type="button" class="decrement btn custom-btn-primary">-</button>
                                     <input id="user-input-quantity" type="number" name="quantity"
                                            class="quantity-input form-control text-center" aria-label="quantity">
@@ -207,25 +214,28 @@
     </div>
 
     <script>
+        // Danh sách các variants lấy từ servlet ở dạng Json
         const productVariants = JSON.parse('${requestScope.productVariantsJson}');
 
+        // Nếu chỉ có 1 variant thì hiển thị số lượng luôn. Không cần đợi chọn các options
         if (productVariants.length === 1) {
             updateProductStock()
         }
-        // console.log(productVariants)
 
         function updateProductStock() {
+            // 2 radio input để lấy thông tin option
             let idOption1 = parseInt($('input[type=radio][name=idOption1]:checked').val() || 0);
             let idOption2 = parseInt($('input[type=radio][name=idOption2]:checked').val() || 0);
 
+            // thẻ hiển thị số lượng sản phẩm
             const $productStock = $('#product-stock');
 
+            // tìm kiếm variant dựa trên 2 option
             const matchedVariant = productVariants.find(
                 pv => pv.idOption1 === idOption1 && pv.idOption2 === idOption2
             );
 
-            // console.log(matchedVariant)
-
+            // Cập nhật hiển thị số lượng sản phẩm
             if (matchedVariant) {
                 $productStock.text(matchedVariant.stock + " sản phẩm có sẵn");
             } else {
@@ -233,6 +243,7 @@
             }
         }
 
+        // Thêm idVariant và quantity khi submit form đặt hàng
         function handleOnSubmitProductForm() {
             let idOption1 = parseInt($('input[type=radio][name=idOption1]:checked').val() || 0);
             let idOption2 = parseInt($('input[type=radio][name=idOption2]:checked').val() || 0);
@@ -244,24 +255,24 @@
             const quantity = $('#user-input-quantity').val();
             const idVariant = matchedVariant.id;
 
-            const $form = $('#product-form');
             $('#submit-idVariant').val(idVariant);
             $('#submit-quantity').val(quantity);
         }
 
+        // Xử lý gửi đến link buy now
         function handleSubmitBuyNow() {
             const $form = $('#product-form');
             $form.attr('method', 'GET');
-            $form.attr('action', '/payment-detail');
+            $form.attr('action', '<c:url value="<%=UrlProperties.checkout()%>"/>');
             $form.submit();
         }
 
+        // Xử lý gửi đến link add to cart
         function handleSubmitAddToCart() {
             const $form = $('#product-form');
             $form.attr('method', 'GET');
-            $form.attr('action', '/add-to-cart');
+            $form.attr('action', '<c:url value="<%=UrlProperties.addToCart()%>"/>');
             $form.submit();
         }
-
     </script>
 </div>

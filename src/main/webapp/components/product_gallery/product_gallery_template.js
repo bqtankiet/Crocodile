@@ -1,25 +1,25 @@
-const linkHTML = "/crocodile/components/product_gallery/product_gallery.html";
 $(document).ready(function () {
     const $templates = $('.product_gallery_template');
     $templates.each(function () {
         const $template = $(this);
         const items = $template.html();
-        $template.load(linkHTML, function () {
-            const owlMain = $template.data('owl-main');
-            const owlThumbnail = $template.data('owl-thumb');
 
-            if (owlMain) {
-                $template.find(".main-carousel").html(items);
-            }
-            if (owlThumbnail) {
-                const $thumbnailCarousel = $template.find('.thumbnail-carousel');
-                $thumbnailCarousel.removeClass("d-none");
-                $thumbnailCarousel.html(items);
-                $thumbnailCarousel.find('.item').removeAttr('data-hash');
-            }
+        $template.html(getTemplateHtml());
 
-            createOwlCarousel($template, owlMain, owlThumbnail);
-        });
+        const owlMain = $template.data('owl-main');
+        const owlThumbnail = $template.data('owl-thumb');
+
+        if (owlMain) {
+            $template.find(".main-carousel").html(items);
+        }
+        if (owlThumbnail) {
+            const $thumbnailCarousel = $template.find('.thumbnail-carousel');
+            $thumbnailCarousel.removeClass("d-none");
+            $thumbnailCarousel.html(items);
+            $thumbnailCarousel.find('.item').removeAttr('data-hash');
+        }
+
+        createOwlCarousel($template, owlMain, owlThumbnail);
     });
 });
 
@@ -34,7 +34,6 @@ function createOwlCarousel($template, owlMain, owlThumbnail) {
     thumbnailCarousel.on('click', '.owl-item', function () {
         let index = $(this).index();
         mainCarousel.trigger('to.owl.carousel', [index, 500]); // Chuyển main-carousel đến ảnh tương ứng
-        console.log('thumbnail on click - item index:', index);
     });
 
     // Đồng bộ thumbnail khi main-carousel thay đổi
@@ -55,4 +54,23 @@ function createOwlCarousel($template, owlMain, owlThumbnail) {
     $template.find('.owl-next').click(function () {
         mainCarousel.trigger('next.owl.carousel');
     });
+}
+
+function getTemplateHtml() {
+    return `
+        <div class="product-gallery">
+            <!-- Carousel cho hình ảnh lớn -->
+            <div class="position-relative">
+                <button class="owl-prev z-3">❮</button>
+                <div class="owl-carousel main-carousel mb-2">
+                <!-- items -->
+                </div>
+                <button class="owl-next z-3">❯</button>
+            </div>
+            <!-- Carousel cho hình ảnh thumbnail -->
+            <div class="owl-carousel thumbnail-carousel d-none">
+                <!-- items -->
+            </div>
+        </div>
+    `;
 }

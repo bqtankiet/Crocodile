@@ -18,4 +18,8 @@ public class UrlProperties extends ApplicationProperties{
         return getProperty("url.category");
     }
 
+    public static String addToCart() {return getProperty("url.addToCart");}
+
+    public static String checkout() {return getProperty("url.checkout");}
+
 }
