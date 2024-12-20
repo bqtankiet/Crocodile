@@ -1,8 +1,9 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!-- Content wrapper -->
 <div class="content-wrapper">
-    <div class="container-xxl flex-grow-1 container-p-y">
+    <div class="container-xxl flex-grow-1 container-p-y pb-5">
         <h4 class="fw-bold py-3 mb-4">Thêm sản phẩm mới</h4>
 
         <!-- --------------------------------Bảng thêm sản phẩm------------------------------- -->
@@ -209,104 +210,149 @@
             <form action="" class="card-body needs-validation mx-4">
                 <!-- Giá sản phẩm  -->
                 <div class="mb-3 row">
-                    <label for="product-price" class="col-md-2 col-form-label">Giá bán</label>
+                    <label for="product-price" class="col-md-1 col-form-label">Giá bán</label>
                     <div class="col-md-3">
                         <input class="form-control" type="number" id="product-price" name="price"/>
                     </div>
-                </div>
-
-                <!-- Sản phẩm KHÔNG CÓ phân loại -->
-                <div>
-                    <!-- Kho hàng  -->
-                    <div class="mb-3 row">
-                        <label for="product-quantity" class="col-md-2 col-form-label">Số lượng kho</label>
-                        <div class="col-md-3">
-                            <input class="form-control" type="number" id="product-quantity" name="stock"/>
-                        </div>
-                    </div>
-
-                    <!-- Mã SKU  -->
-                    <div class="mb-3 row">
-                        <label for="???" class="col-md-2 col-form-label">Mã SKU</label>
-                        <div class="col-md-3">
-                            <input class="form-control" type="number" id="???" name="???" aria-label=""/>
-                        </div>
+                    <div class="col d-flex align-items-center">
+                        <p class="text-danger my-0">(Giá bán áp dụng chung cho các phân loại)</p>
                     </div>
                 </div>
 
-                <!-- Sản phẩm CÓ phân loại -->
-                <div>
-                    <div class="mb-3 row align-items-stretch">
-                        <!-- phan loai 1 -->
-                        <div id="option-group-type1" class="col-6">
-                            <label class="col">Phân loại 1 </label>
-                            <div class="p-3 h-100" style="background-color: #e8e8e8">
-                                <input type="text" aria-label="" placeholder="Tên phân loại" class="form-control" name="option-group">
-                                <hr>
-                                <div class="[ options-container ] d-flex flex-wrap mt-2"
-                                     style="column-gap: 2rem; row-gap: 1rem">
-                                    <div class="[ option ] d-flex align-items-center w-100">
-                                        <input class="[ option-value ] form-control" type="text" aria-label="" name=""
-                                               placeholder="Nhập phân loại">
-                                        <div class="[ upload-image ] ms-2 d-flex">
-                                            <input class="option-img form-control d-none " type="file"
-                                                   accept="image/jpeg, image/jpg, image/png" name=""/>
-                                            <label class="cursor-pointer">
+                <!--Tab pane -->
+                <div class="border border-1">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist" style="background-color: #eceef1;">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#pane-product-simple" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">
+                                Đăng bán 1 sản phẩm
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#pane-product-variants" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">
+                                Đăng bán theo phân loại
+                            </button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="pane-product-simple" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                            <!-- Sản phẩm KHÔNG CÓ phân loại -->
+                            <div>
+                                <!-- Kho hàng  -->
+                                <div class="mb-3 row">
+                                    <label for="product-quantity" class="col-md-2 col-form-label">Số lượng kho</label>
+                                    <div class="col-md-3">
+                                        <input class="form-control" type="number" id="product-quantity" name="stock"/>
+                                    </div>
+                                </div>
+
+                                <!-- Mã SKU  -->
+                                <div class="mb-3 row">
+                                    <label for="???" class="col-md-2 col-form-label">Mã SKU</label>
+                                    <div class="col-md-3">
+                                        <input class="form-control" type="number" id="???" name="???" aria-label=""/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pane-product-variants" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                            <!-- Sản phẩm CÓ phân loại -->
+                            <div>
+                                <div class="mb-3 row align-items-stretch">
+                                    <!-- phan loai 1 -->
+                                    <div id="option-group-type1" class="col-6">
+                                        <label class="col">Phân loại 1 <span class="small">(Có thể đính kèm hình ảnh)</span></label>
+                                        <div class="p-3 h-100" style="background-color: #e8e8e8">
+                                            <input type="text" class="[ option-key ] form-control" aria-label="" placeholder="Tên phân loại" name="option-key">
+                                            <hr>
+                                            <div class="[ options-container ] d-flex flex-wrap mt-2"
+                                                 style="column-gap: 2rem; row-gap: 1rem">
+                                                <div class="[ option ] d-flex align-items-center w-100">
+                                                    <input class="[ option-value ] form-control" type="text" aria-label="" name="option-value" placeholder="Nhập phân loại">
+                                                    <div class="[ upload-image ] ms-2 d-flex">
+                                                        <input class="option-img form-control d-none " type="file"
+                                                               accept="image/jpeg, image/jpg, image/png" name=""/>
+                                                        <label class="cursor-pointer">
                                             <span class="position-relative">
                                                 <img src="" alt="" class="[ upload-image-preview ] d-block"
                                                      style="width: 2rem; height: 2rem; object-fit: cover">
                                                 <span class="[ add-img-icon ] fs-2 position-absolute translate-middle top-50 start-50">+</span>
                                             </span>
-                                            </label>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- phan loai 2 -->
+                                    <div id="option-group-type2" class="col-6">
+                                        <label class="col">Phân loại 2 </label>
+                                        <div class="p-3 h-100" style="background-color: #e8e8e8">
+                                            <input type="text" class="[ option-key ] form-control" aria-label="" placeholder="Tên phân loại" name="option-key">
+                                            <hr>
+                                            <div class="[ options-container ] d-flex flex-wrap mt-2"
+                                                 style="column-gap: 2rem; row-gap: 1rem">
+                                                <div class="[ option ] d-flex align-items-center w-100">
+                                                    <input class="[ option-value ] form-control" type="text" aria-label="" name="option-value" placeholder="Nhập phân loại">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <!-- phan loai 2 -->
-                        <div id="option-group-type2" class="col-6">
-                            <label class="col">Phân loại 2 </label>
-                            <div class="p-3 h-100" style="background-color: #e8e8e8">
-                                <input type="text" aria-label="" placeholder="Tên phân loại" class="form-control"
-                                       name="option-group">
-                                <hr>
-                                <div class="[ options-container ] d-flex flex-wrap mt-2"
-                                     style="column-gap: 2rem; row-gap: 1rem">
-                                    <div class="[ option ] d-flex align-items-center w-100">
-                                        <input class="[ option-value ] form-control" type="text" aria-label="" name="" placeholder="Nhập phân loại">
-                                    </div>
-                                </div>
+                            <div class="pt-5">
+                                <table id="variants-table">
+                                    <style>
+                                        table {
+                                            width: 100%;
+                                            border-collapse: collapse;
+                                        }
+                                        th, td {
+                                            border: 1px solid #ddd;
+                                            text-align: center;
+                                            padding: 0.7rem 2rem;
+                                            vertical-align: middle;
+                                        }
+                                        th {
+                                            background-color: #f8f9fa;
+                                            font-weight: bold;
+                                        }
+                                    </style>
+                                    <thead>
+                                    <tr>
+                                        <th>Phân loại 1</th>
+                                        <th>Phân loại 2</th>
+                                        <th>Kho hàng</th>
+                                        <th>SKU phân loại</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="99">
+                                                Chưa có dữ liệu
+                                            </td>
+                                        </tr>
+<%--                                    <tr>--%>
+<%--                                        <td rowspan="3">Xanh</td>--%>
+<%--                                        <td>S</td>--%>
+<%--                                        <td><input type="number" class="form-control" aria-label=""></td>--%>
+<%--                                        <td><input type="text" class="form-control" aria-label=""></td>--%>
+<%--                                    </tr>--%>
+<%--                                    <tr>--%>
+<%--                                        <td>M</td>--%>
+<%--                                        <td><input type="number" class="form-control" aria-label=""></td>--%>
+<%--                                        <td><input type="text" class="form-control" aria-label=""></td>--%>
+<%--                                    </tr>--%>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!--Test-->
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Home</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Profile</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Contact</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="disabled-tab" data-bs-toggle="tab" data-bs-target="#disabled-tab-pane" type="button" role="tab" aria-controls="disabled-tab-pane" aria-selected="false" disabled>Disabled</button>
-                    </li>
-                </ul>
-                <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">...</div>
-                    <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">...</div>
-                    <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">...</div>
-                    <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">...</div>
-                </div>
             </form>
         </div>
 
-        <div class="btn-box d-flex justify-content-center gap-3">
+        <div class="btn-box d-flex justify-content-center gap-3 my-5">
             <!-- nút lưu-->
             <button class="btn btn-success" type="submit">Lưu</button>
 
@@ -366,14 +412,26 @@
                     $optionContainer.append(getOptionHtmlTemplate(withImage));
                 }
             });
+
+            // Cập nhật variants-table khi có thay đổi
+            $('#option-group-type1, #option-group-type2').on('change', function(){
+                const optionGroup1 = createOptionGroupObject($('#option-group-type1'));
+                const optionGroup2 = createOptionGroupObject($('#option-group-type2'));
+
+                console.log("type1", optionGroup1); //Test
+                console.log("type2", optionGroup2); //Test
+
+                updateVariantsTable($('#variants-table'), optionGroup1, optionGroup2);
+            });
         });
 
+        // Hàm trả về template HTML cho phần tử option
         function getOptionHtmlTemplate(withImage) {
             let html;
             if (withImage) {
                 html = `
                     <div class="[ option ] d-flex align-items-center w-100">
-                        <input class="[ option-value ] form-control" type="text" aria-label="" name="" placeholder="Nhập phân loại">
+                        <input class="[ option-value ] form-control" type="text" aria-label="" name="option-value" placeholder="Nhập phân loại">
                         <div class="[ upload-image ] ms-2 d-flex">
                             <input class="option-img form-control d-none " type="file" accept="image/jpeg, image/jpg, image/png" name=""/>
                             <label class="cursor-pointer">
@@ -388,12 +446,78 @@
             } else {
                 html = `
                     <div class="[ option ] d-flex align-items-center w-100">
-                        <input class="[ option-value ] form-control" type="text" aria-label="" name="" placeholder="Nhập phân loại">
+                        <input class="[ option-value ] form-control" type="text" aria-label="" name="option-value" placeholder="Nhập phân loại">
                     </div>
                 `;
             }
             return html;
         }
+
+        // Hàm cập nhật hiển thị variants-table
+        function updateVariantsTable($table, optionGroup1, optionGroup2) {
+
+            //-----------------Cập nhật tiêu đề bảng------------------//
+            const key1 = optionGroup1.key || "Phân loại 1";
+            const key2 = optionGroup2.key || "Phân loại 2";
+            const $tableHead = $table.find('thead');
+            $tableHead.find('th:nth-child(1)').text(key1);
+            $tableHead.find('th:nth-child(2)').text(key2);
+
+            //----------------Cập nhật nội dung bảng---------------------//
+            const $tableBody = $table.find('tbody');
+            const values1 = optionGroup1.values || [];
+            const values2 = optionGroup2.values || [];
+
+            // Nếu không có dữ liệu, hiển thị thông báo
+            if (values1.length === 0) {
+                $tableBody.html(`<tr><td colspan="99">Chưa có dữ liệu hoặc dữ liệu không hợp lệ</td></tr>`);
+                return;
+            }
+
+            // Hàm tạo dòng dữ liệu
+            const createRow = (v1, v2, rowspan = 1, isFirstRow = false) => {
+                const row = $('<tr></tr>');
+                if (isFirstRow) row.append('<td rowspan="'+rowspan+'">'+v1+'</td>');
+                row.append('<td>'+v2+'</td>');
+                row.append('<td><input type="number" class="form-control" aria-label=""></td>');
+                row.append('<td><input type="number" class="form-control" aria-label=""></td>');
+                return row;
+            };
+
+            // Xóa dữ liệu cũ
+            $tableBody.empty();
+
+            // Tạo dữ liệu mới
+            values1.forEach(v1 => {
+                if (values2.length === 0) {
+                    $tableBody.append(createRow(v1, '', 1, true));
+                } else {
+                    values2.forEach((v2, index) => {
+                        const isFirstRow = index === 0;
+                        $tableBody.append(createRow(v1, v2, values2.length, isFirstRow));
+                    });
+                }
+            });
+        }
+
+        // Hàm tạo object optionGroup
+        function createOptionGroupObject($optionGroup){
+            let optionGroupObject = {};
+            const key = $optionGroup.find('input[name = "option-key"]:first').val();
+            const values = [];
+            $optionGroup.find('input[name = "option-value"]').each(function(){
+                const value = $(this).val();
+                if(value) values.push(value);
+            });
+
+            optionGroupObject.key = key || null;
+            optionGroupObject.values = values;
+
+            return optionGroupObject;
+        }
     </script>
+
+    <!--  bootstrap  -->
+    <script src="<c:url value="/public/bootstrap/js/bootstrap.bundle.js"/>"></script>
 </div>
 
