@@ -14,5 +14,5 @@ public class UrlProperties extends ApplicationProperties {
 
     public static String user() { return getProperty("admin.user"); }
 
-    public static String delCate() { return getProperty("admin.delete.category"); }
+    public static String delCate() { return getProperty("admin.category.delete"); }
 }
