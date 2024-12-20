@@ -2,7 +2,7 @@
 .authentication-wrapper {
   display: flex;
   flex-basis: 100%;
-  min-height: 100vh;
+  min-height: 70vh;
   width: 100%;
 }
 .authentication-wrapper .authentication-inner {

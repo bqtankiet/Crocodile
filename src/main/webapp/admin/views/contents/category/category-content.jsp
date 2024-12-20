@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:url var="delCateUrl" value="${applicationScope.urls['admin.category.delete']}"/>
+<c:url var="insCateUrl" value="${applicationScope.urls['admin.category.insert']}" />
 <!-- Content wrapper -->
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
@@ -16,7 +17,11 @@
             <div class="card-body">
 
                 <div class="container">
-                    <h2>Danh sách danh mục</h2>
+                    <h2>Danh sách danh mục
+                        <a href="${insCateUrl}"
+                           class="btn btn-secondary float-end text-white">Thêm
+                        </a>
+                    </h2>
                     <table class="table table-striped table-hover table-bordered mb-3 pt-3"
                            id="categories-table">
                         <thead class="table-primary">
@@ -49,10 +54,13 @@
                                         <div class="dropdown-menu">
                                             <a class="dropdown-item" href="javascript:void(0);"><i
                                                     class="bx bx-edit-alt me-1"></i> Chỉnh sửa</a>
-                                            <a class="dropdown-item" href="${delCateUrl}?cid=${c.id}">
-                                                <i class="bx bx-trash me-1"></i>
-                                                Xóa
-                                            </a>
+                                            <form action="${delCateUrl}" method="POST" style="display: inline;">
+                                                <input type="hidden" name="cid" value="${c.id}">
+                                                <button type="submit" class="dropdown-item" style="">
+                                                    <i class="bx bx-trash me-1"></i>
+                                                    Xóa
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 </td>

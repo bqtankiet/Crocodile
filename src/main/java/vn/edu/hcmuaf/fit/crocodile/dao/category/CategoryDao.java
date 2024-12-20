@@ -11,8 +11,8 @@ public interface CategoryDao {
 
     // ------------------------Admin của e Khoi ------------------------
     List<Category> getAllCategoryAdmin();
-    void updateCategory(Category category);
-    void insertCategory(Category category);
+    void updateCategory(int id, String name, String image, int active);
+    void insertCategory(String name, String image, int active);
     void deleteCategory(int id);
 
     // ------------------------Admin của e Khoi ------------------------

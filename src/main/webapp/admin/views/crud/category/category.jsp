@@ -71,7 +71,7 @@
                 <!-- / Header -->
 
                 <!-- Content -->
-                <jsp:include page="/admin/views/contents/category-content.jsp"/>
+                <jsp:include page="/admin/views/contents/category/category-content.jsp"/>
                 <!-- / Content -->
             </div>
         </div>

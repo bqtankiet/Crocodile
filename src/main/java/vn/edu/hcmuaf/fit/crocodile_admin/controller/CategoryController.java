@@ -14,9 +14,8 @@ public class CategoryController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("categories", categoryService.getAllCategoryAdmin());
-        System.out.println("Hello world");
 
-        request.getRequestDispatcher("/admin/views/category.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/views/crud/category/category.jsp").forward(request, response);
     }
 
     @Override
