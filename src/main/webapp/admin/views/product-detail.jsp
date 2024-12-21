@@ -58,7 +58,7 @@
             <!-- / Header -->
 
             <!-- Content -->
-            <jsp:include page="/admin/views/contents/add-product-content.jsp"/>
+            <jsp:include page="/admin/views/contents/product-detail-content.jsp"/>
             <!-- / Content -->
         </div>
 
