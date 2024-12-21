@@ -19,7 +19,20 @@ public class CategoryDaoImpl implements CategoryDao {
         return results;
     }
 
+
     // ------------------------ Begin admin method ------------------------
+    @Override
+    public Category getCategoryById(int id) {
+        String sql = "SELECT * FROM categories WHERE id= :id";
+        return JdbiConnect.getJdbi().withHandle(handle -> {
+            return handle.createQuery(sql)
+                    .bind("id", id)
+                    .mapToBean(Category.class)
+                    .findOne()
+                    .orElse(null);
+        });
+    }
+
     @Override
     public List<Category> getAllCategoryAdmin() {
         String sql = "SELECT * FROM categories";
@@ -32,7 +45,16 @@ public class CategoryDaoImpl implements CategoryDao {
 
     @Override
     public void updateCategory(int id, String name, String image, int active) {
+        String sql = "UPDATE categories SET name= :name, image= :image, active= :active WHERE id= :id";
 
+        JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createUpdate(sql)
+                        .bind("name", name)
+                        .bind("image", image)
+                        .bind("active", active)
+                        .bind("id", id)
+                        .execute()
+        );
     }
 
     @Override

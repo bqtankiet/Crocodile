@@ -10,6 +10,7 @@ public interface CategoryDao {
 
 
     // ------------------------Admin của e Khoi ------------------------
+    Category getCategoryById(int id);
     List<Category> getAllCategoryAdmin();
     void updateCategory(int id, String name, String image, int active);
     void insertCategory(String name, String image, int active);

@@ -4,6 +4,8 @@
 
 <c:url var="delCateUrl" value="${applicationScope.urls['admin.category.delete']}"/>
 <c:url var="insCateUrl" value="${applicationScope.urls['admin.category.insert']}" />
+<c:url var="updateCateUrl" value="${applicationScope.urls['admin.category.update']}"/>
+
 <!-- Content wrapper -->
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
@@ -52,10 +54,10 @@
                                             <i class="bx bx-dots-vertical-rounded"></i>
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                            <a class="dropdown-item" href="${updateCateUrl}?id=${c.id}"><i
                                                     class="bx bx-edit-alt me-1"></i> Chỉnh sửa</a>
                                             <form action="${delCateUrl}" method="POST" style="display: inline;">
-                                                <input type="hidden" name="cid" value="${c.id}">
+                                                <input type="hidden" name="id" value="${c.id}">
                                                 <button type="submit" class="dropdown-item" style="">
                                                     <i class="bx bx-trash me-1"></i>
                                                     Xóa
