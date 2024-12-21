@@ -20,4 +20,10 @@ public class CategoryService {
         result.forEach(c -> c.setImage(IMAGE_FOLDER +"/"+ c.getImage()));
         return result;
     }
+
+    public List<Category> getAllCategoryAdmin(){
+        List<Category> result = categoryDao.getAllCategoryAdmin();
+        result.forEach(c -> c.setImage(IMAGE_FOLDER +"/"+ c.getImage()));
+        return result;
+    }
 }
