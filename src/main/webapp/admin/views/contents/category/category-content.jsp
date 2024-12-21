@@ -56,13 +56,6 @@
                                         <div class="dropdown-menu">
                                             <a class="dropdown-item" href="${updateCateUrl}?id=${c.id}"><i
                                                     class="bx bx-edit-alt me-1"></i> Chỉnh sửa</a>
-<%--                                            <form action="${delCateUrl}" method="POST" style="display: inline;">--%>
-<%--                                                <input type="hidden" name="id" value="${c.id}">--%>
-<%--                                                <button type="submit" class="dropdown-item" style="">--%>
-<%--                                                    <i class="bx bx-trash me-1"></i>--%>
-<%--                                                    Xóa--%>
-<%--                                                </button>--%>
-<%--                                            </form>--%>
                                             <button class="dropdown-item btn-delete" data-id="${c.id}">
                                                 <i class="bx bx-trash me-1"></i> Xóa
                                             </button>
