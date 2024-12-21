@@ -56,13 +56,16 @@
                                         <div class="dropdown-menu">
                                             <a class="dropdown-item" href="${updateCateUrl}?id=${c.id}"><i
                                                     class="bx bx-edit-alt me-1"></i> Chỉnh sửa</a>
-                                            <form action="${delCateUrl}" method="POST" style="display: inline;">
-                                                <input type="hidden" name="id" value="${c.id}">
-                                                <button type="submit" class="dropdown-item" style="">
-                                                    <i class="bx bx-trash me-1"></i>
-                                                    Xóa
-                                                </button>
-                                            </form>
+<%--                                            <form action="${delCateUrl}" method="POST" style="display: inline;">--%>
+<%--                                                <input type="hidden" name="id" value="${c.id}">--%>
+<%--                                                <button type="submit" class="dropdown-item" style="">--%>
+<%--                                                    <i class="bx bx-trash me-1"></i>--%>
+<%--                                                    Xóa--%>
+<%--                                                </button>--%>
+<%--                                            </form>--%>
+                                            <button class="dropdown-item btn-delete" data-id="${c.id}">
+                                                <i class="bx bx-trash me-1"></i> Xóa
+                                            </button>
                                         </div>
                                     </div>
                                 </td>
@@ -80,3 +83,33 @@
     </div>
     <!-- Content wrapper -->
 </div>
+
+<script>
+    $(document).on('click', '.btn-delete', function (event) {
+        event.preventDefault();
+
+        const deleteButton = $(this);
+        const categoryId = deleteButton.data('id');
+
+        if (confirm("Bạn có chắc chắn muốn xóa danh mục này?")) {
+            $.ajax({
+                url: "${delCateUrl}",
+                type: "POST",
+                data: { id: categoryId },
+                success: function (response) {
+                    alert("Danh mục đã được xóa thành công!");
+                    deleteButton.closest("tr").remove();
+                },
+                error: function (xhr, status, error) {
+                    if (xhr.status === 404) {
+                        alert("Không tìm thấy endpoint /admin/category/delete!");
+                    } else {
+                        alert("Đã xảy ra lỗi khi xóa danh mục. Vui lòng thử lại.");
+                    }
+                    console.error("Error:", error);
+                }
+            });
+        }
+    });
+
+</script>

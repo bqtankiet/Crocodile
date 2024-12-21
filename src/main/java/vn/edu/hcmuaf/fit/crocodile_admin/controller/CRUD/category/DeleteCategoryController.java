@@ -17,16 +17,19 @@ public class DeleteCategoryController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("application/json");
         try {
             int id = Integer.parseInt(request.getParameter("id"));
             CategoryDao dao = new CategoryDaoImpl();
             dao.deleteCategory(id);
-            System.out.println("Delete category with id: " + request.getParameter("id"));
-            response.sendRedirect(request.getContextPath() + "/admin/category");
+            System.out.println("Delete category with id: " + id);
+            response.getWriter().write("{\"status\":\"success\"}");
         } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid category ID.");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write("{\"status\":\"error\", \"message\":\"Invalid category ID.\"}");
         } catch (Exception e) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred.");
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().write("{\"status\":\"error\", \"message\":\"An error occurred.\"}");
         }
     }
 }
