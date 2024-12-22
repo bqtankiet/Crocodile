@@ -18,7 +18,7 @@
     <jsp:param name="activePage" value="about"/>
 </jsp:include>
 <%--CONTENT--%>
-<jsp:include page="contents/login-content.jsp"/>
+<jsp:include page="contents/signup-content.jsp"/>
 <%--FOOTER--%>
 <jsp:include page="includes/footer.jsp"/>
 </body>
