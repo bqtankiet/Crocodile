@@ -36,6 +36,8 @@
     <script src="<c:url value="/public/jquery-3.7.1.min.js"/>"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 
+
+
     <!-- Kích hoạt Data table  -->
     <script>
         $(document).ready(function () {
@@ -78,8 +80,10 @@
 
     </div>
 
+
     <script src="<c:url value="/admin/assets/vendor/js/bootstrap.js"/>"></script>
     <script src="<c:url value="/admin/assets/vendor/js/menu.js"/>"></script>
     <script src="<c:url value="/admin/assets/js/main.js"/>"></script>
 </body>
+
 </html>

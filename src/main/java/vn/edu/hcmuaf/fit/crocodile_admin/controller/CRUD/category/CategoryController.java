@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.crocodile_admin.controller;
+package vn.edu.hcmuaf.fit.crocodile_admin.controller.CRUD.category;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;

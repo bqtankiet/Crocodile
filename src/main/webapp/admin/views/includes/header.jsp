@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<c:url var="accountUrl" value="${applicationScope.urls['admin.account']}"/>
+
 <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
      id="layout-navbar">
     <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
@@ -26,7 +28,7 @@
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                    data-bs-toggle="dropdown" aria-expanded="false">
                     <div class="avatar avatar-online">
-                        <img src="/admin/assets/img/avatars/1.png" alt
+                        <img src="<c:url value="/admin/assets/img/avatars/1.png"/>" alt
                              class="w-px-40 h-auto rounded-circle" />
                     </div>
                 </a>
@@ -36,7 +38,7 @@
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
                                     <div class="avatar avatar-online">
-                                        <img src="/admin/assets/img/avatars/1.png" alt
+                                        <img src="<c:url value="/admin/assets/img/avatars/1.png"/>" alt
                                              class="w-px-40 h-auto rounded-circle" />
                                     </div>
                                 </div>

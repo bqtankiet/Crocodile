@@ -17,7 +17,6 @@
                                         <span class="fs-3 demo text-body fw-bolder">Chỉnh sửa danh mục</span>
                                     </div>
 
-
                                     <form action="${updateCateUrl}" method="post" id="formAuthentication" class="mb-3">
                                         <div class="mb-3">
                                             <label for="id" class="form-label">ID danh mục</label>
