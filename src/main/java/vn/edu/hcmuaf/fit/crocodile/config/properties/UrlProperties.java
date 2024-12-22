@@ -18,4 +18,9 @@ public class UrlProperties extends ApplicationProperties{
         return getProperty("url.category");
     }
 
+    public static String login() {
+        return getProperty("url.login");
+    }
+
+
 }
