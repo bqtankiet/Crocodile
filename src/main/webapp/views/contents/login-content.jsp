@@ -29,7 +29,7 @@
                 <div class="d-flex gap-3 justify-content-between mt-3">
                     <a href="https://www.facebook.com/v21.0/dialog/oauth?
   client_id=1495682341127039
-  &redirect_uri=http://localhost:8080/crocodile/FaceBookLogin" target="_blank"
+  &redirect_uri=http://localhost:8080/crocodile/login" target="_blank"
                        class="d-flex flex-grow-1 align-items-center justify-content-center text-decoration-none border p-2">
                         <div class="custom-icon" style="--size: 2rem">
                             <!-- Icon Facebook -->

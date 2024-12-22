@@ -6,7 +6,7 @@ import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 
-@WebServlet(name = "FacebookLogin", value = "/views/login")
+@WebServlet(name = "FaceBookLogin", urlPatterns = {"/views/login"})
 public class FacebookLogin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
