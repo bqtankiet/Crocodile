@@ -8,6 +8,12 @@ import java.util.List;
 
 public interface ProductDao extends BasicDao<Integer, Product> {
 
+    @Override
+    Product findById(Integer integer);
+
+    @Override
+    List<Product> findAll();
+
     List<Product> findByCategoryId(int categoryId);
 
     List<ProductImage> findAllImagesByProductId(int productId);

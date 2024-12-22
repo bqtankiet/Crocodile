@@ -14,13 +14,26 @@ public class CategoryDaoImpl implements CategoryDao {
 
     @Override
     public List<Category> findAll() {
-        String sql = "SELECT * FROM categories WHERE active=1";
+        String sql = "SELECT * FROM categories";
 
         List<Category> results;
         results = JdbiConnect.getJdbi().withHandle(handle ->
             handle.createQuery(sql)
                     .mapToBean(Category.class)
                     .list()
+        );
+        return results;
+    }
+
+    @Override
+    public List<Category> findAllActive() {
+        String sql = "SELECT * FROM categories WHERE active=1";
+
+        List<Category> results;
+        results = JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(sql)
+                        .mapToBean(Category.class)
+                        .list()
         );
         return results;
     }

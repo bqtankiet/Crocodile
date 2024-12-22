@@ -7,4 +7,12 @@ import java.util.List;
 
 public interface CarouselDao extends BasicDao<Integer, Carousel> {
 
+    @Override
+    Carousel findById(Integer integer);
+
+    @Override
+    List<Carousel> findAll();
+
+    List<Carousel> findAllActive();
+
 }

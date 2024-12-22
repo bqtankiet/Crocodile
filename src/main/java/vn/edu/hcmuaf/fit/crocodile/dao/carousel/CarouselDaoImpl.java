@@ -15,6 +15,19 @@ public class CarouselDaoImpl implements CarouselDao {
 
     @Override
     public List<Carousel> findAll() {
+        String sql = "SELECT * FROM carousels";
+
+        List<Carousel> result;
+        result = JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(sql)
+                        .mapToBean(Carousel.class)
+                        .list()
+        );
+        return result;
+    }
+
+    @Override
+    public List<Carousel> findAllActive() {
         String sql = "SELECT * FROM carousels WHERE active=1";
 
         List<Carousel> result;

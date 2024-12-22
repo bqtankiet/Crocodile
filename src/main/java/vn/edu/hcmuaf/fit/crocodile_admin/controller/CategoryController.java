@@ -13,7 +13,7 @@ public class CategoryController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("categories", categoryService.getAllCategory());
+        request.setAttribute("categories", categoryService.getAllActiveCategory());
         request.getRequestDispatcher("/admin/views/category.jsp").forward(request, response);
     }
 

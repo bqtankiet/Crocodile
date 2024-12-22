@@ -1,6 +1,9 @@
 <%@ page import="vn.edu.hcmuaf.fit.crocodile.config.properties.UrlProperties" %>
+<%@ page import="vn.edu.hcmuaf.fit.crocodile.service.CategoryService" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<c:set var="categories" value="<%= new CategoryService().getAllActiveCategory()%>"/>
 
 <c:url var="homeUrl" value="<%= UrlProperties.home() %>"/>
 <c:url var="contactUrl" value="<%= UrlProperties.contact() %>"/>
@@ -164,7 +167,7 @@
                                 <div class="dropdown-toggle" data-bs-toggle="dropdown">Sản phẩm</div>
                             </a>
                             <ul class="dropdown-menu position-absolute rounded-0 custom-bg-primary-darker shadow-lg">
-                                <c:forEach var="category" items="${applicationScope.categories}">
+                                <c:forEach var="category" items="${categories}">
                                     <c:url var="url_categoryId" value="<%=UrlProperties.category()%>">
                                         <c:param name="id" value="${category.id}"/>
                                     </c:url>
@@ -215,7 +218,7 @@
                                     <div class="dropdown-toggle" data-bs-toggle="dropdown">Sản phẩm</div>
                                 </a>
                                 <ul class="dropdown-menu position-absolute rounded-0 custom-bg-primary-darker shadow-lg">
-                                    <c:forEach var="category" items="${applicationScope.categories}">
+                                    <c:forEach var="category" items="${categories}">
                                         <c:url var="url_categoryId" value="<%=UrlProperties.category()%>">
                                             <c:param name="id" value="${category.id}"/>
                                         </c:url>

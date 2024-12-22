@@ -128,7 +128,7 @@
                 <h2 class="text-white text-center fw-bold text-uppercase">Danh Mục Nổi Bật</h2>
 
                 <div class="menu-box d-flex justify-content-center flex-wrap py-3 gap-2">
-                    <c:forEach var="category" items="${applicationScope.categories}">
+                    <c:forEach var="category" items="${requestScope.categories}">
                         <div class="item_menu">
                             <c:url var="url_categoryId" value="<%=UrlProperties.category()%>">
                                 <c:param name="id" value="${category.id}"/>
