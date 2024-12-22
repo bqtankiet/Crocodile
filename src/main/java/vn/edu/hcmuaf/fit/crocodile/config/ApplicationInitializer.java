@@ -38,6 +38,9 @@ public class ApplicationInitializer implements ServletContextListener {
         url.put("url.about", UrlProperties.about());
         url.put("url.category", UrlProperties.category());
         url.put("url.login", UrlProperties.login());
+        url.put("url.signup", UrlProperties.signup());
+        url.put("url.user", UrlProperties.user());
+
 
         servletContext.setAttribute("url", url);
     }
