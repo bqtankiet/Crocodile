@@ -39,7 +39,7 @@
                         </div>
                         <span class="text-black ps-1">Facebook</span>
                     </a>
-                    <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri=http://localhost:8080/crocodile/&response_type=code&client_id=572037439735-e41fphcdpbjji4a7he5ol43jrff6raki.apps.googleusercontent.com&approval_prompt=force"
+                    <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri=http://localhost:8080/crocodile/user&response_type=code&client_id=572037439735-e41fphcdpbjji4a7he5ol43jrff6raki.apps.googleusercontent.com&approval_prompt=force"
                     target="_blank"
                     class="d-flex flex-grow-1 align-items-center justify-content-center text-decoration-none border
                     p-2">

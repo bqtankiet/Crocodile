@@ -22,13 +22,13 @@ public class SignupController extends HttpServlet {
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("application/json");
         String code = request.getParameter("code");
         try {
             GoogleLoginController googleLogin = new GoogleLoginController();
             String accessToken = GoogleLoginController.getAccessToken(code);
-            System.out.println("Access token: " + accessToken);
-            // Chuyển hướng về home sau khi hoàn tất
+            String userInfo = GoogleLoginController.getUserInfo(accessToken);
+            response.getWriter().write(userInfo);
             response.sendRedirect("http://localhost:8080/crocodile/home");
         } catch (IOException e) {
             e.printStackTrace();

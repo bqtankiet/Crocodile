@@ -46,4 +46,25 @@ public class GoogleLoginController {
             throw new IOException("Error while getting access token. HTTP Code: " + responseCode);
         }
     }
+
+    // Lấy thông tin người dùng từ Google
+    public static String getUserInfo(String accessToken) throws IOException {
+        URL url = new URL(Iconstant.GOOGLE_LINK_GET_USER_INFO + accessToken);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+
+        int responseCode = connection.getResponseCode();
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            try (Scanner scanner = new Scanner(connection.getInputStream())) {
+                StringBuilder response = new StringBuilder();
+                while (scanner.hasNextLine()) {
+                    response.append(scanner.nextLine());
+                }
+                JSONObject jsonResponse = new JSONObject(response.toString());
+                return jsonResponse.toString();
+            }
+        } else {
+            throw new IOException("Error while getting user info. HTTP Code: " + responseCode);
+        }
+    }
 }
