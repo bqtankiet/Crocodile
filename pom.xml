@@ -107,8 +107,22 @@
             <version>2.10.1</version>
         </dependency>
 
-
+        <!-- ckfinder -->
+        <dependency>
+            <groupId>com.cksource</groupId>
+            <artifactId>ckfinder3</artifactId>
+            <version>4.0.1</version>
+        </dependency>
     </dependencies>
+
+    <repositories>
+        <!-- pom.xml -->
+        <repository>
+            <id>cksource-mvn-repo</id>
+            <name>CKSource Maven Repository</name>
+            <url>https://maven.cksource.com/</url>
+        </repository>
+    </repositories>
 
     <build>
         <plugins>

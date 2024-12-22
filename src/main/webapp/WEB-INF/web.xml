@@ -4,6 +4,27 @@
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
 
+    <!--  CKFinder  -->
+    <servlet>
+        <servlet-name>CKFinder</servlet-name>
+        <servlet-class>com.cksource.ckfinder.servlet.CKFinderServlet</servlet-class>
+        <init-param>
+            <param-name>scan-path</param-name>
+            <param-value>vn.edu.hcmuaf.fit.ckfinder</param-value>
+        </init-param>
+        <multipart-config>
+            <location>D:\.TanKiet\temp\aaa</location>
+            <max-file-size>5242880</max-file-size><!--5MB-->
+            <max-request-size>20971520</max-request-size><!--20MB-->
+            <file-size-threshold>0</file-size-threshold>
+        </multipart-config>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CKFinder</servlet-name>
+        <url-pattern>/ckfinder/*</url-pattern>
+    </servlet-mapping>
+
     <!--  Cấu hình page not found  -->
     <error-page>
         <error-code>404</error-code>
