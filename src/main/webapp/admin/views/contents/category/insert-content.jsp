@@ -16,16 +16,19 @@
                                     <span class="fs-3 demo text-body fw-bolder">Thêm danh mục</span>
                                 </div>
 
-                                <form action="${insCateUrl}" method ="post" id="formAuthentication" class="mb-3">
+                                <form action="${insCateUrl}" method ="post" enctype="multipart/form-data"
+                                      id="formAuthentication" class="mb-3">
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Tên danh mục</label>
                                         <input type="text" class="form-control" id="name" name="name"
                                                placeholder="Nhập tên danh mục" autofocus />
                                     </div>
                                     <div class="mb-3">
-                                        <label for="image" class="form-label">Hình ảnh</label>
-                                        <input type="text" class="form-control" id="image" name="image"
-                                               placeholder="Nhập hình ảnh" />
+<%--                                        <label for="image" class="form-label">Hình ảnh</label>--%>
+<%--                                        <input type="text" class="form-control" id="image" name="image"--%>
+<%--                                               placeholder="Nhập hình ảnh" />--%>
+                                            <label for="image" class="form-label">Chọn ảnh:</label>
+                                            <input type="file" name="image" id="image">
                                     </div>
 
                                     <div class="mb-3">
