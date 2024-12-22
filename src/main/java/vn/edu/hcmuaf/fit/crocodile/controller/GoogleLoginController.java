@@ -1,6 +1,6 @@
 package vn.edu.hcmuaf.fit.crocodile.controller;
 
-import vn.edu.hcmuaf.fit.crocodile.constant.Iconstant;
+import vn.edu.hcmuaf.fit.crocodile.constant.GoogleIconstant;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -12,18 +12,18 @@ import org.json.JSONObject;
 
 public class GoogleLoginController {
     public static String getAccessToken(String authorizationCode) throws IOException {
-        // 1. Tạo URL kết nối
-        URL url = new URL(Iconstant.GOOGLE_LINK_GET_TOKEN);
+        URL url = new URL(GoogleIconstant.GOOGLE_LINK_GET_TOKEN);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
         connection.setDoOutput(true);
         connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        // 2. Tạo nội dung yêu cầu
+
         String params = "code=" + authorizationCode
-                + "&client_id=" + Iconstant.GOOGLE_CLIENT_ID
-                + "&client_secret=" + Iconstant.GOOGLE_CLIENT_SECRET
-                + "&redirect_uri=" + Iconstant.GOOGLE_REDIRECT_URI
-                + "&grant_type=" + Iconstant.GOOGLE_GRANT_TYPE;
+                + "&client_id=" + GoogleIconstant.GOOGLE_CLIENT_ID
+                + "&client_secret=" + GoogleIconstant.GOOGLE_CLIENT_SECRET
+                + "&redirect_uri=" + GoogleIconstant.GOOGLE_REDIRECT_URI
+                + "&grant_type=" + GoogleIconstant.GOOGLE_GRANT_TYPE;
+
         // 3. Gửi yêu cầu
         try (OutputStream os = connection.getOutputStream()) {
             os.write(params.getBytes());
@@ -49,7 +49,7 @@ public class GoogleLoginController {
 
     // Lấy thông tin người dùng từ Google
     public static String getUserInfo(String accessToken) throws IOException {
-        URL url = new URL(Iconstant.GOOGLE_LINK_GET_USER_INFO + accessToken);
+        URL url = new URL(GoogleIconstant.GOOGLE_LINK_GET_USER_INFO + accessToken);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
 
