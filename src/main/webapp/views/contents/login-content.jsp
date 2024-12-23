@@ -27,10 +27,10 @@
                     <div style="height: 1px; background-color: #dbdbdb; width: 100%"></div>
                 </div>
                 <div class="d-flex gap-3 justify-content-between mt-3">
-                    <a href="https://www.facebook.com/v21.0/dialog/oauth?
-  client_id=1495682341127039
-  &redirect_uri=http://localhost:8080/crocodile/login" target="_blank"
-                       class="d-flex flex-grow-1 align-items-center justify-content-center text-decoration-none border p-2">
+                    <a href="https://www.facebook.com/v16.0/dialog/oauth?client_id=605632051831778&redirect_uri=http://localhost:8080/crocodile/&scope=email,public_profile"
+                       target="_blank"
+                       class="d-flex flex-grow-1 align-items-center justify-content-center text-decoration-none border
+                    p-2">
                         <div class="custom-icon" style="--size: 2rem">
                             <!-- Icon Facebook -->
                             <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 48 48">

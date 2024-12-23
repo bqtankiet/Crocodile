@@ -87,6 +87,12 @@
             <artifactId>logback-classic</artifactId>
             <version>1.5.12</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.restfb/restfb -->
+        <dependency>
+            <groupId>com.restfb</groupId>
+            <artifactId>restfb</artifactId>
+            <version>2024.15.0</version>
+        </dependency>
 
 
     </dependencies>
