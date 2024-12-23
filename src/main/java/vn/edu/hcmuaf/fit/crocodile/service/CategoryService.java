@@ -16,4 +16,8 @@ public class CategoryService {
     public List<Category> getAllActiveCategory(){
         return categoryDao.findAllActive();
     }
+
+    public List<Category> getAllCategoryAdmin(){
+        return categoryDao.getAllCategoryAdmin();
+    }
 }

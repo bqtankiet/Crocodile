@@ -15,4 +15,13 @@ public interface CategoryDao extends BasicDao<Integer, Category> {
 
     List<Category> findAllActive();
 
+
+    // ------------------------Admin của e Khoi ------------------------
+    Category getCategoryById(int id);
+    List<Category> getAllCategoryAdmin();
+    void updateCategory(int id, String name, String image, int active);
+    void insertCategory(String name, String image, int active);
+    void deleteCategory(int id);
+
+    // ------------------------Admin của e Khoi ------------------------
 }

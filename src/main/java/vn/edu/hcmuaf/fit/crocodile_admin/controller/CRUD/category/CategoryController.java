@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.crocodile_admin.controller;
+package vn.edu.hcmuaf.fit.crocodile_admin.controller.CRUD.category;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -13,8 +13,8 @@ public class CategoryController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("categories", categoryService.getAllActiveCategory());
-        request.getRequestDispatcher("/admin/views/category.jsp").forward(request, response);
+        request.setAttribute("categories", categoryService.getAllCategoryAdmin());
+        request.getRequestDispatcher("/admin/views/crud/category/category.jsp").forward(request, response);
     }
 
     @Override

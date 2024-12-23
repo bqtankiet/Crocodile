@@ -98,7 +98,7 @@
         </li>
 
         <!-- Account setting -->
-        <li class="menu-item">
+        <li class="menu-item ${param.activePage == 'user' ? 'active' : ''}">
             <a href="${userUrl}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-crown"></i>
                 <div >Quản lý người dùng</div>

@@ -7,6 +7,7 @@ public class Category implements Serializable {
     private int id;
     private String name;
     private String image;
+    private int active;
 
     @Override
     public String toString() {
@@ -14,6 +15,7 @@ public class Category implements Serializable {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", image='" + image + '\'' +
+                ", active=" + active + '\'' +
                 '}';
     }
 
@@ -40,5 +42,13 @@ public class Category implements Serializable {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
     }
 }

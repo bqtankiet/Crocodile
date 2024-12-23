@@ -24,6 +24,11 @@ public class ApplicationInitializer implements ServletContextListener {
         urls.put("admin.order", UrlProperties.order());
         urls.put("admin.user", UrlProperties.user());
 
+        // CRUD URL
+        urls.put("admin.category.delete", UrlProperties.deleteCate());
+        urls.put("admin.category.insert", UrlProperties.insertCate());
+        urls.put("admin.category.update", UrlProperties.updateCate());
+
         servletContext.setAttribute("urls", urls);
     }
 }
