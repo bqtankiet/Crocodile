@@ -11,28 +11,11 @@ public class SignupController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/views/signup.jsp").forward(request, response);
-        processRequest(request, response);
-
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        processRequest(request, response);
     }
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json");
-        String code = request.getParameter("code");
-        try {
-            GoogleLoginController googleLogin = new GoogleLoginController();
-            String accessToken = GoogleLoginController.getAccessToken(code);
-            String userInfo = GoogleLoginController.getUserInfo(accessToken);
-            response.getWriter().write(userInfo);
-            response.sendRedirect("http://localhost:8080/crocodile/home");
-        } catch (IOException e) {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unable to process Google login.");
-        }
-    }
+
 }
