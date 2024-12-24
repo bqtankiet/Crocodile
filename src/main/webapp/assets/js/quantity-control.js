@@ -2,8 +2,8 @@ $(document).ready(function() {
     $(".quantity-control").each(function() {
         const $control = $(this);
         const $input = $control.find(".quantity-input");
-        const min = parseInt($control.data("min")) || 0;
-        const max = parseInt($control.data("max")) || 100;
+        let min = parseInt($control.data("min")) || 0;
+        let max = parseInt($control.data("max")) || 100;
 
         // Khởi tạo giá trị ban đầu
         $input.val(min);
