@@ -8,6 +8,7 @@
 <c:url var="homeUrl" value="<%= UrlProperties.home() %>"/>
 <c:url var="contactUrl" value="<%= UrlProperties.contact() %>"/>
 <c:url var="aboutUrl" value="<%= UrlProperties.about() %>"/>
+<c:url var="loginUrl" value="<%= UrlProperties.login() %>"/>
 
 <c:set var="activeHome" value="home"/>
 <c:set var="activeAbout" value="about"/>
@@ -109,26 +110,45 @@
             </form>
             <!-- Account, Cart -->
             <div class="d-flex justify-content-around lh-1 text-nowrap col-3 col-lg-3 ms-auto me-5 gap-5 gap-lg-4 order-lg-2">
-                <a href="<%-- TODO login.html--%>"
-                   class="text-decoration-none position-relative custom-text-primary col-6">
-                    <div class="d-flex align-items-center justify-content-end">
-                        <div class="custom-icon" style="--size: 2rem">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-person-circle" viewBox="0 0 16 16">
-                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"></path>
-                                <path fill-rule="evenodd"
-                                      d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"></path>
-                            </svg>
-                        </div>
-                        <div class="ps-2">
-                            <div class="small pb-1">Tài khoản</div>
-                            <div class="pb-1 fw-semibold text-truncate" style="width: 10ch">Đăng nhập</div>
-                        </div>
-                    </div>
-                </a>
+                <c:choose>
+                    <c:when test="${not empty sessionScope.userName}">
+                        <a href="#" class="text-decoration-none position-relative custom-text-primary col-6">
+                            <div class="d-flex align-items-center justify-content-end">
+                                <div class="custom-icon" style="--size: 2rem">
+                                    <img src="${sessionScope.userAvatar}" alt="Avatar" class="rounded-circle"
+                                         style="width: 32px; height: 32px;">
+                                </div>
+                                <div class="ps-2">
+                                    <div class="small pb-1">Xin chào</div>
+                                    <div class="pb-1 fw-semibold text-truncate"
+                                         style="width: 10ch">${sessionScope.userName}</div>
+                                </div>
+                            </div>
+                        </a>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="${loginUrl}"
+                           class="text-decoration-none position-relative custom-text-primary col-6">
+                            <div class="d-flex align-items-center justify-content-end">
+                                <div class="custom-icon" style="--size: 2rem">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-person-circle" viewBox="0 0 16 16">
+                                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"></path>
+                                        <path fill-rule="evenodd"
+                                              d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"></path>
+                                    </svg>
+                                </div>
+                                <div class="ps-2">
+                                    <div class="small pb-1">Tài khoản</div>
+                                    <div class="pb-1 fw-semibold text-truncate" style="width: 10ch">Đăng nhập</div>
+                                </div>
+                            </div>
+                        </a>
+                    </c:otherwise>
+                </c:choose>
+
                 <a id="cart-toggle" class="text-decoration-none position-relative custom-text-primary col-6"
-                   href="#offcanvasRight" role="button"
-                   data-bs-toggle="offcanvas">
+                   href="#offcanvasRight" role="button" data-bs-toggle="offcanvas">
                     <div class="d-flex align-items-center justify-content-end">
                         <div class="custom-icon" style="--size: 2rem">
                             <span class="badge text-bg-danger position-absolute translate-middle rounded-pill">1</span>
@@ -145,6 +165,7 @@
                     </div>
                 </a>
             </div>
+
         </div>
     </div>
 
