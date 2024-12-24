@@ -1,0 +1,46 @@
+import org.junit.jupiter.api.Test;
+import vn.edu.hcmuaf.fit.crocodile.dao.product.ProductDao;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.Product;
+
+import java.util.List;
+
+public class ProductDaoImplTest {
+
+    @Test
+    public void test() {
+        // test findAll()
+//        List<Product> products = new ProductDaoImpl().findAll();
+//        products.forEach(System.out::println);
+
+        // test findById()
+//        ProductDaoImpl dao = new ProductDaoImpl();
+//        Product product = dao.findById(1);
+//        System.out.println(product);
+
+        // test findByCategoryId()
+//        ProductDaoImpl dao = new ProductDaoImpl();
+//        List<Product> products = dao.findByCategoryId(1);
+//        System.out.println(products);
+
+        // test ProductService.getProductById()
+//        ProductService  productService = new ProductService();
+//        Product p = productService.getProductById(1);
+//        System.out.println(p);
+
+        // test findAllImagesByProductId()
+//        ProductDaoImpl productDao = new ProductDaoImpl();
+//        List<Product.ProductImage> images = productDao.findAllImagesByProductId(1);
+//        System.out.println(images);
+
+        // test findAllOptionsByProductId()
+        ProductDao dao = new ProductDao();
+        List<Product.ProductOption> options = dao.findAllOptionsByProductId(2, 1);
+        options.forEach(System.out::println);
+
+        // test getProductOptionGroupById()
+//        ProductService productService = new ProductService();
+//        Product.ProductOptionGroup optionGroup = productService.getProductOptionGroupById(2, 1);
+//        System.out.println(optionGroup);
+    }
+
+}

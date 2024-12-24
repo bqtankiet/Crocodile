@@ -1,0 +1,26 @@
+.product_card_template {
+    text-decoration: none;
+}
+
+.product-card {
+    transition: all .25s ease-in-out;
+
+    &:hover {
+        border-color: var(--custom-bg-primary);
+        border-width: 1px;
+        cursor: pointer;
+        z-index: 99;
+        overflow: hidden;
+        box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.3);
+
+        .product_price,
+        .vnd-currency {
+            color: red;
+        }
+
+        img {
+            scale: 1.2;
+            transition: all .3s ease-in-out;
+        }
+    }
+}
