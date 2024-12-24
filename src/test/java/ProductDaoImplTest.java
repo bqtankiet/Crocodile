@@ -1,7 +1,6 @@
 import org.junit.jupiter.api.Test;
-import vn.edu.hcmuaf.fit.crocodile.dao.product.ProductDaoImpl;
+import vn.edu.hcmuaf.fit.crocodile.dao.product.ProductDao;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Product;
-import vn.edu.hcmuaf.fit.crocodile.service.ProductService;
 
 import java.util.List;
 
@@ -34,7 +33,7 @@ public class ProductDaoImplTest {
 //        System.out.println(images);
 
         // test findAllOptionsByProductId()
-        ProductDaoImpl dao = new ProductDaoImpl();
+        ProductDao dao = new ProductDao();
         List<Product.ProductOption> options = dao.findAllOptionsByProductId(2, 1);
         options.forEach(System.out::println);
 

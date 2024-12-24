@@ -1,7 +1,7 @@
 package vn.edu.hcmuaf.fit.crocodile.service;
 
+import vn.edu.hcmuaf.fit.crocodile.dao.product.IProductDao;
 import vn.edu.hcmuaf.fit.crocodile.dao.product.ProductDao;
-import vn.edu.hcmuaf.fit.crocodile.dao.product.ProductDaoImpl;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Product;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Product.*;
 
@@ -9,10 +9,10 @@ import java.util.List;
 
 public class ProductService {
 
-    private final ProductDao productDao;
+    private final IProductDao productDao;
 
     public ProductService() {
-        this.productDao = new ProductDaoImpl();
+        this.productDao = new ProductDao();
     }
 
     public Product getProductById(int id){
