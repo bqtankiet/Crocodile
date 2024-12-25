@@ -1,11 +1,12 @@
+<%@ page import="vn.edu.hcmuaf.fit.crocodile_admin.config.properties.UrlProperties" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:url var="accountUrl" value="${applicationScope.urls['admin.account']}"/>
-<c:url var="categoryUrl" value="${applicationScope.urls['admin.category']}"/>
-<c:url var="productUrl" value="${applicationScope.urls['admin.product']}"/>
-<c:url var="orderUrl" value="${applicationScope.urls['admin.order']}"/>
-<c:url var="userUrl" value="${applicationScope.urls['admin.user']}"/>
+<c:url var="accountUrl" value="<%= UrlProperties.account() %>"/>
+<c:url var="categoryUrl" value="<%= UrlProperties.category() %>"/>
+<c:url var="productUrl" value="<%= UrlProperties.product() %>"/>
+<c:url var="orderUrl" value="<%= UrlProperties.order() %>"/>
+<c:url var="userUrl" value="<%= UrlProperties.user() %>"/>
 
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">

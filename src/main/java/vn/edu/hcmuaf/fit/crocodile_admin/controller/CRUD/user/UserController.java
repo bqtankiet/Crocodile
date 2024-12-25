@@ -14,7 +14,7 @@ public class UserController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         IUserDao dao = new UserDao();
         request.setAttribute("users", dao.getAllUser());
-        request.getRequestDispatcher("/admin/views/crud/user/user.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/views/crud/category/category.jsp").forward(request, response);
     }
 
     @Override
