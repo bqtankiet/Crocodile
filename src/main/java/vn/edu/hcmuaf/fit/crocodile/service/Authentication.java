@@ -17,7 +17,7 @@ public class Authentication {
     /**
      * Xác thực dựa trên username và password.
      *
-     * @return ID của user nếu thành công, -1 nếu thất bại.
+     * @return ID của user nếu thành công
      */
     public int login(String username, String password) {
         Optional<User> optionalUser = userDao.findByUsername(username);

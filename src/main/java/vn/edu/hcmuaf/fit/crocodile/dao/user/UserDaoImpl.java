@@ -49,19 +49,16 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public int create(User user) {
-        // Hash password
-        String hashedPassword = HashUtil.hashMD5(user.getPassword());
 
-        // Câu lệnh SQL không cần tham số id nếu id là auto-increment
         String query = "INSERT INTO user (username, password, role) VALUES (:username, :password, :role)";
 
         return JdbiConnect.getJdbi().withHandle(handle ->
                 handle.createUpdate(query)
-                        .bind("username", user.getUsername())  // Bind username
-                        .bind("password", hashedPassword)     // Bind password
-                        .bind("role", user.getRole())         // Bind role
-                        .executeAndReturnGeneratedKeys("id")  // Lấy id mới được tạo
-                        .mapTo(int.class)                     // Trả về id người dùng
+                        .bind("username", user.getUsername())
+                        .bind("password", user.getPassword())
+                        .bind("role", user.getRole())
+                        .executeAndReturnGeneratedKeys("id")
+                        .mapTo(int.class)
                         .one()
         );
     }
