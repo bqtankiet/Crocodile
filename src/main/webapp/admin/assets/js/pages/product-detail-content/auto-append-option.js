@@ -26,7 +26,7 @@ function getOptionHtmlTemplate(withImage) {
         html = `
                     <div class="[ option ] d-flex align-items-center w-100 gap-2">
                         <input class="[ option-value ] form-control" type="text" aria-label="" name="option-value" placeholder="Nhập phân loại">
-                        <div class="[ upload-image ]" onclick="handlePopupCkfinder(this)">
+                        <div class="[ upload-image ]">
                             <input class="form-control d-none" type="text" name="image-url" aria-label=""/>
                             <div class="cursor-pointer">
                                 <div class="position-relative">

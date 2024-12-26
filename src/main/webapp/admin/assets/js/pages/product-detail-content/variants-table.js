@@ -23,10 +23,10 @@ function variantsTable($table, optionGroup1, optionGroup2) {
     const values2 = optionGroup2.values || [];
 
     // Nếu không có dữ liệu, hiển thị thông báo
-    if (values1.length === 0) {
-        $tableBody.html(`<tr><td colspan="99">Chưa có dữ liệu hoặc dữ liệu không hợp lệ</td></tr>`);
-        return;
-    }
+    // if (values1.length === 0) {
+    //     $tableBody.html(`<tr><td colspan="99">Chưa có dữ liệu hoặc dữ liệu không hợp lệ</td></tr>`);
+    //     return;
+    // }
 
     // Hàm tạo dòng dữ liệu
     const createRow = (v1, v2, rowspan = 1, isFirstRow = false) => {
@@ -34,7 +34,7 @@ function variantsTable($table, optionGroup1, optionGroup2) {
         if (isFirstRow) row.append('<td rowspan="' + rowspan + '">' + v1 + '</td>');
         row.append('<td>' + v2 + '</td>');
         row.append('<td><input type="number" class="form-control" aria-label=""></td>');
-        row.append('<td><input type="number" class="form-control" aria-label=""></td>');
+        row.append('<td><input type="text" class="form-control" aria-label=""></td>');
         return row;
     };
 
@@ -42,16 +42,24 @@ function variantsTable($table, optionGroup1, optionGroup2) {
     $tableBody.empty();
 
     // Tạo dữ liệu mới
-    values1.forEach(v1 => {
-        if (values2.length === 0) {
-            $tableBody.append(createRow(v1, '', 1, true));
-        } else {
-            values2.forEach((v2, index) => {
-                const isFirstRow = index === 0;
-                $tableBody.append(createRow(v1, v2, values2.length, isFirstRow));
-            });
-        }
-    });
+    if (values1.length === 0 && values2.length > 0) {
+        // Xử lý khi values1 rỗng nhưng values2 có dữ liệu
+        values2.forEach((v2, index) => {
+            const isFirstRow = index === 0;
+            $tableBody.append(createRow('', v2, values2.length, isFirstRow));
+        });
+    } else {
+        values1.forEach(v1 => {
+            if (values2.length === 0) {
+                $tableBody.append(createRow(v1, '', 1, true));
+            } else {
+                values2.forEach((v2, index) => {
+                    const isFirstRow = index === 0;
+                    $tableBody.append(createRow(v1, v2, values2.length, isFirstRow));
+                });
+            }
+        });
+    }
 }
 
 // Hàm tạo object optionGroup

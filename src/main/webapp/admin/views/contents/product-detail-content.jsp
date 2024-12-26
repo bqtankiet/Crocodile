@@ -19,7 +19,7 @@
                     <div class="mb-3 input-group">
                         <span class="col-md-2 col-form-label">Hình ảnh</span>
                         <div class="col-md-10 d-flex gap-3" id="product-images">
-                            <div class="[ upload-image ]" onclick="handlePopupCkfinder(this)">
+                            <div class="[ upload-image ]">
                                 <input class="form-control d-none" type="text" name="image-url" aria-label=""/>
                                 <div class="cursor-pointer">
                                     <div class="position-relative">
@@ -30,7 +30,7 @@
                                     <span class="d-block text-center mt-1">Ảnh bìa</span>
                                 </div>
                             </div>
-                            <div class="[ upload-image ]" onclick="handlePopupCkfinder(this)">
+                            <div class="[ upload-image ]">
                                 <input class="form-control d-none" type="text" name="image-url" aria-label=""/>
                                 <div class="cursor-pointer">
                                     <div class="position-relative">
@@ -41,7 +41,7 @@
                                     <span class="d-block text-center mt-1">Ảnh 1/4</span>
                                 </div>
                             </div>
-                            <div class="[ upload-image ]" onclick="handlePopupCkfinder(this)">
+                            <div class="[ upload-image ]">
                                 <input class="form-control d-none" type="text" name="image-url" aria-label=""/>
                                 <div class="cursor-pointer">
                                     <div class="position-relative">
@@ -52,7 +52,7 @@
                                     <span class="d-block text-center mt-1">Ảnh 2/4</span>
                                 </div>
                             </div>
-                            <div class="[ upload-image ]" onclick="handlePopupCkfinder(this)">
+                            <div class="[ upload-image ]">
                                 <input class="form-control d-none" type="text" name="image-url" aria-label=""/>
                                 <div class="cursor-pointer">
                                     <div class="position-relative">
@@ -63,7 +63,7 @@
                                     <span class="d-block text-center mt-1">Ảnh 3/4</span>
                                 </div>
                             </div>
-                            <div class="[ upload-image ]" onclick="handlePopupCkfinder(this)">
+                            <div class="[ upload-image ]">
                                 <input class="form-control d-none" type="text" name="image-url" aria-label=""/>
                                 <div class="cursor-pointer">
                                     <div class="position-relative">
@@ -90,7 +90,7 @@
                         <label class="col-md-2 col-form-label">Danh mục</label>
                         <div class="col-md-4">
                             <select style="width: max-content" class="form-select placement-dropdown"
-                                    id="selectPlacement" aria-label="" name="category">
+                                    id="category-id" aria-label="" name="category">
                                 <option value="1">Ví nam</option>
                                 <option value="2">Ví nữ</option>
                                 <option value="3">Túi xách nam</option>
@@ -120,69 +120,62 @@
             </div>
 
             <%--  Thông tin chi tiết --%>
-            <div class="card mt-3">
+            <div class="card mt-3" id="product-attributes-card">
                 <h5 class="card-header"><strong>Thông tin chi tiết</strong></h5>
                 <div class="card-body needs-validation mx-4" id="product-detail-container">
                     <!-- Thương hiệu, Xuất xứ -->
                     <div class="mb-3 row">
-                        <div class="row col">
-                            <label for="???" class="col-md-4 col-form-label text-end">Thương hiệu</label>
+                        <div class="[ product-attribute ] row col">
+                            <label class="[ attr-key ] col-md-4 col-form-label text-end">Thương hiệu</label>
                             <div class="col">
-                                <input class="form-control" type="text" id="???" name="???" required/>
+                                <input class="[ attr-value ] form-control" type="text" aria-label="" required/>
                             </div>
                         </div>
 
-                        <div class="row col">
-                            <label for="???" class="col-md-4 col-form-label text-end">Xuất xứ</label>
+                        <div class="[ product-attribute ] row col">
+                            <label class="[ attr-key ] col-md-4 col-form-label text-end">Xuất xứ</label>
                             <div class="col">
-                                <input class="form-control" type="text" id="???" name="???" required/>
+                                <input class="[ attr-value ] form-control" type="text" aria-label="" required/>
                             </div>
                         </div>
                     </div>
 
                     <!-- Loại da, nguồn gốc da -->
                     <div class="mb-3 row">
-                        <div class="row col">
-                            <label for="???" class="col-md-4 col-form-label text-end">Loại da</label>
+                        <div class="[ product-attribute ] row col">
+                            <label class="[ attr-key ] col-md-4 col-form-label text-end">Loại da</label>
                             <div class="col">
-                                <input class="form-control" type="text" id="???" name="???" required/>
+                                <input class="[ attr-value ] form-control" type="text" aria-label="" required/>
                             </div>
                         </div>
 
-                        <div class="row col">
-                            <label for="???" class="col-md-4 col-form-label text-end">Nguồn gốc da</label>
+
+                        <div class="[ product-attribute ] row col">
+                            <label class="[ attr-key ] col-md-4 col-form-label text-end">Nguồn gốc</label>
                             <div class="col">
-                                <input class="form-control" type="text" id="???" name="???" required/>
+                                <input class="[ attr-value ] form-control" type="text" aria-label="" required/>
                             </div>
                         </div>
+
                     </div>
 
                     <hr/>
 
                     <!-- Thiết kế -->
-                    <div class="mb-3 row">
-                        <label for="???" class="col-md-2 col-form-label text-end">Thiết kế</label>
+                    <div class="[ product-attribute ] row mb-3">
+                        <label class="[ attr-key ] col-md-2 col-form-label text-end">Thiết kế</label>
                         <div class="col-md-10">
-                            <input class="form-control" type="text" id="???" name="???"/>
+                            <input class="[ attr-value ] form-control" type="text" aria-label=""/>
                         </div>
                     </div>
 
                     <!-- Chính sách -->
-                    <div class="mb-3 row">
-                        <label for="???" class="col-md-2 col-form-label text-end">Chính sách</label>
+                    <div class="[ product-attribute ] row mb-3">
+                        <label class="[ attr-key ] col-md-2 col-form-label text-end">Chính sách</label>
                         <div class="col-md-10">
-                            <input class="form-control" type="text" id="???" name="???"/>
+                            <input class="[ attr-value ] form-control" type="text" aria-label=""/>
                         </div>
                     </div>
-
-                    <!-- Thông tin custom -->
-                    <%--                <div class="mb-3 row product-detail-custom">--%>
-                    <%--                    <input type="text" class="col-md-2 col-form-label text-end border-0 border-bottom" aria-label="">--%>
-                    <%--                    <div class="col">--%>
-                    <%--                        <input class="form-control" type="text" id="???" name="???"/>--%>
-                    <%--                    </div>--%>
-                    <%--                    <button class="col-1 btn btn-danger product-detail-delete">Xóa</button>--%>
-                    <%--                </div>--%>
 
                 </div>
 
@@ -192,14 +185,14 @@
             </div>
 
             <%--  Thông tin bán hàng --%>
-            <div class="card mt-3">
+            <div class="card mt-3" id="product-saleInfo-card">
                 <h5 class="card-header"><strong>Thông tin bán hàng </strong></h5>
                 <div class="card-body needs-validation mx-4">
                     <!-- Giá sản phẩm  -->
                     <div class="mb-3 row">
                         <label for="product-price" class="col-md-1 col-form-label">Giá bán</label>
                         <div class="col-md-3">
-                            <input class="form-control" type="number" id="product-price" name="price"/>
+                            <input class="form-control" type="number" id="product-price" name="price" required/>
                         </div>
                         <div class="col d-flex align-items-center">
                             <p class="text-danger my-0">(Giá bán áp dụng chung cho các phân loại)</p>
@@ -224,48 +217,47 @@
                                 </button>
                             </li>
                         </ul>
-                        <div class="tab-content" id="myTabContent">
+                        <div class="tab-content" id="product-sale-tab-content">
+                            <!--Tab 1-->
                             <div class="tab-pane fade show active" id="pane-product-simple" role="tabpanel"
                                  aria-labelledby="home-tab" tabindex="0">
                                 <!-- Sản phẩm KHÔNG CÓ phân loại -->
                                 <div>
                                     <!-- Kho hàng  -->
                                     <div class="mb-3 row">
-                                        <label for="product-quantity" class="col-md-2 col-form-label">Số lượng
-                                            kho</label>
+                                        <label for="stock" class="col-md-2 col-form-label">Số lượng kho</label>
                                         <div class="col-md-3">
-                                            <input class="form-control" type="number" id="product-quantity"
-                                                   name="stock"/>
+                                            <input class="form-control" type="number" id="stock" name="stock"/>
                                         </div>
                                     </div>
 
                                     <!-- Mã SKU  -->
                                     <div class="mb-3 row">
-                                        <label for="???" class="col-md-2 col-form-label">Mã SKU</label>
+                                        <label for="sku" class="col-md-2 col-form-label">Mã SKU</label>
                                         <div class="col-md-3">
-                                            <input class="form-control" type="number" id="???" name="???"
-                                                   aria-label=""/>
+                                            <input class="form-control" type="text" id="sku" aria-label=""/>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <!--Tab 2-->
                             <div class="tab-pane fade" id="pane-product-variants" role="tabpanel"
                                  aria-labelledby="profile-tab" tabindex="0">
                                 <!-- Sản phẩm CÓ phân loại -->
                                 <div>
                                     <div class="mb-3 row align-items-stretch">
                                         <!-- phan loai 1 -->
-                                        <div id="option-group-type1" class="col-6">
+                                        <div id="option-group-type1" class="[ option-group ] col-6">
                                             <label class="col">Phân loại 1 <span class="small">(Có thể đính kèm hình ảnh)</span></label>
                                             <div class="p-3 h-100" style="background-color: #e8e8e8">
-                                                <input type="text" class="[ option-key ] form-control" aria-label=""
-                                                       placeholder="Tên phân loại" name="option-key">
+                                                <input type="text" class="[ option-key ] form-control" aria-label="" placeholder="Tên phân loại" name="option-key">
                                                 <hr>
                                                 <div class="[ options-container ] d-flex flex-wrap mt-2"
                                                      style="column-gap: 2rem; row-gap: 1rem">
                                                     <div class="[ option ] d-flex align-items-center w-100 gap-2">
                                                         <input class="[ option-value ] form-control" type="text" aria-label="" name="option-value" placeholder="Nhập phân loại">
-                                                        <div class="[ upload-image ]" onclick="handlePopupCkfinder(this)">
+                                                        <div class="[ upload-image ]">
                                                             <input class="form-control d-none" type="text" name="image-url" aria-label=""/>
                                                             <div class="cursor-pointer">
                                                                 <div class="position-relative">
@@ -280,7 +272,7 @@
                                         </div>
 
                                         <!-- phan loai 2 -->
-                                        <div id="option-group-type2" class="col-6">
+                                        <div id="option-group-type2" class="[ option-group ] col-6">
                                             <label class="col">Phân loại 2 </label>
                                             <div class="p-3 h-100" style="background-color: #e8e8e8">
                                                 <input type="text" class="[ option-key ] form-control" aria-label=""
@@ -354,10 +346,7 @@
 
             <div class="btn-box d-flex justify-content-center gap-3 my-5">
                 <!-- nút lưu-->
-                <button class="btn btn-success" type="submit">
-                    Lưu
-                </button>
-
+                <button class="btn btn-success" type="submit">Lưu</button>
                 <!-- nút thoát -->
                 <a href="${url_product}" class="btn btn-danger">Thoát</a>
             </div>

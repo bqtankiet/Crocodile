@@ -1,4 +1,4 @@
-$('.upload-image').on('click', function (){
+$(document).on('click','.upload-image', function (){
     handlePopupCkfinder($(this));
 });
 
