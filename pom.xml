@@ -101,6 +101,7 @@
             <version>2.7.0</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.jdbi/jdbi3-core -->
 
         <dependency>
             <groupId>com.google.oauth-client</groupId>
