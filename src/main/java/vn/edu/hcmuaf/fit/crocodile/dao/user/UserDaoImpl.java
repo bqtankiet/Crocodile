@@ -10,17 +10,17 @@ import java.util.Optional;
 public class UserDaoImpl implements UserDao {
 
 
-    // ------------------------ Begin admin method ------------------------
-    @Override
-    public List<User> getAllUser() {
-        String sql = "select * from user where role = 0";
-        return JdbiConnect.getJdbi().withHandle(handle ->
-                handle.createQuery(sql)
-                        .mapToBean(User.class)
-                        .list()
-        );
-
-    }
+//    // ------------------------ Begin admin method ------------------------
+//    @Override
+//    public List<User> getAllUser() {
+//        String sql = "select * from user where role = 0";
+//        return JdbiConnect.getJdbi().withHandle(handle ->
+//                handle.createQuery(sql)
+//                        .mapToBean(User.class)
+//                        .list()
+//        );
+//
+//    }
     // ------------------------ End admin method ------------------------
 
     @Override

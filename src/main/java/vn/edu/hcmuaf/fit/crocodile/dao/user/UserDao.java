@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserDao {
-    public List<User> getAllUser();
+//    public List<User> getAllUser();
 
 
     Optional<User> findById(int id);
