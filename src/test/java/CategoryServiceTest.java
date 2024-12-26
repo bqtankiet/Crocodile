@@ -9,7 +9,7 @@ public class CategoryServiceTest  {
     @Test
     public void test() {
         CategoryService categoryService = new CategoryService();
-        List<Category> categories = categoryService.getAllCategory();
+        List<Category> categories = categoryService.getAllActiveCategory();
         categories.forEach(System.out::println);
     }
 

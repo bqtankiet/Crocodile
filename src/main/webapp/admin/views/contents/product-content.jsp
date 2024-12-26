@@ -1,7 +1,8 @@
+<%@ page import="vn.edu.hcmuaf.fit.crocodile_admin.config.properties.UrlProperties" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
+<c:url var="url_productCreate" value="<%=UrlProperties.productCreate()%>"/>
 
 <!-- Content wrapper -->
 <div class="content-wrapper">
@@ -18,7 +19,7 @@
                 <div class="container">
                     <h2>
                         Danh sách sản phẩm
-                        <a href="add-product-form.html"
+                        <a href="${url_productCreate}"
                            class="btn btn-secondary float-end text-white">Thêm</a>
                     </h2>
 

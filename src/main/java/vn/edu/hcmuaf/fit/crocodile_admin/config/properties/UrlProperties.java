@@ -10,6 +10,8 @@ public class UrlProperties extends ApplicationProperties {
 
     public static String product() { return getProperty("admin.product"); }
 
+    public static String productCreate() { return getProperty("admin.product.insert"); }
+
     public static String order() { return getProperty("admin.order"); }
 
     public static String user() { return getProperty("admin.user"); }

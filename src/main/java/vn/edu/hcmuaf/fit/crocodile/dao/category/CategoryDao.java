@@ -1,20 +1,31 @@
 package vn.edu.hcmuaf.fit.crocodile.dao.category;
 
+import vn.edu.hcmuaf.fit.crocodile.config.JdbiConnect;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Category;
 
 import java.util.List;
 
-public interface CategoryDao {
+public class CategoryDao implements ICategoryDao {
 
-    List<Category> getAllCategory();
+    @Override
+    public Category findById(Integer id) {
+        String sql = "SELECT * FROM categories WHERE id= :id";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("id", id)
+                        .mapToBean(Category.class)
+                        .findOne()
+                        .orElse(null)
+        );
+    }
 
-
-    // ------------------------Admin của e Khoi ------------------------
-    Category getCategoryById(int id);
-    List<Category> getAllCategoryAdmin();
-    void updateCategory(int id, String name, String image, int active);
-    void insertCategory(String name, String image, int active);
-    void deleteCategory(int id);
-
-    // ------------------------Admin của e Khoi ------------------------
+    @Override
+    public List<Category> findAll() {
+        String sql = "SELECT * FROM categories WHERE active=1";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(sql)
+                        .mapToBean(Category.class)
+                        .list()
+        );
+    }
 }

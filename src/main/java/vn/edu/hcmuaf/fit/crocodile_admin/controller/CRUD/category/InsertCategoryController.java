@@ -4,14 +4,12 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import vn.edu.hcmuaf.fit.crocodile.config.properties.AssetsProperties;
+import vn.edu.hcmuaf.fit.crocodile.dao.category.ICategoryDao;
 import vn.edu.hcmuaf.fit.crocodile.dao.category.CategoryDao;
-import vn.edu.hcmuaf.fit.crocodile.dao.category.CategoryDaoImpl;
+import vn.edu.hcmuaf.fit.crocodile.service.CategoryService;
 import vn.edu.hcmuaf.fit.crocodile.upload.UploadImage;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.UUID;
 
 @MultipartConfig
 @WebServlet(name = "Insert", value = "/admin/category/insert")
@@ -33,10 +31,10 @@ public class InsertCategoryController extends HttpServlet {
         System.out.println(request.getContextPath());
         System.out.println(getServletContext().getRealPath(""));
 
-        CategoryDao dao = new CategoryDaoImpl();
+        CategoryService categoryService = new CategoryService();
         String name = request.getParameter("name");
         int active = Integer.parseInt(request.getParameter("active"));
-        dao.insertCategory(name, uniqueFileName, active);
+        categoryService.insertCategory(name, uniqueFileName, active);
         System.out.println("Insert Category Successfully");
         response.sendRedirect(request.getContextPath() + "/admin/category");
     }

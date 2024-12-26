@@ -18,11 +18,13 @@ public class UrlProperties extends ApplicationProperties{
         return getProperty("url.category");
     }
 
-    public static String login(){ return  getProperty("url.login");}
+    public static String addToCart() {return getProperty("url.addToCart");}
 
+    public static String checkout() {return getProperty("url.checkout");}
+
+    public static String login(){ return  getProperty("url.login");}
 
     public static String signup(){ return  getProperty("url.signup");}
 
     public static String user(){ return  getProperty("url.user");}
-
 }
