@@ -95,7 +95,7 @@
                 },
                 error: function (xhr, status, error) {
                     if (xhr.status === 404) {
-                        alert("Không tìm thấy endpoint /admin/category/delete!");
+                        alert("Không tìm thấy endpoint " + "${delCateUrl}");
                     } else {
                         alert("Đã xảy ra lỗi khi xóa danh mục. Vui lòng thử lại.");
                     }

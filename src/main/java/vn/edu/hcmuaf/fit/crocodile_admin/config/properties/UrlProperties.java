@@ -21,4 +21,11 @@ public class UrlProperties extends ApplicationProperties {
     public static String insertCate() { return getProperty("admin.category.insert"); }
 
     public static String updateCate() { return getProperty("admin.category.update"); }
+
+    public static String deleteUser() { return getProperty("admin.user.delete"); }
+
+    public static String insertUser() { return getProperty("admin.user.insert"); }
+
+    public static String updateUser() { return getProperty("admin.user.update"); }
+
 }

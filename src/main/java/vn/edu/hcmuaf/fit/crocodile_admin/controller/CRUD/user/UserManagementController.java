@@ -8,13 +8,13 @@ import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDao;
 
 import java.io.IOException;
 
-@WebServlet(name = "UserController", value = "/admin/user")
-public class UserController extends HttpServlet {
+@WebServlet(name = "UserManagementController", value = "/admin/user")
+public class UserManagementController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         IUserDao dao = new UserDao();
         request.setAttribute("users", dao.getAllUser());
-        request.getRequestDispatcher("/admin/views/crud/category/category.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/views/crud/user/user.jsp").forward(request, response);
     }
 
     @Override
