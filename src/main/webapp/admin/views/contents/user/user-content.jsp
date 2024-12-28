@@ -89,7 +89,8 @@
                     action: action
                 },
                 success: function (response){
-                    alert("Thay đổi thành công!")
+                    alert("Thay đổi thành công!");
+                    location.reload();
                 },
                 error: function(xhr, status, error) {
                     if (xhr.status === 404) {

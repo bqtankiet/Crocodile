@@ -7,6 +7,7 @@
 <c:url var="productUrl" value="<%= UrlProperties.product() %>"/>
 <c:url var="orderUrl" value="<%= UrlProperties.order() %>"/>
 <c:url var="userUrl" value="<%= UrlProperties.user() %>"/>
+<c:url var="contactUrl" value="<%= UrlProperties.contact()%>" />
 
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
@@ -51,32 +52,25 @@
         </li>
 
         <!-- Extended components -->
-        <li class="menu-item">
+        <li class="menu-item
+            ${param.activePage == 'contact' || param.activePage == 'about' ? 'active open' : ''}">
             <a href="javascript:void(0)" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-detail"></i>
-                <div data-i18n="Extended UI">Quản lý giao diện</div>
+                <div>Quản lý giao diện</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
-                        <div data-i18n="Text Divider">Hình ảnh</div>
+                <li class="menu-item ${param.activePage == 'contact' ? 'active' : ''}">
+                    <a href="${contactUrl}" class="menu-link">
+                        <div>Liên hệ</div>
                     </a>
                 </li>
                 <li class="menu-item">
                     <a href="#" class="menu-link">
-                        <div data-i18n="Text Divider">Hỗ trợ trực tuyến</div>
+                        <div>Giới thiệu</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
-                        <div data-i18n="Text Divider">Thông tin</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
-                        <div data-i18n="Text Divider">Nội dung khác</div>
-                    </a>
-                </li>
+
+
             </ul>
         </li>
 

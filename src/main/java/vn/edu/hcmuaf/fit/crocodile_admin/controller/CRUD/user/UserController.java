@@ -9,7 +9,7 @@ import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDao;
 import java.io.IOException;
 
 @WebServlet(name = "UserManagementController", value = "/admin/user")
-public class UserManagementController extends HttpServlet {
+public class UserController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         IUserDao dao = new UserDao();

@@ -58,13 +58,10 @@
                                     <strong class="product-price">${p.price}</strong>
                                 </td>
                                 <td>
-                                    <strong >hiện</strong>
+<%--                                    <strong >${p.active == 1 ? 'Hiển thị' : 'Ẩn'}</strong>--%>
+                                    <strong>Hiển thị</strong>
                                 </td>
                                 <td>
-                                    <div class="btn-box d-none">
-                                        <i class="bx bx-check me-2 btn-save fs-3 cursor-pointer"></i>
-                                        <i class="bx bx-undo me-2 btn-cancel fs-3 cursor-pointer"></i>
-                                    </div>
                                     <div class="dropdown option-box">
                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                                                 data-bs-toggle="dropdown">

@@ -7,7 +7,7 @@ import vn.edu.hcmuaf.fit.crocodile.service.ProductService;
 
 import java.io.IOException;
 
-@WebServlet(name = "ProductController", value = "/admin/product")
+@WebServlet(name = "ProductManagementController", value = "/admin/product")
 public class ProductController extends HttpServlet {
     ProductService productService = new ProductService();
     @Override
