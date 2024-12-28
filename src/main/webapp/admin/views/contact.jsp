@@ -54,8 +54,8 @@
   </div>
 
 
-<%--  <script src="<c:url value="/admin/assets/vendor/js/bootstrap.js"/>"></script>--%>
-<%--  <script src="<c:url value="/admin/assets/vendor/js/menu.js"/>"></script>--%>
-<%--  <script src="<c:url value="/admin/assets/js/main.js"/>"></script>--%>
+  <script src="<c:url value="/admin/assets/vendor/js/bootstrap.js"/>"></script>
+  <script src="<c:url value="/admin/assets/vendor/js/menu.js"/>"></script>
+  <script src="<c:url value="/admin/assets/js/main.js"/>"></script>
   </body>
 </html>

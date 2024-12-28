@@ -54,7 +54,7 @@
         <!-- Extended components -->
         <li class="menu-item
             ${param.activePage == 'contact' || param.activePage == 'about' ? 'active open' : ''}">
-            <a href="javascript:void(0)" class="menu-link menu-toggle">
+            <a href="javascript:void(0)" class="menu-link menu-toggle menu-drop">
                 <i class="menu-icon tf-icons bx bx-detail"></i>
                 <div>Quản lý giao diện</div>
             </a>
