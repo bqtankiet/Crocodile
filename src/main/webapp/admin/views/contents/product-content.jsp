@@ -31,7 +31,7 @@
                             <th scope="col">Loại danh mục</th>
                             <th scope="col">Hình ảnh</th>
                             <th scope="col">Giá tiền</th>
-                            <th scope="col">Hiển thị</th>
+                            <th scope="col">Trạng thái</th>
                             <th scope="col">Tác vụ</th>
                         </tr>
                         </thead>

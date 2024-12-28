@@ -19,7 +19,7 @@
                                 <label for="title" class="col-md-2 col-form-label">Tên cửa hàng</label>
                                 <div class="col-md-10">
                                     <input class="form-control" type="text" id="title" name="title"
-                                           value="ĐỒ DA CAO CẤP CROCODILE"/>
+                                           value="${contact.title}"/>
                                 </div>
                             </div>
 
@@ -28,7 +28,7 @@
                                 <label for="location" class="col-md-2 col-form-label">Vị trí</label>
                                 <div class="col-md-10">
                                     <input class="form-control" type="text" id="location" name="location"
-                                           value="27 Phan Đình Phùng, Phường 17 Quận Phú Nhuận, Tp HCM"/>
+                                           value="${contact.location}"/>
                                 </div>
                             </div>
 
@@ -37,7 +37,7 @@
                                 <label for="phone-number" class="col-md-2 col-form-label">Điện thoại</label>
                                 <div class="col-md-10">
                                     <input class="form-control" type="text" id="phone-number" name="phone-number"
-                                           value="082 878 6789"/>
+                                           value="${contact.phone}"/>
                                 </div>
                             </div>
 
@@ -46,11 +46,7 @@
                                 <label for="product-description" class="col-md-2 col-form-label">Mã Iframe google map</label>
                                 <div class="col-md-10">
                                     <textarea id="product-description" class="form-control" rows="9" name="iframe">
-                                        <iframe class="google-map"
-                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.2408235347784!2d106.68294947485718!3d10.792858489356917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317528d2542cb98f%3A0xd62d81f3f3579bb9!2zMjcgUGhhbiDEkMOsbmggUGjDuW5nLCBQaMaw4budbmcgMTcsIFBow7ogTmh14bqtbiwgSOG7kyBDaMOtIE1pbmgsIFZpZXRuYW0!5e0!3m2!1sen!2s!4v1730818827712!5m2!1sen!2s"
-                                        width="1688" height="600" style="border:0;" allowfullscreen="" loading="lazy"
-                                        referrerpolicy="no-referrer-when-downgrade">
-                                        </iframe>
+                                        ${contact.iframe}
                                     </textarea>
 
                                 </div>
