@@ -12,7 +12,5 @@ public class ContactDaoAdmin implements IContactDaoAdmin{
                     .mapToBean(Contact.class)
                     .findFirst().orElse(null)
         );
-
-
     }
 }
