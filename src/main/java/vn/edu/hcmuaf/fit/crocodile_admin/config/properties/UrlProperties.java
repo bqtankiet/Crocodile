@@ -26,11 +26,14 @@ public class UrlProperties extends ApplicationProperties {
 
     public static String productCreate() { return getProperty("admin.product.insert"); }
 
-    public static String order() { return getProperty("admin.order"); }
     // --------------------- product ---------------------
 
+    // --------------------- order -----------------------
+    public static String order() { return getProperty("admin.order"); }
 
-    // --------------------- user ---------------------
+    // --------------------- order -----------------------
+
+    // --------------------- user ------------------------
     public static String user() { return getProperty("admin.user"); }
 
     public static String deleteUser() { return getProperty("admin.user.delete"); }
@@ -38,7 +41,7 @@ public class UrlProperties extends ApplicationProperties {
     public static String insertUser() { return getProperty("admin.user.insert"); }
 
     public static String updateUser() { return getProperty("admin.user.update"); }
-    // --------------------- user ---------------------
+    // --------------------- user ------------------------
 
 
 

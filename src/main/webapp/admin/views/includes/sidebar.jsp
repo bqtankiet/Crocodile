@@ -77,13 +77,13 @@
 
         <!-- Information Manager -->
         <li class="menu-item
-        ${param.activePage == 'orderlist' ? 'active open' : ''}">
+        ${param.activePage == 'order' ? 'active open' : ''}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-box"></i>
                 <div >Quản lý thông tin</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item ${param.activePage == 'orderlist' ? 'active' : ''}">
+                <li class="menu-item ${param.activePage == 'order' ? 'active' : ''}">
                     <a href="${orderUrl}" class="menu-link">
                         <div >Danh sách đơn hàng</div>
                     </a>

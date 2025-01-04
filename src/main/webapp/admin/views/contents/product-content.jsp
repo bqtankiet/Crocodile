@@ -1,6 +1,7 @@
 <%@ page import="vn.edu.hcmuaf.fit.crocodile_admin.config.properties.UrlProperties" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:url var="url_productCreate" value="<%=UrlProperties.productCreate()%>"/>
 
@@ -55,7 +56,9 @@
                                          src="<c:url value="${p.image}" />" alt="">
                                 </td>
                                 <td>
-                                    <strong class="product-price">${p.price}</strong>
+                                    <strong class="product-price">
+                                        <fmt:formatNumber value="${p.price}" type="number" pattern="#,##0" /> VND
+                                    </strong>
                                 </td>
                                 <td>
 <%--                                    <strong >${p.active == 1 ? 'Hiển thị' : 'Ẩn'}</strong>--%>
