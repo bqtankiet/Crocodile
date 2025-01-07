@@ -28,10 +28,12 @@ public class UrlProperties extends ApplicationProperties {
 
     // --------------------- product ---------------------
 
+
     // --------------------- order -----------------------
     public static String order() { return getProperty("admin.order"); }
 
     // --------------------- order -----------------------
+
 
     // --------------------- user ------------------------
     public static String user() { return getProperty("admin.user"); }

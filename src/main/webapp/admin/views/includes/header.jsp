@@ -1,7 +1,10 @@
+<%@ page import="vn.edu.hcmuaf.fit.crocodile_admin.config.properties.UrlProperties" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:url var="accountUrl" value="${applicationScope.urls['admin.account']}"/>
+<c:url var="loginUrl" value="<%= vn.edu.hcmuaf.fit.crocodile.config.properties.UrlProperties.login()%>" />
+<c:url var="accountUrl" value="<%= UrlProperties.account()%>"/>
 
 <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
      id="layout-navbar">
@@ -53,7 +56,7 @@
                         <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="account-setting.html">
+                        <a class="dropdown-item" href="${accountUrl}">
                             <i class="bx bx-user me-2"></i>
                             <span class="align-middle">Hồ sơ</span>
                         </a>
@@ -63,7 +66,7 @@
                         <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="login.html">
+                        <a class="dropdown-item" href="${loginUrl}">
                             <i class="bx bx-power-off me-2"></i>
                             <span class="align-middle">Đăng xuất</span>
                         </a>

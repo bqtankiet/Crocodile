@@ -13,4 +13,10 @@ public class ContactDaoAdmin implements IContactDaoAdmin{
                     .findFirst().orElse(null)
         );
     }
+
+    @Override
+    public int updateContact(String title, String location, String phone, String iframe) {
+        String sql = "";
+        return 0;
+    }
 }
