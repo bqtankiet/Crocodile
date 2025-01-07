@@ -24,21 +24,33 @@ public class Authentication {
 
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-            String hashedPassword = HashUtil.hashMD5(password);
-            System.out.println("mật khẩu đã hash   " + hashedPassword);
+//            String hashedPassword = HashUtil.hashMD5(password);
+            System.out.println("mật khẩu đã hash   " + password);
             System.out.println("mật khẩu lưu ở DB: " + user.getPassword());
-            if (hashedPassword.equals(user.getPassword())) {
+            if (password.equals(user.getPassword())) {
+                System.out.println("Login thành công, userId: " + user.getId());
                 return user.getId();
+            } else {
+                System.out.println("Mật khẩu không khớp");
             }
+        } else {
+            System.out.println("Không tìm thấy user với username: " + username);
         }
+
 
         return -1;
     }
 
     public int signup(User user) {
-        user.setPassword(HashUtil.hashMD5(user.getPassword()));
+//        user.setPassword(HashUtil.hashMD5(user.getPassword()));
         return userDao.create(user);
     }
 
+    public static void main(String[] args) {
+        String uname = "ahkietlk";
+        String pwd = "123";
+        Authentication auth = new Authentication();
+        int login = auth.login(uname, pwd);
 
+    }
 }

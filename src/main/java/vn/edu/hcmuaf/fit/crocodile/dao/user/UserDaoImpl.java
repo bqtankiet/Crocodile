@@ -37,7 +37,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Optional<User> findByUsername(String username) {
-        String query = "select * from user where username = :username";
+        String query = "select * from users where username = :username";
         return JdbiConnect.getJdbi().withHandle(
                 handle ->
                         handle.createQuery(query)
@@ -50,7 +50,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public int create(User user) {
 
-        String query = "INSERT INTO user (username, password, role) VALUES (:username, :password, :role)";
+        String query = "INSERT INTO users (username, password, role) VALUES (:username, :password, :role)";
 
         return JdbiConnect.getJdbi().withHandle(handle ->
                 handle.createUpdate(query)

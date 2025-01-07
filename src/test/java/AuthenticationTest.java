@@ -19,16 +19,16 @@ public class AuthenticationTest {
 //        int userId1 = auth.login(username, wrongPassword);
 //        System.out.println("Login với mật khẩu sai: " + (userId1 != -1 ? "Thành công (User ID: " + userId1 + ")" : "Thất bại"));
 //
-        String unameTest = "danganhkiet";
-        String passTest = "danganhkiet";
+        String unameTest = "admin";
+        String passTest = "Admin@123";
 
         User newUser = new User();
 
         newUser.setUsername(unameTest);
         newUser.setPassword(passTest);
 
-        int signup = auth.signup(newUser); // Đăng ký người dùng mới
-        System.out.println("Đăng ký tk danganhkiet:  " + (signup != -1 ? "Thành công (User ID: " + signup + ")" : "Thất bại"));
+//        int signup = auth.signup(newUser); // Đăng ký người dùng mới
+//        System.out.println("Đăng ký tk danganhkiet:  " + (signup != -1 ? "Thành công (User ID: " + signup + ")" : "Thất bại"));
 
         int login = auth.login(unameTest, passTest);
         System.out.println("Login tk danganhkiet: " + (login != -1 ? "Thành công (User ID: " + login + ")" : "Thất bại"));

@@ -9,7 +9,7 @@ import vn.edu.hcmuaf.fit.crocodile.service.GoogleService;
 
 import java.io.IOException;
 
-@WebServlet("/google-login")
+@WebServlet(value = "/google-login", urlPatterns = {"/googlelogin"})
 public class GoogleLoginController extends HttpServlet {
 
     @Override

@@ -9,7 +9,7 @@ import vn.edu.hcmuaf.fit.crocodile.model.entity.FaceBookUser;
 
 import java.io.IOException;
 
-@WebServlet("/facebook-login")
+@WebServlet(value = "/facebook-login", urlPatterns = {"facebooklogin"})
 public class FacebookLoginController extends HttpServlet {
 
     @Override
