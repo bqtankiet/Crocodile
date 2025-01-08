@@ -3,15 +3,16 @@ package vn.edu.hcmuaf.fit.crocodile.model.entity;
 import java.io.Serializable;
 
 public class User implements Serializable {
-   private int id;
-   private String username;
-   private String password;
-   private String email;
-   private String phone_number;
-   private String gender;
-   private String birthdate;
-   private int active;
-   private int role;
+    private int id;
+    private String username;
+    private String password;
+    private String email;
+    private String phone_number;
+    private String gender;
+    private String birthdate;
+    private int active;
+    private int role;
+
 
     public int getId() {
         return id;

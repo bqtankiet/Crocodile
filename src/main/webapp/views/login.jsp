@@ -13,10 +13,23 @@
     <link rel="stylesheet" href="<c:url value="/layouts/layout.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/main.css"/>">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script>
+        function showErrorMessage() {
+            alert("${errorMessage}");
+
+            document.getElementById("username").value = "";
+            document.getElementById("password").value = "";
+        }
+    </script>
     <meta name="google-signin-client_id"
           content="841108618342-pc5358jl3u8dnsaru2hitfjers87naaj.apps.googleusercontent.com.apps.googleusercontent.com">
 </head>
 <body>
+<c:if test="${not empty errorMessage}">
+    <script>
+        showErrorMessage();
+    </script>
+</c:if>
 <jsp:include page="includes/header.jsp">
     <jsp:param name="activePage" value="about"/>
 </jsp:include>
@@ -25,13 +38,5 @@
 <%--FOOTER--%>
 <jsp:include page="includes/footer.jsp"/>
 </body>
-<script>
-    function onSignIn(googleUser) {
-        var profile = googleUser.getBasicProfile();
-        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-        console.log('Name: ' + profile.getName());
-        console.log('Image URL: ' + profile.getImageUrl());
-        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-    }
-</script>
+
 </html>

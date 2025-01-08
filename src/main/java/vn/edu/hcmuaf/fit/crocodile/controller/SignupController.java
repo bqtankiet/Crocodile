@@ -6,7 +6,7 @@ import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 
-@WebServlet(name = "SignupController", urlPatterns = {"/signup"})
+@WebServlet(name = "SignupController")
 public class SignupController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

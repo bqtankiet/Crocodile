@@ -242,8 +242,7 @@
             xfbml: true,
             version: '{api-version}'
         });
-
-        FB.AppEvents.logPageView();
+        FB.init
 
     };
 

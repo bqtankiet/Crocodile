@@ -12,7 +12,7 @@ import vn.edu.hcmuaf.fit.crocodile.service.Authentication;
 
 import java.io.IOException;
 
-@WebServlet(name = "LoginController", value = "/login")
+@WebServlet(name = "LoginController", urlPatterns = {"/login"})
 public class LoginController extends HttpServlet {
     private final Authentication auth = new Authentication();
 
@@ -25,26 +25,21 @@ public class LoginController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        Authentication auth = new Authentication();
-//
-//        if (username == null || username.trim().isEmpty() || password == null || password.trim().isEmpty()) {
-//            request.setAttribute("errorMessage", "Tên tài khoản và mật khẩu không được để trống.");
-//            request.getRequestDispatcher("/views/login.jsp").forward(request, response);
-//            return;
-//        }
 
         int userId = auth.login(username, password);
-        User user = new User();
-        if (userId == user.getId()) {
-//            HttpSession session = request.getSession();
-//            session.setAttribute("userId", userId);
-            System.out.println("Session tạo thành công. Chuyển hướng đến home.jsp");
-            request.getRequestDispatcher("home.jsp").forward(request, response);
+        if (userId == 1) {
+            HttpSession session = request.getSession();
+            session.setAttribute("userId", userId);
+            session.setAttribute("userName", username);
+            System.out.println("Chuyển hướng đến home.jsp");
+            response.sendRedirect(request.getContextPath() + "/");
+
         } else {
             System.out.println("Đăng nhập thất bại");
             request.setAttribute("errorMessage", "Sai Tài Khoản Hoặc Mật Khẩu");
             request.getRequestDispatcher("/views/login.jsp").forward(request, response);
         }
+
 
     }
 

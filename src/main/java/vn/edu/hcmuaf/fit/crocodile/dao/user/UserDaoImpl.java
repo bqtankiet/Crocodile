@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.fit.crocodile.dao.user;
 
+import org.jdbi.v3.core.Jdbi;
 import vn.edu.hcmuaf.fit.crocodile.config.JdbiConnect;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
 import vn.edu.hcmuaf.fit.crocodile.util.HashUtil;
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserDaoImpl implements UserDao {
+    private final Jdbi jdbi = JdbiConnect.getJdbi();
 
 
 //    // ------------------------ Begin admin method ------------------------
@@ -25,7 +27,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Optional<User> findById(int id) {
-        String query = "select * from user where id = :id ";
+        String query = "select * from users where id = :id ";
         return JdbiConnect.getJdbi().withHandle(
                 handle ->
                         handle.createQuery(query)
@@ -46,6 +48,7 @@ public class UserDaoImpl implements UserDao {
                                 .findOne()
         );
     }
+
 
     @Override
     public int create(User user) {

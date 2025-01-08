@@ -112,7 +112,8 @@
             <div class="d-flex justify-content-around lh-1 text-nowrap col-3 col-lg-3 ms-auto me-5 gap-5 gap-lg-4 order-lg-2">
                 <c:choose>
                     <c:when test="${not empty sessionScope.userName}">
-                        <a href="#" class="text-decoration-none position-relative custom-text-primary col-6">
+                        <a href="${pageContext.request.contextPath}/user"
+                           class="text-decoration-none position-relative custom-text-primary col-6">
                             <div class="d-flex align-items-center justify-content-end">
                                 <div class="custom-icon" style="--size: 2rem">
                                     <img src="${sessionScope.userAvatar}" alt="Avatar" class="rounded-circle"
@@ -127,8 +128,7 @@
                         </a>
                     </c:when>
                     <c:otherwise>
-                        <a href="${loginUrl}"
-                           class="text-decoration-none position-relative custom-text-primary col-6">
+                        <a href="${loginUrl}" class="text-decoration-none position-relative custom-text-primary col-6">
                             <div class="d-flex align-items-center justify-content-end">
                                 <div class="custom-icon" style="--size: 2rem">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -146,6 +146,7 @@
                         </a>
                     </c:otherwise>
                 </c:choose>
+
 
                 <a id="cart-toggle" class="text-decoration-none position-relative custom-text-primary col-6"
                    href="#offcanvasRight" role="button" data-bs-toggle="offcanvas">

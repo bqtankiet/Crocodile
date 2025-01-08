@@ -29,6 +29,10 @@ public class Authentication {
             System.out.println("mật khẩu lưu ở DB: " + user.getPassword());
             if (password.equals(user.getPassword())) {
                 System.out.println("Login thành công, userId: " + user.getId());
+                System.out.println("tên: " + user.getUsername());
+                System.out.println("email: " + user.getEmail());
+                System.out.println("Birthdate: " + user.getBirthdate());
+                System.out.println("role: " + user.getRole());
                 return user.getId();
             } else {
                 System.out.println("Mật khẩu không khớp");
@@ -51,6 +55,7 @@ public class Authentication {
         String pwd = "123";
         Authentication auth = new Authentication();
         int login = auth.login(uname, pwd);
+        System.out.println(login);
 
     }
 }
