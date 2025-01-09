@@ -3,14 +3,13 @@ package vn.edu.hcmuaf.fit.crocodile.dao.user;
 import org.jdbi.v3.core.Jdbi;
 import vn.edu.hcmuaf.fit.crocodile.config.JdbiConnect;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
+import vn.edu.hcmuaf.fit.crocodile.service.AuthenticationService;
 import vn.edu.hcmuaf.fit.crocodile.util.HashUtil;
 
-import java.util.List;
+import java.time.LocalDate;
 import java.util.Optional;
 
 public class UserDaoImpl implements UserDao {
-    private final Jdbi jdbi = JdbiConnect.getJdbi();
-
 
 //    // ------------------------ Begin admin method ------------------------
 //    @Override
@@ -52,19 +51,46 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public int create(User user) {
+        Optional<User> existingUser = findByUsername(user.getUsername());
+        if (existingUser.isPresent()) {
+            throw new IllegalArgumentException("Tài khoản đã tồn tại.");
+        }
 
-        String query = "INSERT INTO users (username, password, role) VALUES (:username, :password, :role)";
+        String hashedPassword = HashUtil.hashMD5(user.getPassword());
+
+        String query = "INSERT INTO users (username, password, name, email, phone, gender, birthdate) " +
+                "VALUES (:username, :password, :name, :email, :phone , :gender, :dateOfBirth)";
 
         return JdbiConnect.getJdbi().withHandle(handle ->
                 handle.createUpdate(query)
                         .bind("username", user.getUsername())
-                        .bind("password", user.getPassword())
-                        .bind("role", user.getRole())
+                        .bind("password", hashedPassword)
+                        .bind("name", user.getName())
+                        .bind("email", user.getEmail())
+                        .bind("phone", user.getPhone_number())
+                        .bind("gender", user.getGender())
+                        .bind("dateOfBirth", user.getBirthdate())
                         .executeAndReturnGeneratedKeys("id")
                         .mapTo(int.class)
                         .one()
         );
     }
 
+
+    public static void main(String[] args) {
+        AuthenticationService authService = new AuthenticationService();
+
+        // Dữ liệu đăng nhập
+        String username = "testUser";
+        String password = "testPassword";
+
+        // Thử đăng nhập
+        int userId = authService.login(username, password);
+        if (userId != -1) {
+            System.out.println("Đăng nhập thành công, userId: " + userId);
+        } else {
+            System.out.println("Đăng nhập thất bại");
+        }
+    }
 
 }

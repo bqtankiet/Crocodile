@@ -3,18 +3,13 @@ package vn.edu.hcmuaf.fit.crocodile.controller;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import org.eclipse.tags.shaded.org.apache.xalan.xslt.Process;
-import vn.edu.hcmuaf.fit.crocodile.dao.user.IUserDao;
-import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDao;
-import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDaoImpl;
-import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
-import vn.edu.hcmuaf.fit.crocodile.service.Authentication;
+import vn.edu.hcmuaf.fit.crocodile.service.AuthenticationService;
 
 import java.io.IOException;
 
 @WebServlet(name = "LoginController", urlPatterns = {"/login"})
 public class LoginController extends HttpServlet {
-    private final Authentication auth = new Authentication();
+    private final AuthenticationService auth = new AuthenticationService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -1,18 +1,40 @@
 package vn.edu.hcmuaf.fit.crocodile.model.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public class User implements Serializable {
     private int id;
     private String username;
     private String password;
+    private String name;
     private String email;
     private String phone_number;
     private String gender;
-    private String birthdate;
-    private int active;
-    private int role;
+    private LocalDate birthdate;
+    private int active = 1;
+    private int role = 0;
 
+    public User() {
+    }
+
+    public User(String username, String password, String name, String email, String phone_number, String gender, LocalDate birthdate) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.email = email;
+        this.phone_number = phone_number;
+        this.gender = gender;
+        this.birthdate = birthdate;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public int getId() {
         return id;
@@ -62,11 +84,11 @@ public class User implements Serializable {
         this.gender = gender;
     }
 
-    public String getBirthdate() {
+    public LocalDate getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(String birthdate) {
+    public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
     }
 
