@@ -318,24 +318,32 @@
             <div class="border-bottom pb-3">
                 <div class="row g-0">
                     <div class="col-2 me-3 position-relative">
+                        <%-- số lượng sản phẩm--%>
                         <span class="position-absolute top-0 start-100 z-1 translate-middle badge rounded-pill bg-danger">
                             1
                         </span>
+
+                        <%-- hình ảnh sản phẩm --%>
                         <div class="ratio ratio-1x1">
-                            <img src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
+                            <img src="https://images.kienthuc.net.vn/zoomh/800/uploaded/nguyenanhson/2024_09_17/5/hot-girl-bi-don-ban-anh-nhay-cam-kiem-tien-gio-ra-sao.jpg"
                                  class="img-fluid border rounded-2" alt="">
                         </div>
                     </div>
+
                     <div class="col lh-1 my-auto">
                         <div class="w-100">
                             <div class="d-flex align-items-center">
                                 <div class="me-2">
+                                    <%-- tên sản phẩm --%>
                                     <p class="fw-semibold mb-0 line-clamp-2"
                                        style="height: fit-content ;max-height: 2.5rem; line-height: 1.2">
                                         Ví gấp nam da cá sấu V7068
                                     </p>
+
+                                    <%-- loại sản phẩm --%>
                                     <p class="text-muted mt-1 mb-0">Da trơn</p>
                                 </div>
+                                <%-- tổng tiền sản phẩm --%>
                                 <div class="ms-auto fw-medium fs-6">1.100.000<sup>₫</sup></div>
                             </div>
                         </div>
@@ -344,6 +352,7 @@
             </div>
         </div>
         <div class="p-3">
+            <%-- Tổng tiền giỏ hàng --%>
             <div class="d-flex gap-2 fw-bold">
                 <p>Tổng:</p>
                 <p>1.100.000<sup>₫</sup></p>

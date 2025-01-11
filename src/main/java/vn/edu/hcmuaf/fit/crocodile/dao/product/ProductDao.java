@@ -153,7 +153,20 @@ public class ProductDao implements IProductDao {
         return result;
     }
 
+
     // ------------------------ em khoi test ----------------------------
+    @Override
+    public List<ProductOption> findOptionsByProductId(int productId) {
+        String sql = "select * from product_options where idProduct = :productId";
+
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("productId", productId)
+                        .mapToBean(ProductOption.class)
+                        .list()
+        );
+    }
+
     @Override
     public List<Product> findAllProductsByCategoryId(int categoryId) {
         String sql = "SELECT * FROM products WHERE idCategory = :categoryId";

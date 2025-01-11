@@ -52,8 +52,9 @@ public class ProductService {
     // ------------------------ close admin method ------------------------
 
     // ------------------------ em khoi test ----------------------------
-    public List<Product> getAllProductsByCategoryId(int categoryId) {
-        return productDao.findAllProductsByCategoryId(categoryId);
+    public List<ProductOption> findOptionsByProductId(int productId) {
+        return productDao.findOptionsByProductId(productId);
     }
+
     // ------------------------ em khoi test ----------------------------
 }
