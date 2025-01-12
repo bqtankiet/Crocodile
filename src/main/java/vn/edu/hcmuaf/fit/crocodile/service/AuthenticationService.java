@@ -11,6 +11,18 @@ import java.util.Optional;
 public class AuthenticationService {
     private final UserDao userDao;
 
+    public int signup(User user) {
+        try {
+            String hashedPassword = HashUtil.hashMD5(user.getPassword());
+            user.setPassword(hashedPassword);
+            return userDao.create(user);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Lỗi đăng ký: " + e.getMessage());
+            return -1;
+        }
+    }
+
+
     public AuthenticationService() {
         this.userDao = new UserDaoImpl();
     }
@@ -31,6 +43,13 @@ public class AuthenticationService {
             System.out.println("mật khẩu lưu ở DB: " + user.getPassword());
             if (hashedPassword.equals(user.getPassword())) {
                 System.out.println("Login thành công, userId: " + user.getId());
+                System.out.println("Login oke, fullname: " + user.getFullname());
+                System.out.println("Login oke, gender: " + user.getGender());
+                System.out.println("Login oke, birthdate: " + user.getBirthdate());
+                System.out.println("Login oke, email: " + user.getEmail());
+                System.out.println("Login oke, sdt: " + user.getPhone_number());
+
+
                 return user.getId();
             } else {
                 System.out.println("Mật khẩu không khớp");
@@ -42,38 +61,10 @@ public class AuthenticationService {
         return -1;
     }
 
-
-    public int signup(User user) {
-        try {
-            return userDao.create(user);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Lỗi đăng ký: " + e.getMessage());
-            return -1;
-        }
-    }
-
-
     public static void main(String[] args) {
-        AuthenticationService authService = new AuthenticationService();
-
-        // Tạo một người dùng mới
-        String username = "testUser";
-        String password = "testPassword";
-        String name = "Test User";
-        String email = "testuser@example.com";
-        String phone = "1234567890";
-        String gender = "male";
-        LocalDate birthdate = LocalDate.of(1990, 1, 1);
-
-        User newUser = new User(username, password, name, email, phone, gender, birthdate);
-
-        // Đăng ký người dùng
-        int userId = authService.signup(newUser);
-        if (userId != -1) {
-            System.out.println("Đăng ký thành công, userId: " + userId);
-        } else {
-            System.out.println("Đăng ký thất bại");
-        }
+        AuthenticationService authenticationService = new AuthenticationService();
+        authenticationService.login("mazuong2k5", "123");
     }
+
 
 }

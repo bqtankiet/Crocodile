@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <style>
     .hidden {
         display: none;
@@ -32,6 +33,7 @@
         border-top-color: #ffdddd; /* Màu nền mũi tên */
     }
 </style>
+
 <div id="CONTENT" class="bg-secondary-subtle">
     <div class="container light-style py-5">
         <div class="row">
@@ -48,10 +50,22 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col d-flex flex-column gap-1 justify-content-center">
-                        <div class="fw-bold text-capitalize">Đặng Anh Kiệt</div>
-                        <div class="text-muted">#anhkiet123</div>
-                    </div>
+                    <c:choose>
+                        <c:when test="${not empty sessionScope.userName}">
+                            <div class="col d-flex flex-column gap-1 justify-content-center">
+                                <!-- Hiển thị fullName và userName từ session -->
+                                <div class="fw-bold text-capitalize">${sessionScope.fullName}</div>
+                                <div class="text-muted">#${sessionScope.userName}</div>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <!-- Hiển thị nếu chưa đăng nhập -->
+                            <div class="col d-flex flex-column gap-1 justify-content-center">
+                                <div class="fw-bold text-capitalize">Chưa đăng nhập</div>
+                                <div class="text-muted">#N/A</div>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
                 <div>
                 </div>
@@ -75,7 +89,6 @@
                         </div>
                         Đơn mua
                     </div>
-                    <!--                    <div role="button" class="nav-link" data-bs-toggle="pill" data-bs-target="#account-info">Thông Tin</div>-->
                     <div role="button" class="nav-link" data-bs-toggle="pill" data-bs-target="#account-address">
                         <div class="custom-icon me-2 float-start" style="--size: 1.5rem">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -96,7 +109,8 @@
                         </div>
                         Đổi Mật Khẩu
                     </div>
-                    <div role="button" class="nav-link text-danger fw-semibold ">
+                    <a href="${pageContext.request.contextPath}/logout" class="nav-link text-danger fw-semibold"
+                       role="button">
                         <div class="custom-icon me-2 float-start" style="--size: 1.5rem">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-box-arrow-left" viewBox="0 0 16 16">
@@ -107,7 +121,7 @@
                             </svg>
                         </div>
                         Đăng xuất
-                    </div>
+                    </a>
                 </div>
             </div>
             <!-- right side -->
