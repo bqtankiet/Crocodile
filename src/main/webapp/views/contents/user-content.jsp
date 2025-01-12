@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <style>
@@ -50,22 +51,23 @@
                             </div>
                         </div>
                     </div>
-                    <c:choose>
-                        <c:when test="${not empty sessionScope.userName}">
-                            <div class="col d-flex flex-column gap-1 justify-content-center">
-                                <!-- Hiển thị fullName và userName từ session -->
-                                <div class="fw-bold text-capitalize">${sessionScope.fullName}</div>
-                                <div class="text-muted">#${sessionScope.userName}</div>
-                            </div>
-                        </c:when>
-                        <c:otherwise>
-                            <!-- Hiển thị nếu chưa đăng nhập -->
-                            <div class="col d-flex flex-column gap-1 justify-content-center">
-                                <div class="fw-bold text-capitalize">Chưa đăng nhập</div>
-                                <div class="text-muted">#N/A</div>
-                            </div>
-                        </c:otherwise>
-                    </c:choose>
+                    <%--                    <c:choose>--%>
+                    <%--                        <c:when test="${not empty sessionScope.userName && not empty sessionScope.fullName}">--%>
+                    <div class="col d-flex flex-column gap-1 justify-content-center">
+                        <!-- Hiển thị fullName và userName từ session -->
+                        <div class="fw-bold text-capitalize">${sessionScope.fullName}</div>
+                        <div class="text-muted">#${sessionScope.userName}</div>
+                    </div>
+                    <%--                        </c:when>--%>
+                    <%--                        <c:otherwise>--%>
+                    <%--                            <!-- Hiển thị nếu chưa đăng nhập -->--%>
+                    <%--                            <div class="col d-flex flex-column gap-1 justify-content-center">--%>
+                    <%--                                <div class="fw-bold text-capitalize">Chưa đăng nhập</div>--%>
+                    <%--                                <div class="text-muted">#N/A</div>--%>
+                    <%--                            </div>--%>
+                    <%--                        </c:otherwise>--%>
+                    <%--                    </c:choose>--%>
+
                 </div>
                 <div>
                 </div>
@@ -132,61 +134,66 @@
                             <h4 class="fw-semibold">Quản lý thông tin cá nhân</h4>
                             <hr class="text-light">
                         </div>
-                        <form class="d-flex flex-column gap-4">
+                        <form action="<c:url value="/update-profile"/>" method="post" class="d-flex flex-column gap-4">
                             <div class="row">
                                 <label for="username" class="col-form-label col-sm-2 text-muted">Tên đăng nhập</label>
                                 <div class="col-sm-10">
                                     <input type="text" readonly class="form-control-plaintext" id="username"
-                                           value="anhkiet123">
+                                           value="${sessionScope.userName != null ? sessionScope.userName : ''}">
                                 </div>
                             </div>
                             <div class="row">
                                 <label for="fullname" class="col-form-label col-sm-2 text-muted">Họ và tên</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="fullname" value="Đặng Anh Kiệt">
+                                    <input type="text" class="form-control" id="fullname"
+                                           value="${sessionScope.fullName != null ? sessionScope.fullName : ''}">
+
                                 </div>
                             </div>
                             <div class="row">
                                 <label for="email" class="col-form-label col-sm-2 text-muted">Email</label>
                                 <div class="col-sm-10 d-flex align-items-center">
                                     <input type="text" readonly class="form-control-plaintext" id="email"
-                                           value="anhkiet123@gmail.com">
+                                           value="${sessionScope.email != null ? sessionScope.email : ''}">
                                     <a href="" class="text-nowrap" data-bs-toggle="modal"
                                        data-bs-target="#modal-edit-email">Thay đổi</a>
                                 </div>
                             </div>
                             <div class="row">
-                                <label for="phone-number" class="col-form-label col-sm-2 text-muted">Số điện
-                                    thoại</label>
-                                <div class="col-sm-10 d-flex align-items-center">
-                                    <input type="text" readonly class="form-control-plaintext" id="phone-number"
-                                           value="0123 456 789">
-                                    <a href="" class="text-nowrap" data-bs-toggle="modal"
-                                       data-bs-target="#modal-edit-phone">Thay đổi</a>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label class="col-form-label col-sm-2 text-muted">Giới tính </label>
+                                <label class="col-form-label col-sm-2 text-muted">Giới tính</label>
                                 <div class="col-sm-10">
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="gender" id="gender-male"
-                                               checked>
+                                               value="Nam" ${sessionScope.gender == 'Nam' ? 'checked' : ''}>
                                         <label class="form-check-label" for="gender-male">Nam</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" id="gender-female">
+                                        <input class="form-check-input" type="radio" name="gender" id="gender-female"
+                                               value="Nữ" ${sessionScope.gender == 'Nữ' ? 'checked' : ''}>
                                         <label class="form-check-label" for="gender-female">Nữ</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" id="gender-other">
-                                        <label class="form-check-label" for="gender-other">Khác </label>
+                                        <input class="form-check-input" type="radio" name="gender" id="gender-other"
+                                               value="Khác" ${sessionScope.gender == 'Khác' ? 'checked' : ''}>
+                                        <label class="form-check-label" for="gender-other">Khác</label>
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="row">
+                                <label for="phone-number" class="col-form-label col-sm-2 text-muted">Số điện
+                                    thoại</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="phone-number" name="phone-number"
+                                           value="${sessionScope.phone != null ? sessionScope.phone : ''}">
+                                </div>
+                            </div>
+
                             <div class="row">
                                 <label for="birth-date" class="col-form-label col-sm-2 text-muted">Ngày sinh</label>
                                 <div class="col-sm-10">
-                                    <input type="date" class="form-control-plaintext" id="birth-date" value="2004-01-01"
+                                    <input type="date" class="form-control-plaintext" id="birth-date"
+                                           value="${sessionScope.birthDate != null ? sessionScope.birthDate : ''}"
                                            style="width: min-content;">
                                 </div>
                             </div>
@@ -195,6 +202,7 @@
                             </button>
                         </form>
                     </div>
+
                     <div class="tab-pane fade" id="account-change-password">
                         <div>
                             <h4 class="fw-semibold">Thay đổi mật khẩu </h4>

@@ -42,13 +42,13 @@ public class AuthenticationService {
             System.out.println("mật khẩu đã hash   " + hashedPassword);
             System.out.println("mật khẩu lưu ở DB: " + user.getPassword());
             if (hashedPassword.equals(user.getPassword())) {
+
                 System.out.println("Login thành công, userId: " + user.getId());
                 System.out.println("Login oke, fullname: " + user.getFullname());
                 System.out.println("Login oke, gender: " + user.getGender());
                 System.out.println("Login oke, birthdate: " + user.getBirthdate());
                 System.out.println("Login oke, email: " + user.getEmail());
-                System.out.println("Login oke, sdt: " + user.getPhone_number());
-
+                System.out.println("Login oke, sdt: " + user.getPhoneNumber());
 
                 return user.getId();
             } else {
@@ -63,7 +63,7 @@ public class AuthenticationService {
 
     public static void main(String[] args) {
         AuthenticationService authenticationService = new AuthenticationService();
-        authenticationService.login("mazuong2k5", "123");
+        authenticationService.login("admin", "admin");
     }
 
 

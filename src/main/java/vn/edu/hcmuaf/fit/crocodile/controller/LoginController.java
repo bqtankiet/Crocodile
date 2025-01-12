@@ -16,7 +16,6 @@ public class LoginController extends HttpServlet {
     private final AuthenticationService auth = new AuthenticationService();
     private static final UserDao userDao = new UserDaoImpl();
 
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/views/login.jsp").forward(request, response);
@@ -30,26 +29,43 @@ public class LoginController extends HttpServlet {
         int userId = auth.login(username, password);
 
         if (userId != -1) {
+            // Lấy thông tin người dùng
+            UserDao userDao = new UserDaoImpl();
             Optional<User> optionalUser = userDao.findById(userId);
 
             if (optionalUser.isPresent()) {
                 User user = optionalUser.get();
-
                 HttpSession session = request.getSession();
                 session.setAttribute("userId", userId);
-                session.setAttribute("userName", username);
-                session.setAttribute("fullName", user.getFullname());
+                session.setAttribute("userName", user.getUsername());
+                session.setAttribute("fullName", user.getFullname() != null ? user.getFullname() : "");
+                session.setAttribute("email", user.getEmail());
+                session.setAttribute("gender", user.getGender() != null ? user.getGender() : "");
+                session.setAttribute("phone", user.getPhoneNumber() != null ? user.getPhoneNumber() : "");
+                session.setAttribute("birthDate", user.getBirthdate());
 
-                System.out.println("Chuyển hướng đến home.jsp");
-                response.sendRedirect(request.getContextPath() + "/");  // Chuyển hướng đến trang chính
+                // Đoạn mã xử lý gender
+                String gender = user.getGender();
+                String genderDisplay = "";
+
+                if ("NAM".equals(gender)) {
+                    genderDisplay = "Nam";
+                } else if ("NỮ".equals(gender)) {
+                    genderDisplay = "Nữ";
+                } else if ("KHÁC".equals(gender)) {
+                    genderDisplay = "Khác";
+                }
+
+                session.setAttribute("gender", genderDisplay);
+
+                response.sendRedirect(request.getContextPath() + "/");
+            } else {
+                request.setAttribute("errorMessage", "Không tìm thấy thông tin người dùng.");
+                request.getRequestDispatcher("/views/login.jsp").forward(request, response);
             }
-
         } else {
-            System.out.println("Đăng nhập thất bại");
-            request.setAttribute("errorMessage", "Sai Tài Khoản Hoặc Mật Khẩu");
+            request.setAttribute("errorMessage", "Sai Tài Khoản Hoặc Mật Khẩu.");
             request.getRequestDispatcher("/views/login.jsp").forward(request, response);
         }
     }
-
-
 }

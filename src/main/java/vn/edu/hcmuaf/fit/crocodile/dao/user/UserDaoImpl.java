@@ -48,6 +48,21 @@ public class UserDaoImpl implements UserDao {
         );
     }
 
+    @Override
+    public void update(User user) {
+        String query = "UPDATE users SET fullname = :fullname, email = :email, phoneNumber = :phoneNumber, gender = :gender, birthdate = :birthdate WHERE username = :username";
+        JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createUpdate(query)
+                        .bind("username", user.getUsername())
+                        .bind("fullname", user.getFullname())
+                        .bind("email", user.getEmail())
+                        .bind("phoneNumber", user.getPhoneNumber())
+                        .bind("gender", user.getGender())
+                        .bind("birthdate", user.getBirthdate())
+                        .execute()
+        );
+    }
+
 
     @Override
     public int create(User user) {
@@ -66,7 +81,7 @@ public class UserDaoImpl implements UserDao {
                         .bind("password", user.getPassword())
                         .bind("fullname", user.getFullname())
                         .bind("email", user.getEmail())
-                        .bind("phoneNumber", user.getPhone_number())
+                        .bind("phoneNumber", user.getPhoneNumber())
                         .bind("gender", user.getGender())
                         .bind("dateOfBirth", user.getBirthdate())
                         .executeAndReturnGeneratedKeys("id")

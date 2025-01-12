@@ -5,7 +5,6 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
 import vn.edu.hcmuaf.fit.crocodile.service.AuthenticationService;
-import vn.edu.hcmuaf.fit.crocodile.util.Gender;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -47,9 +46,9 @@ public class SignupController extends HttpServlet {
 
         if (emailOrPhone.matches("^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
             user.setEmail(emailOrPhone);
-            user.setPhone_number(null);
+            user.setPhoneNumber(null);
         } else if (emailOrPhone.matches("^[0-9]{10,15}$")) {
-            user.setPhone_number(emailOrPhone);
+            user.setPhoneNumber(emailOrPhone);
             user.setEmail(null);
         }
 
