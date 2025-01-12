@@ -156,14 +156,15 @@ public class ProductDao implements IProductDao {
 
     // ------------------------ em khoi test ----------------------------
     @Override
-    public List<ProductOption> findOptionsByProductId(int productId) {
-        String sql = "select * from product_options where idProduct = :productId";
+    public ProductOption findOptionsById(int id) {
+        String sql = "select * from product_options where id = :id";
 
         return JdbiConnect.getJdbi().withHandle(handle ->
                 handle.createQuery(sql)
-                        .bind("productId", productId)
+                        .bind("id", id)
                         .mapToBean(ProductOption.class)
-                        .list()
+                        .findFirst()
+                        .orElse(null)
         );
     }
 

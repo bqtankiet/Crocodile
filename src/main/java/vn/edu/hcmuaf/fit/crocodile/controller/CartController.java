@@ -34,13 +34,14 @@ public class CartController extends HttpServlet {
 
         Product product = productService.getProductById(productVariant.getIdProduct());
 
-        List<Product.ProductOption> productOptions = productService.findOptionsByProductId(product.getId());
+        Product.ProductOption pOption1 = productService.findOptionsById(productVariant.getIdOption1());
+        Product.ProductOption pOption2 = productService.findOptionsById(productVariant.getIdOption2());
 
         HttpSession session = request.getSession();
         Cart cart = (Cart) session.getAttribute("cart");
         if (cart == null) { cart = new Cart(); }
 
-        cart.addProduct(product, quantity, productOptions);
+        cart.addProduct(idVariant, product, quantity, pOption1, pOption2);
 
         session.setAttribute("cart", cart);
     }

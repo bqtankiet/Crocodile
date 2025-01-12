@@ -52,8 +52,8 @@ public class ProductService {
     // ------------------------ close admin method ------------------------
 
     // ------------------------ em khoi test ----------------------------
-    public List<ProductOption> findOptionsByProductId(int productId) {
-        return productDao.findOptionsByProductId(productId);
+    public ProductOption findOptionsById(int id) {
+        return productDao.findOptionsById(id);
     }
     public ProductVariant getProductVariantById(int idVariant) {
         return productDao.getProductVariantById(idVariant);

@@ -5,15 +5,15 @@ import java.util.List;
 
 public class CartItem implements Serializable {
     private Product product;
-//    private String productVariant;
     private int quantity;
+    private Product.ProductOption pOption1;
+    private Product.ProductOption pOption2;
 
-    private List<Product.ProductOption> options;
-
-    public CartItem(Product product, int quantity, List<Product.ProductOption> options) {
+    public CartItem(Product product, int quantity, Product.ProductOption pOption1, Product.ProductOption pOption2) {
         this.product = product;
         this.quantity = quantity;
-        this.options = options;
+        this.pOption1 = pOption1;
+        this.pOption2 = pOption2;
     }
 
     public Product getProduct() {
@@ -32,13 +32,13 @@ public class CartItem implements Serializable {
         this.quantity = quantity;
     }
 
-    public List<Product.ProductOption> getOptions() {
-        return options;
-    }
+    public Product.ProductOption getpOption1() { return pOption1; }
 
-    public void setOptions(List<Product.ProductOption> options) {
-        this.options = options;
-    }
+    public void setpOption1(Product.ProductOption pOption1) { this.pOption1 = pOption1; }
+
+    public Product.ProductOption getpOption2() { return pOption2; }
+
+    public void setpOption2(Product.ProductOption pOption2) { this.pOption2 = pOption2; }
 
     // Tính tổng tiền của item
     public int getTotalPriceItem() {

@@ -17,7 +17,7 @@
         </div>
 
         <form action="http://localhost:8080/crocodile/cart" method="post">
-            <input type="text" name="idProduct" value="1">
+            <input type="text" name="idVariant" value="1">
             <input type="text" name="quantity" value="3">
             <button type="submit">them vao gio hang</button>
         </form>
@@ -56,7 +56,15 @@
                                         </div>
                                         <div class="ms-4 col-6">
                                             <p class="mb-2 line-clamp-2" style="height: fit-content">${cart.product.name}</p>
-                                            <p class="fw-normal">Phân loại: Da trơn</p>
+                                            <c:if test="${cart.pOption1 != null}">
+                                                <p class="fw-normal">${cart.pOption1.key}: ${cart.pOption1.value}
+
+                                                <c:if test="${cart.pOption2 != null}">
+                                                    , ${cart.pOption2.key}: ${cart.pOption2.value}
+                                                </c:if>
+                                                </p>
+                                            </c:if>
+
                                         </div>
                                     </div>
                                 </th>

@@ -155,6 +155,9 @@
                     <div class="d-flex align-items-center justify-content-end">
                         <div class="custom-icon" style="--size: 2rem">
                             <span class="badge text-bg-danger position-absolute translate-middle rounded-pill">
+                                <c:if test="${sessionScope.cart == null}">
+                                    0
+                                </c:if>
                                 ${sessionScope.cart.item.size()}
                             </span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -166,6 +169,9 @@
                             <div class="small pb-1">Giỏ hàng</div>
 
                             <div class="pb-1 fw-semibold text-truncate" style="width: 10ch">
+                                <c:if test="${sessionScope.cart == null}">
+                                    0
+                                </c:if>
                                 <fmt:formatNumber value="${sessionScope.cart.total}" type="number" pattern="#,##0" />
                                 <span>₫</span>
                             </div>
@@ -353,6 +359,9 @@
                                     </div>
                                         <%-- tổng tiền sản phẩm --%>
                                     <div class="ms-auto fw-medium fs-6">
+                                        <c:if test="${sessionScope.cart == null}">
+                                            0
+                                        </c:if>
                                         <fmt:formatNumber value="${cart.totalPriceItem}" type="number" pattern="#,##0" />
                                             <sup>₫</sup>
                                     </div>

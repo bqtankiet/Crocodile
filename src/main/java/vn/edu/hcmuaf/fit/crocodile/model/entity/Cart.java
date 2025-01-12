@@ -13,16 +13,16 @@ public class Cart {
     }
 
     // Thêm hoặc cập nhật sản phẩm trong giỏ hàng cùng với các tùy chọn
-    public int addProduct(Product product, int quantity, List<Product.ProductOption> options) {
+    public int addProduct(int idVariant, Product product, int quantity, Product.ProductOption pOption1, Product.ProductOption pOption2) {
         if (product == null || quantity == 0) return -1;
 
-        if (items.containsKey(product.getId())) {
+        if (items.containsKey(idVariant)) {
             CartItem cartItem = items.get(product.getId());
             cartItem.setQuantity(cartItem.getQuantity() + quantity);
             return 2;
         }
 
-        items.put(product.getId(), new CartItem(product, quantity, options));
+        items.put(idVariant, new CartItem(product, quantity, pOption1, pOption2));
         return 1;
     }
 
