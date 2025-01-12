@@ -179,5 +179,38 @@ public class ProductDao implements IProductDao {
         );
     }
 
+    @Override
+    public List<Product> findProductsByCategoryAndPage(int idCate, int page) {
+        final int N = 20;
+        int offset = (page-1)*N;
+        String sql = """
+                SELECT *
+                FROM products p
+                WHERE p.idCategory = :idCate AND active = 1
+                ORDER BY p.id
+                LIMIT :N OFFSET :offset
+                """;
+        return JdbiConnect.getJdbi().withHandle(handle ->
+            handle.createQuery(sql)
+                    .bind("idCate", idCate)
+                    .bind("offset", offset)
+                    .bind("N", N)
+                    .mapToBean(Product.class)
+                    .list()
+        );
+    }
+
+    @Override
+    public int getMaxPage(int idCate) {
+        String sql = "SELECT CEIL(COUNT(*) / 20) AS maxPage FROM products WHERE idCategory = :idCate";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+            handle.createQuery(sql)
+                    .bind("idCate", idCate)
+                    .mapTo(Integer.class)
+                    .findFirst()
+                    .orElse(1)
+        );
+    }
+
     // ------------------------ em khoi test ----------------------------
 }

@@ -12,7 +12,7 @@
         <nav style="--bs-breadcrumb-divider: '>'">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="${homeUrl}">Trang Chủ</a></li>
-                <li class="breadcrumb-item active" aria-current="page">${requestScope.categoryName}</li>
+                <li class="breadcrumb-item active" aria-current="page">${requestScope.category.name}</li>
             </ol>
         </nav>
         <hr>
@@ -164,11 +164,23 @@
     <!-- Pagination-->
     <div class="container">
         <ul class="pagination pagination-lg justify-content-center m-5">
-            <li class="page-item disabled"><a class="page-link" href="#"><</a></li>
+            <c:url var="prev" value="<%=UrlProperties.productList()%>">
+                <c:param name="idCate" value="${requestScope.category.id}"/>
+                <c:param name="page" value="${requestScope.page-1}"/>
+            </c:url>
+            <li class="page-item ${requestScope.page == 1 ? 'disabled':''}"><a class="page-link" href="${prev}"><</a></li>
             <c:forEach begin="1" end="${requestScope.maxPage}" var="i">
-                <li class="page-item ${requestScope.page == i ? 'active' : ''}"><a class="page-link" href="#">${i}</a></li>
+                <c:url var="productListUrl" value="<%=UrlProperties.productList()%>">
+                    <c:param name="idCate" value="${requestScope.category.id}"/>
+                    <c:param name="page" value="${i}"/>
+                </c:url>
+                <li class="page-item ${requestScope.page == i ? 'active' : ''}"><a class="page-link" href="${productListUrl}">${i}</a></li>
             </c:forEach>
-            <li class="page-item"><a class="page-link" href="#">></a></li>
+            <c:url var="next" value="<%=UrlProperties.productList()%>">
+                <c:param name="idCate" value="${requestScope.category.id}"/>
+                <c:param name="page" value="${requestScope.page+1}"/>
+            </c:url>
+            <li class="page-item ${requestScope.page == requestScope.maxPage ? 'disabled':''}"><a class="page-link" href="${next}">></a></li>
         </ul>
     </div>
 </div>

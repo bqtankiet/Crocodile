@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import vn.edu.hcmuaf.fit.crocodile.config.properties.UrlProperties;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Category;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Product;
 import vn.edu.hcmuaf.fit.crocodile.service.CategoryService;
@@ -22,24 +23,24 @@ public class ProductListController extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-         this.utils = new CategoryControllerUtils();
-         this.categoryService = new CategoryService();
-         this.productService = new ProductService();
+        this.utils = new CategoryControllerUtils();
+        this.categoryService = new CategoryService();
+        this.productService = new ProductService();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int idCate = 1;
-        int page = 3;
-        int maxPage = 6;
+        int idCate = utils.tryToGetId(request);
+        int page = utils.tryToGetPage(request);
+        int maxPage = productService.getMaxPage(idCate);
+
         Category category = categoryService.getCategoryById(idCate);
-        List<Product> productList = productService.getAllProducts();
-        //TODO: Bị lỗi hiển thị sản phẩm ví nam
+        List<Product> productList = productService.getProductsByCategoryAndPage(idCate, page);
 
         request.setAttribute("category", category);
-        request.setAttribute("page",page);
-        request.setAttribute("maxPage",maxPage);
-        request.setAttribute("productList",productList);
+        request.setAttribute("page", page);
+        request.setAttribute("maxPage", maxPage);
+        request.setAttribute("productList", productList);
         request.getRequestDispatcher("/views/product-list.jsp").forward(request, response);
     }
 
@@ -50,9 +51,9 @@ public class ProductListController extends HttpServlet {
 
     private class CategoryControllerUtils {
         public int tryToGetId(HttpServletRequest request) {
-            int id = -1;
+            int id = 1;
             try {
-                id = Integer.parseInt(request.getParameter("id"));
+                id = Integer.parseInt(request.getParameter("idCate"));
             } catch (NumberFormatException e) {
                 // do nothing
             }
@@ -67,6 +68,18 @@ public class ProductListController extends HttpServlet {
                 // do nothing
             }
             return page;
+        }
+
+        public void normalizeURLParams(HttpServletRequest request, HttpServletResponse response) {
+            int idCate = utils.tryToGetId(request);
+            int page = utils.tryToGetPage(request);
+            int maxPage = productService.getMaxPage(idCate);
+            page = Math.max(1, Math.min(page, maxPage));
+            try {
+                response.sendRedirect(request.getContextPath() + UrlProperties.productList() + "?idCate=" + idCate + "&page=" + page);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

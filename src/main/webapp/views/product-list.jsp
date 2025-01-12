@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Crocodile - Ví Nam</title>
+    <title>Crocodile - ${requestScope.category.name}</title>
     <!--  jquery  -->
     <script src="<c:url value="/public/jquery-3.7.1.min.js"/>"></script>
     <!--  bootstrap  -->

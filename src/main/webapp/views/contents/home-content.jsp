@@ -131,7 +131,7 @@
                     <c:forEach var="category" items="${requestScope.categories}">
                         <div class="item_menu">
                             <c:url var="url_categoryId" value="<%=UrlProperties.productList()%>">
-                                <c:param name="id" value="${category.id}"/>
+                                <c:param name="idCate" value="${category.id}"/>
                             </c:url>
                             <a href="${url_categoryId}">
                                 <img src="<c:url value="${category.image}"/>" alt="img">

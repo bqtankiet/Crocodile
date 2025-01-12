@@ -191,7 +191,7 @@
                             <ul class="dropdown-menu position-absolute rounded-0 custom-bg-primary-darker shadow-lg">
                                 <c:forEach var="category" items="${categories}">
                                     <c:url var="url_categoryId" value="<%=UrlProperties.productList()%>">
-                                        <c:param name="id" value="${category.id}"/>
+                                        <c:param name="idCate" value="${category.id}"/>
                                     </c:url>
                                     <li><a class="dropdown-item" href="${url_categoryId}">${category.name}</a></li>
                                 </c:forEach>
@@ -242,7 +242,7 @@
                                 <ul class="dropdown-menu position-absolute rounded-0 custom-bg-primary-darker shadow-lg">
                                     <c:forEach var="category" items="${categories}">
                                         <c:url var="url_categoryId" value="<%=UrlProperties.productList()%>">
-                                            <c:param name="id" value="${category.id}"/>
+                                            <c:param name="idCate" value="${category.id}"/>
                                         </c:url>
                                         <li><a class="dropdown-item" href="${url_categoryId}">${category.name}</a></li>
                                     </c:forEach>
