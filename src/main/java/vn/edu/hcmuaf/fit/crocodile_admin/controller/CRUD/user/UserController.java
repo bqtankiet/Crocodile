@@ -10,7 +10,7 @@ import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "UserController", value = "/admin/user")
+@WebServlet(name = "UserManagementController", value = "/admin/user")
 public class UserController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
