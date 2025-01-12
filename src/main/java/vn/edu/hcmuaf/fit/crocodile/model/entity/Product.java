@@ -98,6 +98,7 @@ public class Product implements Serializable {
 
         private int id;
         private int idProduct;
+        private int index;
         private String image;
 
         @Override
@@ -110,6 +111,14 @@ public class Product implements Serializable {
         }
 
         // getter, setter
+        public int getIndex() {
+            return index;
+        }
+
+        public void setIndex(int imageIndex) {
+            this.index = imageIndex;
+        }
+
         public int getId() {
             return id;
         }
@@ -182,6 +191,7 @@ public class Product implements Serializable {
         private String value;
         private String idImage;
         private String image;
+        private int imageIndex;
 
         @Override
         public String toString() {
@@ -196,6 +206,15 @@ public class Product implements Serializable {
         }
 
         // getter, setter
+
+        public int getImageIndex() {
+            return imageIndex;
+        }
+
+        public void setImageIndex(int imageIndex) {
+            this.imageIndex = imageIndex;
+        }
+
         public int getId() {
             return id;
         }

@@ -29,7 +29,7 @@ public class ProductService {
     }
 
     public ProductOptionGroup getProductOptionGroupById(int productId, int group) {
-        List<ProductOption> options = productDao.findAllOptionsByProductId(productId, group);
+        List<ProductOption> options = productDao.findAllOptionsByProductIdV1(productId, group);
         if (options.isEmpty()) {
             return null;
         }

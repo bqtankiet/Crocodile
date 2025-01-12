@@ -36,13 +36,13 @@
                          data-owl-main='{"items": 1, "dots": false, "startPosition": "URLHash"}'
                          data-owl-thumb='{"items": 4, "margin": 10, "dots": false}'>
                         <%-- TODO: Hiển thị hình ảnh bìa của sản phẩm (data-hash = 0)--%>
-                        <div class="item" data-hash="0">
-                            <img src="${requestScope.product.image}" alt="">
-                        </div>
+<%--                        <div class="item" data-hash="0">--%>
+<%--                            <img src="${requestScope.product.image}" alt="">--%>
+<%--                        </div>--%>
 
                         <%-- TODO: Hiển thị các hình ảnh minh họa của ản phẩm (data-hash = img.id) --%>
                         <c:forEach var="img" items="${requestScope.productImages}">
-                            <div class="item" data-hash=${img.id}>
+                            <div class="item" data-hash=${img.index}>
                                 <img src="${img.image}" alt="">
                             </div>
                         </c:forEach>
@@ -84,8 +84,8 @@
                                                    id="idOption${o.id}" value="${o.id}" required
                                                    onclick="updateProductStock()">
                                             <label for="idOption${o.id}" class="btn btn-outline-dark"
-                                                    <c:if test="${o.idImage != null}">
-                                                        onclick=window.location.href='#${o.idImage}'
+                                                    <c:if test="${o.imageIndex != null}">
+                                                        onclick=window.location.href='#${o.imageIndex}'
                                                     </c:if>>
                                                 <c:if test="${o.image != null}">
                                                     <img src="${o.image}" alt="" class="img-fluid me-1" style="height: 2rem">

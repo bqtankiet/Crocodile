@@ -73,9 +73,10 @@ public class ProductDao implements IProductDao {
     @Override
     public List<ProductImage> findAllImagesByProductId(int productId) {
         String sql = """
-                SELECT id, idProduct, image
+                SELECT id, idProduct, `index`, image
                 FROM product_images
                 WHERE idProduct = :productId
+                ORDER BY `index`
                 """;
 
         List<ProductImage> result;
@@ -128,6 +129,30 @@ public class ProductDao implements IProductDao {
                     .bind("group", group)
                     .mapToBean(ProductOption.class)
                     .list()
+        );
+
+        return result;
+    }
+
+    @Override
+    public List<ProductOption> findAllOptionsByProductIdV1(int productId, int group) {
+        String sql = """
+                SELECT
+                    po.id, po.`group`, po.`key`, po.`value`,
+                    po.imageIndex, pi.image,
+                    po.idProduct, p.`name`
+                FROM products p
+                JOIN product_options po ON p.id = po.idProduct
+                LEFT JOIN product_images pi ON po.imageIndex = pi.index AND po.idProduct = pi.idProduct
+                WHERE p.id = :productId AND po.`group` = :group
+                """;
+        List<ProductOption> result;
+        result = JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("productId", productId)
+                        .bind("group", group)
+                        .mapToBean(ProductOption.class)
+                        .list()
         );
 
         return result;
