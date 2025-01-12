@@ -8,7 +8,7 @@
 <c:url var="url_home" value="<%= UrlProperties.home()%>"/>
 
 <c:url var="urlAddToCart" value="<%=UrlProperties.addToCart()%>"/>
-<c:url var="url_categoryId" value="<%= UrlProperties.category()%>">
+<c:url var="url_categoryId" value="<%= UrlProperties.productList()%>">
     <c:param name="id" value="${requestScope.product.category.id}"/>
 </c:url>
 

@@ -11,6 +11,7 @@ import vn.edu.hcmuaf.fit.crocodile.service.CategoryService;
 import vn.edu.hcmuaf.fit.crocodile.service.ProductService;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "ProductListController", value = "/product-list")
@@ -28,13 +29,14 @@ public class ProductListController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = 1;
+        int idCate = 1;
         int page = 3;
         int maxPage = 6;
-        Category category = categoryService.getCategoryById(id);
+        Category category = categoryService.getCategoryById(idCate);
         List<Product> productList = productService.getAllProducts();
+        //TODO: Bị lỗi hiển thị sản phẩm ví nam
 
-        request.setAttribute("categoryName", category.getName());
+        request.setAttribute("category", category);
         request.setAttribute("page",page);
         request.setAttribute("maxPage",maxPage);
         request.setAttribute("productList",productList);

@@ -38,7 +38,7 @@ function getTemplateHtml(){
             </path>
         </svg>
         <span class="[ product_discount ] text-white px-1"
-              style="background-color: #F69113;">Giảm 27%</span>
+              style="background-color: #F69113;">???</span>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16"
              style="height: var(--height); transform: rotate(180deg); margin-left: -1px">
             <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
@@ -54,12 +54,12 @@ function getTemplateHtml(){
     </div>
     <div class="card-body pt-1 d-flex flex-column">
         <div class="card-title line-clamp-2 mb-0">
-            <span class="[ product_badge ] badge text-bg-success">NEW</span>
-            <span class="[ product_name ]"> Ví gấp nam da cá sấu V7068</span>
+            <span class="[ product_badge ] badge text-bg-success">???</span>
+            <span class="[ product_name ]">???</span>
         </div>
         <div class="d-flex gap-1 custom-text-primary mt-2">
-            <span><span class="[ product_price ] fs-5">1.100.000</span><sup class="[ vnd-currency ] fs-6">₫</sup></span>
-            <span class="text-secondary text-decoration-line-through ms-2"><span class="[ product_base_price ]">1.500.000</span></span>
+            <span><span class="[ product_price ] fs-5">???</span></span>
+            <span class="text-secondary text-decoration-line-through ms-2"><span class="[ product_base_price ]">???</span></span>
         </div>
     </div>
 </div>

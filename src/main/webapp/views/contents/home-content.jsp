@@ -130,7 +130,7 @@
                 <div class="menu-box d-flex justify-content-center flex-wrap py-3 gap-2">
                     <c:forEach var="category" items="${requestScope.categories}">
                         <div class="item_menu">
-                            <c:url var="url_categoryId" value="<%=UrlProperties.category()%>">
+                            <c:url var="url_categoryId" value="<%=UrlProperties.productList()%>">
                                 <c:param name="id" value="${category.id}"/>
                             </c:url>
                             <a href="${url_categoryId}">
