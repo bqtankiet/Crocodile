@@ -34,7 +34,7 @@
                             <td>DavidBecKhôi</td>
                             <td>0123456789</td>
                             <td>1.200.000</td>
-                            <td>COD</td>
+                            <td><img style="width: 300px; height: 300px" src="https://bizweb.dktcdn.net/thumb/compact/100/027/341/products/clutch-nam-da-ca-sau-8a.jpg?v=1701337832133" alt=""></td>
                             <td>20/11/2022 15:30:30</td>
                             <td>
                                 <div class="dropdown">

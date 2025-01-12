@@ -35,13 +35,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-<%--HEADER--%>
-<jsp:include page="includes/header.jsp">
-    <jsp:param name="activePage" value="home"/>
-</jsp:include>
-<%--CONTENT--%>
-<jsp:include page="contents/home-content.jsp"/>
-<%--FOOTER--%>
-<jsp:include page="includes/footer.jsp"/>
+    <%--HEADER--%>
+    <jsp:include page="includes/header.jsp">
+        <jsp:param name="activePage" value="home"/>
+    </jsp:include>
+    <%--CONTENT--%>
+    <jsp:include page="contents/home-content.jsp"/>
+    <%--FOOTER--%>
+    <jsp:include page="includes/footer.jsp"/>
 </body>
 </html>

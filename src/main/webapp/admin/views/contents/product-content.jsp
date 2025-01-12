@@ -61,8 +61,7 @@
                                     </strong>
                                 </td>
                                 <td>
-<%--                                    <strong >${p.active == 1 ? 'Hiển thị' : 'Ẩn'}</strong>--%>
-                                    <strong>Hiển thị</strong>
+                                    <strong >${p.active == true ? 'Hiển thị' : 'Ẩn'}</strong>
                                 </td>
                                 <td>
                                     <div class="dropdown option-box">
