@@ -302,7 +302,13 @@
                         </a>
                         <a href="#offcanvasRight" role="button" data-bs-toggle="offcanvas">
                             <div class="custom-icon text-white" style="--size: 2rem">
-                                <span class="badge text-bg-danger position-absolute translate-middle rounded-pill">1</span>
+                                <span class="badge text-bg-danger position-absolute translate-middle rounded-pill">
+                                    <c:if test="${sessionScope.cart == null}">
+                                        0
+                                    </c:if>
+                                    ${sessionScope.cart.size}
+
+                                </span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-bag" viewBox="0 0 16 16">
                                     <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"></path>
@@ -355,7 +361,14 @@
                                         </p>
 
                                             <%-- loại sản phẩm --%>
-                                        <p class="text-muted mt-1 mb-0">Da trơn</p>
+                                            <c:if test="${cart.pOption1 != null}">
+                                                <p class="fw-normal">${cart.pOption1.key}: ${cart.pOption1.value}
+
+                                                    <c:if test="${cart.pOption2 != null}">
+                                                        , ${cart.pOption2.key}: ${cart.pOption2.value}
+                                                    </c:if>
+                                                </p>
+                                            </c:if>
                                     </div>
                                         <%-- tổng tiền sản phẩm --%>
                                     <div class="ms-auto fw-medium fs-6">
@@ -378,6 +391,9 @@
             <div class="d-flex gap-2 fw-bold">
                 <p>Tổng:</p>
                 <p>
+                    <c:if test="${sessionScope.cart == null}">
+                        0
+                    </c:if>
                     <fmt:formatNumber value="${sessionScope.cart.total}" type="number" pattern="#,##0" />
                     <sup>₫</sup>
                 </p>

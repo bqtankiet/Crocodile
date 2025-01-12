@@ -17,7 +17,7 @@ public class Cart {
         if (product == null || quantity == 0) return -1;
 
         if (items.containsKey(idVariant)) {
-            CartItem cartItem = items.get(product.getId());
+            CartItem cartItem = items.get(idVariant);
             cartItem.setQuantity(cartItem.getQuantity() + quantity);
             return 2;
         }
