@@ -6,6 +6,8 @@
 <fmt:setLocale value="vi_VN"/>
 
 <c:url var="url_home" value="<%= UrlProperties.home()%>"/>
+
+<c:url var="urlAddToCart" value="<%=UrlProperties.addToCart()%>"/>
 <c:url var="url_categoryId" value="<%= UrlProperties.category()%>">
     <c:param name="id" value="${requestScope.product.category.id}"/>
 </c:url>
@@ -213,6 +215,7 @@
         </div>
     </div>
 
+
     <script>
         // Danh sách các variants lấy từ servlet ở dạng Json
         const productVariants = JSON.parse('${requestScope.productVariantsJson}');
@@ -275,4 +278,44 @@
             $form.submit();
         }
     </script>
+
+    <!-- ajax thêm sản phẩm vào giỏi hàng  -->
+    <script>
+        $(document).on('click', '.btn-submit', function (event) {
+            const idProduct = $(this).data('id');
+            const quantity = $('.quantity').val();
+            console.log(idProduct)
+            // lấy các option chọn thêm vào mảng
+            const selectedOptions = $('input[name=""]:checked').map(function () {
+                return $(this).val();
+            }).get();
+
+            $.ajax({
+                url: "/cart",
+                <%--url: "${urlAddToCart}",--%>
+                type: "POST",
+                data: {
+                    idProduct: idProduct,
+                    quantity: quantity,
+                    // selectedOptions: JSON.stringify(selectedOptions)
+                },
+                success: function (response){
+                    alert("Thêm vào giỏ hàng thành công!");
+
+                },
+                error: function(xhr, status, error) {
+                    if (xhr.status === 404) {
+                        alert("Không tìm thấy endpoint " + "");
+                    } else {
+                        alert("Đã xảy ra lỗi. Vui lòng thử lại.");
+                    }
+                    console.error("Error:", error);
+                }
+            })
+
+        });
+    </script>
 </div>
+
+
+

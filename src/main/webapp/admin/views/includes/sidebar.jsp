@@ -1,11 +1,13 @@
+<%@ page import="vn.edu.hcmuaf.fit.crocodile_admin.config.properties.UrlProperties" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:url var="accountUrl" value="${applicationScope.urls['admin.account']}"/>
-<c:url var="categoryUrl" value="${applicationScope.urls['admin.category']}"/>
-<c:url var="productUrl" value="${applicationScope.urls['admin.product']}"/>
-<c:url var="orderUrl" value="${applicationScope.urls['admin.order']}"/>
-<c:url var="userUrl" value="${applicationScope.urls['admin.user']}"/>
+<c:url var="accountUrl" value="<%= UrlProperties.account() %>"/>
+<c:url var="categoryUrl" value="<%= UrlProperties.category() %>"/>
+<c:url var="productUrl" value="<%= UrlProperties.product() %>"/>
+<c:url var="orderUrl" value="<%= UrlProperties.order() %>"/>
+<c:url var="userUrl" value="<%= UrlProperties.user() %>"/>
+<c:url var="contactUrl" value="<%= UrlProperties.contact()%>" />
 
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
@@ -50,45 +52,38 @@
         </li>
 
         <!-- Extended components -->
-        <li class="menu-item">
-            <a href="javascript:void(0)" class="menu-link menu-toggle">
+        <li class="menu-item
+            ${param.activePage == 'contact' || param.activePage == 'about' ? 'active open' : ''}">
+            <a href="javascript:void(0)" class="menu-link menu-toggle menu-drop">
                 <i class="menu-icon tf-icons bx bx-detail"></i>
-                <div data-i18n="Extended UI">Quản lý giao diện</div>
+                <div>Quản lý giao diện</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
-                        <div data-i18n="Text Divider">Hình ảnh</div>
+                <li class="menu-item ${param.activePage == 'contact' ? 'active' : ''}">
+                    <a href="${contactUrl}" class="menu-link">
+                        <div>Liên hệ</div>
                     </a>
                 </li>
                 <li class="menu-item">
                     <a href="#" class="menu-link">
-                        <div data-i18n="Text Divider">Hỗ trợ trực tuyến</div>
+                        <div>Giới thiệu</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
-                        <div data-i18n="Text Divider">Thông tin</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
-                        <div data-i18n="Text Divider">Nội dung khác</div>
-                    </a>
-                </li>
+
+
             </ul>
         </li>
 
 
         <!-- Information Manager -->
         <li class="menu-item
-        ${param.activePage == 'orderlist' ? 'active open' : ''}">
+        ${param.activePage == 'order' ? 'active open' : ''}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-box"></i>
                 <div >Quản lý thông tin</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item ${param.activePage == 'orderlist' ? 'active' : ''}">
+                <li class="menu-item ${param.activePage == 'order' ? 'active' : ''}">
                     <a href="${orderUrl}" class="menu-link">
                         <div >Danh sách đơn hàng</div>
                     </a>

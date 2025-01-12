@@ -1,14 +1,16 @@
 package vn.edu.hcmuaf.fit.crocodile_admin.controller;
+
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+
 import java.io.IOException;
 
-@WebServlet(name = "AddProductController", value = "/admin/product/insert")
-public class AddProductController extends HttpServlet {
+@WebServlet(name = "OrderManagementController", value = "/admin/order")
+public class OrderController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/admin/views/product-detail.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/views/order.jsp").forward(request, response);
     }
 
     @Override

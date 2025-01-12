@@ -5,11 +5,10 @@ import vn.edu.hcmuaf.fit.crocodile.util.HttpUtil;
 
 public class GoogleService {
 
-    private static final String CLIENT_ID = "841108618342-pc5358jl3u8dnsaru2hitfjers87naaj.apps.googleusercontent.com";
-    private static final String CLIENT_SECRET = "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";
-    private static final String REDIRECT_URI = "http://localhost:8080/crocodile/";
+    private static final String CLIENT_ID = "183146911471-otedkdah3ihnpvc5fovddjsubn5ma5pn.apps.googleusercontent.com";
+    private static final String CLIENT_SECRET = "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";
+    private static final String REDIRECT_URI = "http://localhost:8080/crocodile/google-login";
 
-    // Lấy URL đăng nhập Google
     public static String getLoginUrl() {
         return "https://accounts.google.com/o/oauth2/v2/auth?" +
                 "scope=openid profile email" +
@@ -18,7 +17,6 @@ public class GoogleService {
                 "&client_id=" + CLIENT_ID;
     }
 
-    // Lấy access token từ code nhận được từ Google
     public static JSONObject getAccessToken(String code) throws Exception {
         String url = "https://oauth2.googleapis.com/token?" +
                 "code=" + code +
@@ -31,7 +29,6 @@ public class GoogleService {
         return new JSONObject(response);
     }
 
-    // Lấy thông tin người dùng từ Google
     public static JSONObject getUserProfile(String accessToken) throws Exception {
         String url = "https://www.googleapis.com/oauth2/v2/userinfo?access_token=" + accessToken;
         String response = HttpUtil.sendGet(url);

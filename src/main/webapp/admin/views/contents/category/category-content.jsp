@@ -1,10 +1,10 @@
-
+<%@ page import="vn.edu.hcmuaf.fit.crocodile_admin.config.properties.UrlProperties" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:url var="delCateUrl" value="${applicationScope.urls['admin.category.delete']}"/>
-<c:url var="insCateUrl" value="${applicationScope.urls['admin.category.insert']}" />
-<c:url var="updateCateUrl" value="${applicationScope.urls['admin.category.update']}"/>
+<c:url var="delCateUrl" value="<%= UrlProperties.deleteCate() %>"/>
+<c:url var="insCateUrl" value="<%= UrlProperties.insertCate() %>" />
+<c:url var="updateCateUrl" value="<%= UrlProperties.updateCate() %>"/>
 
 <!-- Content wrapper -->
 <div class="content-wrapper">
@@ -95,7 +95,7 @@
                 },
                 error: function (xhr, status, error) {
                     if (xhr.status === 404) {
-                        alert("Không tìm thấy endpoint /admin/category/delete!");
+                        alert("Không tìm thấy endpoint " + "${delCateUrl}");
                     } else {
                         alert("Đã xảy ra lỗi khi xóa danh mục. Vui lòng thử lại.");
                     }
