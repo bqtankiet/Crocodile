@@ -27,7 +27,9 @@ public interface IProductDao extends BasicDao<Integer, Product> {
     List<ProductVariant> findAllVariantsByProductId(int productId);
 
     // ------------------------ em khoi test ----------------------------
-    List<ProductOption> findOptionsByProductId(int productId);
+    ProductOption findOptionsById(int id);
+
+    ProductVariant getProductVariantById(int idVariant);
 
     List<Product> findAllProductsByCategoryId(int categoryId);
 

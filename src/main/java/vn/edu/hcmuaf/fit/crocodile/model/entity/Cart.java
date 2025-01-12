@@ -13,15 +13,17 @@ public class Cart {
     }
 
     // Thêm hoặc cập nhật sản phẩm trong giỏ hàng cùng với các tùy chọn
-    public int addProduct(Product product, int quantity, List<Product.ProductOption> options) {
-        if (items.containsKey(product.getId())) {
-            CartItem cartItem = items.get(product.getId());
+    public int addProduct(int idVariant, Product product, int quantity, Product.ProductOption pOption1, Product.ProductOption pOption2) {
+        if (product == null || quantity == 0) return -1;
+
+        if (items.containsKey(idVariant)) {
+            CartItem cartItem = items.get(idVariant);
             cartItem.setQuantity(cartItem.getQuantity() + quantity);
+            return 2;
         }
 
-        items.put(product.getId(), new CartItem(product, quantity, options));
-        System.out.println(items.size());
-        return 10000;
+        items.put(idVariant, new CartItem(product, quantity, pOption1, pOption2));
+        return 1;
     }
 
     public void removeProduct(int productId) {
@@ -42,20 +44,11 @@ public class Cart {
     public int getTotal() {
         int total = 0;
         for (CartItem item : items.values()) {
-            total += item.getTotalPrice();
+            total += item.getTotalPriceItem();
         }
         return total;
     }
 
-    public boolean isEmpty() {
-        return items.isEmpty();
-    }
+    public int getSize(){ return items.size(); }
 
-    public int getSize(){
-        return items.size();
-    }
-
-    public void print(){
-        getItem().forEach(System.out::println);
-    }
 }

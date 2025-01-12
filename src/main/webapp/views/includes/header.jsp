@@ -1,6 +1,7 @@
 <%@ page import="vn.edu.hcmuaf.fit.crocodile.config.properties.UrlProperties" %>
 <%@ page import="vn.edu.hcmuaf.fit.crocodile.service.CategoryService" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <c:set var="categories" value="<%= new CategoryService().getAllActiveCategory()%>"/>
@@ -9,6 +10,7 @@
 <c:url var="contactUrl" value="<%= UrlProperties.contact() %>"/>
 <c:url var="aboutUrl" value="<%= UrlProperties.about() %>"/>
 <c:url var="loginUrl" value="<%= UrlProperties.login() %>"/>
+<c:url var="cartUrl" value="<%= UrlProperties.cart() %>"/>
 
 <c:set var="activeHome" value="home"/>
 <c:set var="activeAbout" value="about"/>
@@ -147,12 +149,17 @@
                     </c:otherwise>
                 </c:choose>
 
-
+            <%-- TODO: giỏ hàng trên header--%>
                 <a id="cart-toggle" class="text-decoration-none position-relative custom-text-primary col-6"
                    href="#offcanvasRight" role="button" data-bs-toggle="offcanvas">
                     <div class="d-flex align-items-center justify-content-end">
                         <div class="custom-icon" style="--size: 2rem">
-                            <span class="badge text-bg-danger position-absolute translate-middle rounded-pill">1</span>
+                            <span class="badge text-bg-danger position-absolute translate-middle rounded-pill">
+                                <c:if test="${sessionScope.cart == null}">
+                                    0
+                                </c:if>
+                                ${sessionScope.cart.item.size()}
+                            </span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-bag" viewBox="0 0 16 16">
                                 <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"></path>
@@ -160,7 +167,13 @@
                         </div>
                         <div class="ps-2">
                             <div class="small pb-1">Giỏ hàng</div>
-                            <div class="pb-1 fw-semibold text-truncate" style="width: 10ch">1.100.000<span>₫</span>
+
+                            <div class="pb-1 fw-semibold text-truncate" style="width: 10ch">
+                                <c:if test="${sessionScope.cart == null}">
+                                    0
+                                </c:if>
+                                <fmt:formatNumber value="${sessionScope.cart.total}" type="number" pattern="#,##0" />
+                                <span>₫</span>
                             </div>
                         </div>
                     </div>
@@ -289,7 +302,13 @@
                         </a>
                         <a href="#offcanvasRight" role="button" data-bs-toggle="offcanvas">
                             <div class="custom-icon text-white" style="--size: 2rem">
-                                <span class="badge text-bg-danger position-absolute translate-middle rounded-pill">1</span>
+                                <span class="badge text-bg-danger position-absolute translate-middle rounded-pill">
+                                    <c:if test="${sessionScope.cart == null}">
+                                        0
+                                    </c:if>
+                                    ${sessionScope.cart.size}
+
+                                </span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-bag" viewBox="0 0 16 16">
                                     <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"></path>
@@ -304,7 +323,7 @@
 
 
     <!--  Offcanvas Gio Hang  -->
-    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasRight">
+    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasRight" style="width: 420px">
         <div class="offcanvas-header">
             <div class="custom-icon me-1 position-relative" style="--size: 2rem">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -316,49 +335,70 @@
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
         </div>
         <div class="offcanvas-body d-flex flex-column gap-3">
-            <div class="border-bottom pb-3">
-                <div class="row g-0">
-                    <div class="col-2 me-3 position-relative">
-                        <%-- số lượng sản phẩm--%>
-                        <span class="position-absolute top-0 start-100 z-1 translate-middle badge rounded-pill bg-danger">
-                            1
-                        </span>
+            <c:forEach items="${sessionScope.cart.item}" var="cart">
+                <div class="border-bottom pb-3">
+                    <div class="row g-0">
+                        <div class="col-2 me-3 position-relative">
+                                <%-- số lượng sản phẩm--%>
+                            <span class="position-absolute top-0 start-100 z-1 translate-middle badge rounded-pill bg-danger">
+                                ${cart.quantity}
+                            </span>
 
-                        <%-- hình ảnh sản phẩm --%>
-                        <div class="ratio ratio-1x1">
-                            <img src="https://images.kienthuc.net.vn/zoomh/800/uploaded/nguyenanhson/2024_09_17/5/hot-girl-bi-don-ban-anh-nhay-cam-kiem-tien-gio-ra-sao.jpg"
-                                 class="img-fluid border rounded-2" alt="">
+                                <%-- hình ảnh sản phẩm --%>
+                            <div class="ratio ratio-1x1">
+                                <img src="${cart.product.image}" class="img-fluid border rounded-2" alt="">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col lh-1 my-auto">
-                        <div class="w-100">
-                            <div class="d-flex align-items-center">
-                                <div class="me-2">
-                                    <%-- tên sản phẩm --%>
-                                    <p class="fw-semibold mb-0 line-clamp-2"
-                                       style="height: fit-content ;max-height: 2.5rem; line-height: 1.2">
-                                        Ví gấp nam da cá sấu V7068
-                                    </p>
+                        <div class="col lh-1 my-auto">
+                            <div class="w-100">
+                                <div class="d-flex align-items-center">
+                                    <div class="me-2">
+                                            <%-- tên sản phẩm --%>
+                                        <p class="fw-semibold mb-0 line-clamp-2"
+                                           style="height: fit-content ;max-height: 2.5rem; line-height: 1.2">
+                                            ${cart.product.name}
+                                        </p>
 
-                                    <%-- loại sản phẩm --%>
-                                    <p class="text-muted mt-1 mb-0">Da trơn</p>
+                                            <%-- loại sản phẩm --%>
+                                            <c:if test="${cart.pOption1 != null}">
+                                                <p class="fw-normal">${cart.pOption1.key}: ${cart.pOption1.value}
+
+                                                    <c:if test="${cart.pOption2 != null}">
+                                                        , ${cart.pOption2.key}: ${cart.pOption2.value}
+                                                    </c:if>
+                                                </p>
+                                            </c:if>
+                                    </div>
+                                        <%-- tổng tiền sản phẩm --%>
+                                    <div class="ms-auto fw-medium fs-6">
+                                        <c:if test="${sessionScope.cart == null}">
+                                            0
+                                        </c:if>
+                                        <fmt:formatNumber value="${cart.totalPriceItem}" type="number" pattern="#,##0" />
+                                            <sup>₫</sup>
+                                    </div>
                                 </div>
-                                <%-- tổng tiền sản phẩm --%>
-                                <div class="ms-auto fw-medium fs-6">1.100.000<sup>₫</sup></div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </c:forEach>
+
         </div>
         <div class="p-3">
             <%-- Tổng tiền giỏ hàng --%>
             <div class="d-flex gap-2 fw-bold">
                 <p>Tổng:</p>
-                <p>1.100.000<sup>₫</sup></p>
+                <p>
+                    <c:if test="${sessionScope.cart == null}">
+                        0
+                    </c:if>
+                    <fmt:formatNumber value="${sessionScope.cart.total}" type="number" pattern="#,##0" />
+                    <sup>₫</sup>
+                </p>
             </div>
-            <a href="<%-- TODO: ../pages/cart-details.html--%>"
+            <a href="${cartUrl}"
                class="btn custom-btn-primary mt-auto w-100 py-2 fw-medium">Xem chi
                 tiết</a>
         </div>

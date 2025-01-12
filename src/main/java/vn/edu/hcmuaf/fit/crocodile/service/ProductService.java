@@ -1,12 +1,10 @@
 package vn.edu.hcmuaf.fit.crocodile.service;
 
-import vn.edu.hcmuaf.fit.crocodile.config.JdbiConnect;
 import vn.edu.hcmuaf.fit.crocodile.dao.product.IProductDao;
 import vn.edu.hcmuaf.fit.crocodile.dao.product.ProductDao;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Product;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Product.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProductService {
@@ -17,7 +15,7 @@ public class ProductService {
         this.productDao = new ProductDao();
     }
 
-    public Product getProductById(int id){
+    public Product getProductById(int id) {
         return productDao.findById(id);
     }
 
@@ -47,26 +45,22 @@ public class ProductService {
         return productDao.findAllVariantsByProductId(productId);
     }
 
-    public List<Product> getProductsByCategoryAndPage(int idCate, int page){
-        return productDao.findProductsByCategoryAndPage(idCate, page);
-    }
-
     public int getMaxPage(int idCate) {
         return productDao.getMaxPage(idCate);
     }
 
-
-    // ------------------------ begin admin method ------------------------
     public List<Product> getAllProducts() {
         return productDao.findAll();
     }
 
-    // ------------------------ close admin method ------------------------
     // ------------------------ em khoi test ----------------------------
 
-    public List<ProductOption> findOptionsByProductId(int productId) {
-        return productDao.findOptionsByProductId(productId);
+    public ProductOption findOptionsById(int id) {
+        return productDao.findOptionsById(id);
     }
 
+    public ProductVariant getProductVariantById(int idVariant) {
+        return productDao.getProductVariantById(idVariant);
+    }
     // ------------------------ em khoi test ----------------------------
 }

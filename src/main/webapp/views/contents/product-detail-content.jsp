@@ -7,6 +7,8 @@
 
 <c:url var="url_home" value="<%= UrlProperties.home()%>"/>
 
+<c:url var="urlCart" value="<%=UrlProperties.cart()%>"/>
+
 <c:url var="urlAddToCart" value="<%=UrlProperties.addToCart()%>"/>
 <c:url var="url_categoryId" value="<%= UrlProperties.productList()%>">
     <c:param name="id" value="${requestScope.product.category.id}"/>
@@ -105,7 +107,7 @@
                             <div class="col-3">
                                 <div class="quantity-control input-group" data-min="1" data-max="1000">
                                     <button type="button" class="decrement btn custom-btn-primary">-</button>
-                                    <input id="user-input-quantity" type="number" name="quantity"
+                                    <input id="user-input-quantity" type="number" name="quantity" value="1"
                                            class="quantity-input form-control text-center" aria-label="quantity">
                                     <button type="button" class="increment btn custom-btn-primary">+</button>
                                 </div>
@@ -116,15 +118,15 @@
                         <!--Submit-->
                         <form action="" id="product-form" onsubmit="handleOnSubmitProductForm()">
                             <div class="d-flex gap-2">
-                                <input id="submit-idVariant" type="number" name="idVariant" value="?" hidden="hidden">
-                                <input id="submit-quantity" type="number" name="quantity" value="?" hidden="hidden">
+                                <input id="submit-idVariant" type="number" name="idVariant" value="0" hidden="hidden">
+                                <input id="submit-quantity" type="number" name="quantity" value="0" hidden="hidden">
                                 <button class="btn custom-btn-primary flex-grow-1 text-uppercase text-center custom-bg-primary p-3 fw-semibold"
                                         role="button" type="submit" onclick="handleSubmitBuyNow()">
-                                    Đặt mua ngay
+                                        Đặt mua ngay
                                 </button>
-                                <button class="btn custom-btn-primary custom-icon px-4"
+                                <button class="btn custom-btn-primary custom-icon px-4 btn-add-to-cart"
                                         data-bs-toggle="tooltip" data-bs-title="Thêm vào giỏ hàng" style="--size: 2rem"
-                                        role="button" type="submit" onclick="handleSubmitAddToCart()">
+                                        role="button">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                          class="bi bi-bag-plus" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd"
@@ -255,7 +257,6 @@
                 pv => pv.idOption1 === idOption1 && pv.idOption2 === idOption2
             );
 
-
             const quantity = $('#user-input-quantity').val();
             const idVariant = matchedVariant.id;
 
@@ -272,41 +273,36 @@
         }
 
         // Xử lý gửi đến link add to cart
-        function handleSubmitAddToCart() {
-            const $form = $('#product-form');
-            $form.attr('method', 'GET');
-            $form.attr('action', '<c:url value="<%=UrlProperties.addToCart()%>"/>');
-            $form.submit();
-        }
+        <%--function handleSubmitAddToCart() {--%>
+        <%--    const $form = $('#product-form');--%>
+        <%--    $form.attr('method', 'POST');--%>
+        <%--    $form.attr('action', '${urlCart}');--%>
+        <%--    $form.submit();--%>
+        <%--}--%>
     </script>
 
     <!-- ajax thêm sản phẩm vào giỏi hàng  -->
     <script>
-        $(document).on('click', '.btn-submit', function (event) {
-            const idProduct = $(this).data('id');
-            const quantity = $('.quantity').val();
-            console.log(idProduct)
-            // lấy các option chọn thêm vào mảng
-            const selectedOptions = $('input[name=""]:checked').map(function () {
-                return $(this).val();
-            }).get();
+        $(document).on('click', '.btn-add-to-cart', function (event) {
+            event.preventDefault();
+            handleOnSubmitProductForm()
+            const idVariant = $('#submit-idVariant').val();
+            const quantity = $('#submit-quantity').val();
 
             $.ajax({
-                url: "/cart",
-                <%--url: "${urlAddToCart}",--%>
+                url: "${urlCart}",
                 type: "POST",
                 data: {
-                    idProduct: idProduct,
-                    quantity: quantity,
-                    // selectedOptions: JSON.stringify(selectedOptions)
+                    idVariant: idVariant,
+                    quantity: quantity
                 },
                 success: function (response){
+                    window.location.reload();
                     alert("Thêm vào giỏ hàng thành công!");
-
                 },
                 error: function(xhr, status, error) {
                     if (xhr.status === 404) {
-                        alert("Không tìm thấy endpoint " + "");
+                        alert("Không tìm thấy endpoint " + "${urlCart}");
                     } else {
                         alert("Đã xảy ra lỗi. Vui lòng thử lại.");
                     }

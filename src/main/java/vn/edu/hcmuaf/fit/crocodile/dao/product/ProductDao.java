@@ -42,9 +42,9 @@ public class ProductDao implements IProductDao {
 
         List<Product> result;
         result = JdbiConnect.getJdbi().withHandle(handle ->
-            handle.createQuery(sql)
-                    .map(new ProductRowMapper())
-                    .list()
+                handle.createQuery(sql)
+                        .map(new ProductRowMapper())
+                        .list()
         );
 
         return result;
@@ -61,10 +61,10 @@ public class ProductDao implements IProductDao {
 
         List<Product> result;
         result = JdbiConnect.getJdbi().withHandle(handle ->
-            handle.createQuery(sql)
-                    .bind("categoryId", categoryId)
-                    .map(new ProductRowMapper())
-                    .list()
+                handle.createQuery(sql)
+                        .bind("categoryId", categoryId)
+                        .map(new ProductRowMapper())
+                        .list()
         );
 
         return result;
@@ -81,10 +81,10 @@ public class ProductDao implements IProductDao {
 
         List<ProductImage> result;
         result = JdbiConnect.getJdbi().withHandle(handle ->
-            handle.createQuery(sql)
-                    .bind("productId", productId)
-                    .mapToBean(ProductImage.class)
-                    .list()
+                handle.createQuery(sql)
+                        .bind("productId", productId)
+                        .mapToBean(ProductImage.class)
+                        .list()
         );
 
         return result;
@@ -100,10 +100,10 @@ public class ProductDao implements IProductDao {
 
         List<ProductDetail> result;
         result = JdbiConnect.getJdbi().withHandle(handle ->
-            handle.createQuery(sql)
-                    .bind("productId", productId)
-                    .mapToBean(ProductDetail.class)
-                    .list()
+                handle.createQuery(sql)
+                        .bind("productId", productId)
+                        .mapToBean(ProductDetail.class)
+                        .list()
         );
 
         return result;
@@ -124,11 +124,11 @@ public class ProductDao implements IProductDao {
 
         List<ProductOption> result;
         result = JdbiConnect.getJdbi().withHandle(handle ->
-            handle.createQuery(sql)
-                    .bind("productId", productId)
-                    .bind("group", group)
-                    .mapToBean(ProductOption.class)
-                    .list()
+                handle.createQuery(sql)
+                        .bind("productId", productId)
+                        .bind("group", group)
+                        .mapToBean(ProductOption.class)
+                        .list()
         );
 
         return result;
@@ -161,18 +161,17 @@ public class ProductDao implements IProductDao {
     @Override
     public List<ProductVariant> findAllVariantsByProductId(int productId) {
         String sql = """
-                SELECT
-                  id, idProduct, sku, idOption1, idOption2, stock
+                SELECT id, idProduct, sku, idOption1, idOption2, stock
                 FROM product_variants
                 WHERE idProduct = :productId
                 """;
 
         List<ProductVariant> result;
         result = JdbiConnect.getJdbi().withHandle(handle ->
-            handle.createQuery(sql)
-                    .bind("productId", productId)
-                    .mapToBean(ProductVariant.class)
-                    .list()
+                handle.createQuery(sql)
+                        .bind("productId", productId)
+                        .mapToBean(ProductVariant.class)
+                        .list()
         );
 
         return result;
@@ -181,14 +180,27 @@ public class ProductDao implements IProductDao {
 
     // ------------------------ em khoi test ----------------------------
     @Override
-    public List<ProductOption> findOptionsByProductId(int productId) {
-        String sql = "select * from product_options where idProduct = :productId";
+    public ProductOption findOptionsById(int id) {
+        String sql = "SELECT * FROM product_options WHERE id = :id";
 
         return JdbiConnect.getJdbi().withHandle(handle ->
                 handle.createQuery(sql)
-                        .bind("productId", productId)
+                        .bind("id", id)
                         .mapToBean(ProductOption.class)
-                        .list()
+                        .findFirst()
+                        .orElse(null)
+        );
+    }
+
+    @Override
+    public ProductVariant getProductVariantById(int idVariant) {
+        String sql = "SELECT * FROM product_variants WHERE id = :idVariant";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("idVariant", idVariant)
+                        .mapToBean(ProductVariant.class)
+                        .findFirst()
+                        .orElse(null)
         );
     }
 
@@ -207,7 +219,7 @@ public class ProductDao implements IProductDao {
     @Override
     public List<Product> findProductsByCategoryAndPage(int idCate, int page) {
         final int N = 12;
-        int offset = (page-1)*N;
+        int offset = (page - 1) * N;
         String sql = """
                 SELECT *
                 FROM products p
@@ -216,12 +228,12 @@ public class ProductDao implements IProductDao {
                 LIMIT :N OFFSET :offset
                 """;
         return JdbiConnect.getJdbi().withHandle(handle ->
-            handle.createQuery(sql)
-                    .bind("idCate", idCate)
-                    .bind("offset", offset)
-                    .bind("N", N)
-                    .mapToBean(Product.class)
-                    .list()
+                handle.createQuery(sql)
+                        .bind("idCate", idCate)
+                        .bind("offset", offset)
+                        .bind("N", N)
+                        .mapToBean(Product.class)
+                        .list()
         );
     }
 
@@ -229,11 +241,11 @@ public class ProductDao implements IProductDao {
     public int getMaxPage(int idCate) {
         String sql = "SELECT CEIL(COUNT(*) / 12) AS maxPage FROM products WHERE idCategory = :idCate";
         return JdbiConnect.getJdbi().withHandle(handle ->
-            handle.createQuery(sql)
-                    .bind("idCate", idCate)
-                    .mapTo(Integer.class)
-                    .findFirst()
-                    .orElse(1)
+                handle.createQuery(sql)
+                        .bind("idCate", idCate)
+                        .mapTo(Integer.class)
+                        .findFirst()
+                        .orElse(1)
         );
     }
 
