@@ -1,23 +1,17 @@
 package vn.edu.hcmuaf.fit.crocodile.dao.user;
 
-import vn.edu.hcmuaf.fit.crocodile.config.JdbiConnect;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
 
 import java.util.List;
+import java.util.Optional;
 
-public class UserDao implements IUserDao {
+public interface UserDao {
+//    public List<User> getAllUser();
 
 
-    // ------------------------ Begin admin method ------------------------
-    @Override
-    public List<User> getAllUser() {
-        String sql = "select * from users where role = 0";
-        return JdbiConnect.getJdbi().withHandle(handle ->
-            handle.createQuery(sql)
-                    .mapToBean(User.class)
-                    .list()
-            );
+    Optional<User> findById(int id);
 
-    }
-    // ------------------------ End admin method ------------------------
+    int create(User user);
+
+    Optional<User> findByUsername(String username);
 }

@@ -9,8 +9,8 @@ import vn.edu.hcmuaf.fit.crocodile.model.entity.FaceBookUser;
 
 import java.io.IOException;
 
-@WebServlet("/facebook-login")
-public class FacebookLoginServlet extends HttpServlet {
+@WebServlet(value = "/facebook-login")
+public class FacebookLoginController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -18,14 +18,11 @@ public class FacebookLoginServlet extends HttpServlet {
 
         try {
             if (code == null) {
-                // Chuyển hướng đến Facebook Login
                 resp.sendRedirect(FacebookService.getLoginUrl());
             } else {
-                // Xử lý callback từ Facebook
                 JSONObject tokenResponse = FacebookService.getAccessToken(code);
                 String accessToken = tokenResponse.getString("access_token");
 
-                // Lấy thông tin người dùng từ Facebook API
                 JSONObject userProfile = FacebookService.getUserProfile(accessToken);
                 String name = userProfile.getString("name");
                 String avatar = userProfile.getJSONObject("picture").getJSONObject("data").getString("url");
@@ -42,7 +39,7 @@ public class FacebookLoginServlet extends HttpServlet {
                 resp.sendRedirect("home.jsp");
             }
         } catch (Exception e) {
-            throw new ServletException("Error during Facebook login", e);
+            throw new ServletException("Error Login", e);
         }
     }
 
