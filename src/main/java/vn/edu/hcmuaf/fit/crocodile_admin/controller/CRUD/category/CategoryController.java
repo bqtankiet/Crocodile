@@ -7,7 +7,7 @@ import vn.edu.hcmuaf.fit.crocodile.service.CategoryService;
 
 import java.io.IOException;
 
-@WebServlet(name = "CategoryController", value = "/admin/category")
+@WebServlet(name = "CategoryManagementController", value = "/admin/category")
 public class CategoryController extends HttpServlet {
     private final CategoryService categoryService = new CategoryService();
 

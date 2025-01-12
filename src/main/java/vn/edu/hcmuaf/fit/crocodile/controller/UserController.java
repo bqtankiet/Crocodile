@@ -8,6 +8,7 @@ import java.io.IOException;
 
 @WebServlet(name = "UserController", value = "/user")
 public class UserController extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/views/user.jsp").forward(request, response);
@@ -15,5 +16,6 @@ public class UserController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
     }
 }

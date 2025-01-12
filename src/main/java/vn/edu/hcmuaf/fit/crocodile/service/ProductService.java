@@ -44,4 +44,17 @@ public class ProductService {
     public List<ProductVariant> getAllVariantsByProductId(int productId) {
         return productDao.findAllVariantsByProductId(productId);
     }
+
+    // ------------------------ begin admin method ------------------------
+    public List<Product> getAllProducts() {
+        return productDao.findAll();
+    }
+    // ------------------------ close admin method ------------------------
+
+    // ------------------------ em khoi test ----------------------------
+    public List<ProductOption> findOptionsByProductId(int productId) {
+        return productDao.findOptionsByProductId(productId);
+    }
+
+    // ------------------------ em khoi test ----------------------------
 }

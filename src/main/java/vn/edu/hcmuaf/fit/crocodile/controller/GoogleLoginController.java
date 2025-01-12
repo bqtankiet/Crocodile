@@ -9,8 +9,8 @@ import vn.edu.hcmuaf.fit.crocodile.service.GoogleService;
 
 import java.io.IOException;
 
-@WebServlet("/google-login")
-public class GoogleLoginServlet extends HttpServlet {
+@WebServlet(value = "/google-login")
+public class GoogleLoginController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -18,16 +18,14 @@ public class GoogleLoginServlet extends HttpServlet {
 
         try {
             if (code == null) {
-                // Chuyển hướng đến Google Login
                 resp.sendRedirect(GoogleService.getLoginUrl());
             } else {
-                // Xử lý callback từ Google
                 JSONObject tokenResponse = GoogleService.getAccessToken(code);
                 String accessToken = tokenResponse.getString("access_token");
 
                 JSONObject userProfile = GoogleService.getUserProfile(accessToken);
                 String name = userProfile.getString("name");
-                String avatar = userProfile.getString("picture"); // Google trả avatar trong trường 'picture'
+                String avatar = userProfile.getString("picture");
 
                 // Lưu thông tin người dùng vào session
                 HttpSession session = req.getSession();
@@ -44,6 +42,5 @@ public class GoogleLoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Không cần xử lý gì trong doPost
     }
 }

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div id="page">
     <div id="HEADER"></div>
@@ -13,10 +14,14 @@
         <!-- phần đăng nhậpp    -->
         <div class="card shadow p-4 " style="width: 28rem">
             <h3 class="text-center mb-4">Đăng Nhập</h3>
-            <form id="loginForm" class="d-grid gap-4">
-                <input class="form-control" type="text" id="username" placeholder="Nhập tài khoản" required>
-                <input class="form-control" type="password" id="password" placeholder="Nhập mật khẩu" required>
+            <form class="d-grid gap-4" action="<c:url value="/login"/>" method="post">
+                <input class="form-control" type="text" id="username" name="username" placeholder="Nhập tài khoản"
+                       required>
+                <input class="form-control" type="password" id="password" name="password"
+                       placeholder="Nhập mật khẩu" required>
                 <button type="submit" class="btn custom-btn-primary btn-block w-100 p-2">Đăng Nhập</button>
+            </form>
+            <form id="loginForm" class="d-grid gap-4">
                 <div class="d-flex justify-content-between mt-2 ">
                     <a href="forget_passW.html" class="custom-text-primary text-decoration-none">Quên Mật Khẩu </a>
                     <a href="#" class="custom-text-primary text-decoration-none">Đăng Nhập Bằng SMS</a>
@@ -27,7 +32,7 @@
                     <div style="height: 1px; background-color: #dbdbdb; width: 100%"></div>
                 </div>
                 <div class="d-flex gap-3 justify-content-between mt-3">
-                    <a href="https://www.facebook.com/v16.0/dialog/oauth?client_id=605632051831778&redirect_uri=http://localhost:8080/crocodile/&scope=email,public_profile"
+                    <a href="https://www.facebook.com/v16.0/dialog/oauth?client_id=605632051831778&redirect_uri=http://localhost:8080/crocodile/facebook-login&scope=email,public_profile"
                        target="_blank"
                        class="d-flex flex-grow-1 align-items-center justify-content-center text-decoration-none border
                     p-2">
@@ -41,7 +46,9 @@
                         </div>
                         <span class="text-black ps-1">Facebook</span>
                     </a>
-                    <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri=http://localhost:8080/crocodile/&response_type=code&client_id=841108618342-pc5358jl3u8dnsaru2hitfjers87naaj.apps.googleusercontent.com
+                    <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid
+                    &redirect_uri=http://localhost:8080/crocodile/google-login
+                    &response_type=code&client_id=183146911471-otedkdah3ihnpvc5fovddjsubn5ma5pn.apps.googleusercontent.com
 &approval_prompt=force"
                        target="_blank"
                        class="d-flex flex-grow-1 align-items-center justify-content-center text-decoration-none border
@@ -63,7 +70,7 @@
                     </a>
                 </div>
                 <div>
-                    <p class="text-center">Bạn Chưa Có Tài Khoản? <a href="signup.html"
+                    <p class="text-center">Bạn Chưa Có Tài Khoản? <a href="${pageContext.request.contextPath}/signup"
                                                                      class="custom-text-primary ">Đăng
                         Ký </a> Ngay</p>
                 </div>
