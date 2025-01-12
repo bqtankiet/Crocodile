@@ -41,7 +41,7 @@ public class CartItem implements Serializable {
     }
 
     // Tính tổng tiền của item
-    public int getTotalPrice() {
+    public int getTotalPriceItem() {
         return product.getPrice() * quantity;
     }
 }

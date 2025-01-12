@@ -5,8 +5,7 @@
       <paths name="14.225.218.116">
         <serverdata>
           <mappings>
-            <mapping deploy="/opt/tomcat/tomcat-10/webapps" local="$PROJECT_DIR$" web="http://14.225.218.116" />
-            <mapping local="" />
+            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>

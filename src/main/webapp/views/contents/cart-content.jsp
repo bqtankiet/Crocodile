@@ -78,7 +78,7 @@
                                 </td>
                                 <td class="align-middle">
                                     <p class="mb-0 fw-semibold product-price">
-                                        <fmt:formatNumber value="${cart.product.price * cart.quantity}"
+                                        <fmt:formatNumber value="${cart.totalPriceItem}"
                                                           type="number" pattern="#,##0" /> <sup>₫</sup>
                                     </p>
                                 </td>

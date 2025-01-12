@@ -8,7 +8,6 @@ import vn.edu.hcmuaf.fit.crocodile.model.entity.Product;
 import vn.edu.hcmuaf.fit.crocodile.service.ProductService;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 @WebServlet(name = "CartController", value = "/cart")
@@ -28,11 +27,14 @@ public class CartController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int idProduct = Integer.parseInt(request.getParameter("idProduct"));
+        int idVariant = Integer.parseInt(request.getParameter("idVariant"));
         int quantity = Integer.parseInt(request.getParameter("quantity"));
 
-        Product product = productService.getProductById(idProduct);
-        List<Product.ProductOption> productOptions = productService.findOptionsByProductId(idProduct);
+        Product.ProductVariant productVariant = productService.getProductVariantById(idVariant);
+
+        Product product = productService.getProductById(productVariant.getIdProduct());
+
+        List<Product.ProductOption> productOptions = productService.findOptionsByProductId(product.getId());
 
         HttpSession session = request.getSession();
         Cart cart = (Cart) session.getAttribute("cart");

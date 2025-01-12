@@ -7,6 +7,8 @@
 
 <c:url var="url_home" value="<%= UrlProperties.home()%>"/>
 
+<c:url var="urlCart" value="<%=UrlProperties.cart()%>"/>
+
 <c:url var="urlAddToCart" value="<%=UrlProperties.addToCart()%>"/>
 <c:url var="url_categoryId" value="<%= UrlProperties.category()%>">
     <c:param name="id" value="${requestScope.product.category.id}"/>
@@ -115,11 +117,11 @@
                         <!--Submit-->
                         <form action="" id="product-form" onsubmit="handleOnSubmitProductForm()">
                             <div class="d-flex gap-2">
-                                <input id="submit-idVariant" type="number" name="idVariant" value="?" hidden="hidden">
-                                <input id="submit-quantity" type="number" name="quantity" value="?" hidden="hidden">
+                                <input id="submit-idVariant" type="number" name="idVariant" value="0" hidden="hidden">
+                                <input id="submit-quantity" type="number" name="quantity" value="0" hidden="hidden">
                                 <button class="btn custom-btn-primary flex-grow-1 text-uppercase text-center custom-bg-primary p-3 fw-semibold"
                                         role="button" type="submit" onclick="handleSubmitBuyNow()">
-                                    Đặt mua ngay
+                                        Đặt mua ngay
                                 </button>
                                 <button class="btn custom-btn-primary custom-icon px-4"
                                         data-bs-toggle="tooltip" data-bs-title="Thêm vào giỏ hàng" style="--size: 2rem"
@@ -254,7 +256,6 @@
                 pv => pv.idOption1 === idOption1 && pv.idOption2 === idOption2
             );
 
-
             const quantity = $('#user-input-quantity').val();
             const idVariant = matchedVariant.id;
 
@@ -273,48 +274,48 @@
         // Xử lý gửi đến link add to cart
         function handleSubmitAddToCart() {
             const $form = $('#product-form');
-            $form.attr('method', 'GET');
-            $form.attr('action', '<c:url value="<%=UrlProperties.addToCart()%>"/>');
+            $form.attr('method', 'POST');
+            $form.attr('action', '${urlCart}');
             $form.submit();
         }
     </script>
 
     <!-- ajax thêm sản phẩm vào giỏi hàng  -->
-    <script>
-        $(document).on('click', '.btn-submit', function (event) {
-            const idProduct = $(this).data('id');
-            const quantity = $('.quantity').val();
-            console.log(idProduct)
-            // lấy các option chọn thêm vào mảng
-            const selectedOptions = $('input[name=""]:checked').map(function () {
-                return $(this).val();
-            }).get();
+<%--    <script>--%>
+<%--        $(document).on('click', '.btn-submit', function (event) {--%>
+<%--            const idProduct = $(this).data('id');--%>
+<%--            const quantity = $('.quantity').val();--%>
+<%--            console.log(idProduct)--%>
+<%--            // lấy các option chọn thêm vào mảng--%>
+<%--            const selectedOptions = $('input[name=""]:checked').map(function () {--%>
+<%--                return $(this).val();--%>
+<%--            }).get();--%>
 
-            $.ajax({
-                url: "/cart",
-                <%--url: "${urlAddToCart}",--%>
-                type: "POST",
-                data: {
-                    idProduct: idProduct,
-                    quantity: quantity,
-                    // selectedOptions: JSON.stringify(selectedOptions)
-                },
-                success: function (response){
-                    alert("Thêm vào giỏ hàng thành công!");
+<%--            $.ajax({--%>
+<%--                url: "/cart",--%>
+<%--                &lt;%&ndash;url: "${urlAddToCart}",&ndash;%&gt;--%>
+<%--                type: "POST",--%>
+<%--                data: {--%>
+<%--                    idProduct: idProduct,--%>
+<%--                    quantity: quantity,--%>
+<%--                    // selectedOptions: JSON.stringify(selectedOptions)--%>
+<%--                },--%>
+<%--                success: function (response){--%>
+<%--                    alert("Thêm vào giỏ hàng thành công!");--%>
 
-                },
-                error: function(xhr, status, error) {
-                    if (xhr.status === 404) {
-                        alert("Không tìm thấy endpoint " + "");
-                    } else {
-                        alert("Đã xảy ra lỗi. Vui lòng thử lại.");
-                    }
-                    console.error("Error:", error);
-                }
-            })
+<%--                },--%>
+<%--                error: function(xhr, status, error) {--%>
+<%--                    if (xhr.status === 404) {--%>
+<%--                        alert("Không tìm thấy endpoint " + "");--%>
+<%--                    } else {--%>
+<%--                        alert("Đã xảy ra lỗi. Vui lòng thử lại.");--%>
+<%--                    }--%>
+<%--                    console.error("Error:", error);--%>
+<%--                }--%>
+<%--            })--%>
 
-        });
-    </script>
+<%--        });--%>
+<%--    </script>--%>
 </div>
 
 

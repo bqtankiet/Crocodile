@@ -168,6 +168,18 @@ public class ProductDao implements IProductDao {
     }
 
     @Override
+    public ProductVariant getProductVariantById(int idVariant) {
+        String sql = "select * from product_variants where id = :idVariant";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("idVariant", idVariant)
+                        .mapToBean(ProductVariant.class)
+                        .findFirst()
+                        .orElse(null)
+        );
+    }
+
+    @Override
     public List<Product> findAllProductsByCategoryId(int categoryId) {
         String sql = "SELECT * FROM products WHERE idCategory = :categoryId";
 

@@ -14,13 +14,16 @@ public class Cart {
 
     // Thêm hoặc cập nhật sản phẩm trong giỏ hàng cùng với các tùy chọn
     public int addProduct(Product product, int quantity, List<Product.ProductOption> options) {
+        if (product == null || quantity == 0) return -1;
+
         if (items.containsKey(product.getId())) {
             CartItem cartItem = items.get(product.getId());
             cartItem.setQuantity(cartItem.getQuantity() + quantity);
+            return 2;
         }
 
         items.put(product.getId(), new CartItem(product, quantity, options));
-        return 10000;
+        return 1;
     }
 
     public void removeProduct(int productId) {
@@ -41,7 +44,7 @@ public class Cart {
     public int getTotal() {
         int total = 0;
         for (CartItem item : items.values()) {
-            total += item.getTotalPrice();
+            total += item.getTotalPriceItem();
         }
         return total;
     }

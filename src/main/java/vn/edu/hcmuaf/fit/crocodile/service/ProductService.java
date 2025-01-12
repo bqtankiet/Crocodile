@@ -55,6 +55,8 @@ public class ProductService {
     public List<ProductOption> findOptionsByProductId(int productId) {
         return productDao.findOptionsByProductId(productId);
     }
-
+    public ProductVariant getProductVariantById(int idVariant) {
+        return productDao.getProductVariantById(idVariant);
+    }
     // ------------------------ em khoi test ----------------------------
 }
