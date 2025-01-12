@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div id="page" class="layout-default ">
 
@@ -15,6 +16,11 @@
             <hr>
         </div>
 
+        <form action="http://localhost:8080/crocodile/cart" method="post">
+            <input type="text" name="idProduct" value="1">
+            <input type="text" name="quantity" value="3">
+            <button type="submit">them vao gio hang</button>
+        </form>
         <div class="container d-flex justify-content-center align-items-center">
             <div class="col">
                 <div class="d-flex justify-content-between align-items-center mb-4">
@@ -37,56 +43,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                        <%--   Sản phẩm ở đây--%>
-                            <th scope="row" class="align-middle text-start">
-                                <div class="d-flex align-items-center">
-                                    <div class="form-check float-start mx-3">
-                                        <input type="checkbox" class="product-check form-check-input" aria-label="">
-                                    </div>
-                                    <div class="ratio ratio-1x1" style="width: 6rem">
-                                        <img src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
-                                             class="rounded-1" alt="">
-                                    </div>
-                                    <div class="ms-4 col-6">
-                                        <p class="mb-2 line-clamp-2" style="height: fit-content">Ví gấp nam da cá
-                                            sấu V7068</p>
-                                        <p class="fw-normal">Phân loại: Da trơn</p>
-                                    </div>
-                                </div>
-                            </th>
-                            <td class="align-middle">
-                                <p class="mb-0 text-muted">
-                                    <span class="text-decoration-line-through">1.500.0000</span> <sup>₫</sup>
-                                </p>
-                                <p class="mb-0 fw-semibold">1.100.0000 <sup>₫</sup></p>
-                            </td>
-                            <td class="align-middle">
-                                <div class="quantity-control input-group justify-content-center" data-min="1"
-                                     data-max="200">
-                                    <button type="button" class="decrement btn btn-secondary">-</button>
-                                    <input type="number" name="quantity"
-                                           class="quantity-input form-control text-center" aria-label="quantity"
-                                           style="max-width: 6ch;">
-                                    <button type="button" class="increment btn btn-secondary">+</button>
-                                </div>
-                            </td>
-                            <td class="align-middle">
-                                <p class="mb-0 fw-semibold">1.100.0000 <sup>₫</sup></p>
-                            </td>
-                            <td class="align-middle">
-                                <button class="removeBtn btn btn-outline-danger px-2 custom-icon mx-auto">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                         fill="currentColor"
-                                         class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                                         <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-                                    </svg>
-                                </button>
-                            </td>
-                        </tr>
-
                         <c:forEach items="${sessionScope.cart.item}" var="cart">
-                            <script>alert("Đã có sản phẩm")</script>
                             <tr>
                                     <%--   Sản phẩm ở đây--%>
                                 <th scope="row" class="align-middle text-start">
@@ -95,8 +52,7 @@
                                             <input type="checkbox" class="product-check form-check-input" aria-label="">
                                         </div>
                                         <div class="ratio ratio-1x1" style="width: 6rem">
-                                            <img src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
-                                                 class="rounded-1" alt="">
+                                            <img src="${cart.product.image}" class="rounded-1" alt="">
                                         </div>
                                         <div class="ms-4 col-6">
                                             <p class="mb-2 line-clamp-2" style="height: fit-content">${cart.product.name}</p>
@@ -105,10 +61,10 @@
                                     </div>
                                 </th>
                                 <td class="align-middle">
-                                    <p class="mb-0 text-muted">
-                                        <span class="text-decoration-line-through">1.500.0000</span> <sup>₫</sup>
+                                    <p class="mb-0 fw-semibold product-price">
+                                        <fmt:formatNumber value="${cart.product.price}" type="number" pattern="#,##0" />
+                                        <sup>₫</sup>
                                     </p>
-                                    <p class="mb-0 fw-semibold">${cart.product.price}<sup>₫</sup></p>
                                 </td>
                                 <td class="align-middle">
                                     <div class="quantity-control input-group justify-content-center" data-min="1"
@@ -116,12 +72,15 @@
                                         <button type="button" class="decrement btn btn-secondary">-</button>
                                         <input type="number" name="quantity"
                                                class="quantity-input form-control text-center" aria-label="quantity"
-                                               style="max-width: 6ch;">
+                                               style="max-width: 6ch;" value="${cart.quantity}">
                                         <button type="button" class="increment btn btn-secondary">+</button>
                                     </div>
                                 </td>
                                 <td class="align-middle">
-                                    <p class="mb-0 fw-semibold">1.100.0000 <sup>₫</sup></p>
+                                    <p class="mb-0 fw-semibold product-price">
+                                        <fmt:formatNumber value="${cart.product.price * cart.quantity}"
+                                                          type="number" pattern="#,##0" /> <sup>₫</sup>
+                                    </p>
                                 </td>
                                 <td class="align-middle">
                                     <button class="removeBtn btn btn-outline-danger px-2 custom-icon mx-auto">
@@ -145,7 +104,11 @@
                 <div>
                     <h5>Tổng thanh toán <span>(<span class="[ count-products ]">1</span> sản phẩm)</span></h5>
                     <div class="text-danger fw-medium">
-                        <span class="fs-5 fw-bold">1.100.0000 <sup>₫</sup></span>
+                        <span class="fs-5 fw-bold">
+                            <fmt:formatNumber value="${sessionScope.cart.total}" type="number" pattern="#,##0" />
+                            <sup>₫</sup>
+                        </span>
+
                     </div>
                 </div>
                 <a class="btn custom-btn-primary ms-auto px-5 py-2 fw-medium" type="button" href="checkout.html">Đặt

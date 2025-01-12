@@ -6,7 +6,7 @@ $(document).ready(function() {
         let max = parseInt($control.data("max")) || 100;
 
         // Khởi tạo giá trị ban đầu
-        $input.val(min);
+        // $input.val(min);
 
         // Sự kiện khi nhập số vào input
         $input.on("input", function() {

@@ -32,15 +32,13 @@ public class CartController extends HttpServlet {
         int quantity = Integer.parseInt(request.getParameter("quantity"));
 
         Product product = productService.getProductById(idProduct);
-        System.out.println(product);
         List<Product.ProductOption> productOptions = productService.findOptionsByProductId(idProduct);
 
         HttpSession session = request.getSession();
         Cart cart = (Cart) session.getAttribute("cart");
         if (cart == null) { cart = new Cart(); }
 
-        int rs = cart.addProduct(product, quantity, productOptions);
-        System.out.println(rs);
+        cart.addProduct(product, quantity, productOptions);
 
         session.setAttribute("cart", cart);
     }

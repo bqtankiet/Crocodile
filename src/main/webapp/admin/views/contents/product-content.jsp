@@ -57,7 +57,7 @@
                                 </td>
                                 <td>
                                     <strong class="product-price">
-                                        <fmt:formatNumber value="${p.price}" type="number" pattern="#,##0" /> VND
+                                        <fmt:formatNumber value="${p.price}" type="number" pattern="#,##0" /> <sup>₫</sup>
                                     </strong>
                                 </td>
                                 <td>

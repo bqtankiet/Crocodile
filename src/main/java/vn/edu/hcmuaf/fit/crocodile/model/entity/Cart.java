@@ -20,7 +20,6 @@ public class Cart {
         }
 
         items.put(product.getId(), new CartItem(product, quantity, options));
-        System.out.println(items.size());
         return 10000;
     }
 
@@ -47,15 +46,6 @@ public class Cart {
         return total;
     }
 
-    public boolean isEmpty() {
-        return items.isEmpty();
-    }
+    public int getSize(){ return items.size(); }
 
-    public int getSize(){
-        return items.size();
-    }
-
-    public void print(){
-        getItem().forEach(System.out::println);
-    }
 }
