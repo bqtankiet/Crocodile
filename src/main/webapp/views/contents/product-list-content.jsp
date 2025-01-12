@@ -1,5 +1,9 @@
 <%@ page import="vn.edu.hcmuaf.fit.crocodile.config.properties.UrlProperties" %>
 <%@ page import="vn.edu.hcmuaf.fit.crocodile.service.CategoryService" %>
+<%@ page import="vn.edu.hcmuaf.fit.crocodile.dao.product.strategy.StrategySortByCreateDate" %>
+<%@ page import="vn.edu.hcmuaf.fit.crocodile.dao.product.strategy.StrategySortByID" %>
+<%@ page import="vn.edu.hcmuaf.fit.crocodile.dao.product.strategy.StrategySortByPriceASC" %>
+<%@ page import="vn.edu.hcmuaf.fit.crocodile.dao.product.strategy.StrategySortByPriceDESC" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
@@ -120,9 +124,19 @@
                 <div class="d-flex align-items-center p-4 mb-2 bg-secondary-subtle" style="height: 50px;">
                     <span class="me-3 fw-semibold">Sắp Xếp Theo</span>
                     <div class="d-flex gap-3">
-                        <button class="btn custom-btn-primary">Mặc định</button>
-                        <button class="btn custom-btn-primary bg-white text-black">Mới Nhất</button>
-                        <button class="btn custom-btn-primary bg-white text-black">Bán Chạy</button>
+                        <c:url var="sortByDefault" value="<%=UrlProperties.productList()%>">
+                            <c:param name="idCate" value="${requestScope.category.id}"/>
+                        </c:url>
+                        <a class="btn custom-btn-primary bg-white text-black" href="${sortByDefault}"> Mặc định </a>
+
+                        <c:url var="sortByCreateDate" value="<%=UrlProperties.productList()%>">
+                            <c:param name="idCate" value="${requestScope.category.id}"/>
+                            <c:param name="sortBy" value="<%=StrategySortByCreateDate.NAME%>"/>
+                        </c:url>
+                        <a class="btn custom-btn-primary bg-white text-black" href="${sortByCreateDate}">Mới Nhất</a>
+
+<%--                        TODO:--%>
+                        <a class="btn custom-btn-primary bg-white text-black" href="#">Bán Chạy</a>
                     </div>
                     <div class="dropdown ms-3">
                         <button class="btn bg-white dropdown-toggle" type="button" id="dropdownMenuButton"
@@ -130,8 +144,17 @@
                             Giá
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="#">Giá: Tăng Dần</a></li>
-                            <li><a class="dropdown-item" href="#">Giá: Giảm Dần</a></li>
+                            <c:url var="sortByPriceASC" value="<%=UrlProperties.productList()%>">
+                                <c:param name="idCate" value="${requestScope.category.id}"/>
+                                <c:param name="sortBy" value="<%=StrategySortByPriceASC.NAME%>"/>
+                            </c:url>
+                            <li><a class="dropdown-item" href="${sortByPriceASC}">Giá: Tăng Dần</a></li>
+
+                            <c:url var="sortByPriceDESC" value="<%=UrlProperties.productList()%>">
+                                <c:param name="idCate" value="${requestScope.category.id}"/>
+                                <c:param name="sortBy" value="<%=StrategySortByPriceDESC.NAME%>"/>
+                            </c:url>
+                            <li><a class="dropdown-item" href="${sortByPriceDESC}">Giá: Giảm Dần</a></li>
                         </ul>
                     </div>
                 </div>
@@ -173,6 +196,7 @@
                 <c:url var="productListUrl" value="<%=UrlProperties.productList()%>">
                     <c:param name="idCate" value="${requestScope.category.id}"/>
                     <c:param name="page" value="${i}"/>
+                    <c:param name="sortBy" value="${requestScope.sortStrategy}"/>
                 </c:url>
                 <li class="page-item ${requestScope.page == i ? 'active' : ''}"><a class="page-link" href="${productListUrl}">${i}</a></li>
             </c:forEach>

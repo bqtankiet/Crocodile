@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.fit.crocodile.service;
 
+import vn.edu.hcmuaf.fit.crocodile.config.JdbiConnect;
 import vn.edu.hcmuaf.fit.crocodile.dao.product.IProductDao;
 import vn.edu.hcmuaf.fit.crocodile.dao.product.ProductDao;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Product;
@@ -53,6 +54,8 @@ public class ProductService {
     public int getMaxPage(int idCate) {
         return productDao.getMaxPage(idCate);
     }
+
+
     // ------------------------ begin admin method ------------------------
     public List<Product> getAllProducts() {
         return productDao.findAll();

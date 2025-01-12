@@ -206,7 +206,7 @@ public class ProductDao implements IProductDao {
 
     @Override
     public List<Product> findProductsByCategoryAndPage(int idCate, int page) {
-        final int N = 20;
+        final int N = 12;
         int offset = (page-1)*N;
         String sql = """
                 SELECT *
@@ -227,7 +227,7 @@ public class ProductDao implements IProductDao {
 
     @Override
     public int getMaxPage(int idCate) {
-        String sql = "SELECT CEIL(COUNT(*) / 20) AS maxPage FROM products WHERE idCategory = :idCate";
+        String sql = "SELECT CEIL(COUNT(*) / 12) AS maxPage FROM products WHERE idCategory = :idCate";
         return JdbiConnect.getJdbi().withHandle(handle ->
             handle.createQuery(sql)
                     .bind("idCate", idCate)

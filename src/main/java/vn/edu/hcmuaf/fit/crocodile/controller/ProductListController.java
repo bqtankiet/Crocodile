@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import vn.edu.hcmuaf.fit.crocodile.config.properties.UrlProperties;
+import vn.edu.hcmuaf.fit.crocodile.dao.product.strategy.*;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Category;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Product;
 import vn.edu.hcmuaf.fit.crocodile.service.CategoryService;
@@ -14,6 +15,7 @@ import vn.edu.hcmuaf.fit.crocodile.service.ProductService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @WebServlet(name = "ProductListController", value = "/product-list")
 public class ProductListController extends HttpServlet {
@@ -33,10 +35,27 @@ public class ProductListController extends HttpServlet {
         int idCate = utils.tryToGetId(request);
         int page = utils.tryToGetPage(request);
         int maxPage = productService.getMaxPage(idCate);
+        String sortBy = Objects.requireNonNullElse(request.getParameter("sortBy"), "");
+        IProductSortingStrategy sortStrategy = new StrategySortByID();
+        switch (sortBy.toLowerCase()) {
+            case StrategySortByCreateDate.NAME: {
+                sortStrategy = new StrategySortByCreateDate();
+                break;
+            }
+            case StrategySortByPriceASC.NAME: {
+                sortStrategy = new StrategySortByPriceASC();
+                break;
+            }
+            case StrategySortByPriceDESC.NAME: {
+                sortStrategy = new StrategySortByPriceDESC();
+                break;
+            }
+        }
 
         Category category = categoryService.getCategoryById(idCate);
-        List<Product> productList = productService.getProductsByCategoryAndPage(idCate, page);
+        List<Product> productList = sortStrategy.findAllWithPagination(idCate, page, 12);
 
+        request.setAttribute("sortStrategy", sortStrategy.getName());
         request.setAttribute("category", category);
         request.setAttribute("page", page);
         request.setAttribute("maxPage", maxPage);
