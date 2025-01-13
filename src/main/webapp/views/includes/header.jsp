@@ -155,7 +155,7 @@
                    href="#offcanvasRight" role="button" data-bs-toggle="offcanvas">
                     <div class="d-flex align-items-center justify-content-end">
                         <div class="custom-icon" style="--size: 2rem">
-                            <c:if test="${sessionScope.cart != null}">
+                            <c:if test="${sessionScope.cart != null && sessionScope.cart.size != 0}" >
                                 <span class="badge text-bg-danger position-absolute translate-middle rounded-pill">
                                     ${sessionScope.cart.size}
                                 </span>

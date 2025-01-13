@@ -8,7 +8,6 @@
 <fmt:setLocale value="vi_VN"/>
 
 <div id="page" class="layout-default ">
-
     <div id="CONTENT" class="h-100">
         <div id="liveAlertPlaceholder" class="fixed-top"></div>
         <script>
@@ -130,7 +129,7 @@
                                             </div>
                                         </td>
                                         <td class="align-middle">
-                                            <p class="mb-0 fw-semibold product-price">
+                                            <p class="mb-0 fw-semibold product-total-price">
                                                 <fmt:formatNumber value="${item.caculatePrice()}" type="currency" currencySymbol="₫" groupingUsed="true"/>
                                                     <%--                                        <fmt:formatNumber value="${item.caculatePrice()}" type="number" pattern="#,##0" /> <sup>₫</sup>--%>
                                             </p>
@@ -163,7 +162,7 @@
                             <div class="text-danger fw-medium">
                     <span class="fs-5 fw-bold">
                         <fmt:formatNumber value="${sessionScope.cart.totalPrice}" type="number" pattern="#,##0" />
-<%--                            <sup>₫</sup>--%>
+                            <sup>₫</sup>
                     </span>
 
                             </div>
@@ -233,6 +232,16 @@
             const idVariant = $(this).data('id');
             const action = $(this).data('action');
             const quantity = $(this).val();
+
+            const $row = $(this).closest('tr');
+            const productPrice = $row.find(".product-price").text().replace(/[₫,\.]/g, '').trim()
+            const totalPrice = parseFloat(productPrice) * quantity;
+            const formattedPrice = new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND'
+            }).format(totalPrice);
+            $row.find('.product-total-price').html(formattedPrice);
+
             $.ajax({
                 url: '${cartURL}',
                 method: 'POST',
