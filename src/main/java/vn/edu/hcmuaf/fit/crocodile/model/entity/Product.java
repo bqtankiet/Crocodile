@@ -374,4 +374,66 @@ public class Product implements Serializable {
             this.stock = stock;
         }
     }
+
+    public static class ProductAttribute implements Serializable{
+        private int id;
+        private int idProduct;
+        private String key;
+        private String value;
+
+        // constructors
+        public ProductAttribute() {
+        }
+
+        public ProductAttribute(int id, int idProduct, String key, String value) {
+            this.id = id;
+            this.idProduct = idProduct;
+            this.key = key;
+            this.value = value;
+        }
+
+        // methods
+        @Override
+        public String toString() {
+            return "ProductAttribute{" +
+                    "id=" + id +
+                    ", idProduct=" + idProduct +
+                    ", key='" + key + '\'' +
+                    ", value='" + value + '\'' +
+                    '}';
+        }
+
+        // getter, setter
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public int getIdProduct() {
+            return idProduct;
+        }
+
+        public void setIdProduct(int idProduct) {
+            this.idProduct = idProduct;
+        }
+
+        public String getKey() {
+            return key;
+        }
+
+        public void setKey(String key) {
+            this.key = key;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
+        }
+    }
 }
