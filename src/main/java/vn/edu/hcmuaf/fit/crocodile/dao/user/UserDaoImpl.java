@@ -63,6 +63,17 @@ public class UserDaoImpl implements UserDao {
         );
     }
 
+    @Override
+    public Optional<User> findByEmail(String email) {
+        String query = "select * from users where email = :email";
+        return JdbiConnect.getJdbi().withHandle(
+                handle ->
+                        handle.createQuery(query)
+                                .bind("email", email)
+                                .mapToBean(User.class)
+                                .findOne()
+        );
+    }
 
     @Override
     public int create(User user) {
@@ -94,7 +105,6 @@ public class UserDaoImpl implements UserDao {
     public static void main(String[] args) {
         AuthenticationService authService = new AuthenticationService();
 
-        // Dữ liệu đăng nhập
         String username = "ad";
         String password = "ad";
 

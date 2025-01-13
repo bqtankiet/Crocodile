@@ -14,7 +14,6 @@ import java.util.Optional;
 @WebServlet(name = "LoginController", urlPatterns = {"/login"})
 public class LoginController extends HttpServlet {
     private final AuthenticationService auth = new AuthenticationService();
-    private static final UserDao userDao = new UserDaoImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -29,7 +28,6 @@ public class LoginController extends HttpServlet {
         int userId = auth.login(username, password);
 
         if (userId != -1) {
-            // Lấy thông tin người dùng
             UserDao userDao = new UserDaoImpl();
             Optional<User> optionalUser = userDao.findById(userId);
 
@@ -44,7 +42,6 @@ public class LoginController extends HttpServlet {
                 session.setAttribute("phone", user.getPhoneNumber() != null ? user.getPhoneNumber() : "");
                 session.setAttribute("birthDate", user.getBirthdate());
 
-                // Đoạn mã xử lý gender
                 String gender = user.getGender();
                 String genderDisplay = "";
 

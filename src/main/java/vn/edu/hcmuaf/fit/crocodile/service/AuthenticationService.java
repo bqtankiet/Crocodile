@@ -61,6 +61,10 @@ public class AuthenticationService {
         return -1;
     }
 
+    public Optional<User> findEmail(String email) {
+        return userDao.findByEmail(email);
+    }
+
     public static void main(String[] args) {
         AuthenticationService authenticationService = new AuthenticationService();
         authenticationService.login("admin", "admin");

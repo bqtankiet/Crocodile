@@ -15,4 +15,6 @@ public interface UserDao {
     Optional<User> findByUsername(String username);
 
     void update(User user);
+
+    Optional<User> findByEmail(String email);
 }
