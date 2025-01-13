@@ -25,15 +25,15 @@
     </style>
 </head>
 <body>
-<%--HEADER--%>
-<jsp:include page="includes/header.jsp">
-    <jsp:param name="activePage" value="about"/>
-</jsp:include>
+    <%--HEADER--%>
+    <jsp:include page="includes/header.jsp">
+        <jsp:param name="activePage" value="about"/>
+    </jsp:include>
 
-<%--CONTENT--%>
-<jsp:include page="contents/about-content.jsp"/>
+    <%--CONTENT--%>
+    <jsp:include page="contents/about-content.jsp"/>
 
-<%--FOOTER--%>
-<jsp:include page="includes/footer.jsp"/>
+    <%--FOOTER--%>
+    <jsp:include page="includes/footer.jsp"/>
 </body>
 </html>
