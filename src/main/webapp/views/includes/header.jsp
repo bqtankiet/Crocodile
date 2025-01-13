@@ -168,9 +168,10 @@
                         <div class="ps-2">
                             <div class="small pb-1">Giỏ hàng</div>
 
-                            <div class="pb-1 fw-semibold text-truncate" style="width: 10ch">
+                            <div class="pb-1 fw-semibold text-truncate totalAmountCart" style="width: 10ch">
                                 <c:if test="${empty sessionScope.cart}">0₫</c:if>
-                                <fmt:formatNumber value="${sessionScope.cart.totalPrice}" type="currency" currencySymbol="₫" groupingUsed="true"/>
+                                <fmt:formatNumber value="${sessionScope.cart.totalPrice}"
+                                                  type="currency" currencySymbol="₫" groupingUsed="true"/>
                             </div>
                         </div>
                     </div>

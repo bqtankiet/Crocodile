@@ -223,7 +223,9 @@
         toggleRemoveAllButton();
     });
 </script>
-
+<script>
+    console.log($('.product-total-price').text())
+</script>
 
 <script>
     $(document).ready(function() {
@@ -233,14 +235,29 @@
             const action = $(this).data('action');
             const quantity = $(this).val();
 
+            // --------------------update total amount realtime--------------------
             const $row = $(this).closest('tr');
-            const productPrice = $row.find(".product-price").text().replace(/[₫,\.]/g, '').trim()
+            const productPrice = $row.find(".product-price").text().replace(/[₫,\.]/g, '').trim();
             const totalPrice = parseFloat(productPrice) * quantity;
             const formattedPrice = new Intl.NumberFormat('vi-VN', {
                 style: 'currency',
                 currency: 'VND'
             }).format(totalPrice);
             $row.find('.product-total-price').html(formattedPrice);
+
+            // tong tien trong cart
+            let totalAmountCart = 0;
+            $('.product-total-price').each(function () {
+                const productPrice = $(this).text().replace(/[₫,\.]/g, '').trim();
+                 totalAmountCart += parseFloat(productPrice) ;
+            });
+
+            const formattedPriceCart = new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND'
+            }).format(totalAmountCart);
+            $('.totalAmountCart').html(formattedPriceCart)
+            // -------------------- update total amount realtime--------------------
 
             $.ajax({
                 url: '${cartURL}',
