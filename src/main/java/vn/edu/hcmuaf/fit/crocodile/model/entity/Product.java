@@ -311,6 +311,9 @@ public class Product implements Serializable {
         private int idOption1;
         private int idOption2;
         private int stock;
+        private Product product;
+        private ProductOption pOption1;
+        private ProductOption pOption2;
 
         @Override
         public String toString() {
@@ -325,6 +328,30 @@ public class Product implements Serializable {
         }
 
         // getter, setter
+
+        public ProductOption getpOption2() {
+            return pOption2;
+        }
+
+        public void setpOption2(ProductOption pOption2) {
+            this.pOption2 = pOption2;
+        }
+
+        public ProductOption getpOption1() {
+            return pOption1;
+        }
+
+        public void setpOption1(ProductOption pOption1) {
+            this.pOption1 = pOption1;
+        }
+
+        public Product getProduct() {
+            return product;
+        }
+
+        public void setProduct(Product product) {
+            this.product = product;
+        }
 
         public int getId() {
             return id;

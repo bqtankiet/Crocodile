@@ -15,6 +15,37 @@
 </c:url>
 
 <div id="CONTENT">
+    <div id="liveAlertPlaceholder" class="fixed-top"></div>
+    <script>
+        const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+
+        // Hàm để thêm alert
+        const appendAlert = (message, type) => {
+            const wrapper = document.createElement('div')
+            wrapper.innerHTML = [
+                `<div class="alert alert-` + type + ` alert-dismissible" role="alert">`,
+                `   <div class="text-center fw-semibold">` + message + `</div>`,
+                '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+                '</div>'
+            ].join('')
+
+            alertPlaceholder.append(wrapper)
+
+            // Tự động ẩn alert sau 5 giây
+            setTimeout(() => {
+                wrapper.remove()  // Loại bỏ alert sau 5 giây
+            }, 5000)  // 5000ms = 5s
+        }
+
+        const liveMessage = sessionStorage.getItem('liveMessage');
+        const messageType = sessionStorage.getItem('liveMessageType');
+        if (liveMessage) {
+            appendAlert(liveMessage, messageType);
+            sessionStorage.removeItem('liveMessage');
+            sessionStorage.removeItem('liveMessageType');
+        }
+    </script>
+
     <!-------------------- Breadcrumb -------------------->
     <div class="container">
         <nav style="--bs-breadcrumb-divider: '>'">
@@ -256,12 +287,13 @@
             const matchedVariant = productVariants.find(
                 pv => pv.idOption1 === idOption1 && pv.idOption2 === idOption2
             );
+            if(matchedVariant) {
+                const quantity = $('#user-input-quantity').val();
+                const idVariant = matchedVariant.id;
 
-            const quantity = $('#user-input-quantity').val();
-            const idVariant = matchedVariant.id;
-
-            $('#submit-idVariant').val(idVariant);
-            $('#submit-quantity').val(quantity);
+                $('#submit-idVariant').val(idVariant);
+                $('#submit-quantity').val(quantity);
+            }
         }
 
         // Xử lý gửi đến link buy now
@@ -296,15 +328,20 @@
                     idVariant: idVariant,
                     quantity: quantity
                 },
-                success: function (response){
+                success: function (response) {
+                    sessionStorage.setItem('liveMessage', 'Thêm vào giỏ hàng thành công!');
+                    sessionStorage.setItem('liveMessageType', 'success');
                     window.location.reload();
-                    alert("Thêm vào giỏ hàng thành công!");
+                    // appendAlert('Thêm vào giỏ hàng thành công!', 'success')
+                    // alert("Thêm vào giỏ hàng thành công!");
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     if (xhr.status === 404) {
                         alert("Không tìm thấy endpoint " + "${urlCart}");
                     } else {
-                        alert("Đã xảy ra lỗi. Vui lòng thử lại.");
+                        sessionStorage.setItem('liveMessage', 'Thêm thất bại. Bạn chưa chọn phân loại!');
+                        sessionStorage.setItem('liveMessageType', 'danger');
+                        window.location.reload();
                     }
                     console.error("Error:", error);
                 }
@@ -313,6 +350,7 @@
         });
     </script>
 </div>
+
 
 
 

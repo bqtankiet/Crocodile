@@ -59,8 +59,18 @@ public class ProductService {
         return productDao.findOptionsById(id);
     }
 
+//    public ProductVariant getProductVariantById(int idVariant) {
+//        return productDao.getProductVariantById(idVariant);
+//    }
+
+    // Em Kiet Test
     public ProductVariant getProductVariantById(int idVariant) {
-        return productDao.getProductVariantById(idVariant);
+        ProductVariant pv = productDao.getProductVariantById(idVariant);
+        pv.setProduct(getProductById(pv.getIdProduct()));
+        pv.setpOption1(productDao.findOptionsById(pv.getIdOption1()));
+        pv.setpOption2(productDao.findOptionsById(pv.getIdOption2()));
+        return pv;
     }
+
     // ------------------------ em khoi test ----------------------------
 }

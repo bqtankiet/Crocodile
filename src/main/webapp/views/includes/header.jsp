@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<fmt:setLocale value="vi_VN"/>
 <c:set var="categories" value="<%= new CategoryService().getAllActiveCategory()%>"/>
 
 <c:url var="homeUrl" value="<%= UrlProperties.home() %>"/>
@@ -154,12 +155,11 @@
                    href="#offcanvasRight" role="button" data-bs-toggle="offcanvas">
                     <div class="d-flex align-items-center justify-content-end">
                         <div class="custom-icon" style="--size: 2rem">
-                            <span class="badge text-bg-danger position-absolute translate-middle rounded-pill">
-                                <c:if test="${sessionScope.cart == null}">
-                                    0
-                                </c:if>
-                                ${sessionScope.cart.item.size()}
-                            </span>
+                            <c:if test="${sessionScope.cart != null}">
+                                <span class="badge text-bg-danger position-absolute translate-middle rounded-pill">
+                                    ${sessionScope.cart.totalQuantity}
+                                </span>
+                            </c:if>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-bag" viewBox="0 0 16 16">
                                 <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"></path>
@@ -169,11 +169,8 @@
                             <div class="small pb-1">Giỏ hàng</div>
 
                             <div class="pb-1 fw-semibold text-truncate" style="width: 10ch">
-                                <c:if test="${sessionScope.cart == null}">
-                                    0
-                                </c:if>
-                                <fmt:formatNumber value="${sessionScope.cart.total}" type="number" pattern="#,##0" />
-                                <span>₫</span>
+                                <c:if test="${empty sessionScope.cart}">0₫</c:if>
+                                <fmt:formatNumber value="${sessionScope.cart.totalPrice}" type="currency" currencySymbol="₫" groupingUsed="true"/>
                             </div>
                         </div>
                     </div>
@@ -302,13 +299,11 @@
                         </a>
                         <a href="#offcanvasRight" role="button" data-bs-toggle="offcanvas">
                             <div class="custom-icon text-white" style="--size: 2rem">
-                                <span class="badge text-bg-danger position-absolute translate-middle rounded-pill">
-                                    <c:if test="${sessionScope.cart == null}">
-                                        0
-                                    </c:if>
-                                    ${sessionScope.cart.size}
-
-                                </span>
+                                <c:if test="${sessionScope.cart != null}">
+                                    <span class="badge text-bg-danger position-absolute translate-middle rounded-pill">
+                                        ${sessionScope.cart.totalQuantity}
+                                    </span>
+                                </c:if>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-bag" viewBox="0 0 16 16">
                                     <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"></path>
@@ -335,18 +330,19 @@
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
         </div>
         <div class="offcanvas-body d-flex flex-column gap-3">
-            <c:forEach items="${sessionScope.cart.item}" var="cart">
+            <c:forEach items="${sessionScope.cart.items}" var="item">
+                <c:set var="productVariant" value="${item.productVariant}"/>
                 <div class="border-bottom pb-3">
                     <div class="row g-0">
                         <div class="col-2 me-3 position-relative">
                                 <%-- số lượng sản phẩm--%>
                             <span class="position-absolute top-0 start-100 z-1 translate-middle badge rounded-pill bg-danger">
-                                ${cart.quantity}
+                                ${item.quantity}
                             </span>
 
                                 <%-- hình ảnh sản phẩm --%>
                             <div class="ratio ratio-1x1">
-                                <img src="${cart.product.image}" class="img-fluid border rounded-2" alt="">
+                                <img src="${productVariant.product.image}" class="img-fluid border rounded-2" alt="">
                             </div>
                         </div>
 
@@ -354,29 +350,24 @@
                             <div class="w-100">
                                 <div class="d-flex align-items-center">
                                     <div class="me-2">
-                                            <%-- tên sản phẩm --%>
-                                        <p class="fw-semibold mb-0 line-clamp-2"
-                                           style="height: fit-content ;max-height: 2.5rem; line-height: 1.2">
-                                            ${cart.product.name}
+                                        <%-- tên sản phẩm --%>
+                                        <p class="fw-semibold mb-0 line-clamp-2" style="height: fit-content ;max-height: 2.5rem; line-height: 1.2">
+                                            ${productVariant.product.name}
                                         </p>
 
-                                            <%-- loại sản phẩm --%>
-                                            <c:if test="${cart.pOption1 != null}">
-                                                <p class="fw-normal">${cart.pOption1.key}: ${cart.pOption1.value}
-
-                                                    <c:if test="${cart.pOption2 != null}">
-                                                        , ${cart.pOption2.key}: ${cart.pOption2.value}
-                                                    </c:if>
-                                                </p>
-                                            </c:if>
-                                    </div>
-                                        <%-- tổng tiền sản phẩm --%>
-                                    <div class="ms-auto fw-medium fs-6">
-                                        <c:if test="${sessionScope.cart == null}">
-                                            0
+                                        <%-- loại sản phẩm --%>
+                                        <c:if test="${productVariant.idOption1 != null}">
+                                            <p class="fw-normal">${productVariant.pOption1.key}: ${productVariant.pOption1.value}
+                                                <c:if test="${productVariant.pOption2 != null}">
+                                                    , ${productVariant.pOption2.key}: ${productVariant.pOption2.value}
+                                                </c:if>
+                                            </p>
                                         </c:if>
-                                        <fmt:formatNumber value="${cart.totalPriceItem}" type="number" pattern="#,##0" />
-                                            <sup>₫</sup>
+                                    </div>
+                                    <%-- tổng tiền sản phẩm --%>
+                                    <div class="ms-auto fw-medium fs-6">
+                                        <c:if test="${empty sessionScope.cart}">0₫</c:if>
+                                        <fmt:formatNumber value="${item.caculatePrice()}" type="currency" currencySymbol="₫" groupingUsed="true"/>
                                     </div>
                                 </div>
                             </div>
@@ -391,16 +382,12 @@
             <div class="d-flex gap-2 fw-bold">
                 <p>Tổng:</p>
                 <p>
-                    <c:if test="${sessionScope.cart == null}">
-                        0
-                    </c:if>
-                    <fmt:formatNumber value="${sessionScope.cart.total}" type="number" pattern="#,##0" />
-                    <sup>₫</sup>
+                    <c:if test="${empty sessionScope.cart}">0₫</c:if>
+                    <fmt:formatNumber value="${sessionScope.cart.totalPrice}" type="currency" currencySymbol="₫" groupingUsed="true"/>
                 </p>
             </div>
             <a href="${cartUrl}"
-               class="btn custom-btn-primary mt-auto w-100 py-2 fw-medium">Xem chi
-                tiết</a>
+               class="btn custom-btn-primary mt-auto w-100 py-2 fw-medium">Xem chi tiết</a>
         </div>
     </div>
     <!--JavaScript-->
