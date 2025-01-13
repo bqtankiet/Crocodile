@@ -89,4 +89,6 @@ public class Cart {
         }
         return total;
     }
+
+    public int getSize() { return items.size(); }
 }

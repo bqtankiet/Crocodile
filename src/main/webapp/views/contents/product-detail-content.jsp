@@ -157,7 +157,7 @@
                                 </button>
                                 <button class="btn custom-btn-primary custom-icon px-4 btn-add-to-cart"
                                         data-bs-toggle="tooltip" data-bs-title="Thêm vào giỏ hàng" style="--size: 2rem"
-                                        role="button">
+                                        role="button" data-action="add">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                          class="bi bi-bag-plus" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd"
@@ -320,11 +320,13 @@
             handleOnSubmitProductForm()
             const idVariant = $('#submit-idVariant').val();
             const quantity = $('#submit-quantity').val();
+            const action =$(this).data('action');
 
             $.ajax({
                 url: "${urlCart}",
                 type: "POST",
                 data: {
+                    action: action,
                     idVariant: idVariant,
                     quantity: quantity
                 },

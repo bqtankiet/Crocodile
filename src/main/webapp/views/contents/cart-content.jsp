@@ -4,11 +4,43 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:url var="homeURL" value="<%=UrlProperties.home()%>"/>
+<c:url var="cartURL" value="<%=UrlProperties.cart()%>"/>
 <fmt:setLocale value="vi_VN"/>
 
 <div id="page" class="layout-default ">
 
     <div id="CONTENT" class="h-100">
+        <div id="liveAlertPlaceholder" class="fixed-top"></div>
+        <script>
+            const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+
+            // Hàm để thêm alert
+            const appendAlert = (message, type) => {
+                const wrapper = document.createElement('div')
+                wrapper.innerHTML = [
+                    `<div class="alert alert-` + type + ` alert-dismissible" role="alert">`,
+                    `   <div class="text-center fw-semibold">` + message + `</div>`,
+                    '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+                    '</div>'
+                ].join('')
+
+                alertPlaceholder.append(wrapper)
+
+                // Tự động ẩn alert sau 5 giây
+                setTimeout(() => {
+                    wrapper.remove()  // Loại bỏ alert sau 5 giây
+                }, 5000)  // 5000ms = 5s
+            }
+
+            const liveMessage = sessionStorage.getItem('liveMessage');
+            const messageType = sessionStorage.getItem('liveMessageType');
+            if (liveMessage) {
+                appendAlert(liveMessage, messageType);
+                sessionStorage.removeItem('liveMessage');
+                sessionStorage.removeItem('liveMessageType');
+            }
+        </script>
+
         <!-------------------- Breadcrumb -------------------->
         <div class="container">
             <nav style="--bs-breadcrumb-divider: '>'">
@@ -29,7 +61,7 @@
                     </div>
                 </div>
             </c:when>
-            <c:otherwise>
+        <c:otherwise>
                 <div class="container d-flex justify-content-center align-items-center">
                     <div class="col">
                         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -59,7 +91,8 @@
                                         <th scope="row" class="align-middle text-start">
                                             <div class="d-flex align-items-center">
                                                 <div class="form-check float-start mx-3">
-                                                    <input type="checkbox" class="product-check form-check-input" aria-label="">
+                                                    <input type="checkbox" class="product-check form-check-input"
+                                                           aria-label="" >
                                                 </div>
                                                 <div class="ratio ratio-1x1" style="width: 6rem">
                                                     <img src="${productVariant.product.image}" class="rounded-1" alt="">
@@ -90,7 +123,9 @@
                                                 <button type="button" class="decrement btn btn-secondary">-</button>
                                                 <input type="number" name="quantity"
                                                        class="quantity-input form-control text-center" aria-label="quantity"
-                                                       style="max-width: 6ch;" value="${item.quantity}">
+                                                       style="max-width: 6ch;" value="${item.quantity}"
+                                                       data-id="${productVariant.id}"
+                                                       data-action="update">
                                                 <button type="button" class="increment btn btn-secondary">+</button>
                                             </div>
                                         </td>
@@ -101,7 +136,8 @@
                                             </p>
                                         </td>
                                         <td class="align-middle">
-                                            <button class="removeBtn btn btn-outline-danger px-2 custom-icon mx-auto">
+                                            <button class="removeBtn btn btn-outline-danger px-2 custom-icon mx-auto"
+                                            data-id="${productVariant.id}" data-action="remove">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                      fill="currentColor"
                                                      class="bi bi-trash3-fill" viewBox="0 0 16 16">
@@ -186,5 +222,67 @@
     // Gọi hàm kiểm tra trạng thái nút xóa tất cả khi trang được tải
     $(document).ready(function () {
         toggleRemoveAllButton();
+    });
+</script>
+
+
+<script>
+    $(document).ready(function() {
+        $('.quantity-input').on('input', function() {
+
+            const idVariant = $(this).data('id');
+            const action = $(this).data('action');
+            const quantity = $(this).val();
+            $.ajax({
+                url: '${cartURL}',
+                method: 'POST',
+                data: {
+                    action: action,
+                    idVariant: idVariant,
+                    quantity: quantity
+                },
+                success: function(response) {
+                    console.log('Đã cập nhật số lượng ');
+                },
+                error: function(xhr, status, error) {
+                    console.error('Lỗi khi gửi dữ liệu: ', error);
+                }
+            });
+        });
+    });
+</script>
+
+<script>
+    $(document).on('click', '.removeBtn', function (event) {
+        event.preventDefault();
+        const idVariant = $(this).data('id');
+        const action =$(this).data('action');
+
+        $.ajax({
+            url: "${cartURL}",
+            type: "POST",
+            data: {
+                action: action,
+                idVariant: idVariant
+            },
+            success: function (response) {
+                sessionStorage.setItem('liveMessage', 'Xóa sản phẩm khỏi giỏ hàng thành công!');
+                sessionStorage.setItem('liveMessageType', 'success');
+                window.location.reload();
+                // appendAlert('Thêm vào giỏ hàng thành công!', 'success')
+                // alert("Thêm vào giỏ hàng thành công!");
+            },
+            error: function (xhr, status, error) {
+                if (xhr.status === 404) {
+                    alert("Không tìm thấy endpoint " + "${cartURL}");
+                } else {
+                    sessionStorage.setItem('liveMessage', 'Xóa sản phảm thất bại!');
+                    sessionStorage.setItem('liveMessageType', 'danger');
+                    window.location.reload();
+                }
+                console.error("Error:", error);
+            }
+        })
+
     });
 </script>

@@ -157,7 +157,7 @@
                         <div class="custom-icon" style="--size: 2rem">
                             <c:if test="${sessionScope.cart != null}">
                                 <span class="badge text-bg-danger position-absolute translate-middle rounded-pill">
-                                    ${sessionScope.cart.totalQuantity}
+                                    ${sessionScope.cart.size}
                                 </span>
                             </c:if>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

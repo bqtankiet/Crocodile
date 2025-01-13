@@ -57,16 +57,48 @@ public class CartController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
         int idVariant = Integer.parseInt(request.getParameter("idVariant"));
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
-        Product.ProductVariant pv = productService.getProductVariantById(idVariant);
 
-        HttpSession session = request.getSession();
-        Cart cart = (Cart) session.getAttribute("cart");
-        if (cart == null) { cart = new Cart(); }
-        CartItem cartItem = new CartItem(pv, quantity);
-        cart.addItem(cartItem);
+        switch (action){
+            case "add" ->{
+                int quantity = Integer.parseInt(request.getParameter("quantity"));
+                Product.ProductVariant pv = productService.getProductVariantById(idVariant);
 
-        session.setAttribute("cart", cart);
+                HttpSession session = request.getSession();
+                Cart cart = (Cart) session.getAttribute("cart");
+                if (cart == null) { cart = new Cart(); }
+                CartItem cartItem = new CartItem(pv, quantity);
+                cart.addItem(cartItem);
+
+                session.setAttribute("cart", cart);
+
+            }
+
+            case "update" -> {
+                HttpSession session = request.getSession();
+                int quantity = Integer.parseInt(request.getParameter("quantity"));
+                Product.ProductVariant pv = productService.getProductVariantById(idVariant);
+
+                Cart cart = (Cart) session.getAttribute("cart");
+
+                CartItem cartItem = new CartItem(pv, quantity);
+
+                cart.updateItemQuantity(pv.getId(), quantity);
+
+                session.setAttribute("cart", cart);
+            }
+
+            case "remove" -> {
+                HttpSession session = request.getSession();
+
+                Cart cart = (Cart) session.getAttribute("cart");
+
+                cart.removeItem(idVariant);
+
+                session.setAttribute("cart", cart);
+            }
+        }
+
     }
 }

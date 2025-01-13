@@ -345,9 +345,7 @@ public class Product implements Serializable {
             this.pOption1 = pOption1;
         }
 
-        public Product getProduct() {
-            return product;
-        }
+        public Product getProduct() { return product; }
 
         public void setProduct(Product product) {
             this.product = product;
