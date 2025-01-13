@@ -22,11 +22,19 @@ public interface IProductDao extends BasicDao<Integer, Product> {
 
     List<ProductOption> findAllOptionsByProductId(int productId, int group);
 
+    List<ProductOption> findAllOptionsByProductIdV1(int productId, int group);
+
     List<ProductVariant> findAllVariantsByProductId(int productId);
 
     // ------------------------ em khoi test ----------------------------
-    List<ProductOption> findOptionsByProductId(int productId);
+    ProductOption findOptionsById(int id);
+
+    ProductVariant getProductVariantById(int idVariant);
 
     List<Product> findAllProductsByCategoryId(int categoryId);
+
+    List<Product> findProductsByCategoryAndPage(int idCate, int page);
+
+    int getMaxPage(int idCate);
     // ------------------------ em khoi test ----------------------------
 }

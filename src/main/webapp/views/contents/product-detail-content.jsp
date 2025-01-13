@@ -7,12 +7,45 @@
 
 <c:url var="url_home" value="<%= UrlProperties.home()%>"/>
 
+<c:url var="urlCart" value="<%=UrlProperties.cart()%>"/>
+
 <c:url var="urlAddToCart" value="<%=UrlProperties.addToCart()%>"/>
-<c:url var="url_categoryId" value="<%= UrlProperties.category()%>">
+<c:url var="url_categoryId" value="<%= UrlProperties.productList()%>">
     <c:param name="id" value="${requestScope.product.category.id}"/>
 </c:url>
 
 <div id="CONTENT">
+    <div id="liveAlertPlaceholder" class="fixed-top"></div>
+    <script>
+        const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+
+        // Hàm để thêm alert
+        const appendAlert = (message, type) => {
+            const wrapper = document.createElement('div')
+            wrapper.innerHTML = [
+                `<div class="alert alert-` + type + ` alert-dismissible" role="alert">`,
+                `   <div class="text-center fw-semibold">` + message + `</div>`,
+                '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+                '</div>'
+            ].join('')
+
+            alertPlaceholder.append(wrapper)
+
+            // Tự động ẩn alert sau 5 giây
+            setTimeout(() => {
+                wrapper.remove()  // Loại bỏ alert sau 5 giây
+            }, 5000)  // 5000ms = 5s
+        }
+
+        const liveMessage = sessionStorage.getItem('liveMessage');
+        const messageType = sessionStorage.getItem('liveMessageType');
+        if (liveMessage) {
+            appendAlert(liveMessage, messageType);
+            sessionStorage.removeItem('liveMessage');
+            sessionStorage.removeItem('liveMessageType');
+        }
+    </script>
+
     <!-------------------- Breadcrumb -------------------->
     <div class="container">
         <nav style="--bs-breadcrumb-divider: '>'">
@@ -36,13 +69,14 @@
                          data-owl-main='{"items": 1, "dots": false, "startPosition": "URLHash"}'
                          data-owl-thumb='{"items": 4, "margin": 10, "dots": false}'>
                         <%-- TODO: Hiển thị hình ảnh bìa của sản phẩm (data-hash = 0)--%>
-                        <div class="item" data-hash="0">
-                            <img src="${requestScope.product.image}" alt="">
-                        </div>
-
+                        <c:if test="${empty requestScope.productImages}">
+                            <div class="item" data-hash=0>
+                                <img src="${requestScope.product.image}" alt="">
+                            </div>
+                        </c:if>
                         <%-- TODO: Hiển thị các hình ảnh minh họa của ản phẩm (data-hash = img.id) --%>
                         <c:forEach var="img" items="${requestScope.productImages}">
-                            <div class="item" data-hash=${img.id}>
+                            <div class="item" data-hash=${img.index}>
                                 <img src="${img.image}" alt="">
                             </div>
                         </c:forEach>
@@ -84,8 +118,8 @@
                                                    id="idOption${o.id}" value="${o.id}" required
                                                    onclick="updateProductStock()">
                                             <label for="idOption${o.id}" class="btn btn-outline-dark"
-                                                    <c:if test="${o.idImage != null}">
-                                                        onclick=window.location.href='#${o.idImage}'
+                                                    <c:if test="${o.imageIndex != null}">
+                                                        onclick=window.location.href='#${o.imageIndex}'
                                                     </c:if>>
                                                 <c:if test="${o.image != null}">
                                                     <img src="${o.image}" alt="" class="img-fluid me-1" style="height: 2rem">
@@ -104,7 +138,7 @@
                             <div class="col-3">
                                 <div class="quantity-control input-group" data-min="1" data-max="1000">
                                     <button type="button" class="decrement btn custom-btn-primary">-</button>
-                                    <input id="user-input-quantity" type="number" name="quantity"
+                                    <input id="user-input-quantity" type="number" name="quantity" value="1"
                                            class="quantity-input form-control text-center" aria-label="quantity">
                                     <button type="button" class="increment btn custom-btn-primary">+</button>
                                 </div>
@@ -115,15 +149,15 @@
                         <!--Submit-->
                         <form action="" id="product-form" onsubmit="handleOnSubmitProductForm()">
                             <div class="d-flex gap-2">
-                                <input id="submit-idVariant" type="number" name="idVariant" value="?" hidden="hidden">
-                                <input id="submit-quantity" type="number" name="quantity" value="?" hidden="hidden">
+                                <input id="submit-idVariant" type="number" name="idVariant" value="0" hidden="hidden">
+                                <input id="submit-quantity" type="number" name="quantity" value="0" hidden="hidden">
                                 <button class="btn custom-btn-primary flex-grow-1 text-uppercase text-center custom-bg-primary p-3 fw-semibold"
                                         role="button" type="submit" onclick="handleSubmitBuyNow()">
-                                    Đặt mua ngay
+                                        Đặt mua ngay
                                 </button>
-                                <button class="btn custom-btn-primary custom-icon px-4"
+                                <button class="btn custom-btn-primary custom-icon px-4 btn-add-to-cart"
                                         data-bs-toggle="tooltip" data-bs-title="Thêm vào giỏ hàng" style="--size: 2rem"
-                                        role="button" type="submit" onclick="handleSubmitAddToCart()">
+                                        role="button" data-action="add">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                          class="bi bi-bag-plus" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd"
@@ -253,13 +287,13 @@
             const matchedVariant = productVariants.find(
                 pv => pv.idOption1 === idOption1 && pv.idOption2 === idOption2
             );
+            if(matchedVariant) {
+                const quantity = $('#user-input-quantity').val();
+                const idVariant = matchedVariant.id;
 
-
-            const quantity = $('#user-input-quantity').val();
-            const idVariant = matchedVariant.id;
-
-            $('#submit-idVariant').val(idVariant);
-            $('#submit-quantity').val(quantity);
+                $('#submit-idVariant').val(idVariant);
+                $('#submit-quantity').val(quantity);
+            }
         }
 
         // Xử lý gửi đến link buy now
@@ -271,43 +305,45 @@
         }
 
         // Xử lý gửi đến link add to cart
-        function handleSubmitAddToCart() {
-            const $form = $('#product-form');
-            $form.attr('method', 'GET');
-            $form.attr('action', '<c:url value="<%=UrlProperties.addToCart()%>"/>');
-            $form.submit();
-        }
+        <%--function handleSubmitAddToCart() {--%>
+        <%--    const $form = $('#product-form');--%>
+        <%--    $form.attr('method', 'POST');--%>
+        <%--    $form.attr('action', '${urlCart}');--%>
+        <%--    $form.submit();--%>
+        <%--}--%>
     </script>
 
     <!-- ajax thêm sản phẩm vào giỏi hàng  -->
     <script>
-        $(document).on('click', '.btn-submit', function (event) {
-            const idProduct = $(this).data('id');
-            const quantity = $('.quantity').val();
-            console.log(idProduct)
-            // lấy các option chọn thêm vào mảng
-            const selectedOptions = $('input[name=""]:checked').map(function () {
-                return $(this).val();
-            }).get();
+        $(document).on('click', '.btn-add-to-cart', function (event) {
+            event.preventDefault();
+            handleOnSubmitProductForm()
+            const idVariant = $('#submit-idVariant').val();
+            const quantity = $('#submit-quantity').val();
+            const action =$(this).data('action');
 
             $.ajax({
-                url: "/cart",
-                <%--url: "${urlAddToCart}",--%>
+                url: "${urlCart}",
                 type: "POST",
                 data: {
-                    idProduct: idProduct,
-                    quantity: quantity,
-                    // selectedOptions: JSON.stringify(selectedOptions)
+                    action: action,
+                    idVariant: idVariant,
+                    quantity: quantity
                 },
-                success: function (response){
-                    alert("Thêm vào giỏ hàng thành công!");
-
+                success: function (response) {
+                    sessionStorage.setItem('liveMessage', 'Thêm vào giỏ hàng thành công!');
+                    sessionStorage.setItem('liveMessageType', 'success');
+                    window.location.reload();
+                    // appendAlert('Thêm vào giỏ hàng thành công!', 'success')
+                    // alert("Thêm vào giỏ hàng thành công!");
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     if (xhr.status === 404) {
-                        alert("Không tìm thấy endpoint " + "");
+                        alert("Không tìm thấy endpoint " + "${urlCart}");
                     } else {
-                        alert("Đã xảy ra lỗi. Vui lòng thử lại.");
+                        sessionStorage.setItem('liveMessage', 'Thêm thất bại. Bạn chưa chọn phân loại!');
+                        sessionStorage.setItem('liveMessageType', 'danger');
+                        window.location.reload();
                     }
                     console.error("Error:", error);
                 }
@@ -316,6 +352,7 @@
         });
     </script>
 </div>
+
 
 
 

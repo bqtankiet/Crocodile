@@ -19,7 +19,7 @@
     <!--  css  -->
     <link rel="stylesheet" href="<c:url value="/assets/css/main.css"/>">
     <!--  js  -->
-    <script src="<c:url value="/assets/js/quantity-control.js"/>"></script>
+<%--    <script src="<c:url value="/assets/js/quantity-control.js"/>"></script>--%>
 
     <!--  Khai báo Bootstrap tooltip  -->
     <script>

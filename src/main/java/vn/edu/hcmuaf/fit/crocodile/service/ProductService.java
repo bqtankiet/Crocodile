@@ -15,7 +15,7 @@ public class ProductService {
         this.productDao = new ProductDao();
     }
 
-    public Product getProductById(int id){
+    public Product getProductById(int id) {
         return productDao.findById(id);
     }
 
@@ -28,7 +28,7 @@ public class ProductService {
     }
 
     public ProductOptionGroup getProductOptionGroupById(int productId, int group) {
-        List<ProductOption> options = productDao.findAllOptionsByProductId(productId, group);
+        List<ProductOption> options = productDao.findAllOptionsByProductIdV1(productId, group);
         if (options.isEmpty()) {
             return null;
         }
@@ -45,15 +45,31 @@ public class ProductService {
         return productDao.findAllVariantsByProductId(productId);
     }
 
-    // ------------------------ begin admin method ------------------------
+    public int getMaxPage(int idCate) {
+        return productDao.getMaxPage(idCate);
+    }
+
     public List<Product> getAllProducts() {
         return productDao.findAll();
     }
-    // ------------------------ close admin method ------------------------
 
     // ------------------------ em khoi test ----------------------------
-    public List<ProductOption> findOptionsByProductId(int productId) {
-        return productDao.findOptionsByProductId(productId);
+
+    public ProductOption findOptionsById(int id) {
+        return productDao.findOptionsById(id);
+    }
+
+//    public ProductVariant getProductVariantById(int idVariant) {
+//        return productDao.getProductVariantById(idVariant);
+//    }
+
+    // Em Kiet Test
+    public ProductVariant getProductVariantById(int idVariant) {
+        ProductVariant pv = productDao.getProductVariantById(idVariant);
+        pv.setProduct(getProductById(pv.getIdProduct()));
+        pv.setpOption1(productDao.findOptionsById(pv.getIdOption1()));
+        pv.setpOption2(productDao.findOptionsById(pv.getIdOption2()));
+        return pv;
     }
 
     // ------------------------ em khoi test ----------------------------
