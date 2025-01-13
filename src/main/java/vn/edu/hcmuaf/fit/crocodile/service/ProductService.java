@@ -1,7 +1,9 @@
 package vn.edu.hcmuaf.fit.crocodile.service;
 
 import vn.edu.hcmuaf.fit.crocodile.dao.product.IProductDao;
+import vn.edu.hcmuaf.fit.crocodile.dao.product.IProductDaoAdmin;
 import vn.edu.hcmuaf.fit.crocodile.dao.product.ProductDao;
+import vn.edu.hcmuaf.fit.crocodile.dao.product.ProductDaoAdmin;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Product;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Product.*;
 
@@ -10,9 +12,11 @@ import java.util.List;
 public class ProductService {
 
     private final IProductDao productDao;
+    private final IProductDaoAdmin productDaoAdmin;
 
     public ProductService() {
         this.productDao = new ProductDao();
+        this.productDaoAdmin = new ProductDaoAdmin();
     }
 
     public Product getProductById(int id) {
@@ -23,8 +27,8 @@ public class ProductService {
         return productDao.findAllImagesByProductId(productId);
     }
 
-    public List<ProductDetail> getAllDetailsByProductId(int productId) {
-        return productDao.findAllDetailsByProductId(productId);
+    public List<ProductAttribute> getAllAttributesByProductId(int productId) {
+        return productDao.findAllAttributesByProductId(productId);
     }
 
     public ProductOptionGroup getProductOptionGroupById(int productId, int group) {
@@ -62,5 +66,24 @@ public class ProductService {
     public ProductVariant getProductVariantById(int idVariant) {
         return productDao.getProductVariantById(idVariant);
     }
+
     // ------------------------ em khoi test ----------------------------
+
+    public int insertProduct(Product product) {
+        int productId = productDaoAdmin.insertAndGetIdProduct(product);
+        product.setId(productId);
+        return productId;
+    }
+
+    public int insertAttributes(List<ProductAttribute> attributes, int productId) {
+        return productDaoAdmin.insertAllAttributes(attributes, productId);
+    }
+
+    public int insertImages(List<ProductImage> images, int productId) {
+        return productDaoAdmin.insertAllImages(images, productId);
+    }
+
+    public int insertProductVariants(List<ProductVariant> variants, int productId) {
+        return productDaoAdmin.insertAllProductVariants(variants, productId);
+    }
 }

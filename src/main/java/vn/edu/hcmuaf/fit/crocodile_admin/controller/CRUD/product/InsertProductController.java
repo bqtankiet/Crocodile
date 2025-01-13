@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Product;
 import vn.edu.hcmuaf.fit.crocodile.service.CategoryService;
+import vn.edu.hcmuaf.fit.crocodile.service.ProductService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,6 +20,13 @@ import java.util.List;
 
 @WebServlet(name = "InsertProductController", value = "/admin/product/insert")
 public class InsertProductController extends HttpServlet {
+    private ProductService productService;
+
+    @Override
+    public void init() throws ServletException {
+        this.productService = new ProductService();
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/admin/views/product-detail.jsp").forward(request, response);
@@ -31,20 +39,30 @@ public class InsertProductController extends HttpServlet {
 
         // extract product data
         Product product = jsonUtils.extractProduct(jsonData);
-        System.out.println(product);
+        int productId = productService.insertProduct(product);
+        if (productId != -1) System.out.println("Product id " + productId);
+
 
         // extract product's images
         List<Product.ProductImage> images = jsonUtils.extractImages(jsonData);
-        images.forEach(System.out::println);
+        int imgRowAffected = productService.insertImages(images, productId);
+        if (imgRowAffected > 0) System.out.println("image added: " + imgRowAffected);
+
 
         // extract product's attributes
         List<Product.ProductAttribute> attributes = jsonUtils.extractAttributes(jsonData);
-        attributes.forEach(System.out::println);
+        int attrRowAffected = productService.insertAttributes(attributes, productId);
+        if (attrRowAffected > 0) System.out.println("attr added: " + attrRowAffected);
 
+//
         // extract product's variants
         List<Product.ProductVariant> variants = jsonUtils.extractProductVariants(jsonData);
-        variants.forEach(System.out::println);
-
+        try {
+            int variantRowAffected = productService.insertProductVariants(variants, productId);
+            if (variantRowAffected > 0) System.out.println("vairant added: " + variantRowAffected);
+        } catch (Exception e) {
+            e.printStackTrace(new PrintWriter((System.out), true));
+        }
         // Prepare a JSON response with the redirect URL
         JsonObject jsonResponse = new JsonObject();
         jsonResponse.addProperty("status", "success");
@@ -148,7 +166,7 @@ class JsonUtils {
             String sku = jsonVariant.get("sku").getAsString();
             Product.ProductOption option1 = null;
             Product.ProductOption option2 = null;
-            if (jsonVariant.has("option1")) {
+            if (jsonVariant.has("option1") && jsonVariant.get("option1").isJsonObject()) {
                 JsonObject jsonOption = jsonVariant.get("option1").getAsJsonObject();
                 option1 = new Product.ProductOption();
                 option1.setGroup(1);
@@ -156,7 +174,7 @@ class JsonUtils {
                 option1.setValue(jsonOption.get("value").getAsString());
                 option1.setImage(jsonOption.get("image").getAsString());
             }
-            if (jsonVariant.has("option2")) {
+            if (jsonVariant.has("option2") && jsonVariant.get("option2").isJsonObject()) {
                 JsonObject jsonOption = jsonVariant.get("option2").getAsJsonObject();
                 option2 = new Product.ProductOption();
                 option2.setGroup(2);

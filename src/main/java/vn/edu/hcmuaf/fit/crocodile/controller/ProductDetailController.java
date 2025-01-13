@@ -40,9 +40,9 @@ public class ProductDetailController extends HttpServlet {
         List<ProductImage> productImages = productService.getAllImagesByProductId(productId);
         request.setAttribute("productImages", productImages);
 
-        // "productDetails"
-        List<Product.ProductDetail> productDetails = productService.getAllDetailsByProductId(productId);
-        request.setAttribute("productDetails", productDetails);
+        // "productAttributes"
+        List<Product.ProductAttribute> productAttributes = productService.getAllAttributesByProductId(productId);
+        request.setAttribute("productDetails", productAttributes);
 
         // "productOptionGroup"
         ProductOptionGroup optionGroup1 = productService.getProductOptionGroupById(productId, 1);
