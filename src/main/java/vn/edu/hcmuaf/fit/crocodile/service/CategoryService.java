@@ -43,4 +43,8 @@ public class CategoryService {
     }
     // ------------------------ close admin method ------------------------
 
+    public List<Category> getTopSellingCategoriesInDays(int topN, int days){
+        return categoryDao.getTopSellingCategoriesInDays(topN, days);
+    }
+
 }

@@ -42,9 +42,9 @@ public class ProductDao implements IProductDao {
 
         List<Product> result;
         result = JdbiConnect.getJdbi().withHandle(handle ->
-            handle.createQuery(sql)
-                    .map(new ProductRowMapper())
-                    .list()
+                handle.createQuery(sql)
+                        .map(new ProductRowMapper())
+                        .list()
         );
 
         return result;
@@ -61,10 +61,10 @@ public class ProductDao implements IProductDao {
 
         List<Product> result;
         result = JdbiConnect.getJdbi().withHandle(handle ->
-            handle.createQuery(sql)
-                    .bind("categoryId", categoryId)
-                    .map(new ProductRowMapper())
-                    .list()
+                handle.createQuery(sql)
+                        .bind("categoryId", categoryId)
+                        .map(new ProductRowMapper())
+                        .list()
         );
 
         return result;
@@ -73,36 +73,37 @@ public class ProductDao implements IProductDao {
     @Override
     public List<ProductImage> findAllImagesByProductId(int productId) {
         String sql = """
-                SELECT id, idProduct, image
+                SELECT id, idProduct, `index`, image
                 FROM product_images
                 WHERE idProduct = :productId
+                ORDER BY `index`
                 """;
 
         List<ProductImage> result;
         result = JdbiConnect.getJdbi().withHandle(handle ->
-            handle.createQuery(sql)
-                    .bind("productId", productId)
-                    .mapToBean(ProductImage.class)
-                    .list()
+                handle.createQuery(sql)
+                        .bind("productId", productId)
+                        .mapToBean(ProductImage.class)
+                        .list()
         );
 
         return result;
     }
 
     @Override
-    public List<ProductDetail> findAllDetailsByProductId(int productId) {
+    public List<ProductAttribute> findAllAttributesByProductId(int productId) {
         String sql = """
                 SELECT id, idProduct, `key`, `value`
-                FROM product_details
+                FROM product_attributes
                 WHERE idProduct = :productId
                 """;
 
-        List<ProductDetail> result;
+        List<ProductAttribute> result;
         result = JdbiConnect.getJdbi().withHandle(handle ->
-            handle.createQuery(sql)
-                    .bind("productId", productId)
-                    .mapToBean(ProductDetail.class)
-                    .list()
+                handle.createQuery(sql)
+                        .bind("productId", productId)
+                        .mapToBean(ProductAttribute.class)
+                        .list()
         );
 
         return result;
@@ -123,11 +124,35 @@ public class ProductDao implements IProductDao {
 
         List<ProductOption> result;
         result = JdbiConnect.getJdbi().withHandle(handle ->
-            handle.createQuery(sql)
-                    .bind("productId", productId)
-                    .bind("group", group)
-                    .mapToBean(ProductOption.class)
-                    .list()
+                handle.createQuery(sql)
+                        .bind("productId", productId)
+                        .bind("group", group)
+                        .mapToBean(ProductOption.class)
+                        .list()
+        );
+
+        return result;
+    }
+
+    @Override
+    public List<ProductOption> findAllOptionsByProductIdV1(int productId, int group) {
+        String sql = """
+                SELECT
+                    po.id, po.`group`, po.`key`, po.`value`,
+                    po.imageIndex, pi.image,
+                    po.idProduct, p.`name`
+                FROM products p
+                JOIN product_options po ON p.id = po.idProduct
+                LEFT JOIN product_images pi ON po.imageIndex = pi.index AND po.idProduct = pi.idProduct
+                WHERE p.id = :productId AND po.`group` = :group
+                """;
+        List<ProductOption> result;
+        result = JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("productId", productId)
+                        .bind("group", group)
+                        .mapToBean(ProductOption.class)
+                        .list()
         );
 
         return result;
@@ -136,34 +161,44 @@ public class ProductDao implements IProductDao {
     @Override
     public List<ProductVariant> findAllVariantsByProductId(int productId) {
         String sql = """
-                SELECT
-                  id, idProduct, sku, idOption1, idOption2, stock
+                SELECT id, idProduct, sku, idOption1, idOption2, stock
                 FROM product_variants
                 WHERE idProduct = :productId
                 """;
 
         List<ProductVariant> result;
         result = JdbiConnect.getJdbi().withHandle(handle ->
-            handle.createQuery(sql)
-                    .bind("productId", productId)
-                    .mapToBean(ProductVariant.class)
-                    .list()
+                handle.createQuery(sql)
+                        .bind("productId", productId)
+                        .mapToBean(ProductVariant.class)
+                        .list()
         );
 
         return result;
     }
 
-
-    // ------------------------ em khoi test ----------------------------
     @Override
-    public List<ProductOption> findOptionsByProductId(int productId) {
-        String sql = "select * from product_options where idProduct = :productId";
+    public ProductOption findOptionsById(int id) {
+        String sql = "SELECT * FROM product_options WHERE id = :id";
 
         return JdbiConnect.getJdbi().withHandle(handle ->
                 handle.createQuery(sql)
-                        .bind("productId", productId)
+                        .bind("id", id)
                         .mapToBean(ProductOption.class)
-                        .list()
+                        .findFirst()
+                        .orElse(null)
+        );
+    }
+
+    @Override
+    public ProductVariant getProductVariantById(int idVariant) {
+        String sql = "SELECT * FROM product_variants WHERE id = :idVariant";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("idVariant", idVariant)
+                        .mapToBean(ProductVariant.class)
+                        .findFirst()
+                        .orElse(null)
         );
     }
 
@@ -179,5 +214,119 @@ public class ProductDao implements IProductDao {
         );
     }
 
-    // ------------------------ em khoi test ----------------------------
+    @Override
+    public List<Product> findProductsByCategoryAndPage(int idCate, int page) {
+        final int N = 12;
+        int offset = (page - 1) * N;
+        String sql = """
+                SELECT *
+                FROM products p
+                WHERE p.idCategory = :idCate AND active = 1
+                ORDER BY p.id
+                LIMIT :N OFFSET :offset
+                """;
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("idCate", idCate)
+                        .bind("offset", offset)
+                        .bind("N", N)
+                        .mapToBean(Product.class)
+                        .list()
+        );
+    }
+
+    @Override
+    public int getMaxPage(int idCate) {
+        String sql = "SELECT CEIL(COUNT(*) / 12) AS maxPage FROM products WHERE idCategory = :idCate";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("idCate", idCate)
+                        .mapTo(Integer.class)
+                        .findFirst()
+                        .orElse(1)
+        );
+    }
+
+    @Override
+    public List<Product> getTopSellingProductsInDays(int topN, int days) {
+        String sql = """
+                SELECT
+                  p.*,
+                  SUM( od.quantity ) AS totalSold
+                FROM
+                  order_details od
+                  JOIN orders o ON od.idOrder = o.id
+                  JOIN product_variants pv ON od.idVariant = pv.id
+                  JOIN products p ON pv.idProduct = p.id
+                  JOIN categories c ON p.idCategory = c.id
+                WHERE
+                  DATEDIFF( CURRENT_DATE, o.invoiceDate ) <= :days
+                  AND p.active = 1
+                  AND c.active = 1
+                GROUP BY
+                  p.id,
+                  p.name
+                ORDER BY
+                  totalSold DESC
+                  LIMIT :topN;
+                """;
+        return JdbiConnect.getJdbi().withHandle(handle ->
+            handle.createQuery(sql)
+                    .bind("days", days)
+                    .bind("topN", topN)
+                    .mapToBean(Product.class)
+                    .list()
+        );
+    }
+
+    @Override
+    public List<Product> findRandomNSimilarProducts(int n, int idProduct) {
+        String sql = """
+                SELECT * FROM products
+                WHERE idCategory = ( SELECT idCategory FROM products WHERE id = :idProduct ) AND id != :idProduct
+                ORDER BY RAND()
+                LIMIT :n
+                """;
+        return JdbiConnect.getJdbi().withHandle(handle ->
+            handle.createQuery(sql)
+                    .bind("idProduct", idProduct)
+                    .bind("n", n)
+                    .mapToBean(Product.class)
+                    .list()
+        );
+    }
+
+    @Override
+    public List<Product> getTopSellingProductsOfCategory(int topN, int days, int idCategory) {
+        String sql = """
+                SELECT
+                  p.*,
+                  SUM( od.quantity ) AS totalSold
+                FROM
+                  order_details od
+                  JOIN orders o ON od.idOrder = o.id
+                  JOIN product_variants pv ON od.idVariant = pv.id
+                  JOIN products p ON pv.idProduct = p.id
+                  JOIN categories c ON p.idCategory = c.id
+                WHERE
+                  DATEDIFF( CURRENT_DATE, o.invoiceDate ) <= :days
+                  AND p.active = 1
+                  AND c.active = 1
+                  AND c.id = :idCategory
+                GROUP BY
+                  p.id,
+                  p.name
+                ORDER BY
+                  totalSold DESC
+                  LIMIT :topN;
+                """;
+        return JdbiConnect.getJdbi().withHandle(handle ->
+            handle.createQuery(sql)
+                    .bind("topN", topN)
+                    .bind("days", days)
+                    .bind("idCategory", idCategory)
+                    .mapToBean(Product.class)
+                    .list()
+        );
+    }
 }

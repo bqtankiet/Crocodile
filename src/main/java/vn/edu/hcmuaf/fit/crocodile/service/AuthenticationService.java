@@ -11,6 +11,17 @@ import java.util.Optional;
 public class AuthenticationService {
     private final UserDao userDao;
 
+    public int signup(User user) {
+        try {
+            String hashedPassword = HashUtil.hashMD5(user.getPassword());
+            user.setPassword(hashedPassword);
+            return userDao.create(user);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Lỗi đăng ký: " + e.getMessage());
+            return -1;
+        }
+    }
+
     public AuthenticationService() {
         this.userDao = new UserDaoImpl();
     }
@@ -27,10 +38,8 @@ public class AuthenticationService {
             User user = optionalUser.get();
             String hashedPassword = HashUtil.hashMD5(password);
 
-            System.out.println("mật khẩu đã hash   " + hashedPassword);
-            System.out.println("mật khẩu lưu ở DB: " + user.getPassword());
             if (hashedPassword.equals(user.getPassword())) {
-                System.out.println("Login thành công, userId: " + user.getId());
+
                 return user.getId();
             } else {
                 System.out.println("Mật khẩu không khớp");
@@ -42,37 +51,19 @@ public class AuthenticationService {
         return -1;
     }
 
-
-    public int signup(User user) {
-        try {
-            return userDao.create(user);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Lỗi đăng ký: " + e.getMessage());
-            return -1;
-        }
+    public Optional<User> findEmail(String email) {
+        return userDao.findByEmail(email);
     }
 
-
-    public static void main(String[] args) {
-        AuthenticationService authService = new AuthenticationService();
-
-        // Tạo một người dùng mới
-        String username = "testUser";
-        String password = "testPassword";
-        String name = "Test User";
-        String email = "testuser@example.com";
-        String phone = "1234567890";
-        String gender = "male";
-        LocalDate birthdate = LocalDate.of(1990, 1, 1);
-
-        User newUser = new User(username, password, name, email, phone, gender, birthdate);
-
-        // Đăng ký người dùng
-        int userId = authService.signup(newUser);
-        if (userId != -1) {
-            System.out.println("Đăng ký thành công, userId: " + userId);
-        } else {
-            System.out.println("Đăng ký thất bại");
+    public boolean resetPassword(int userId, String newPassword) {
+        try {
+            String hashedPassword = HashUtil.hashMD5(newPassword);
+            userDao.updatePassword(userId, hashedPassword);
+            System.out.println("update password success: " + newPassword);
+            return true;
+        } catch (Exception e) {
+            System.out.println("Lỗi khi cập nhật mật khẩu: " + e.getMessage());
+            return false;
         }
     }
 

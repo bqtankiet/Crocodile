@@ -15,7 +15,7 @@ backends:
     # baseUrl: Đường dẫn url tới thư mục upload tài nguyên (Sử dụng để truy cập vào tài nguyên thông quan url từ client-browser)
     baseUrl: 'http://localhost:8080/crocodile/uploads' # đường dẫn tuyệt đối.
     # root: Đường dẫn tuyệt đối đến thư mục vật lý chứa file upload (Sử dụng để lưu trữ tài nguyên trên server)
-    root: 'D:\.toolboxweb\tomcat10\webapps\crocodile\uploads'
+    root: 'D:\.TanKiet\temp\tomcat\tomcat-10.1.31\webapps\crocodile\uploads'
     disallowUnsafeCharacters: true
     forceAscii: false
     hideFolders: ['.*', 'CVS', '__thumbs']

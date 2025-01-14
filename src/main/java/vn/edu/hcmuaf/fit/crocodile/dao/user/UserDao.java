@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserDao {
-//    public List<User> getAllUser();
 
 
     Optional<User> findById(int id);
@@ -14,4 +13,11 @@ public interface UserDao {
     int create(User user);
 
     Optional<User> findByUsername(String username);
+
+    void update(User user);
+
+    Optional<User> findByEmail(String email);
+
+    void updatePassword(int userId, String newPassword);
+
 }
