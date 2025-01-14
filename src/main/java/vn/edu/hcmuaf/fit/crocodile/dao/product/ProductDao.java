@@ -91,18 +91,18 @@ public class ProductDao implements IProductDao {
     }
 
     @Override
-    public List<ProductDetail> findAllDetailsByProductId(int productId) {
+    public List<ProductAttribute> findAllAttributesByProductId(int productId) {
         String sql = """
                 SELECT id, idProduct, `key`, `value`
-                FROM product_details
+                FROM product_attributes
                 WHERE idProduct = :productId
                 """;
 
-        List<ProductDetail> result;
+        List<ProductAttribute> result;
         result = JdbiConnect.getJdbi().withHandle(handle ->
                 handle.createQuery(sql)
                         .bind("productId", productId)
-                        .mapToBean(ProductDetail.class)
+                        .mapToBean(ProductAttribute.class)
                         .list()
         );
 
