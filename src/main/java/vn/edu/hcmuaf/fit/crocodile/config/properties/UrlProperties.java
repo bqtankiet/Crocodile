@@ -42,4 +42,7 @@ public class UrlProperties extends ApplicationProperties {
         return getProperty("url.forgetPassword");
     }
 
+    public static String resetPassword() {
+        return getProperty("url.resetPassword");
+    }
 }

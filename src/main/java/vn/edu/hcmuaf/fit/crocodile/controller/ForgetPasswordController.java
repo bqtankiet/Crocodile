@@ -33,11 +33,14 @@ public class ForgetPasswordController extends HttpServlet {
         Optional<User> userOptional = auth.findEmail(email);
 
         if (userOptional.isPresent()) {
-            request.setAttribute("showModal", "confirmationModal");
+            request.setAttribute("success", true);
         } else {
-            request.setAttribute("showModal", "errorModal");
+            request.setAttribute("error", true);
+
         }
 
         request.getRequestDispatcher("/views/forgetPassword.jsp").forward(request, response);
     }
+
+
 }
