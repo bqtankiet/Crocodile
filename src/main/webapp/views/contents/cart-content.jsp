@@ -317,7 +317,7 @@
     $(document).on('click', '.orderBtn', function (event) {
         const selectedIds = [];
         $("input[name='selectedIds']:checked").each(function() {
-            selectedIds.push($(this).val());  // Thêm idVariant vào mảng
+            selectedIds.push($(this).val());
         });
 
         if (selectedIds.length > 0) {

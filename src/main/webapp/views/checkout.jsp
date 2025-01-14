@@ -21,6 +21,7 @@
     <!--  js  -->
     <script src="<c:url value="/assets/js/quantity-control.js"/>"></script>
 
+
     <!--  Khai báo Bootstrap tooltip  -->
     <script>
         $(document).ready(function () {
