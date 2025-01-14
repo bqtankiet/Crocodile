@@ -1,9 +1,6 @@
 <%@ page import="vn.edu.hcmuaf.fit.crocodile.config.properties.UrlProperties" %>
 <%@ page import="vn.edu.hcmuaf.fit.crocodile.service.CategoryService" %>
-<%@ page import="vn.edu.hcmuaf.fit.crocodile.dao.product.strategy.StrategySortByCreateDate" %>
-<%@ page import="vn.edu.hcmuaf.fit.crocodile.dao.product.strategy.StrategySortByID" %>
-<%@ page import="vn.edu.hcmuaf.fit.crocodile.dao.product.strategy.StrategySortByPriceASC" %>
-<%@ page import="vn.edu.hcmuaf.fit.crocodile.dao.product.strategy.StrategySortByPriceDESC" %>
+<%@ page import="vn.edu.hcmuaf.fit.crocodile.dao.product.strategy.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
@@ -127,22 +124,42 @@
                         <c:url var="sortByDefault" value="<%=UrlProperties.productList()%>">
                             <c:param name="idCate" value="${requestScope.category.id}"/>
                         </c:url>
-                        <a class="btn custom-btn-primary bg-white text-black" href="${sortByDefault}"> Mặc định </a>
+                        <a class="btn custom-btn-primary ${empty param.sortBy ? 'custom-bg-primary text-white' : 'bg-white text-black'}" href="${sortByDefault}"> Mặc định </a>
 
                         <c:url var="sortByCreateDate" value="<%=UrlProperties.productList()%>">
                             <c:param name="idCate" value="${requestScope.category.id}"/>
                             <c:param name="sortBy" value="<%=StrategySortByCreateDate.NAME%>"/>
                         </c:url>
-                        <a class="btn custom-btn-primary bg-white text-black" href="${sortByCreateDate}">Mới Nhất</a>
+                        <c:set var="sortByCreateDateName" value="<%=StrategySortByCreateDate.NAME%>"/>
+                        <a class="btn custom-btn-primary ${param.sortBy == sortByCreateDateName ? 'custom-bg-primary text-white' : 'bg-white text-black'}" href="${sortByCreateDate}">Mới Nhất</a>
 
-<%--                        TODO:--%>
-                        <a class="btn custom-btn-primary bg-white text-black" href="#">Bán Chạy</a>
+                        <c:url var="sortByBestSeller" value="<%=UrlProperties.productList()%>">
+                            <c:param name="idCate" value="${requestScope.category.id}"/>
+                            <c:param name="sortBy" value="<%=StrategySortByBestSeller.NAME%>"/>
+                        </c:url>
+                        <c:set var="sortByBestSellerName" value="<%=StrategySortByBestSeller.NAME%>"/>
+                        <a class="btn custom-btn-primary ${param.sortBy == sortByBestSellerName ? 'custom-bg-primary text-white' : 'bg-white text-black'}" href="${sortByBestSeller}">Bán Chạy</a>
                     </div>
                     <div class="dropdown ms-3">
-                        <button class="btn bg-white dropdown-toggle" type="button" id="dropdownMenuButton"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                            Giá
-                        </button>
+                        <c:set var="sortByPriceASCName" value="<%=StrategySortByPriceASC.NAME%>"/>
+                        <c:set var="sortByPriceDESCName" value="<%=StrategySortByPriceDESC.NAME%>"/>
+                        <c:choose>
+                            <c:when test="${param.sortBy == sortByPriceASCName}">
+                                <button class="btn custom-btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Giá: Tăng dần
+                                </button>
+                            </c:when>
+                            <c:when test="${param.sortBy == sortByPriceDESCName}">
+                                <button class="btn custom-btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Giá: Giảm dần
+                                </button>
+                            </c:when>
+                            <c:otherwise>
+                                <button class="btn bg-white dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Giá
+                                </button>
+                            </c:otherwise>
+                        </c:choose>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <c:url var="sortByPriceASC" value="<%=UrlProperties.productList()%>">
                                 <c:param name="idCate" value="${requestScope.category.id}"/>
