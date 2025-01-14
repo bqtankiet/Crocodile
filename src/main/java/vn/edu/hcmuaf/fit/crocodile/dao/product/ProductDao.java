@@ -295,4 +295,38 @@ public class ProductDao implements IProductDao {
                     .list()
         );
     }
+
+    @Override
+    public List<Product> getTopSellingProductsOfCategory(int topN, int days, int idCategory) {
+        String sql = """
+                SELECT
+                  p.*,
+                  SUM( od.quantity ) AS totalSold
+                FROM
+                  order_details od
+                  JOIN orders o ON od.idOrder = o.id
+                  JOIN product_variants pv ON od.idVariant = pv.id
+                  JOIN products p ON pv.idProduct = p.id
+                  JOIN categories c ON p.idCategory = c.id
+                WHERE
+                  DATEDIFF( CURRENT_DATE, o.invoiceDate ) <= :days
+                  AND p.active = 1
+                  AND c.active = 1
+                  AND c.id = :idCategory
+                GROUP BY
+                  p.id,
+                  p.name
+                ORDER BY
+                  totalSold DESC
+                  LIMIT :topN;
+                """;
+        return JdbiConnect.getJdbi().withHandle(handle ->
+            handle.createQuery(sql)
+                    .bind("topN", topN)
+                    .bind("days", days)
+                    .bind("idCategory", idCategory)
+                    .mapToBean(Product.class)
+                    .list()
+        );
+    }
 }

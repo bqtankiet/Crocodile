@@ -235,8 +235,39 @@
             </div>
 
             <div class="d-flex flex-column gap-4">
-                <%--        TODO:             --%>
-
+                <c:forEach var="c" items="${requestScope.topSellingCategories}" varStatus="status">
+                    <div class="product-group p-3">
+                        <div class="product-group-title d-flex mb-2 border-bottom border-2 custom-border-primary-darker">
+                            <h1 class="custom-bg-primary-darker text-white fw-bold m-0 px-2">${status.index + 1}</h1>
+                            <h3 class="fw-semibold custom-bg-primary text-white py-2 px-3 m-0 ">${c.name}</h3>
+                            <c:url var="seeMoreURL" value="<%=UrlProperties.productList()%>">
+                                <c:param name="idCate" value="${c.id}"/>
+                            </c:url>
+                            <a href="${seeMoreURL}" class="ms-auto my-auto">Xem thêm</a>
+                        </div>
+                        <div class="product_gallery_template" data-owl-main='{"items": 4, "margin": 10, "dots": false}'>
+                            <c:set var="i" value="${status.index}"/>
+                            <c:forEach var="p" items="${requestScope.topSellingProductsInCategory.get(i)}">
+                                <div class="item">
+                                    <c:url var="productUrl" value="<%=UrlProperties.productDetail()%>">
+                                        <c:param name="id" value="${p.id}"/>
+                                    </c:url>
+                                    <fmt:formatNumber var="fmtPrice" value="${p.price}" type="currency" currencySymbol="₫" groupingUsed="true"/>
+                                    <a class="product_card_template" href="${productUrl}"
+                                       data-json='{
+                                        "img": "${p.image}",
+                                        "name": "${p.name}",
+                                        "price": "${fmtPrice}",
+                                        "basePrice": "",
+                                        "discount": "",
+                                        "badge": ""
+                                        }'>
+                                    </a>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </div>
+                </c:forEach>
                 <%--                    <div class="product-group p-3">--%>
                 <%--                        <div class="product-group-title d-flex mb-2--%>
                 <%--                             border-bottom border-2 custom-border-primary-darker">--%>

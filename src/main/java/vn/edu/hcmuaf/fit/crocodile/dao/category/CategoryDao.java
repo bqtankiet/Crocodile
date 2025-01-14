@@ -28,4 +28,35 @@ public class CategoryDao implements ICategoryDao {
                         .list()
         );
     }
+
+    @Override
+    public List<Category> getTopSellingCategoriesInDays(int topN, int days) {
+        String sql = """
+                SELECT
+                  c.*,
+                  SUM(od.quantity) AS totalSold
+                FROM
+                  order_details od
+                  JOIN orders o ON od.idOrder = o.id
+                  JOIN product_variants pv ON od.idVariant = pv.id
+                  JOIN products p ON pv.idProduct = p.id
+                  JOIN categories c ON p.idCategory = c.id
+                WHERE
+                  DATEDIFF(CURDATE(), o.invoiceDate) <= :days
+                  AND p.active = 1
+                  AND c.active = 1
+                GROUP BY
+                  c.id, c.name
+                ORDER BY
+                  totalSold DESC
+                LIMIT :topN;
+                """;
+        return JdbiConnect.getJdbi().withHandle(handle ->
+            handle.createQuery(sql)
+                    .bind("topN", topN)
+                    .bind("days", days)
+                    .mapToBean(Category.class)
+                    .list()
+        );
+    }
 }

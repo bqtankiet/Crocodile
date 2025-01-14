@@ -39,4 +39,6 @@ public interface IProductDao extends BasicDao<Integer, Product> {
     List<Product> getTopSellingProductsInDays(int topN, int days);
 
     List<Product> findRandomNSimilarProducts(int n, int idProduct);
+
+    List<Product> getTopSellingProductsOfCategory(int topN, int days, int idCategory);
 }

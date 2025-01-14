@@ -12,4 +12,7 @@ public interface ICategoryDao extends BasicDao<Integer, Category> {
 
     @Override
     List<Category> findAll();
+
+    List<Category> getTopSellingCategoriesInDays(int topN, int days);
+
 }

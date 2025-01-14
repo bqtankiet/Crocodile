@@ -103,4 +103,8 @@ public class ProductService {
     public List<Product> findRandomNSimilarProducts(int n, int idProduct) {
         return productDao.findRandomNSimilarProducts(n, idProduct);
     }
+
+    public List<Product> getTopSellingProductsOfCategory(int topN, int days, int idCategory) {
+        return productDao.getTopSellingProductsOfCategory(topN, days, idCategory);
+    }
 }
