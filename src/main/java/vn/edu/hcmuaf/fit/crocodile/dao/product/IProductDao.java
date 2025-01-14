@@ -36,7 +36,5 @@ public interface IProductDao extends BasicDao<Integer, Product> {
     List<Product> findProductsByCategoryAndPage(int idCate, int page);
 
     int getMaxPage(int idCate);
-
-    List<Product> searchProduct(String keyWord);
     // ------------------------ em khoi test ----------------------------
 }

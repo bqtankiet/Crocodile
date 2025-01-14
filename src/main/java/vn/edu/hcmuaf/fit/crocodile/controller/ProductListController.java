@@ -50,6 +50,10 @@ public class ProductListController extends HttpServlet {
                 sortStrategy = new StrategySortByPriceDESC();
                 break;
             }
+            case StrategySortByBestSeller.NAME: {
+                sortStrategy = new StrategySortByBestSeller();
+                break;
+            }
         }
 
         Category category = categoryService.getCategoryById(idCate);

@@ -5,6 +5,8 @@
 
 <c:url var="homeURL" value="<%=UrlProperties.home()%>"/>
 <c:url var="cartURL" value="<%=UrlProperties.cart()%>"/>
+<c:url var="urlCheckout" value="<%=UrlProperties.checkout()%>"/>
+
 <fmt:setLocale value="vi_VN"/>
 
 <div id="page" class="layout-default ">
@@ -91,6 +93,7 @@
                                             <div class="d-flex align-items-center">
                                                 <div class="form-check float-start mx-3">
                                                     <input type="checkbox" class="product-check form-check-input"
+                                                           name="selectedIds" value="${productVariant.id}"
                                                            aria-label="" >
                                                 </div>
                                                 <div class="ratio ratio-1x1" style="width: 6rem">
@@ -167,8 +170,8 @@
 
                             </div>
                         </div>
-                        <a class="btn custom-btn-primary ms-auto px-5 py-2 fw-medium" type="button" href="checkout.html">Đặt
-                            Mua</a>
+                        <a class="btn custom-btn-primary ms-auto px-5 py-2 fw-medium orderBtn"
+                           type="button" href="${urlCheckout}">Đặt Mua</a>
                     </div>
                 </div>
                 <div style="height: 150px"></div>
@@ -222,9 +225,6 @@
     $(document).ready(function () {
         toggleRemoveAllButton();
     });
-</script>
-<script>
-    console.log($('.product-total-price').text())
 </script>
 
 <script>
@@ -309,6 +309,34 @@
                 console.error("Error:", error);
             }
         })
+
+    });
+</script>
+
+<script>
+    $(document).on('click', '.orderBtn', function (event) {
+        const selectedIds = [];
+        $("input[name='selectedIds']:checked").each(function() {
+            selectedIds.push($(this).val());
+        });
+
+        if (selectedIds.length > 0) {
+            $.ajax({
+                url: "${urlCheckout}",
+                type: "GET",
+                data: {
+                    selectedIds: selectedIds.join(','),
+                },
+                success: function(response) {
+                    alert("Đặt hàng thành công!");
+                },
+                error: function(xhr, status, error) {
+                    alert("Có lỗi xảy ra khi đặt hàng!");
+                }
+            });
+        } else {
+            alert("Vui lòng chọn ít nhất một sản phẩm.");
+        }
 
     });
 </script>

@@ -249,16 +249,5 @@ public class ProductDao implements IProductDao {
         );
     }
 
-    @Override
-    public List<Product> searchProduct(String keyWord) {
-        String sql = "SELECT * FROM products WHERE name LIKE :keyWord";
-        return JdbiConnect.getJdbi().withHandle(handle ->
-                handle.createQuery(sql)
-                        .bind("keyWord", "%" +keyWord+ "%")
-                        .mapToBean(Product.class)
-                        .list()
-        );
-    }
-
     // ------------------------ em khoi test ----------------------------
 }

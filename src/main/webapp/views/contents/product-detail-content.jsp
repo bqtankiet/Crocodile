@@ -6,7 +6,6 @@
 <fmt:setLocale value="vi_VN"/>
 
 <c:url var="url_home" value="<%= UrlProperties.home()%>"/>
-
 <c:url var="urlCart" value="<%=UrlProperties.cart()%>"/>
 
 <c:url var="urlAddToCart" value="<%=UrlProperties.addToCart()%>"/>
@@ -118,7 +117,7 @@
                                                    id="idOption${o.id}" value="${o.id}" required
                                                    onclick="updateProductStock()">
                                             <label for="idOption${o.id}" class="btn btn-outline-dark"
-                                                    <c:if test="${o.imageIndex != null}">
+                                                    <c:if test="${not empty o.image}">
                                                         onclick=window.location.href='#${o.imageIndex}'
                                                     </c:if>>
                                                 <c:if test="${o.image != null}">
@@ -203,49 +202,27 @@
             <h2 class="best-sale-title fw-bold text-center text-uppercase">Sản phẩm tương tự </h2>
             <hr>
         </div>
-        <div class="product_gallery_template" data-owl-main='{"items": 4, "margin": 10, "dots": false}'>
-            <a class="product_card_template"
-               href="https://www.gento.vn/wp-content/uploads/2021/10/vi-cam-tay-da-ca-sau-gs9825.jpeg"
-               data-json='{
-                                "img": "https://www.gento.vn/wp-content/uploads/2021/10/vi-cam-tay-da-ca-sau-gs9825.jpeg",
-                                "name": "Ví cầm tay da cá sấu cao cấp GS982 Nâu",
-                                "price": "1.300.000",
-                                "basePrice": "1.900.000",
-                                "discount": "Giảm 32%",
-                                "badge": "NEW"
-                                }'>
-            </a>
-            <a class="product_card_template" href="404"
-               data-json='{
-                                "img":"https://casauhoanglong.com/wp-content/uploads/2024/01/Bop-da-ca-sau-nam-2-mat-da-bung-VN70HM.jpeg",
-                                "name":"Ví cầm tay nam da cá sấu cao cấp Gento GS985",
-                                "price":"1.100.000",
-                                "basePrice":null,
-                                "discount":null,
-                                "badge":null
-                                }'>
-            </a>
-            <a class="product_card_template"
-               href="https://www.gento.vn/wp-content/uploads/2021/10/vi-cam-tay-da-ca-sau-gs9825.jpeg"
-               data-json='{
-                                "img": "https://www.gento.vn/wp-content/uploads/2021/10/vi-cam-tay-da-ca-sau-gs9825.jpeg",
-                                "name": "Ví cầm tay da cá sấu cao cấp GS982 Nâu",
-                                "price": "1.300.000",
-                                "basePrice": "1.900.000",
-                                "discount": "Giảm 32%",
-                                "badge": "NEW"
-                                }'>
-            </a>
-            <a class="product_card_template" href="404"
-               data-json='{
-                                "img":"https://casauhoanglong.com/wp-content/uploads/2024/01/Bop-da-ca-sau-nam-2-mat-da-bung-VN70HM.jpeg",
-                                "name":"Ví cầm tay nam da cá sấu cao cấp Gento GS985",
-                                "price":"1.100.000",
-                                "basePrice":null,
-                                "discount":null,
-                                "badge":null
-                                }'>
-            </a>
+        <%-- product gallery --%>
+        <div id="gallery-main" class="product_gallery_template" data-owl-main='{"items": 4, "margin": 10, "dots": false}'>
+            <%-- product cards--%>
+            <c:forEach var="p" items="${requestScope.similarProducts}">
+                <div class="item">
+                    <c:url var="productUrl" value="<%=UrlProperties.productDetail()%>">
+                        <c:param name="id" value="${p.id}"/>
+                    </c:url>
+                    <fmt:formatNumber var="fmtPrice" value="${p.price}" type="currency" currencySymbol="₫" groupingUsed="true"/>
+                    <a class="product_card_template" href="${productUrl}"
+                       data-json='{
+                            "img": "${p.image}",
+                            "name": "${p.name}",
+                            "price": "${fmtPrice}",
+                            "basePrice": "",
+                            "discount": "",
+                            "badge": "HOT"
+                            }'>
+                    </a>
+                </div>
+            </c:forEach>
         </div>
     </div>
 

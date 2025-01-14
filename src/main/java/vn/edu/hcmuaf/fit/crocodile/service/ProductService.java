@@ -99,4 +99,16 @@ public class ProductService {
     public int insertProductVariants(List<ProductVariant> variants, int productId) {
         return productDaoAdmin.insertAllProductVariants(variants, productId);
     }
+
+    public List<Product> getTopSellingProductsInDays(int topN, int days) {
+        return productDao.getTopSellingProductsInDays(topN, days);
+    }
+
+    public List<Product> findRandomNSimilarProducts(int n, int idProduct) {
+        return productDao.findRandomNSimilarProducts(n, idProduct);
+    }
+
+    public List<Product> getTopSellingProductsOfCategory(int topN, int days, int idCategory) {
+        return productDao.getTopSellingProductsOfCategory(topN, days, idCategory);
+    }
 }
