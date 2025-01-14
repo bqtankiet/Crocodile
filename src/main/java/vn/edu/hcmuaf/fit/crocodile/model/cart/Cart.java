@@ -37,6 +37,10 @@ public class Cart {
         return items.values().stream().toList();
     }
 
+    public HashMap<Integer, CartItem> getItemsMap() {
+        return items;
+    }
+
     /**
      * Nhận vào idVariant và quantity, nếu có item trong giỏ hàng thì cập nhật số lượng và trả về
      * số lượng đã thêm vào, nếu không thì trả về 0
@@ -91,4 +95,8 @@ public class Cart {
     }
 
     public int getSize() { return items.size(); }
+
+    public boolean containItem(int productVariantId) {
+        return items.containsKey(productVariantId);
+    }
 }

@@ -6,7 +6,6 @@
 <fmt:setLocale value="vi_VN"/>
 
 <c:url var="url_home" value="<%= UrlProperties.home()%>"/>
-
 <c:url var="urlCart" value="<%=UrlProperties.cart()%>"/>
 
 <c:url var="urlAddToCart" value="<%=UrlProperties.addToCart()%>"/>
