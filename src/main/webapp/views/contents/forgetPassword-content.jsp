@@ -17,7 +17,7 @@
                 <div style="height: 2px; background-color: #dbdbdb; width: 100%;"></div>
                 <p class="text-center mt-3">Vui lòng nhập email đã được liên kết với tài khoản
                     Crocodile của bạn.</p>
-                <form id="forgotPasswordForm" method="post" action="<c:url value='/forgetPasswordController'/>">
+                <form id="forgotPasswordForm" method="post" action="<c:url value='/forget-password'/>">
                     <div class="form-group mb-3">
                         <input type="text" class="form-control" name="email"
                                placeholder="example@gmail.com" required>
@@ -40,7 +40,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Mã xác nhận đã được gửi tới email của bạn.
+                    Link đổi mật khẩu đã được gửi tới email của bạn.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn custom-btn-primary" data-bs-dismiss="modal">Đóng</button>
@@ -66,6 +66,7 @@
     </div>
 </div>
 <script>
+    // Tự động hiển thị modal khi load trang nếu có thông báo
     window.onload = function () {
         <c:if test="${not empty success}">
         var confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
@@ -75,9 +76,7 @@
         var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
         errorModal.show();
         </c:if>
-
     }
-
-
 </script>
+
 </html>

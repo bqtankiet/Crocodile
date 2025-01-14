@@ -20,7 +20,7 @@
                        required>
                 <button type="submit" class="btn custom-btn-primary btn-block w-100 p-2">Đăng Nhập</button>
                 <div class="d-flex justify-content-between mt-2">
-                    <a href="<c:url value="/forgetPasswordController"/>"
+                    <a href="<c:url value="/forget-password"/>"
                        class="custom-text-primary text-decoration-none">Quên Mật
                         Khẩu</a>
                     <a href="#" class="custom-text-primary text-decoration-none">Đăng Nhập Bằng SMS</a>
