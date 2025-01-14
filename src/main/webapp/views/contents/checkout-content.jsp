@@ -1,13 +1,22 @@
-
+<%@ page import="vn.edu.hcmuaf.fit.crocodile.config.properties.UrlProperties" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+
+<c:url var="url_home" value="<%= UrlProperties.home()%>"/>
+<c:url var="urlCart" value="<%=UrlProperties.cart()%>"/>
 <div id="page" class="layout-default ">
     <div id="CONTENT" class="h-100" style="margin-bottom: 10rem;">
         <!-------------------- Breadcrumb -------------------->
+
+
+
         <div class="container">
             <nav style="--bs-breadcrumb-divider: '>'">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="home.html">Trang Chủ</a></li>
-                    <li class="breadcrumb-item"><a href="cart-details.html">Giỏ Hàng</a></li>
+                    <li class="breadcrumb-item"><a href="${url_home}">Trang Chủ</a></li>
+                    <li class="breadcrumb-item"><a href="${urlCart}">Giỏ Hàng</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Thanh Toán</li>
                 </ol>
             </nav>
@@ -23,6 +32,8 @@
             <div class="row gap-2">
                 <div class="col">
                     <div class="">
+
+                        <%-- TODO: lấy thông tin user--%>
                         <div class="d-flex align-items-center mb-2">
                             <h5>Địa chỉ nhận hàng</h5>
                             <a role="button" class="ms-auto text-decoration-none">Thay đổi</a>
@@ -86,53 +97,50 @@
                 </div>
                 <div class="col-5 ">
                     <div class="p-4 rounded-2 bg-secondary-subtle gap-3 h-100">
-                        <div class="d-flex flex-column">
-                            <div class="border-bottom border-secondary-subtle pb-3">
-                                <div class="row g-0">
-                                    <div class="col-2 me-3 position-relative">
-                                        <div class="ratio ratio-1x1">
-                                            <img src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
-                                                 class="img-fluid border rounded-2" alt="">
+                        <%--  ------------------   foreach từ khúc này -------------------------%>
+                            <c:forEach var="item" items="${sessionScope.selectedCartItems}">
+                                <c:set var="productVariant" value="${item.productVariant}"/>
+                                <div class="d-flex flex-column">
+                                    <div class="row g-0">
+                                        <div class="col-2 me-3 position-relative">
+                                            <div class="ratio ratio-1x1">
+                                                <img src="${productVariant.product.image}"
+                                                     class="img-fluid border rounded-2" alt="">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col lh-1 my-auto">
-                                        <div class="w-100">
-                                            <div class="d-flex align-items-center">
-                                                <div class="me-2">
-                                                    <p class="fw-semibold mb-0 line-clamp-2"
-                                                       style="height: fit-content ;max-height: 2.5rem; line-height: 1.2">
-                                                        Ví gấp nam da cá sấu V7068
-                                                    </p>
-                                                    <p class="text-muted mt-1 mb-0">Da trơn</p>
-                                                </div>
-                                                <div class="ms-auto fw-bold fs-6 text-nowrap"
-                                                     style="width: max-content">1.100.000<sup>₫</sup> × 1
+                                        <div class="col lh-1 my-auto">
+                                            <div class="w-100">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="me-2">
+                                                        <p class="fw-semibold mb-0 line-clamp-2"
+                                                           style="height: fit-content ;max-height: 2.5rem; line-height: 1.2">
+                                                            ${productVariant.product.name}
+                                                        </p>
+                                                        <p class="text-muted mt-1 mb-0">Da trơn</p>
+                                                    </div>
+                                                    <div class="ms-auto fw-bold fs-6 text-nowrap" style="width: max-content">
+                                                        <fmt:formatNumber value="${productVariant.product.price}" type="number" pattern="#,##0" />
+                                                        <sup>₫</sup> × ${item.quantity}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center mt-3">
-                            <span class="fw-medium text-muted">Tổng đơn hàng: </span>
-                            <div class="ms-auto">
-                                <span class="fw-bold">1.100.000<sup>₫</sup></span>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center mt-3">
-                            <span class="fw-medium text-muted">Phí giao hàng: </span>
-                            <div class="ms-auto">
-                                <span class="fw-bold">0<sup>₫</sup></span>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center mt-3">
-                            <span class="fw-medium text-muted">Giảm giá: </span>
-                            <div class="ms-auto">
-                                <span class="fw-bold">0<sup>₫</sup></span>
-                            </div>
-                        </div>
-                        <div class="border-top border-secondary-subtle mt-3"></div>
+                                <div class="d-flex align-items-center mt-3">
+                                    <span class="fw-medium text-muted">Tổng đơn hàng: </span>
+                                    <div class="ms-auto">
+                                        <span class="fw-bold">
+                                            <fmt:formatNumber value="${item.caculatePrice()}" type="number" pattern="#,##0" />
+                                             <sup>₫</sup>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="border-top border-secondary-subtle mt-3 mb-2"></div>
+                            </c:forEach>
+                        <%--  ------------------  end foreach  -------------------------%>
+
                         <div class="d-flex align-items-center mt-3">
                             <span class="fw-bold fs-5">Tổng cộng: </span>
                             <div class="ms-auto">
@@ -142,7 +150,7 @@
                         <div class="mt-5">
                             <button class="btn custom-btn-primary py-2 fw-medium w-100">Thanh toán</button>
                             <p class="text-center text-muted mt-1 small">Bạn muốn thay đổi số lượng sản phẩm hãy
-                                <a href="cart-details.html">Quay lại giỏ hàng</a>
+                                <a href="${urlCart}">Quay lại giỏ hàng</a>
                             </p>
                         </div>
                     </div>
