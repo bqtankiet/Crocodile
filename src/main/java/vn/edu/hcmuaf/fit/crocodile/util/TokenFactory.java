@@ -12,6 +12,8 @@ public class TokenFactory {
         token.setToken(UUID.randomUUID().toString());
         token.setTokenType(Token.TokenType.RESET_PASSWORD);
         token.setExpiresAt(expiresAt);
+        token.setCreatedAt(LocalDateTime.now());
+        token.setStatus(1);
         return token;
     }
 

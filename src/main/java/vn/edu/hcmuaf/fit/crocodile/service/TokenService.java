@@ -24,7 +24,7 @@ public class TokenService {
      * @param token {@link Token}
      * @return trả về id autoincreament của token mới được thêm vào
      */
-    public int insertToken(Token token) {
-        return tokenDao.insertToken(token);
+    public void insertToken(Token token) {
+        tokenDao.insertToken(token);
     }
 }

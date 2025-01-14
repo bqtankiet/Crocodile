@@ -86,4 +86,13 @@ public class Token implements Serializable {
     public void setStatus(int status) {
         this.status = status;
     }
+
+    public boolean isExpired() {
+        return expiresAt != null && expiresAt.isBefore(LocalDateTime.now());
+    }
+
+    public boolean isActive() {
+        return status == 1;
+    }
+
 }
