@@ -152,7 +152,7 @@
 
             <%-- TODO: giỏ hàng trên header--%>
                 <a id="cart-toggle" class="text-decoration-none position-relative custom-text-primary col-6"
-                   href="#offcanvasRight" role="button" data-bs-toggle="offcanvas">
+                   href="${param.activePage != "cart" ? '#offcanvasRight' : ''}" role="button" data-bs-toggle="offcanvas">
                     <div class="d-flex align-items-center justify-content-end">
                         <div class="custom-icon" style="--size: 2rem">
                             <c:if test="${sessionScope.cart != null && sessionScope.cart.size != 0}" >
@@ -298,7 +298,7 @@
                                 </svg>
                             </div>
                         </a>
-                        <a href="#offcanvasRight" role="button" data-bs-toggle="offcanvas">
+                        <a href="${param.activePage != "cart" ? '#offcanvasRight' : ''}" role="button" data-bs-toggle="offcanvas">
                             <div class="custom-icon text-white" style="--size: 2rem">
                                 <c:if test="${sessionScope.cart != null}">
                                     <span class="badge text-bg-danger position-absolute translate-middle rounded-pill">

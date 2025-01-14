@@ -42,6 +42,9 @@
             appendAlert(liveMessage, messageType);
             sessionStorage.removeItem('liveMessage');
             sessionStorage.removeItem('liveMessageType');
+            if(messageType==='success'){
+                $('#offcanvasRight').toggleClass('show');
+            }
         }
     </script>
 

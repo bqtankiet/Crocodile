@@ -7,6 +7,7 @@ import java.io.Serializable;
 public class CartItem implements Serializable {
     private Product.ProductVariant productVariant;
     private int quantity;
+    private boolean checked;
 
     public CartItem(Product.ProductVariant productVariant, int quantity) {
         this.productVariant = productVariant;
@@ -22,6 +23,15 @@ public class CartItem implements Serializable {
     }
 
     // getter, setter
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
+
     public int getQuantity() {
         return quantity;
     }
