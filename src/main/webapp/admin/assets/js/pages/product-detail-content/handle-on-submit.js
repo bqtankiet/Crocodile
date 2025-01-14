@@ -13,7 +13,9 @@ function handleOnSubmit(event) {
 function collectProductData() {
     const name = $('#product-name').val();
     const categoryId = $('#category-id').val();
-    const description = $('#product-description').val();
+    // const description = $('#product-description').val();
+    const description = CKEDITOR.instances.descriptionCkeditor.getData();
+    console.log(description)
     const price = $('#product-price').val();
 
     const product = new Product(name, categoryId, description, price);
