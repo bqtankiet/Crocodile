@@ -6,7 +6,7 @@ public class SendEmailServiceTest {
     @Test
     public void test() {
         String link = "crocodile/account-verify?token=123456";
-        String recipient = "tankietlmht@gmail.com";
+        String recipient = "ahkietlk@gmail.com";
         String subject = "Test Xác Thực Tài Khoản Crocodile";
         String content = getHtml(link);
         SendEmailService service = new SendEmailService();
