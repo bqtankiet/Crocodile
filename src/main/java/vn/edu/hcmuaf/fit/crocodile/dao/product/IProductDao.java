@@ -18,7 +18,7 @@ public interface IProductDao extends BasicDao<Integer, Product> {
 
     List<ProductImage> findAllImagesByProductId(int productId);
 
-    List<ProductDetail> findAllDetailsByProductId(int productId);
+    List<ProductAttribute> findAllAttributesByProductId(int productId);
 
     List<ProductOption> findAllOptionsByProductId(int productId, int group);
 

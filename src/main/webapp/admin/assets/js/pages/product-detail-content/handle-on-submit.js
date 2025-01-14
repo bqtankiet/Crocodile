@@ -73,7 +73,7 @@ function updateProductOptionGroups(product) {
         $('.option-group').each(function (index) {
             const groupNo = index + 1;
             const groupName = $(this).find('.option-key').val() || `Phân loại ${groupNo}`;
-            const options = collectOptions($(this));
+            const options = collectOptions($(this), groupNo);
 
             if (options.length > 0) {
                 product.addOptionGroup(groupNo, groupName, options);
@@ -82,16 +82,14 @@ function updateProductOptionGroups(product) {
     }
 }
 
-function collectOptions(optionGroup) {
+function collectOptions(optionGroup, groupNo) {
     const options = [];
+    const key = optionGroup.find('.option-key').val();
     optionGroup.find('.option').each(function () {
         const value = $(this).find('.option-value').val();
         const image = $(this).find('.upload-image input[name="image-url"]').val();
         if (value) {
-            options.push({
-                value: value,
-                image: image || null
-            });
+            options.push(new ProductOption(groupNo,key,value,image));
         }
     });
     return options;
@@ -105,7 +103,9 @@ function updateProductVariants(product) {
         const stock = $activeTab.find('#stock').val();
         const sku = $activeTab.find('#sku').val();
         product.variants = [];
-        product.addVariant(null, stock, sku);
+        // product.addVariant(null, stock, sku);
+        const variant = new ProductVariant(stock, sku)
+        product.addVariantObj(variant);
     } else if (tabId === 'pane-product-variants') {
         product.variants = [];
         let options1 = product.option_groups[0]?.options || [];
@@ -115,11 +115,15 @@ function updateProductVariants(product) {
             if (options2.length > 0) {
                 options2.forEach(o2 => {
                     let stock_sku = lookupStockSku(o1.value, o2.value);
-                    product.addVariant([o1.value, o2.value], stock_sku.stock, stock_sku.sku);
+                    const pv = new ProductVariant(stock_sku.stock, stock_sku.sku, o1, o2);
+                    product.addVariantObj(pv);
+                    // product.addVariant([o1.value, o2.value], stock_sku.stock, stock_sku.sku);
                 });
             } else {
                 let stock_sku = lookupStockSku(o1.value, '');
-                product.addVariant([o1.value, null], stock_sku.stock, stock_sku.sku);
+                const pv = new ProductVariant(stock_sku.stock, stock_sku.sku, o1, null);
+                product.addVariantObj(pv);
+                // product.addVariant([o1.value, null], stock_sku.stock, stock_sku.sku);
             }
         });
     }
@@ -182,6 +186,10 @@ class Product {
         this.variants.push({option_values, stock, sku});
     }
 
+    addVariantObj(variant){
+        this.variants.push(variant);
+    }
+
     // Phương thức toJSON để chuyển đối tượng thành JSON
     toJSON() {
         return {
@@ -197,3 +205,38 @@ class Product {
     }
 }
 
+class ProductVariant {
+     constructor(stock=0, sku="", option1=null, option2=null) {
+         this.option1 = option1;
+         this.option2 = option2;
+         this.stock = stock;
+         this.sku = sku;
+     }
+
+     toJSON(){
+         return {
+             stock: this.stock,
+             sku: this.sku,
+             option1: this.option1,
+             option2: this.option2
+         }
+     }
+}
+
+class ProductOption {
+    constructor(group, key, value, image) {
+        this.group = group;
+        this.key = key;
+        this.value = value;
+        this.image = image;
+    }
+
+    toJSON(){
+        return {
+            group: this.group,
+            key: this.key,
+            value: this.value,
+            image: this.image
+        }
+    }
+}
