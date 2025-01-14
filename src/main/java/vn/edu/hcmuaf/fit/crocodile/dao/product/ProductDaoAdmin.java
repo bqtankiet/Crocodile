@@ -95,18 +95,18 @@ public class ProductDaoAdmin extends ProductDao implements IProductDaoAdmin {
 
             for (Product.ProductVariant variant : variants) {
                 int idOpt1 = -1;
-                if (variant.getOption1() != null) {
-                    idOpt1 = getExistingOptionId(variant.getOption1().getValue(), productId);
+                if (variant.getpOption1() != null) {
+                    idOpt1 = getExistingOptionId(variant.getpOption1().getValue(), productId);
                     if (idOpt1 == -1) {
-                        idOpt1 = insertAndGetIdProductOption(variant.getOption1(), productId);
+                        idOpt1 = insertAndGetIdProductOption(variant.getpOption1(), productId);
                     }
                 }
 
                 int idOpt2 = -1;
-                if (variant.getOption2() != null) {
-                    idOpt2 = getExistingOptionId(variant.getOption2().getValue(), productId);
+                if (variant.getpOption2() != null) {
+                    idOpt2 = getExistingOptionId(variant.getpOption2().getValue(), productId);
                     if (idOpt2 == -1) {
-                        idOpt2 = insertAndGetIdProductOption(variant.getOption2(), productId);
+                        idOpt2 = insertAndGetIdProductOption(variant.getpOption2(), productId);
                     }
                 }
 

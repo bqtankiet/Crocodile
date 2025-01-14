@@ -186,8 +186,8 @@ class JsonUtils {
             Product.ProductVariant pv = new Product.ProductVariant();
             pv.setStock(stock);
             pv.setSku(sku);
-            pv.setOption1(option1);
-            pv.setOption2(option2);
+            pv.setpOption1(option1);
+            pv.setpOption2(option2);
             return pv;
         } catch (Exception e) {
             e.printStackTrace(new PrintWriter(System.out, true));

@@ -311,8 +311,14 @@ public class Product implements Serializable {
         private int idOption1;
         private int idOption2;
         private int stock;
-        private ProductOption option1;
-        private ProductOption option2;
+//<<<<<<< HEAD
+//        private ProductOption option1;
+//        private ProductOption option2;
+//=======
+        private Product product;
+        private ProductOption pOption1;
+        private ProductOption pOption2;
+//>>>>>>> develop
 
         @Override
         public String toString() {
@@ -328,20 +334,43 @@ public class Product implements Serializable {
 
         // getter, setter
 
-        public ProductOption getOption1() {
-            return option1;
+//<<<<<<< HEAD
+//        public ProductOption getOption1() {
+//            return option1;
+//        }
+//
+//        public void setOption1(ProductOption option1) {
+//            this.option1 = option1;
+//        }
+//
+//        public ProductOption getOption2() {
+//            return option2;
+//        }
+//
+//        public void setOption2(ProductOption option2) {
+//            this.option2 = option2;
+//=======
+        public ProductOption getpOption2() {
+            return pOption2;
         }
 
-        public void setOption1(ProductOption option1) {
-            this.option1 = option1;
+        public void setpOption2(ProductOption pOption2) {
+            this.pOption2 = pOption2;
         }
 
-        public ProductOption getOption2() {
-            return option2;
+        public ProductOption getpOption1() {
+            return pOption1;
         }
 
-        public void setOption2(ProductOption option2) {
-            this.option2 = option2;
+        public void setpOption1(ProductOption pOption1) {
+            this.pOption1 = pOption1;
+        }
+
+        public Product getProduct() { return product; }
+
+        public void setProduct(Product product) {
+            this.product = product;
+//>>>>>>> develop
         }
 
         public int getId() {
