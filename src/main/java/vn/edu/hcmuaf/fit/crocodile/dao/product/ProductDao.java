@@ -177,8 +177,6 @@ public class ProductDao implements IProductDao {
         return result;
     }
 
-
-    // ------------------------ em khoi test ----------------------------
     @Override
     public ProductOption findOptionsById(int id) {
         String sql = "SELECT * FROM product_options WHERE id = :id";
@@ -267,7 +265,7 @@ public class ProductDao implements IProductDao {
                   AND c.active = 1
                 GROUP BY
                   p.id,
-                  p.NAME
+                  p.name
                 ORDER BY
                   totalSold DESC
                   LIMIT :topN;
@@ -281,5 +279,20 @@ public class ProductDao implements IProductDao {
         );
     }
 
-    // ------------------------ em khoi test ----------------------------
+    @Override
+    public List<Product> findRandomNSimilarProducts(int n, int idProduct) {
+        String sql = """
+                SELECT * FROM products
+                WHERE idCategory = ( SELECT idCategory FROM products WHERE id = :idProduct ) AND id != :idProduct
+                ORDER BY RAND()
+                LIMIT :n
+                """;
+        return JdbiConnect.getJdbi().withHandle(handle ->
+            handle.createQuery(sql)
+                    .bind("idProduct", idProduct)
+                    .bind("n", n)
+                    .mapToBean(Product.class)
+                    .list()
+        );
+    }
 }

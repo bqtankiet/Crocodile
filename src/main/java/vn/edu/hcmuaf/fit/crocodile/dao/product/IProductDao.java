@@ -36,6 +36,7 @@ public interface IProductDao extends BasicDao<Integer, Product> {
 
     int getMaxPage(int idCate);
 
-    public List<Product> getTopSellingProductsInDays(int topN, int days);
+    List<Product> getTopSellingProductsInDays(int topN, int days);
 
+    List<Product> findRandomNSimilarProducts(int n, int idProduct);
 }

@@ -60,6 +60,9 @@ public class ProductDetailController extends HttpServlet {
         String productVariantsJson = gson.toJson(productVariants);
         request.setAttribute("productVariantsJson", productVariantsJson);
 
+        // List similar products
+        List<Product> similarProducts = productService.findRandomNSimilarProducts(10, productId);
+        request.setAttribute("similarProducts", similarProducts);
 
         // forward
         request.getRequestDispatcher("/views/product-detail.jsp").forward(request, response);
