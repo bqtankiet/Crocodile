@@ -15,11 +15,11 @@ public class Order implements Serializable {
 
     // Các enum cho PaymentMethod và Status
     public enum PaymentMethod {
-        CASH, MOMO
+        CASH, MOMO, ZALOPAY
     }
 
     public enum Status {
-        AWAITING, COMPLETED, CANCELLED
+        PENDING, PROCESSING, AWAITING, COMPLETED, CANCELLED
     }
 
     public int getId() {

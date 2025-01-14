@@ -13,5 +13,6 @@ public interface IOrderDao extends BasicDao<Integer, Order> {
     @Override
     List<Order> findAll();
 
-    int insertOrder(int idUser, int idAddress, int total, LocalDateTime invoiceDate, Order.PaymentMethod paymentMethod);
+    int insertOrder(int idUser, int idAddress, int total, LocalDateTime invoiceDate,
+                    Order.PaymentMethod paymentMethod, Order.Status status);
 }

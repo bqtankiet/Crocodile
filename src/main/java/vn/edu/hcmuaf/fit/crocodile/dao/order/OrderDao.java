@@ -30,9 +30,11 @@ public class OrderDao implements IOrderDao{
     }
 
     @Override
-    public int insertOrder(int idUser, int idAddress, int total, LocalDateTime invoiceDate, Order.PaymentMethod paymentMethod) {
-        String sql = "insert into orders (idUser, idAddress, total, invoiceDate, paymentMethod)" +
-                " values(:idUser, :idAddress, :total, :invoiceDate, :paymentMethod)";
+    public int insertOrder(int idUser, int idAddress, int total, LocalDateTime invoiceDate,
+                           Order.PaymentMethod paymentMethod, Order.Status status) {
+
+        String sql = "insert into orders (idUser, idAddress, total, invoiceDate, paymentMethod, status)" +
+                " values(:idUser, :idAddress, :total, :invoiceDate, :paymentMethod, :status)";
         return JdbiConnect.getJdbi().withHandle(handle ->
                 handle.createUpdate(sql)
                         .bind("idUser", idUser)

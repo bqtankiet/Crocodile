@@ -6,11 +6,11 @@
 
 <c:url var="url_home" value="<%= UrlProperties.home()%>"/>
 <c:url var="urlCart" value="<%=UrlProperties.cart()%>"/>
+<c:url var="urlCheckout" value="<%=UrlProperties.checkout()%>"/>
+
 <div id="page" class="layout-default ">
     <div id="CONTENT" class="h-100" style="margin-bottom: 10rem;">
         <!-------------------- Breadcrumb -------------------->
-
-
 
         <div class="container">
             <nav style="--bs-breadcrumb-divider: '>'">
@@ -42,8 +42,8 @@
                             <table class="table mb-0">
                                 <tbody>
                                 <tr>
-                                    <td class="col-3 text-muted">Tên người nhận</td>
-                                    <td>Tấn Kiệt</td>
+                                    <td class="col-3 text-muted"> Tên người nhận </td>
+                                    <td class="id-user" data-id-user="1">Tấn Kiệt</td>
                                 </tr>
                                 <tr>
                                     <td class="col-3 text-muted">Liên hệ</td>
@@ -51,9 +51,8 @@
                                 </tr>
                                 <tr>
                                     <td class="col-3 text-muted">Địa chỉ</td>
-                                    <td>Trường Đại Học Nông Lâm Thành Phố Hồ Chí Minh. Khu phố 6, Phường Linh Trung, TP.
-                                        Thủ
-                                        Đức, TP. Hồ Chí Minh
+                                    <td class="address" data-id-address="1">Trường Đại Học Nông Lâm Thành Phố Hồ Chí Minh.
+                                        Khu phố 6, Phường Linh Trung, TP. Thủ Đức, TP. Hồ Chí Minh
                                     </td>
                                 </tr>
                                 </tbody>
@@ -67,14 +66,14 @@
                         <div class="d-flex flex-column gap-2">
                             <div class="payment-method-wrapper rounded-2 border-secondary-subtle border">
                                 <input type="radio" class="payment-radio form-check-input"
-                                       style="border: 1px solid gray"
+                                       style="border: 1px solid gray" value="1"
                                        name="payment-method" id="payment-cash" checked>
                                 <label for="payment-cash" class="payment-label" style="cursor: pointer">Thanh toán khi
                                     nhận hàng</label>
                             </div>
                             <div class="payment-method-wrapper rounded-2 border-secondary-subtle border">
                                 <input type="radio" class="payment-radio form-check-input"
-                                       style="border: 1px solid gray"
+                                       style="border: 1px solid gray" value="2"
                                        name="payment-method" id="payment-momo">
                                 <label for="payment-momo" class="payment-label" style="cursor: pointer">Thanh toán qua
                                     Momo
@@ -84,7 +83,7 @@
                             </div>
                             <div class="payment-method-wrapper rounded-2 border-secondary-subtle border">
                                 <input type="radio" class="payment-radio form-check-input"
-                                       style="border: 1px solid gray"
+                                       style="border: 1px solid gray" value="3"
                                        name="payment-method" id="payment-zalopay">
                                 <label for="payment-zalopay" class="payment-label" style="cursor: pointer">Thanh toán
                                     qua ZaloPay
@@ -146,9 +145,10 @@
                         <div class="d-flex align-items-center mt-3">
                             <span class="fw-bold fs-5">Tổng cộng: </span>
                             <div class="ms-auto">
-                                <span class="fs-5 fw-bold">
+                                <span class="fs-5 fw-bold total-amount" data-total="${totalAmount}">
                                     <fmt:formatNumber value="${totalAmount}" type="number" pattern="#,##0" />
-                                     <sup>₫</sup></span>
+                                     <sup>₫</sup>
+                                </span>
                             </div>
                         </div>
                         <div class="mt-5">
@@ -168,7 +168,28 @@
 
 <script>
     $(document).on('click', '.payBtn', function () {
+        const idUser = $('.id-user').data('id-user');
+        const idAddress = $('.address').data('id-address');
 
+        const selectedPaymentMethod = $('input[name="payment-method"]:checked').val();
+        const totalAmount = $('.total-amount').data('total')
+
+        $.ajax({
+            url: "${urlCheckout}",
+            type: "POST",
+            data: {
+                idUser: idUser,
+                idAddress: idAddress,
+                paymentMethod: selectedPaymentMethod,
+                total: totalAmount
+            },
+            success: function(response) {
+                alert("Đặt hàng thành công!");
+            },
+            error: function(xhr, status, error) {
+                alert("Có lỗi xảy ra khi đặt hàng!");
+            }
+        })
     });
 </script>
 

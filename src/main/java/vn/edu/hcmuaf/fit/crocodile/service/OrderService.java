@@ -13,7 +13,9 @@ public class OrderService {
         orderDao = new OrderDao();
     }
 
-    public int insertOrder(int idUser, int idAddress, int total, LocalDateTime invoiceDate, Order.PaymentMethod paymentMethod) {
-        return orderDao.insertOrder(idUser, idAddress, total, invoiceDate, paymentMethod);
+    public int insertOrder(int idUser, int idAddress, int total, LocalDateTime invoiceDate,
+                           Order.PaymentMethod paymentMethod, Order.Status status) {
+
+        return orderDao.insertOrder(idUser, idAddress, total, invoiceDate, paymentMethod, status);
     }
 }
