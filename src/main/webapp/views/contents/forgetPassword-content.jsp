@@ -64,6 +64,23 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="emptyTokenModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="emptyTokenModalLabel">Thông Báo Lỗi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Bạn chưa thể truy cập vào trang web này ngay lúc này. Hãy thử vào lúc khác!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn custom-btn-primary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 <script>
     // Tự động hiển thị modal khi load trang nếu có thông báo
@@ -76,7 +93,12 @@
         var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
         errorModal.show();
         </c:if>
+        <c:if test="${not empty showEmptyTokenModal}">
+        var emptyTokenModal = new bootstrap.Modal(document.getElementById('emptyTokenModal'));
+        emptyTokenModal.show();
+        </c:if>
     }
 </script>
+
 
 </html>

@@ -22,7 +22,6 @@ public class AuthenticationService {
         }
     }
 
-
     public AuthenticationService() {
         this.userDao = new UserDaoImpl();
     }
@@ -39,16 +38,7 @@ public class AuthenticationService {
             User user = optionalUser.get();
             String hashedPassword = HashUtil.hashMD5(password);
 
-            System.out.println("mật khẩu đã hash   " + hashedPassword);
-            System.out.println("mật khẩu lưu ở DB: " + user.getPassword());
             if (hashedPassword.equals(user.getPassword())) {
-
-                System.out.println("Login thành công, userId: " + user.getId());
-                System.out.println("Login oke, fullname: " + user.getFullname());
-                System.out.println("Login oke, gender: " + user.getGender());
-                System.out.println("Login oke, birthdate: " + user.getBirthdate());
-                System.out.println("Login oke, email: " + user.getEmail());
-                System.out.println("Login oke, sdt: " + user.getPhoneNumber());
 
                 return user.getId();
             } else {
@@ -65,10 +55,16 @@ public class AuthenticationService {
         return userDao.findByEmail(email);
     }
 
-    public static void main(String[] args) {
-        AuthenticationService authenticationService = new AuthenticationService();
-        authenticationService.login("admin", "admin");
+    public boolean resetPassword(int userId, String newPassword) {
+        try {
+            String hashedPassword = HashUtil.hashMD5(newPassword);
+            userDao.updatePassword(userId, hashedPassword);
+            System.out.println("update password success: " + newPassword);
+            return true;
+        } catch (Exception e) {
+            System.out.println("Lỗi khi cập nhật mật khẩu: " + e.getMessage());
+            return false;
+        }
     }
-
 
 }

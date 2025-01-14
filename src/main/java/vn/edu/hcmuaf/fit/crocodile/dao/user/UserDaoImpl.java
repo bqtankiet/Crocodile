@@ -76,6 +76,18 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public void updatePassword(int userId, String newPassword) {
+        String query = "UPDATE users SET password = :password WHERE id = :userId";
+        JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createUpdate(query)
+                        .bind("userId", userId)
+                        .bind("password", newPassword)
+                        .execute()
+        );
+    }
+
+
+    @Override
     public int create(User user) {
         Optional<User> existingUser = findByUsername(user.getUsername());
         if (existingUser.isPresent()) {
@@ -99,22 +111,6 @@ public class UserDaoImpl implements UserDao {
                         .mapTo(int.class)
                         .one()
         );
-    }
-
-
-    public static void main(String[] args) {
-        AuthenticationService authService = new AuthenticationService();
-
-        String username = "ad";
-        String password = "ad";
-
-        // Thử đăng nhập
-        int userId = authService.login(username, password);
-        if (userId != -1) {
-            System.out.println("Đăng nhập thành công, userId: " + userId);
-        } else {
-            System.out.println("Đăng nhập thất bại");
-        }
     }
 
 }

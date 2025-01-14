@@ -39,6 +39,7 @@ public class ForgetPasswordController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
+
         Optional<User> userOptional = auth.findEmail(email);
 
         if (userOptional.isPresent()) {
@@ -53,6 +54,9 @@ public class ForgetPasswordController extends HttpServlet {
             boolean success = sendEmailService.sendEmail(email, subject, content, SendEmailService.CONTENT_TYPE_HTML_UTF8);
             if (success) {
                 System.out.println("Send email successful");
+                HttpSession session = request.getSession();
+                session.setAttribute("token", token.getToken());
+
             }
 
         } else {

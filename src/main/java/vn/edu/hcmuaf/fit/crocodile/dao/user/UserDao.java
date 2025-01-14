@@ -18,6 +18,6 @@ public interface UserDao {
 
     Optional<User> findByEmail(String email);
 
-
+    void updatePassword(int userId, String newPassword);
 
 }
