@@ -12,6 +12,8 @@
 <c:url var="aboutUrl" value="<%= UrlProperties.about() %>"/>
 <c:url var="loginUrl" value="<%= UrlProperties.login() %>"/>
 <c:url var="cartUrl" value="<%= UrlProperties.cart() %>"/>
+<c:url var="productListUrl" value="<%= UrlProperties.productList() %>"/>
+
 
 <c:set var="activeHome" value="home"/>
 <c:set var="activeAbout" value="about"/>
@@ -81,7 +83,6 @@
             /*color: var(--custom-bg-primary);*/
             color: lightgray;
         }
-
     </style>
 
     <!--  Text uu dai  -->
@@ -99,10 +100,10 @@
                      style="width: 15rem">
             </a>
             <form class="d-flex p-2 mt-2 mt-lg-0 rounded-5 col-lg col-12 order-lg-1 order-3 mx-3 bg-secondary-subtle"
-                  role="search">
+                  role="search" action="${productListUrl}" method="get">
                 <input id="search-bar" class="form-control shadow-none mx-2 border-0" style="background-color: inherit"
-                       type="search"
-                       placeholder="Tìm kiếm sản phẩm"
+                       type="text"
+                       placeholder="Tìm kiếm sản phẩm" name="key"
                        aria-label="Search">
                 <button class="bg-transparent border-0 me-2" type="submit">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1.3rem" height="1.3rem"
@@ -317,7 +318,6 @@
         </div>
     </div>
 
-
     <!--  Offcanvas Gio Hang  -->
     <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasRight" style="width: 420px">
         <div class="offcanvas-header">
@@ -405,4 +405,37 @@
             }
         });
     </script>
+
+    <!-- Search -->
+    <script>
+        $(document).ready(function () {
+            let debounceTimeout;
+
+            $('#search-bar').on('keyup', function () {
+                const keyWord = $(this).val();
+                console.log(keyWord);
+
+                // Hủy bỏ yêu cầu trước đó nếu người dùng tiếp tục gõ
+                clearTimeout(debounceTimeout);
+
+                if (keyWord.length >= 1) {
+                    // Thực hiện tìm kiếm sau 300ms khi người dùng ngừng gõ
+                    debounceTimeout = setTimeout(function () {
+                        $.ajax({
+                            url: '${productListUrl}',
+                            method: 'GET',
+                            data: { key: keyWord },
+                            success: function (response) {
+
+                            },
+                            error: function (error) {
+                                console.log('Error: ', error);
+                            }
+                        });
+                    }, 300);
+                }
+            });
+        });
+    </script>
+
 </header>
