@@ -3,17 +3,17 @@
 
 <html>
 
-<div id="page">
-    <div class="container-fluid d-flex flex-wrap justify-content-center align-items-center gap-4 py-5">
-        <div class="mb-4">
+<div id="page" class="bg-light" style="height: 100vh">
+    <div class="container-fluid d-flex flex-column flex-wrap justify-content-center align-items-center gap-4 py-5">
+        <a class="mb-5" tabindex="-1" href="<c:url value="/"/>">
             <img src="https://www.crocodileinternational.com/img/crocodile-logo-1609222037.jpg"
                  class="img-fluid"
                  style="max-width: 100%; height: auto;"
                  alt="Logo">
-        </div>
-        <div class="card shadow-sm card-custom">
+        </a>
+        <div class="card shadow-sm card-custom shadow-lg p-3">
             <div class="card-body">
-                <h3 class="card-title mb-3 text-center">Hỗ Trợ Lấy Lại Mật Khẩu</h3>
+                <h3 class="card-title mb-3 text-center custom-text-primary">Hỗ trợ lấy lại mật khẩu</h3>
                 <div style="height: 2px; background-color: #dbdbdb; width: 100%;"></div>
                 <p class="text-center mt-3">Vui lòng nhập email đã được liên kết với tài khoản
                     Crocodile của bạn.</p>
@@ -24,7 +24,7 @@
                     </div>
 
                     <div class="d-flex justify-content-center gap-4">
-                        <a href="<c:url value='/login'/>" class="btn btn-secondary">Huỷ</a>
+                        <a href="<c:url value='/login'/>" class="btn btn-secondary">Trở về</a>
                         <button type="submit" class="btn custom-btn-primary" id="sendCodeBtn">Gửi Mã</button>
                     </div>
                 </form>

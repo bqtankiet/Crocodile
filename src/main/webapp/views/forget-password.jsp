@@ -11,15 +11,14 @@
     <link rel="stylesheet" href="<c:url value="/public/bootstrap/css/bootstrap.css"/>">
     <script src="<c:url value="/public/bootstrap/js/bootstrap.bundle.js"/>"></script>
     <!--  css  -->
-    <link rel="stylesheet" href="<c:url value="/layouts/layout.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/main.css"/>">
     <!--  js  -->
 
 </head>
 <body>
-<jsp:include page="includes/header.jsp">
-    <jsp:param name="activePage" value="about"/>
-</jsp:include>
+<%--<jsp:include page="includes/header.jsp">--%>
+<%--    <jsp:param name="activePage" value="about"/>--%>
+<%--</jsp:include>--%>
 <%--CONTENT--%>
 <jsp:include page="contents/forgetPassword-content.jsp"/>
 <%--FOOTER--%>

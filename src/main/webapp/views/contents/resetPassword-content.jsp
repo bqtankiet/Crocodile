@@ -21,25 +21,25 @@
         transform: translateY(-50%);
     }
 </style>
-<div id="page">
-    <div class="container-fluid d-flex justify-content-center align-items-center flex-wrap gap-4 py-5">
-        <div class="mb-4">
+<div id="page" class="bg-light" style="min-height: 100vh">
+    <div class="container-fluid d-flex flex-column flex-wrap justify-content-center align-items-center gap-4 py-5">
+        <a class="mb-5" tabindex="-1" href="<c:url value="/"/>">
             <img src="https://www.crocodileinternational.com/img/crocodile-logo-1609222037.jpg"
                  class="img-fluid"
                  style="max-width: 100%; height: auto;"
                  alt="Logo">
-        </div>
-        <div class="card shadow-sm" style="height: 23rem; width: 30rem">
+        </a>
+        <div class="card shadow-lg p-3" style="height: auto; width: 35rem">
             <div class="card-body">
-                <h3 class="card-title mb-3 text-center">Đặt Lại Mật Khẩu</h3>
+                <h3 class="card-title mb-3 text-center custom-text-primary">Đặt lại mật khẩu</h3>
                 <div style="height: 2px; background-color: #dbdbdb; width: 100%;"></div>
                 <p class="text-center mt-3">Vui lòng nhập mật khẩu mới để đặt lại mật khẩu của bạn.</p>
                 <form id="resetPasswordForm" class="d-grid gap-lg-4" action="<c:url value="/reset-password"/>"
                       method="post">
 
                     <!-- Trường nhập mật khẩu mới -->
-                    <div class="position-relative mb-3">
-                        <input
+                    <div class="position-relative mb-2">
+                        <input  aria-label=""
                                 class="form-control"
                                 type="password"
                                 id="password"
@@ -58,7 +58,7 @@
                     </div>
                     <!-- Trường nhập lại mật khẩu để xác nhận -->
                     <div class="position-relative">
-                        <input
+                        <input  aria-label=""
                                 class="form-control"
                                 type="password"
                                 id="confirmPassword"
