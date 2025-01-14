@@ -42,6 +42,7 @@ public class OrderDao implements IOrderDao{
                         .bind("total", total)
                         .bind("invoiceDate", invoiceDate)
                         .bind("paymentMethod", paymentMethod)
+                        .bind("status", status)
                         .execute()
         );
     }

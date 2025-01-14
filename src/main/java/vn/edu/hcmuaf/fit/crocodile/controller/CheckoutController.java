@@ -63,7 +63,7 @@ public class CheckoutController extends HttpServlet {
 
     }
 
-    Order.PaymentMethod convertPaymentMethod(String paymentMethod) {
+    private Order.PaymentMethod convertPaymentMethod(String paymentMethod) {
         if (paymentMethod.equals("1")) return Order.PaymentMethod.CASH;
         if (paymentMethod.equals("2")) return Order.PaymentMethod.MOMO;
         return Order.PaymentMethod.ZALOPAY;
