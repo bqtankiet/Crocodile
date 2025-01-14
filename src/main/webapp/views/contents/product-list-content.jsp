@@ -160,15 +160,17 @@
                 </div>
 
                 <!-- Product list -->
-                <ul id="products-list" class="list-unstyled row">
-                    <c:forEach var="p" items="${requestScope.productList}">
-                        <li class="p-2">
-                            <c:url var="productUrl" value="<%=UrlProperties.productDetail()%>">
-                                <c:param name="id" value="${p.id}"/>
-                            </c:url>
-                            <fmt:formatNumber var="fmtPrice" value="${p.price}" type="currency" currencySymbol="₫" groupingUsed="true"/>
-                            <a class="product_card_template" href="${productUrl}"
-                               data-json='{
+                <c:choose>
+                    <c:when test="${empty requestScope.listProductSearch}">
+                        <ul id="products-list" class="list-unstyled row">
+                            <c:forEach var="p" items="${requestScope.productList}">
+                                <li class="p-2">
+                                    <c:url var="productUrl" value="<%=UrlProperties.productDetail()%>">
+                                        <c:param name="id" value="${p.id}"/>
+                                    </c:url>
+                                    <fmt:formatNumber var="fmtPrice" value="${p.price}" type="currency" currencySymbol="₫" groupingUsed="true"/>
+                                    <a class="product_card_template" href="${productUrl}"
+                                       data-json='{
                                 "img": "${p.image}",
                                 "name": "${p.name}",
                                 "price": "${fmtPrice}",
@@ -176,35 +178,64 @@
                                 "discount": "",
                                 "badge": "NEW"
                                 }'>
-                            </a>
-                        </li>
-                    </c:forEach>
-                </ul>
+                                    </a>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </c:when>
+                    <c:otherwise>
+                        <ul id="products-list" class="list-unstyled row">
+                            <c:forEach var="p" items="${requestScope.listProductSearch}">
+                                <li class="p-2">
+                                    <c:url var="productUrl" value="<%= UrlProperties.productDetail() %>">
+                                        <c:param name="id" value="${p.id}"/>
+                                    </c:url>
+                                    <fmt:formatNumber var="fmtPrice" value="${p.price}" type="currency" currencySymbol="₫" groupingUsed="true"/>
+                                    <a class="product_card_template" href="${productUrl}"
+                                       data-json='{
+                                       "img": "${p.image}",
+                                       "name": "${p.name}",
+                                       "price": "${fmtPrice}",
+                                       "basePrice": "",
+                                       "discount": "",
+                                       "badge": "NEW"
+                                   }'>
+                                    </a>
+                                </li>
+                            </c:forEach>
+                        </ul>
+
+                    </c:otherwise>
+                </c:choose>
+
+
             </div>
         </div>
     </div>
 
     <!-- Pagination-->
-    <div class="container">
-        <ul class="pagination pagination-lg justify-content-center m-5">
-            <c:url var="prev" value="<%=UrlProperties.productList()%>">
-                <c:param name="idCate" value="${requestScope.category.id}"/>
-                <c:param name="page" value="${requestScope.page-1}"/>
-            </c:url>
-            <li class="page-item ${requestScope.page == 1 ? 'disabled':''}"><a class="page-link" href="${prev}"><</a></li>
-            <c:forEach begin="1" end="${requestScope.maxPage}" var="i">
-                <c:url var="productListUrl" value="<%=UrlProperties.productList()%>">
+    <c:if test="${empty requestScope.productList}">
+        <div class="container">
+            <ul class="pagination pagination-lg justify-content-center m-5">
+                <c:url var="prev" value="<%=UrlProperties.productList()%>">
                     <c:param name="idCate" value="${requestScope.category.id}"/>
-                    <c:param name="page" value="${i}"/>
-                    <c:param name="sortBy" value="${requestScope.sortStrategy}"/>
+                    <c:param name="page" value="${requestScope.page-1}"/>
                 </c:url>
-                <li class="page-item ${requestScope.page == i ? 'active' : ''}"><a class="page-link" href="${productListUrl}">${i}</a></li>
-            </c:forEach>
-            <c:url var="next" value="<%=UrlProperties.productList()%>">
-                <c:param name="idCate" value="${requestScope.category.id}"/>
-                <c:param name="page" value="${requestScope.page+1}"/>
-            </c:url>
-            <li class="page-item ${requestScope.page == requestScope.maxPage ? 'disabled':''}"><a class="page-link" href="${next}">></a></li>
-        </ul>
-    </div>
+                <li class="page-item ${requestScope.page == 1 ? 'disabled':''}"><a class="page-link" href="${prev}"><</a></li>
+                <c:forEach begin="1" end="${requestScope.maxPage}" var="i">
+                    <c:url var="productListUrl" value="<%=UrlProperties.productList()%>">
+                        <c:param name="idCate" value="${requestScope.category.id}"/>
+                        <c:param name="page" value="${i}"/>
+                        <c:param name="sortBy" value="${requestScope.sortStrategy}"/>
+                    </c:url>
+                    <li class="page-item ${requestScope.page == i ? 'active' : ''}"><a class="page-link" href="${productListUrl}">${i}</a></li>
+                </c:forEach>
+                <c:url var="next" value="<%=UrlProperties.productList()%>">
+                    <c:param name="idCate" value="${requestScope.category.id}"/>
+                    <c:param name="page" value="${requestScope.page+1}"/>
+                </c:url>
+                <li class="page-item ${requestScope.page == requestScope.maxPage ? 'disabled':''}"><a class="page-link" href="${next}">></a></li>
+            </ul>
+        </div>
+    </c:if>
 </div>

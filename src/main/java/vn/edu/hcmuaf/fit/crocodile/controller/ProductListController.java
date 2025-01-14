@@ -60,6 +60,17 @@ public class ProductListController extends HttpServlet {
         request.setAttribute("page", page);
         request.setAttribute("maxPage", maxPage);
         request.setAttribute("productList", productList);
+
+        //      ---------------  Search ---------------
+        String keyWord = request.getParameter("key");
+        if(keyWord!=null) {
+            List<Product> list = productService.searchProduct(keyWord);
+            list.forEach(System.out::println);
+            System.out.println("---------------------------------------------------------");
+            request.setAttribute("listProductSearch", list);
+        }
+        //      ---------------  Search ---------------
+
         request.getRequestDispatcher("/views/product-list.jsp").forward(request, response);
     }
 
