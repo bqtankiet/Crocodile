@@ -177,6 +177,8 @@ public class ProductDao implements IProductDao {
         return result;
     }
 
+
+    // ------------------------ em khoi test ----------------------------
     @Override
     public ProductOption findOptionsById(int id) {
         String sql = "SELECT * FROM product_options WHERE id = :id";
@@ -271,11 +273,11 @@ public class ProductDao implements IProductDao {
                   LIMIT :topN;
                 """;
         return JdbiConnect.getJdbi().withHandle(handle ->
-            handle.createQuery(sql)
-                    .bind("days", days)
-                    .bind("topN", topN)
-                    .mapToBean(Product.class)
-                    .list()
+                handle.createQuery(sql)
+                        .bind("days", days)
+                        .bind("topN", topN)
+                        .mapToBean(Product.class)
+                        .list()
         );
     }
 
@@ -288,11 +290,11 @@ public class ProductDao implements IProductDao {
                 LIMIT :n
                 """;
         return JdbiConnect.getJdbi().withHandle(handle ->
-            handle.createQuery(sql)
-                    .bind("idProduct", idProduct)
-                    .bind("n", n)
-                    .mapToBean(Product.class)
-                    .list()
+                handle.createQuery(sql)
+                        .bind("idProduct", idProduct)
+                        .bind("n", n)
+                        .mapToBean(Product.class)
+                        .list()
         );
     }
 
@@ -321,12 +323,25 @@ public class ProductDao implements IProductDao {
                   LIMIT :topN;
                 """;
         return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("topN", topN)
+                        .bind("days", days)
+                        .bind("idCategory", idCategory)
+                        .mapToBean(Product.class)
+                        .list()
+        );
+    }
+
+    @Override
+    public List<Product> searchProduct(String keyWord) {
+        String sql = "select * from products where name like :keyWord";
+        return JdbiConnect.getJdbi().withHandle(handle ->
             handle.createQuery(sql)
-                    .bind("topN", topN)
-                    .bind("days", days)
-                    .bind("idCategory", idCategory)
+                    .bind("keyWord", "%"+keyWord+"%")
                     .mapToBean(Product.class)
                     .list()
         );
     }
+
+    // ------------------------ em khoi test ----------------------------
 }

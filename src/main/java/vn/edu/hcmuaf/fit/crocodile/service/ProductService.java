@@ -76,6 +76,10 @@ public class ProductService {
         return pv;
     }
 
+    public List<Product> searchProduct(String keyword) {
+        return productDao.searchProduct(keyword);
+    }
+
     // ------------------------ em khoi test ----------------------------
 
     public int insertProduct(Product product) {

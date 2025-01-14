@@ -26,6 +26,7 @@ public interface IProductDao extends BasicDao<Integer, Product> {
 
     List<ProductVariant> findAllVariantsByProductId(int productId);
 
+    // ------------------------ em khoi test ----------------------------
     ProductOption findOptionsById(int id);
 
     ProductVariant getProductVariantById(int idVariant);
@@ -41,4 +42,7 @@ public interface IProductDao extends BasicDao<Integer, Product> {
     List<Product> findRandomNSimilarProducts(int n, int idProduct);
 
     List<Product> getTopSellingProductsOfCategory(int topN, int days, int idCategory);
+
+    List<Product> searchProduct(String keyWord);
+    // ------------------------ em khoi test ----------------------------
 }
