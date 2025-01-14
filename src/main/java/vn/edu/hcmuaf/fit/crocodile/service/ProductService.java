@@ -95,4 +95,8 @@ public class ProductService {
     public int insertProductVariants(List<ProductVariant> variants, int productId) {
         return productDaoAdmin.insertAllProductVariants(variants, productId);
     }
+
+    public List<Product> getTopSellingProductsInDays(int topN, int days){
+        return productDao.getTopSellingProductsInDays(topN, days);
+    }
 }

@@ -2,6 +2,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<fmt:setLocale value="vi_VN"/>
 
 <div id="home-content">
     <style>
@@ -155,48 +157,71 @@
             </div>
             <%--       TODO:          --%>
 
-            <%--                <div class="product_gallery_template" data-owl-main='{"items": 4, "margin": 10, "dots": false}'>--%>
-            <%--                    <a class="product_card_template"--%>
-            <%--                       href="https://www.gento.vn/wp-content/uploads/2021/10/vi-cam-tay-da-ca-sau-gs9825.jpeg"--%>
-            <%--                       data-json='{--%>
-            <%--                                "img": "https://www.gento.vn/wp-content/uploads/2021/10/vi-cam-tay-da-ca-sau-gs9825.jpeg",--%>
-            <%--                                "name": "Ví cầm tay da cá sấu cao cấp GS982 Nâu",--%>
-            <%--                                "price": "1.300.000",--%>
-            <%--                                "basePrice": "1.900.000",--%>
-            <%--                                "discount": "Giảm 32%",--%>
-            <%--                                "badge": "NEW"--%>
-            <%--                                }'>--%>
-            <%--                    </a>--%>
-            <%--                    <a class="product_card_template" href="404"--%>
-            <%--                       data-json='{--%>
-            <%--                                "img":"https://casauhoanglong.com/wp-content/uploads/2024/01/Bop-da-ca-sau-nam-2-mat-da-bung-VN70HM.jpeg",--%>
-            <%--                                "name":"Ví cầm tay nam da cá sấu cao cấp Gento GS985",--%>
-            <%--                                "price":"1.100.000",--%>
-            <%--                                "basePrice":null,--%>
-            <%--                                "discount":null,--%>
-            <%--                                "badge":null--%>
-            <%--                                }'>--%>
-            <%--                    </a>--%>
-            <%--                    <a class="product_card_template"--%>
-            <%--                       href="404"--%>
-            <%--                       data-json='{--%>
-            <%--                                "img": "https://lavatino.com/wp-content/uploads/2021/08/tui-da-nu-cao-cap-hsf30-da-ca-sau-4.jpg",--%>
-            <%--                                "name": "Túi xách nữ cao cấp HSF30 da cá sấu thật",--%>
-            <%--                                "price": "14.200.000"--%>
-            <%--                                }'>--%>
-            <%--                    </a>--%>
-            <%--                    <a class="product_card_template" href="404"--%>
-            <%--                       data-json='{--%>
-            <%--                                "img":"https://lavatino.com/wp-content/uploads/2021/08/tui-xach-nu-thoi-trang-da-ca-sau-hsf21-2-1.jpg",--%>
-            <%--                                "name":"Túi xách nữ thời trang da cá sấu mã HSF21",--%>
-            <%--                                "price":"12 .100.000",--%>
-            <%--                                "basePrice":null,--%>
-            <%--                                "discount":null,--%>
-            <%--                                "badge":null--%>
-            <%--                                }'>--%>
-            <%--                    </a>--%>
+            <%-- product gallery --%>
+            <div id="gallery-main" class="product_gallery_template" data-owl-main='{"items": 4, "margin": 10, "dots": false}'>
+            <%-- product cards--%>
+                <c:forEach var="p" items="${requestScope.topSellingProducts}">
+                    <div class="item">
+                        <c:url var="productUrl" value="<%=UrlProperties.productDetail()%>">
+                            <c:param name="id" value="${p.id}"/>
+                        </c:url>
+                        <fmt:formatNumber var="fmtPrice" value="${p.price}" type="currency" currencySymbol="₫" groupingUsed="true"/>
+                        <a class="product_card_template" href="${productUrl}"
+                           data-json='{
+                            "img": "${p.image}",
+                            "name": "${p.name}",
+                            "price": "${fmtPrice}",
+                            "basePrice": "",
+                            "discount": "",
+                            "badge": "HOT"
+                            }'>
+                        </a>
+                    </div>
+                </c:forEach>
+            </div>
 
-            <%--                </div>--%>
+
+<%--                <div class="product_gallery_template" data-owl-main='{"items": 4, "margin": 10, "dots": false}'>--%>
+<%--                    <a class="product_card_template"--%>
+<%--                       href="https://www.gento.vn/wp-content/uploads/2021/10/vi-cam-tay-da-ca-sau-gs9825.jpeg"--%>
+<%--                       data-json='{--%>
+<%--                                "img": "https://www.gento.vn/wp-content/uploads/2021/10/vi-cam-tay-da-ca-sau-gs9825.jpeg",--%>
+<%--                                "name": "Ví cầm tay da cá sấu cao cấp GS982 Nâu",--%>
+<%--                                "price": "1.300.000",--%>
+<%--                                "basePrice": "1.900.000",--%>
+<%--                                "discount": "Giảm 32%",--%>
+<%--                                "badge": "NEW"--%>
+<%--                                }'>--%>
+<%--                    </a>--%>
+<%--                    <a class="product_card_template" href="404"--%>
+<%--                       data-json='{--%>
+<%--                                "img":"https://casauhoanglong.com/wp-content/uploads/2024/01/Bop-da-ca-sau-nam-2-mat-da-bung-VN70HM.jpeg",--%>
+<%--                                "name":"Ví cầm tay nam da cá sấu cao cấp Gento GS985",--%>
+<%--                                "price":"1.100.000",--%>
+<%--                                "basePrice":null,--%>
+<%--                                "discount":null,--%>
+<%--                                "badge":null--%>
+<%--                                }'>--%>
+<%--                    </a>--%>
+<%--                    <a class="product_card_template"--%>
+<%--                       href="404"--%>
+<%--                       data-json='{--%>
+<%--                                "img": "https://lavatino.com/wp-content/uploads/2021/08/tui-da-nu-cao-cap-hsf30-da-ca-sau-4.jpg",--%>
+<%--                                "name": "Túi xách nữ cao cấp HSF30 da cá sấu thật",--%>
+<%--                                "price": "14.200.000"--%>
+<%--                                }'>--%>
+<%--                    </a>--%>
+<%--                    <a class="product_card_template" href="404"--%>
+<%--                       data-json='{--%>
+<%--                                "img":"https://lavatino.com/wp-content/uploads/2021/08/tui-xach-nu-thoi-trang-da-ca-sau-hsf21-2-1.jpg",--%>
+<%--                                "name":"Túi xách nữ thời trang da cá sấu mã HSF21",--%>
+<%--                                "price":"12 .100.000",--%>
+<%--                                "basePrice":null,--%>
+<%--                                "discount":null,--%>
+<%--                                "badge":null--%>
+<%--                                }'>--%>
+<%--                    </a>--%>
+<%--                </div>--%>
         </div>
     </div>
     <!-- -------------------------END BEST SALE PRODUCTS---------------------------------- -->
