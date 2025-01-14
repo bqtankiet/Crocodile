@@ -249,5 +249,99 @@ public class ProductDao implements IProductDao {
         );
     }
 
+    @Override
+    public List<Product> getTopSellingProductsInDays(int topN, int days) {
+        String sql = """
+                SELECT
+                  p.*,
+                  SUM( od.quantity ) AS totalSold
+                FROM
+                  order_details od
+                  JOIN orders o ON od.idOrder = o.id
+                  JOIN product_variants pv ON od.idVariant = pv.id
+                  JOIN products p ON pv.idProduct = p.id
+                  JOIN categories c ON p.idCategory = c.id
+                WHERE
+                  DATEDIFF( CURRENT_DATE, o.invoiceDate ) <= :days
+                  AND p.active = 1
+                  AND c.active = 1
+                GROUP BY
+                  p.id,
+                  p.name
+                ORDER BY
+                  totalSold DESC
+                  LIMIT :topN;
+                """;
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("days", days)
+                        .bind("topN", topN)
+                        .mapToBean(Product.class)
+                        .list()
+        );
+    }
+
+    @Override
+    public List<Product> findRandomNSimilarProducts(int n, int idProduct) {
+        String sql = """
+                SELECT * FROM products
+                WHERE idCategory = ( SELECT idCategory FROM products WHERE id = :idProduct ) AND id != :idProduct
+                ORDER BY RAND()
+                LIMIT :n
+                """;
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("idProduct", idProduct)
+                        .bind("n", n)
+                        .mapToBean(Product.class)
+                        .list()
+        );
+    }
+
+    @Override
+    public List<Product> getTopSellingProductsOfCategory(int topN, int days, int idCategory) {
+        String sql = """
+                SELECT
+                  p.*,
+                  SUM( od.quantity ) AS totalSold
+                FROM
+                  order_details od
+                  JOIN orders o ON od.idOrder = o.id
+                  JOIN product_variants pv ON od.idVariant = pv.id
+                  JOIN products p ON pv.idProduct = p.id
+                  JOIN categories c ON p.idCategory = c.id
+                WHERE
+                  DATEDIFF( CURRENT_DATE, o.invoiceDate ) <= :days
+                  AND p.active = 1
+                  AND c.active = 1
+                  AND c.id = :idCategory
+                GROUP BY
+                  p.id,
+                  p.name
+                ORDER BY
+                  totalSold DESC
+                  LIMIT :topN;
+                """;
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("topN", topN)
+                        .bind("days", days)
+                        .bind("idCategory", idCategory)
+                        .mapToBean(Product.class)
+                        .list()
+        );
+    }
+
+    @Override
+    public List<Product> searchProduct(String keyWord) {
+        String sql = "select * from products where name like :keyWord";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+            handle.createQuery(sql)
+                    .bind("keyWord", "%"+keyWord+"%")
+                    .mapToBean(Product.class)
+                    .list()
+        );
+    }
+
     // ------------------------ em khoi test ----------------------------
 }
