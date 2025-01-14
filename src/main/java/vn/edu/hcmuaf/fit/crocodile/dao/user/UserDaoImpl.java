@@ -48,6 +48,44 @@ public class UserDaoImpl implements UserDao {
         );
     }
 
+    @Override
+    public void update(User user) {
+        String query = "UPDATE users SET fullname = :fullname, email = :email, phoneNumber = :phoneNumber, gender = :gender, birthdate = :birthdate WHERE username = :username";
+        JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createUpdate(query)
+                        .bind("username", user.getUsername())
+                        .bind("fullname", user.getFullname())
+                        .bind("email", user.getEmail())
+                        .bind("phoneNumber", user.getPhoneNumber())
+                        .bind("gender", user.getGender())
+                        .bind("birthdate", user.getBirthdate())
+                        .execute()
+        );
+    }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        String query = "select * from users where email = :email";
+        return JdbiConnect.getJdbi().withHandle(
+                handle ->
+                        handle.createQuery(query)
+                                .bind("email", email)
+                                .mapToBean(User.class)
+                                .findOne()
+        );
+    }
+
+    @Override
+    public void updatePassword(int userId, String newPassword) {
+        String query = "UPDATE users SET password = :password WHERE id = :userId";
+        JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createUpdate(query)
+                        .bind("userId", userId)
+                        .bind("password", newPassword)
+                        .execute()
+        );
+    }
+
 
     @Override
     public int create(User user) {
@@ -56,41 +94,23 @@ public class UserDaoImpl implements UserDao {
             throw new IllegalArgumentException("Tài khoản đã tồn tại.");
         }
 
-        String hashedPassword = HashUtil.hashMD5(user.getPassword());
 
-        String query = "INSERT INTO users (username, password, name, email, phone, gender, birthdate) " +
-                "VALUES (:username, :password, :name, :email, :phone , :gender, :dateOfBirth)";
+        String query = "INSERT INTO users (username, password, fullname, email, phoneNumber, gender, birthdate) " +
+                "VALUES (:username, :password, :fullname, :email, :phoneNumber , :gender, :dateOfBirth)";
 
         return JdbiConnect.getJdbi().withHandle(handle ->
                 handle.createUpdate(query)
                         .bind("username", user.getUsername())
-                        .bind("password", hashedPassword)
-                        .bind("name", user.getName())
+                        .bind("password", user.getPassword())
+                        .bind("fullname", user.getFullname())
                         .bind("email", user.getEmail())
-                        .bind("phone", user.getPhone_number())
+                        .bind("phoneNumber", user.getPhoneNumber())
                         .bind("gender", user.getGender())
                         .bind("dateOfBirth", user.getBirthdate())
                         .executeAndReturnGeneratedKeys("id")
                         .mapTo(int.class)
                         .one()
         );
-    }
-
-
-    public static void main(String[] args) {
-        AuthenticationService authService = new AuthenticationService();
-
-        // Dữ liệu đăng nhập
-        String username = "testUser";
-        String password = "testPassword";
-
-        // Thử đăng nhập
-        int userId = authService.login(username, password);
-        if (userId != -1) {
-            System.out.println("Đăng nhập thành công, userId: " + userId);
-        } else {
-            System.out.println("Đăng nhập thất bại");
-        }
     }
 
 }

@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div id="page">
-    <div id="HEADER"></div>
     <!-- Form đăng nhập -->
     <div class="container-fluid d-flex flex-wrap justify-content-center align-items-center gap-4 py-5">
         <!-- phần logo -->
@@ -11,19 +10,19 @@
                  style="max-width: 100%; height: auto;"
                  alt="Logo">
         </div>
-        <!-- phần đăng nhậpp    -->
-        <div class="card shadow p-4 " style="width: 28rem">
+        <!-- phần đăng nhập -->
+        <div class="card shadow p-4" style="width: 28rem">
             <h3 class="text-center mb-4">Đăng Nhập</h3>
-            <form class="d-grid gap-4" action="<c:url value="/login"/>" method="post">
+            <form id="loginForm" class="d-grid gap-4" action="<c:url value='/login'/>" method="post">
                 <input class="form-control" type="text" id="username" name="username" placeholder="Nhập tài khoản"
                        required>
-                <input class="form-control" type="password" id="password" name="password"
-                       placeholder="Nhập mật khẩu" required>
+                <input class="form-control" type="password" id="password" name="password" placeholder="Nhập mật khẩu"
+                       required>
                 <button type="submit" class="btn custom-btn-primary btn-block w-100 p-2">Đăng Nhập</button>
-            </form>
-            <form id="loginForm" class="d-grid gap-4">
-                <div class="d-flex justify-content-between mt-2 ">
-                    <a href="forget_passW.html" class="custom-text-primary text-decoration-none">Quên Mật Khẩu </a>
+                <div class="d-flex justify-content-between mt-2">
+                    <a href="<c:url value="/forget-password"/>"
+                       class="custom-text-primary text-decoration-none">Quên Mật
+                        Khẩu</a>
                     <a href="#" class="custom-text-primary text-decoration-none">Đăng Nhập Bằng SMS</a>
                 </div>
                 <div class="d-flex align-items-center justify-content-center">
@@ -34,8 +33,7 @@
                 <div class="d-flex gap-3 justify-content-between mt-3">
                     <a href="https://www.facebook.com/v16.0/dialog/oauth?client_id=605632051831778&redirect_uri=http://localhost:8080/crocodile/facebook-login&scope=email,public_profile"
                        target="_blank"
-                       class="d-flex flex-grow-1 align-items-center justify-content-center text-decoration-none border
-                    p-2">
+                       class="d-flex flex-grow-1 align-items-center justify-content-center text-decoration-none border p-2">
                         <div class="custom-icon" style="--size: 2rem">
                             <!-- Icon Facebook -->
                             <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 48 48">
@@ -49,10 +47,9 @@
                     <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid
                     &redirect_uri=http://localhost:8080/crocodile/google-login
                     &response_type=code&client_id=183146911471-otedkdah3ihnpvc5fovddjsubn5ma5pn.apps.googleusercontent.com
-&approval_prompt=force"
+                    &approval_prompt=force"
                        target="_blank"
-                       class="d-flex flex-grow-1 align-items-center justify-content-center text-decoration-none border
-                    p-2">
+                       class="d-flex flex-grow-1 align-items-center justify-content-center text-decoration-none border p-2">
                         <div class="custom-icon" style="--size: 2rem">
                             <!-- Icon Google -->
                             <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 48 48">
@@ -70,12 +67,12 @@
                     </a>
                 </div>
                 <div>
-                    <p class="text-center">Bạn Chưa Có Tài Khoản? <a href="${pageContext.request.contextPath}/signup"
-                                                                     class="custom-text-primary ">Đăng
+                    <p class="text-center">Bạn Chưa Có Tài Khoản? <a
+                            href="${pageContext.request.contextPath}/signup"
+                            class="custom-text-primary ">Đăng
                         Ký </a> Ngay</p>
                 </div>
             </form>
-            <div id="message" class="mt-3"></div>
         </div>
     </div>
 </div>
