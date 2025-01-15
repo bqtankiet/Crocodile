@@ -5,7 +5,7 @@ public class AddressTest {
     public static void main(String[] args) {
 
         UserDaoImpl userDao = new UserDaoImpl();
-        System.out.println(userDao.getAddressesByUserId(4));
+        System.out.println(userDao.getOrdersByUserId(4));
 
     }
 }

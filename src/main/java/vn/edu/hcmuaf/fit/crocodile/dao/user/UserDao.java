@@ -1,6 +1,7 @@
 package vn.edu.hcmuaf.fit.crocodile.dao.user;
 
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Address;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.Order;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
 
 import java.util.List;
@@ -24,4 +25,6 @@ public interface UserDao {
     void updatePassword(int userId, String newPassword);
 
     void addAddress(Address address);
+
+    List<Order> getOrdersByUserId(int userId);
 }

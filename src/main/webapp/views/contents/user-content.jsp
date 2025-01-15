@@ -21,6 +21,18 @@
         cursor: pointer;
     }
 
+    .card-custom {
+        border-radius: 8px; /* Viền tròn cho các thẻ */
+        box-shadow: 0 4px 8px rgba(0, 128, 0, 0.2); /* Bóng xanh lá nhẹ */
+        transition: transform 0.2s ease-in-out; /* Hiệu ứng chuyển động khi hover */
+    }
+
+    .card-custom:hover {
+        transform: scale(1.03); /* Khi hover, thẻ sẽ phóng to một chút */
+        box-shadow: 0 8px 16px rgba(0, 128, 0, 0.4); /* Bóng đậm hơn khi hover */
+    }
+
+
     .tooltip-custom .tooltip-inner {
         background-color: white; /* Màu nền nhạt hơn */
         color: black; /* Màu chữ nổi bật */
@@ -51,22 +63,11 @@
                             </div>
                         </div>
                     </div>
-                    <%--                    <c:choose>--%>
-                    <%--                        <c:when test="${not empty sessionScope.userName && not empty sessionScope.fullName}">--%>
                     <div class="col d-flex flex-column gap-1 justify-content-center">
                         <!-- Hiển thị fullName và userName từ session -->
                         <div class="fw-bold text-capitalize">${sessionScope.fullName}</div>
                         <div class="text-muted">#${sessionScope.userName}</div>
                     </div>
-                    <%--                        </c:when>--%>
-                    <%--                        <c:otherwise>--%>
-                    <%--                            <!-- Hiển thị nếu chưa đăng nhập -->--%>
-                    <%--                            <div class="col d-flex flex-column gap-1 justify-content-center">--%>
-                    <%--                                <div class="fw-bold text-capitalize">Chưa đăng nhập</div>--%>
-                    <%--                                <div class="text-muted">#N/A</div>--%>
-                    <%--                            </div>--%>
-                    <%--                        </c:otherwise>--%>
-                    <%--                    </c:choose>--%>
 
                 </div>
                 <div>
@@ -242,11 +243,11 @@
                                     class="btn custom-btn-primary btn-block w-100 p-2 ms-auto "
                                     style="width: max-content">Lưu
                             </button>
-                            <c:if test="${not empty success}">
-                                <div class="alert alert-success">${success}</div>
+                            <c:if test="${not empty requestScope.success}">
+                                <div class="alert alert-success">${requestScope.success}</div>
                             </c:if>
-                            <c:if test="${not empty fail}">
-                                <div class="alert alert-danger">${fail}</div>
+                            <c:if test="${not empty requestScope.fail}">
+                                <div class="alert alert-danger">${requestScope.fail}</div>
                             </c:if>
                         </form>
                     </div>
@@ -257,8 +258,8 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h4 class="fw-semibold">Địa chỉ của tôi</h4>
                                     <button type="button" class="btn custom-btn-primary btn-block p-2 mb-3"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#newAddressModal">+ Thêm địa chỉ mới
+                                            data-bs-toggle="modal" data-bs-target="#newAddressModal">
+                                        + Thêm địa chỉ mới
                                     </button>
                                 </div>
                                 <div style="height: 1px; background-color: #dbdbdb; width: 100%"></div>
@@ -267,74 +268,81 @@
                         <hr class="border-light m-0">
                         <div class="card-body pb-2">
                             <h6 class="mb-4">Địa Chỉ</h6>
-                            <div id="addressList">
+                            <div id="addressList" class="row">
+                                <!-- Hiển thị danh sách địa chỉ -->
                                 <c:forEach var="address" items="${requestScope.addressList}">
-                                    <div class="mb-3">
-                                        <h6 class="fw-bold">${address.fullname}</h6>
-                                        <p class="mb-1">${address.street}, ${address.ward}, ${address.district}, ${address.province}</p>
-                                        <p class="mb-1">Số điện thoại: ${address.phoneNumber}</p>
+                                    <div class="col-md-6 col-lg-4 mb-4">
+                                        <div class="card card-custom border shadow-sm h-100">
+                                            <!-- Thêm class card-custom -->
+                                            <div class="card-body">
+                                                <h6 class="fw-bold">${address.fullname}</h6>
+                                                <p class="mb-1">${address.street}, ${address.ward}, ${address.district}, ${address.province}</p>
+                                                <p class="mb-1">Số điện thoại: ${address.phoneNumber}</p>
+                                            </div>
+                                        </div>
                                     </div>
-
                                 </c:forEach>
-                                <c:if test="${not empty message}">
-                                    <div class="alert alert-info">${message}</div>
-                                </c:if>
-                            </div>
 
-                        </div>
-                        <div class="tab-pane fade" id="account-purchase-order">
-                            <div class="tab-header">
-                                <h4 class="fw-semibold">Đơn mua </h4>
-                                <hr>
-                            </div>
-                            <div class="tab-body d-grid gap-4">
-                                <div class="order-item p-3 bg-secondary-subtle">
-                                    <div class="order-info d-flex">
-                                        <div>
-                                            <span class="order-id">2406069WHSDP56</span>
-                                            <span class="px-2">-</span>
-                                            <span class="order-date col">
-                                        10:22 01/01/2024
-                                    </span>
-                                        </div>
-                                        <div class="order-status ms-auto">
-                                            <span class="badge text-bg-danger">Hoàn thành</span>
-                                        </div>
+                                <!-- Hiển thị thông báo nếu không có địa chỉ -->
+                                <c:if test="${not empty requestScope.message}">
+                                    <div class="col-12">
+                                        <div class="alert alert-info">${requestScope.message}</div>
                                     </div>
-                                    <hr>
-                                    <div class="order-product row g-0">
-                                        <div class="col-2 me-3 position-relative" style="width: 5em;">
-                                            <div class="ratio ratio-1x1">
-                                                <img src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
-                                                     class="img-fluid border rounded-2" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="col lh-1 my-auto">
-                                            <div class="w-100">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="me-2">
-                                                        <p class="fw-semibold mb-0 line-clamp-2"
-                                                           style="height: fit-content ;max-height: 2.5rem; line-height: 1.2">
-                                                            Ví gấp nam da cá sấu V7068
-                                                        </p>
-                                                        <p class="text-muted mt-1 mb-0">Da trơn</p>
-                                                    </div>
-                                                    <div class="ms-auto fw-medium fs-6">1.100.000<sup>₫</sup> × 1</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="order-total">
-                                        <div class="text-end">
-                                            Thành tiền:
-                                            <span class="fw-medium text-danger fs-5">1.100.000₫</span>
-                                        </div>
-                                    </div>
-                                </div>
+                                </c:if>
                             </div>
                         </div>
                     </div>
+
+
+                    <!-- hiển thị thông tin đơn hàng (order) -->
+                    <div class="tab-pane fade" id="account-purchase-order">
+                        <div class="card-body pb-2">
+                            <div class="form-group">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h4 class="fw-semibold">Đơn Hàng</h4>
+                                </div>
+                                <div style="height: 1px; background-color: #dbdbdb; width: 100%"></div>
+                            </div>
+                            <h6 class="mb-4 mt-3">Danh sách đơn hàng</h6>
+                            <div id="ordersList" class="row">
+                                <!-- Hiển thị danh sách đơn hàng -->
+                                <c:forEach var="order" items="${ordersList}">
+                                    <div class="col-md-6 col-lg-4 mb-4">
+                                        <div class="card card-custom border shadow-sm h-100">
+                                            <!-- Thêm class card-custom -->
+                                            <div class="card-body">
+                                                <h6 class="fw-bold">Mã đơn hàng: ${order.id}</h6>
+                                                <p class="mb-1"><strong>Ngày tạo:</strong> ${order.invoiceDate}</p>
+                                                <p class="mb-1"><strong>Phương thức thanh
+                                                    toán:</strong> ${order.paymentMethod}</p>
+                                                <p class="mb-1"><strong>Tổng tiền:</strong> ${order.total} VNĐ</p>
+                                                <p class="mb-1">
+                                                    <strong>Trạng thái:</strong>
+                                                    <c:choose>
+                                                        <c:when test="${order.status == 'PENDING'}">Chờ xử lý</c:when>
+                                                        <c:when test="${order.status == 'PROCESSING'}">Đang xử lý</c:when>
+                                                        <c:when test="${order.status == 'COMPLETED'}">Hoàn thành</c:when>
+                                                        <c:when test="${order.status == 'CANCELLED'}">Đã hủy</c:when>
+                                                        <c:when test="${order.status == 'AWAITING'}">Đang chờ</c:when>
+                                                        <c:otherwise>Không xác định</c:otherwise>
+                                                    </c:choose>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:forEach>
+
+                                <!-- Nếu không có đơn hàng -->
+                                <c:if test="${empty ordersList}">
+                                    <div class="col-12">
+                                        <div class="alert alert-info">Không có đơn hàng nào.</div>
+                                    </div>
+                                </c:if>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
         </div>
@@ -436,96 +444,12 @@
                                 Quay lại
                             </button>
                         </div>
-                        <c:if test="${not empty errorMessage}">
-                            <div class="alert alert-danger">${errorMessage}</div>
+                        <c:if test="${not empty requestScope.errorMessage}">
+                            <div class="alert alert-danger">${requestScope.errorMessage}</div>
                         </c:if>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
-
-    <script>
-        // const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-        // const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
-        // document.getElementById('save-password-btn').addEventListener('click', function (event) {
-        //     const newPassword = document.getElementById('new-password');
-        //     const newPasswordCheck = document.getElementById('new-password-check');
-        //     // Kiểm tra độ dài mật khẩu mới, có ít nhất 1 kí tự in hoa và số
-        //     const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
-        //     let isValid = true;
-        //     // Tạo tooltip tùy chỉnh cho mật khẩu mới
-        //     if (!passwordRegex.test(newPassword.value)) {
-        //         new bootstrap.Tooltip(newPassword, {
-        //             title: 'Mật khẩu phải chứa ít nhất 8 kí tự, bao gồm chữ viết hoa, số và kí tự đặc biệt',
-        //             placement: 'right',
-        //             trigger: 'manual',
-        //             customClass: 'tooltip-custom' // Thêm lớp tùy chỉnh
-        //         }).show();
-        //         isValid = false;
-        //     }
-        //     // Kiểm tra mật khẩu mới và mật khẩu nhập lại có khớp không
-        //     if (newPassword.value !== newPasswordCheck.value) {
-        //         new bootstrap.Tooltip(newPasswordCheck, {
-        //             title: 'Mật khẩu nhập lại không khớp với mật khẩu mới',
-        //             placement: 'right',
-        //             trigger: 'manual',
-        //             customClass: 'tooltip-custom'
-        //         }).show();
-        //         isValid = false;
-        //     }
-        //     if (!isValid) {
-        //         event.preventDefault();
-        //     } else {
-        //         bootstrap.Tooltip.getInstance(newPassword)?.hide();
-        //         bootstrap.Tooltip.getInstance(newPasswordCheck)?.hide();
-        //         const successModal = new bootstrap.Modal(document.getElementById('passwordChangeSuccessModal'));
-        //         successModal.show();
-        //     }
-        //     newPassword.addEventListener('input', () => bootstrap.Tooltip.getInstance(newPassword)?.hide());
-        //     newPasswordCheck.addEventListener('input', () => bootstrap.Tooltip.getInstance(newPasswordCheck)?.hide());
-        // });
-
-
-        function showValidationTooltips(fields) {
-            Object.keys(fields).forEach(key => {
-                const value = fields[key];
-                const inputElement = document.getElementById(key);
-                if (!value) {
-                    // Gắn tooltip vào các trường bị thiếu
-                    const tooltip = new bootstrap.Tooltip(inputElement, {
-                        title: 'Vui lòng nhập thông tin này!',
-                        placement: 'top',
-                        trigger: 'manual',
-                        customClass: 'tooltip-custom'
-                    });
-                    tooltip.show();
-                    // Ẩn tooltip sau 3 giây
-                    setTimeout(() => {
-                        tooltip.dispose();
-                    }, 3000);
-                    inputElement.classList.add('is-invalid');
-                } else {
-                    inputElement.classList.remove('is-invalid');
-                }
-            });
-        }
-
-        // Hàm để xóa địa chỉ
-        function removeAddress(button) {
-            const addressCard = button.parentElement;
-            addressCard.remove();
-        }
-
-        document.addEventListener('DOMContentLoaded', loadSampleAddresses);
-
-        function getAuthorizationCode() {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get('code');
-
-        }
-
-
-    </script>
 </div>

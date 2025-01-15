@@ -2,8 +2,10 @@ package vn.edu.hcmuaf.fit.crocodile.dao.user;
 
 import vn.edu.hcmuaf.fit.crocodile.config.JdbiConnect;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Address;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.Order;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -85,6 +87,29 @@ public class UserDaoImpl implements UserDao {
                         .execute()
         );
     }
+
+    @Override
+    public List<Order> getOrdersByUserId(int userId) {
+        String query = "SELECT * FROM orders WHERE userId = :userId";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(query)
+                        .bind("userId", userId)
+                        .map((rs, ctx) -> {
+                            Order order = new Order();
+                            order.setId(rs.getInt("id"));
+                            order.setUserId(rs.getInt("userId"));
+                            order.setIdAddress(rs.getInt("idAddress"));
+                            order.setTotal(rs.getInt("total"));
+                            order.setInvoiceDate(rs.getObject("invoiceDate", LocalDate.class));
+                            order.setPaymentDate(rs.getObject("paymentDate", LocalDate.class));
+                            order.setPaymentMethod(Order.PaymentMethod.valueOf(rs.getString("paymentMethod")));
+                            order.setStatus(Order.Status.valueOf(rs.getString("status")));
+                            return order;
+                        })
+                        .list()
+        );
+    }
+
 
     @Override
     public List<Address> getAddressesByUserId(int userId) {
