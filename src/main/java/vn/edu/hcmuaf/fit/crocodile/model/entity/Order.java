@@ -1,9 +1,18 @@
 package vn.edu.hcmuaf.fit.crocodile.model.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Order implements Serializable {
+    public enum PaymentMethod {
+        MOMO, CASH, ZALOPAY, VNPAY
+    }
+
+    public enum Status {
+        PENDING, PROCESSING, COMPLETED, CANCELLED, AWAITING
+    }
+
     private int id;
     private int idUser;
     private int idAddress;
@@ -13,14 +22,6 @@ public class Order implements Serializable {
     private PaymentMethod paymentMethod;
     private Status status;
 
-    // Các enum cho PaymentMethod và Status
-    public enum PaymentMethod {
-        CASH, MOMO, ZALOPAY
-    }
-
-    public enum Status {
-        PENDING, PROCESSING, AWAITING, COMPLETED, CANCELLED
-    }
 
     public int getId() {
         return id;
@@ -84,5 +85,19 @@ public class Order implements Serializable {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", userId=" + idUser +
+                ", idAddress=" + idAddress +
+                ", total=" + total +
+                ", invoiceDate=" + invoiceDate +
+                ", paymentDate=" + paymentDate +
+                ", paymentMethod=" + paymentMethod +
+                ", status=" + status +
+                '}';
     }
 }
