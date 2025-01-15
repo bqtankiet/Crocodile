@@ -465,108 +465,23 @@
                 title: 'Mật khẩu nhập lại không khớp với mật khẩu mới',
                 placement: 'right',
                 trigger: 'manual',
-                customClass: 'tooltip-custom' // Thêm lớp tùy chỉnh
+                customClass: 'tooltip-custom'
             }).show();
             isValid = false;
         }
         if (!isValid) {
-            event.preventDefault(); // Ngăn không cho gửi form nếu không hợp lệ
+            event.preventDefault();
         } else {
-            // Ẩn các tooltip khi hợp lệ
             bootstrap.Tooltip.getInstance(newPassword)?.hide();
             bootstrap.Tooltip.getInstance(newPasswordCheck)?.hide();
-            // Hiển thị modal thành công
             const successModal = new bootstrap.Modal(document.getElementById('passwordChangeSuccessModal'));
             successModal.show();
         }
-        // Ẩn tooltip khi người dùng bắt đầu chỉnh sửa lại
         newPassword.addEventListener('input', () => bootstrap.Tooltip.getInstance(newPassword)?.hide());
         newPasswordCheck.addEventListener('input', () => bootstrap.Tooltip.getInstance(newPasswordCheck)?.hide());
     });
-    // Danh sách các địa chỉ mẫu
-    const sampleAddresses = [
-        {
-            name: "Đặng Anh Kiệt",
-            phone: "22130133",
-            city: "TP Hồ Chí Minh",
-            district: "Thủ Đức",
-            ward: "Phường Long Thạnh Mỹ",
-            soNha: "54/2 đường số 2D"
-        },
-        {
-            name: "Bùi Quang Tấn Kiệt",
-            phone: "22130132",
-            city: "Đồng Nai",
-            district: "Biên Hoà",
-            ward: "...",
-            soNha: "Số 88, Đường Nguyễn Huệ"
-        },
-        {
-            name: "Đặng Minh Khôi",
-            phone: "22130126",
-            city: "TP Hồ Chí Minh",
-            district: "Thủ Đức",
-            ward: "Phường Linh Trung",
-            soNha: "Số 26, KTX khu A"
-        }
-    ];
 
-    // Hàm hiển thị một địa chỉ
-    function renderAddress(address) {
-        const addressList = document.getElementById('addressList');
-        const newAddress = document.createElement('div');
-        newAddress.className = 'card mb-3 p-3';
-        newAddress.innerHTML = `
-        <h6 class="fw-bold">${address.name}</h6>
-        <p>Số điện thoại: ${address.phone}</p>
-        <p>Địa chỉ: ${address.soNha}, ${address.ward}, Thành Phố ${address.district}, ${address.city}</p>
-        <button class="btn custom-btn-primary btn-sm mt-2" onclick="removeAddress(this)">Xóa</button>
-    `;
-        addressList.appendChild(newAddress);
-    }
 
-    // Hàm để hiển thị danh sách địa chỉ mẫu
-    function loadSampleAddresses() {
-        sampleAddresses.forEach(address => {
-            renderAddress(address);
-        });
-    }
-
-    // Hàm xử lý sự kiện thêm địa chỉ mới
-    document.getElementById('newAddressForm').addEventListener('submit', function (event) {
-        event.preventDefault(); // Ngăn chặn hành động mặc định của form
-        // Lấy dữ liệu từ các input trong form
-        const name = document.getElementById('name').value.trim();
-        const phone = document.getElementById('phone').value.trim();
-        const city = document.getElementById('city').value.trim();
-        const district = document.getElementById('district').value.trim();
-        const ward = document.getElementById('ward').value.trim();
-        const soNha = document.getElementById('soNha').value.trim();
-        // Kiểm tra dữ liệu nhập
-        if (!name || !phone || !city || !district || !ward || !soNha) {
-            // Hiển thị tooltip trên các trường bị thiếu
-            showValidationTooltips({name, phone, city, district, ward, soNha});
-            return;
-        }
-        // Tạo một đối tượng địa chỉ mới
-        const newAddress = {
-            name,
-            phone,
-            city,
-            district,
-            ward,
-            soNha
-        };
-        // Hiển thị địa chỉ mới trong danh sách
-        renderAddress(newAddress);
-        // Đóng modal sau khi thêm địa chỉ
-        const modal = bootstrap.Modal.getInstance(document.getElementById('newAddressModal'));
-        modal.hide();
-        // Reset form
-        document.getElementById('newAddressForm').reset();
-    });
-
-    // Hàm để hiển thị tooltip trên các trường bị thiếu
     function showValidationTooltips(fields) {
         Object.keys(fields).forEach(key => {
             const value = fields[key];
@@ -597,28 +512,11 @@
         addressCard.remove();
     }
 
-    // Gọi hàm để tải danh sách địa chỉ mẫu khi trang tải xong
     document.addEventListener('DOMContentLoaded', loadSampleAddresses);
 
     function getAuthorizationCode() {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get('code');
-
-    }
-
-    async function
-    updateUserInfo() {
-        const authorizationCode = getAuthorizationCode();
-        if (authorizationCode) {
-            try {
-                let response = await fetch(`/signup?code=${authorizationCode}`);
-                let userInfo = await response.json(); // Cập nhật thông tin người dùng lên form
-                document.getElementById('email').value = userInfo.email;
-            } catch (error) {
-                console.error('Error fetching user info:', error);
-            }
-        }
-        window.onload = updateUserInfo();
 
     }
 

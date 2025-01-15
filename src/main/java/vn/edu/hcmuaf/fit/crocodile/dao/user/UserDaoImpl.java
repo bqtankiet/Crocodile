@@ -10,20 +10,6 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 public class UserDaoImpl implements UserDao {
-
-//    // ------------------------ Begin admin method ------------------------
-//    @Override
-//    public List<User> getAllUser() {
-//        String sql = "select * from user where role = 0";
-//        return JdbiConnect.getJdbi().withHandle(handle ->
-//                handle.createQuery(sql)
-//                        .mapToBean(User.class)
-//                        .list()
-//        );
-//
-//    }
-    // ------------------------ End admin method ------------------------
-
     @Override
     public Optional<User> findById(int id) {
         String query = "select * from users where id = :id ";
@@ -50,18 +36,26 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void update(User user) {
-        String query = "UPDATE users SET fullname = :fullname, email = :email, phoneNumber = :phoneNumber, gender = :gender, birthdate = :birthdate WHERE username = :username";
+        String query = "UPDATE users " +
+                "SET fullname = :fullname, " +
+                "    email = :email, " +
+                "    phoneNumber = :phoneNumber, " +
+                "    gender = :gender, " +
+                "    birthdate = :birthdate " +
+                "WHERE id = :id";
+
         JdbiConnect.getJdbi().withHandle(handle ->
                 handle.createUpdate(query)
-                        .bind("username", user.getUsername())
                         .bind("fullname", user.getFullname())
                         .bind("email", user.getEmail())
                         .bind("phoneNumber", user.getPhoneNumber())
                         .bind("gender", user.getGender())
                         .bind("birthdate", user.getBirthdate())
+                        .bind("id", user.getId())
                         .execute()
         );
     }
+
 
     @Override
     public Optional<User> findByEmail(String email) {

@@ -11,17 +11,6 @@ import java.util.Optional;
 public class AuthenticationService {
     private final UserDao userDao;
 
-    public int signup(User user) {
-        try {
-            String hashedPassword = HashUtil.hashMD5(user.getPassword());
-            user.setPassword(hashedPassword);
-            return userDao.create(user);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Lỗi đăng ký: " + e.getMessage());
-            return -1;
-        }
-    }
-
     public AuthenticationService() {
         this.userDao = new UserDaoImpl();
     }
@@ -55,6 +44,17 @@ public class AuthenticationService {
         return userDao.findByEmail(email);
     }
 
+    public int signup(User user) {
+        try {
+            String hashedPassword = HashUtil.hashMD5(user.getPassword());
+            user.setPassword(hashedPassword);
+            return userDao.create(user);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Lỗi đăng ký: " + e.getMessage());
+            return -1;
+        }
+    }
+
     public boolean resetPassword(int userId, String newPassword) {
         try {
             String hashedPassword = HashUtil.hashMD5(newPassword);
@@ -66,5 +66,22 @@ public class AuthenticationService {
             return false;
         }
     }
+
+    public boolean updateProfile(User user) {
+        try {
+            userDao.update(user);
+            System.out.println("update profile success");
+            return true;
+        } catch (Exception e) {
+            System.out.println("Lỗi khi cập nhật thông tin người dùng: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public Optional<User> getUserById(int userId) {
+        System.out.println(userDao.findById(userId));
+        return userDao.findById(userId);
+    }
+
 
 }
