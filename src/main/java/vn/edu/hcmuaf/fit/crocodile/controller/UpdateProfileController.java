@@ -14,67 +14,78 @@ import java.util.Optional;
 
 @WebServlet(name = "UpdateProfileController", urlPatterns = {"/update-profile"})
 public class UpdateProfileController extends HttpServlet {
-    AuthenticationService authenticationService = new AuthenticationService();
 
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        User currentUser = (User) session.getAttribute("user");
-
-        if (currentUser == null) {
-            response.sendRedirect("/login");
-            return;
-        }
-
-        AuthenticationService authService = new AuthenticationService();
-        Optional<User> userOptional = authService.getUserById(currentUser.getId());
-
-        if (userOptional.isPresent()) {
-            currentUser = userOptional.get();
-            session.setAttribute("user", currentUser);
-        }
-
-        request.getRequestDispatcher("/views/user.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        User currentUser = (User) session.getAttribute("user");
+        // Lấy thông tin từ form
+        String fullname = request.getParameter("fullname");
+        String email = request.getParameter("email");
+        String phoneNumber = request.getParameter("phone-number");
+        String gender = request.getParameter("gender");
+        String birthDateString = request.getParameter("birth-date");
 
-        if (currentUser == null) {
-            response.sendRedirect("/login");
+        HttpSession session = request.getSession();
+        Integer userId = (Integer) session.getAttribute("userId");
+
+
+        if (userId == null) {
+            // Nếu userId không tồn tại trong session, yêu cầu đăng nhập lại
+            response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 
-        String fullname = request.getParameter("fullname");
-        String email = request.getParameter("email");
-        String gender = request.getParameter("gender");
-        String phoneNumber = request.getParameter("phone-number");
-        String birthdateParam = request.getParameter("birth-date");
+        try {
+            // Chuyển đổi ngày sinh từ chuỗi sang LocalDate
+            LocalDate birthDate = birthDateString != null && !birthDateString.isEmpty()
+                    ? LocalDate.parse(birthDateString)
+                    : null;
 
-        LocalDate birthdate = null;
-        if (birthdateParam != null && !birthdateParam.isEmpty()) {
-            birthdate = LocalDate.parse(birthdateParam);
+            // Tạo đối tượng User với thông tin cập nhật
+            User user = new User();
+            user.setId(userId);
+            user.setFullname(fullname);
+            user.setEmail(email);
+            user.setPhoneNumber(phoneNumber);
+            user.setGender(gender);
+            user.setBirthdate(birthDate);
+            // Cập nhật session chỉ khi giá trị không null
+            if (fullname != null) session.setAttribute("fullName", fullname);
+            if (email != null) session.setAttribute("email", email);
+            if (phoneNumber != null) session.setAttribute("phone", phoneNumber);
+            if (gender != null) session.setAttribute("gender", gender);
+            if (birthDate != null) session.setAttribute("birthDate", birthDate);
+
+
+            // Gọi service để cập nhật thông tin người dùng
+            AuthenticationService authService = new AuthenticationService();
+            boolean isUpdated = authService.updateProfile(user);
+
+            if (isUpdated) {
+
+                // Cập nhật lại thông tin trong session
+                session.setAttribute("fullName", fullname != null ? fullname : "");
+                session.setAttribute("email", email != null ? email : "");
+                session.setAttribute("phone", phoneNumber != null ? phoneNumber : "");
+                session.setAttribute("gender", gender != null ? gender : "");
+                session.setAttribute("birthDate", birthDate);
+
+                // Chuyển hướng về trang thông tin cá nhân
+                response.sendRedirect(request.getContextPath() + "/user");
+            } else {
+                // Nếu không cập nhật được, thông báo lỗi
+                request.setAttribute("errorMessage", "Cập nhật thông tin thất bại. Vui lòng thử lại.");
+                request.getRequestDispatcher("/views/user.jsp").forward(request, response);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("errorMessage", "Có lỗi xảy ra khi cập nhật thông tin.");
+            request.getRequestDispatcher("/views/user.jsp").forward(request, response);
         }
-
-        currentUser.setFullname(fullname);
-        currentUser.setEmail(email);
-        currentUser.setGender(gender);
-        currentUser.setPhoneNumber(phoneNumber);
-        currentUser.setBirthdate(birthdate);
-
-        boolean isUpdated = authenticationService.updateProfile(currentUser);
-
-        if (isUpdated) {
-            session.setAttribute("user", currentUser);
-            request.setAttribute("message", "Cập nhật thông tin thành công!");
-        } else {
-            request.setAttribute("error", "Cập nhật thông tin thất bại. Vui lòng thử lại.");
-        }
-
-        request.getRequestDispatcher("/views/user.jsp").forward(request, response);
     }
 
 }

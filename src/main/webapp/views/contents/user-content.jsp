@@ -145,20 +145,18 @@
                             <div class="row">
                                 <label for="fullname" class="col-form-label col-sm-2 text-muted">Họ và tên</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="fullname"
+                                    <input type="text" class="form-control" id="fullname" name="fullname"
                                            value="${sessionScope.fullName != null ? sessionScope.fullName : ''}">
-
                                 </div>
                             </div>
                             <div class="row">
                                 <label for="email" class="col-form-label col-sm-2 text-muted">Email</label>
                                 <div class="col-sm-10 d-flex align-items-center">
-                                    <input type="text" readonly class="form-control-plaintext" id="email"
+                                    <input type="text" class="form-control" id="email" name="email"
                                            value="${sessionScope.email != null ? sessionScope.email : ''}">
-                                    <a href="" class="text-nowrap" data-bs-toggle="modal"
-                                       data-bs-target="#modal-edit-email">Thay đổi</a>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <label class="col-form-label col-sm-2 text-muted">Giới tính</label>
                                 <div class="col-sm-10">
@@ -192,7 +190,7 @@
                             <div class="row">
                                 <label for="birth-date" class="col-form-label col-sm-2 text-muted">Ngày sinh</label>
                                 <div class="col-sm-10">
-                                    <input type="date" class="form-control-plaintext" id="birth-date"
+                                    <input type="date" class="form-control-plaintext" id="birth-date" name="birth-date"
                                            value="${sessionScope.birthDate != null ? sessionScope.birthDate : ''}"
                                            style="width: min-content;">
                                 </div>
@@ -441,45 +439,45 @@
     </div>
 </div>
 <script>
-    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
-    document.getElementById('save-password-btn').addEventListener('click', function (event) {
-        const newPassword = document.getElementById('new-password');
-        const newPasswordCheck = document.getElementById('new-password-check');
-        // Kiểm tra độ dài mật khẩu mới, có ít nhất 1 kí tự in hoa và số
-        const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
-        let isValid = true;
-        // Tạo tooltip tùy chỉnh cho mật khẩu mới
-        if (!passwordRegex.test(newPassword.value)) {
-            new bootstrap.Tooltip(newPassword, {
-                title: 'Mật khẩu phải chứa ít nhất 8 kí tự, bao gồm chữ viết hoa, số và kí tự đặc biệt',
-                placement: 'right',
-                trigger: 'manual',
-                customClass: 'tooltip-custom' // Thêm lớp tùy chỉnh
-            }).show();
-            isValid = false;
-        }
-        // Kiểm tra mật khẩu mới và mật khẩu nhập lại có khớp không
-        if (newPassword.value !== newPasswordCheck.value) {
-            new bootstrap.Tooltip(newPasswordCheck, {
-                title: 'Mật khẩu nhập lại không khớp với mật khẩu mới',
-                placement: 'right',
-                trigger: 'manual',
-                customClass: 'tooltip-custom'
-            }).show();
-            isValid = false;
-        }
-        if (!isValid) {
-            event.preventDefault();
-        } else {
-            bootstrap.Tooltip.getInstance(newPassword)?.hide();
-            bootstrap.Tooltip.getInstance(newPasswordCheck)?.hide();
-            const successModal = new bootstrap.Modal(document.getElementById('passwordChangeSuccessModal'));
-            successModal.show();
-        }
-        newPassword.addEventListener('input', () => bootstrap.Tooltip.getInstance(newPassword)?.hide());
-        newPasswordCheck.addEventListener('input', () => bootstrap.Tooltip.getInstance(newPasswordCheck)?.hide());
-    });
+    // const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    // const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+    // document.getElementById('save-password-btn').addEventListener('click', function (event) {
+    //     const newPassword = document.getElementById('new-password');
+    //     const newPasswordCheck = document.getElementById('new-password-check');
+    //     // Kiểm tra độ dài mật khẩu mới, có ít nhất 1 kí tự in hoa và số
+    //     const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+    //     let isValid = true;
+    //     // Tạo tooltip tùy chỉnh cho mật khẩu mới
+    //     if (!passwordRegex.test(newPassword.value)) {
+    //         new bootstrap.Tooltip(newPassword, {
+    //             title: 'Mật khẩu phải chứa ít nhất 8 kí tự, bao gồm chữ viết hoa, số và kí tự đặc biệt',
+    //             placement: 'right',
+    //             trigger: 'manual',
+    //             customClass: 'tooltip-custom' // Thêm lớp tùy chỉnh
+    //         }).show();
+    //         isValid = false;
+    //     }
+    //     // Kiểm tra mật khẩu mới và mật khẩu nhập lại có khớp không
+    //     if (newPassword.value !== newPasswordCheck.value) {
+    //         new bootstrap.Tooltip(newPasswordCheck, {
+    //             title: 'Mật khẩu nhập lại không khớp với mật khẩu mới',
+    //             placement: 'right',
+    //             trigger: 'manual',
+    //             customClass: 'tooltip-custom'
+    //         }).show();
+    //         isValid = false;
+    //     }
+    //     if (!isValid) {
+    //         event.preventDefault();
+    //     } else {
+    //         bootstrap.Tooltip.getInstance(newPassword)?.hide();
+    //         bootstrap.Tooltip.getInstance(newPasswordCheck)?.hide();
+    //         const successModal = new bootstrap.Modal(document.getElementById('passwordChangeSuccessModal'));
+    //         successModal.show();
+    //     }
+    //     newPassword.addEventListener('input', () => bootstrap.Tooltip.getInstance(newPassword)?.hide());
+    //     newPasswordCheck.addEventListener('input', () => bootstrap.Tooltip.getInstance(newPasswordCheck)?.hide());
+    // });
 
 
     function showValidationTooltips(fields) {
