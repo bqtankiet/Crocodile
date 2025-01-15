@@ -87,6 +87,7 @@ public class CheckoutController extends HttpServlet {
                 convertPaymentMethod(paymentMethod), Order.Status.PENDING);
 
         String action = request.getParameter("action");
+        System.out.println(action);
         if (order > 0 && "buySuccess".equals(action)) {
             String idBuys = request.getParameter("idBuys");
 
