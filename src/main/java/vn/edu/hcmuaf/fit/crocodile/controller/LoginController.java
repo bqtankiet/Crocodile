@@ -17,6 +17,8 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String forwardUrl = request.getParameter("forwardUrl");
+        request.setAttribute("forwardUrl", forwardUrl);
         request.getRequestDispatcher("/views/login.jsp").forward(request, response);
     }
 
@@ -28,6 +30,12 @@ public class LoginController extends HttpServlet {
         int userId = auth.login(username, password);
 
         if (userId != -1) {
+            if (userId == -2) {
+                request.setAttribute("errorMessage", "Tài khoản của bạn đã bị vô hiệu hóa.");
+                request.getRequestDispatcher("/views/login.jsp").forward(request, response);
+                return;
+            }
+
             UserDao userDao = new UserDaoImpl();
             Optional<User> optionalUser = userDao.findById(userId);
 
@@ -41,6 +49,11 @@ public class LoginController extends HttpServlet {
                 session.setAttribute("gender", user.getGender() != null ? user.getGender() : "");
                 session.setAttribute("phone", user.getPhoneNumber() != null ? user.getPhoneNumber() : "");
                 session.setAttribute("birthDate", user.getBirthdate());
+                session.setAttribute("role", user.getRole());
+
+                System.out.println(("role "+user.getRole()));
+                user.setPassword(null);
+                session.setAttribute("user", user);
 
                 String gender = user.getGender();
                 String genderDisplay = "";
@@ -54,8 +67,18 @@ public class LoginController extends HttpServlet {
                 }
 
                 session.setAttribute("gender", genderDisplay);
-
-                response.sendRedirect(request.getContextPath() + "/");
+                String forwardUrl = request.getParameter("forwardUrl");
+                if(forwardUrl != null && !forwardUrl.isBlank()) {
+                    request.getRequestDispatcher(forwardUrl).forward(request, response);
+                    return;
+                }
+                Optional<String> roleOpt = auth.checkRole(userId);
+                if (roleOpt.isPresent() && "1".equals(roleOpt.get())) {
+                    System.out.println(auth.checkRole(userId));
+                    response.sendRedirect(request.getContextPath() + "/admin");
+                } else {
+                    response.sendRedirect(request.getContextPath() + "/");
+                }
             } else {
                 request.setAttribute("errorMessage", "Không tìm thấy thông tin người dùng.");
                 request.getRequestDispatcher("/views/login.jsp").forward(request, response);
@@ -65,4 +88,5 @@ public class LoginController extends HttpServlet {
             request.getRequestDispatcher("/views/login.jsp").forward(request, response);
         }
     }
+
 }

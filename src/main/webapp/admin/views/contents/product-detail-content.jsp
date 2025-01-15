@@ -91,29 +91,31 @@
                         <div class="col-md-4">
                             <select style="width: max-content" class="form-select placement-dropdown"
                                     id="category-id" aria-label="" name="category">
-                                <option value="1">Ví nam</option>
-                                <option value="2">Ví nữ</option>
-                                <option value="3">Túi xách nam</option>
-                                <option value="4">Túi xách nữ</option>
-                                <option value="5">Túi đeo chéo</option>
-                                <option value="6">Balo</option>
-                                <option value="7">Vali</option>
-                                <option value="8">Thắt lưng</option>
-                                <option value="9">Áo khoác</option>
-                                <option value="10">Giày tây</option>
-                                <option value="11">Giày cao gót</option>
-                                <option value="12">Phụ kiện</option>
-                                <option value="13">Danh mục khác</option>
+                                <c:forEach var="c" items="${requestScope.categories}">
+                                    <option value="${c.id}">${c.name}</option>
+                                </c:forEach>
+<%--                                <option value="1">Ví nam</option>--%>
+<%--                                <option value="2">Ví nữ</option>--%>
+<%--                                <option value="3">Túi xách nam</option>--%>
+<%--                                <option value="4">Túi xách nữ</option>--%>
+<%--                                <option value="5">Túi đeo chéo</option>--%>
+<%--                                <option value="6">Balo</option>--%>
+<%--                                <option value="7">Vali</option>--%>
+<%--                                <option value="8">Thắt lưng</option>--%>
+<%--                                <option value="9">Áo khoác</option>--%>
+<%--                                <option value="10">Giày tây</option>--%>
+<%--                                <option value="11">Giày cao gót</option>--%>
+<%--                                <option value="12">Phụ kiện</option>--%>
+<%--                                <option value="13">Danh mục khác</option>--%>
                             </select>
                         </div>
                     </div>
 
                     <!-- Mô tả sản phẩm  -->
                     <div class="mb-3 row">
-                        <label for="product-description" class="col-md-2 col-form-label">Mô tả sản phẩm</label>
+                        <label for="descriptionCkeditor" class="col-md-2 col-form-label">Mô tả sản phẩm</label>
                         <div class="col-md-10">
-                            <textarea id="product-description" class="form-control" rows="7"
-                                      name="description"></textarea>
+                            <textarea id="descriptionCkeditor" class="form-control" rows="7" name="description"></textarea>
                         </div>
                     </div>
                 </div>
@@ -365,6 +367,11 @@
 
     <!-- ckfinder -->
     <script src="<c:url value="/public/ckfinder/ckfinder.js"/>"></script>
+    <!--  ckeditor  -->
+    <script src="<c:url value="/public/ckeditor/ckeditor.js"/> "></script>
+    <script>
+        CKEDITOR.replace('descriptionCkeditor');
+    </script>
 
     <!--  bootstrap  -->
     <script src="<c:url value="/public/bootstrap/js/bootstrap.bundle.js"/>"></script>

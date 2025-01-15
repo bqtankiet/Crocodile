@@ -68,9 +68,13 @@ public class ProductListController extends HttpServlet {
         //      ---------------  Search ---------------
         String keyWord = request.getParameter("key");
         if(keyWord!=null) {
-            List<Product> list = productService.searchProduct(keyWord);
-            list.forEach(System.out::println);
-            System.out.println("---------------------------------------------------------");
+//            List<Product> list = productService.searchProduct(keyWord);
+            List<Product> list = productService.searchProductsWithPagination(keyWord, page, 99);
+            request.removeAttribute("page");
+            request.removeAttribute("maxPage");
+            request.removeAttribute("productList");
+            request.removeAttribute("sortStrategy");
+            request.removeAttribute("category");
             request.setAttribute("listProductSearch", list);
         }
         //      ---------------  Search ---------------

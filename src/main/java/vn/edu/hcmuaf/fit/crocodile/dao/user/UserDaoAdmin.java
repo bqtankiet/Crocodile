@@ -1,6 +1,9 @@
 package vn.edu.hcmuaf.fit.crocodile.dao.user;
 
 import vn.edu.hcmuaf.fit.crocodile.config.JdbiConnect;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
+
+import java.util.List;
 
 public class UserDaoAdmin implements IUserDaoAdmin{
     @Override
@@ -12,5 +15,15 @@ public class UserDaoAdmin implements IUserDaoAdmin{
                         .bind("id", id)
                         .execute()
                 );
+    }
+
+    @Override
+    public List<User> getAllUser() {
+        String sql = "SELECT * FROM users";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+            handle.createQuery(sql)
+                    .mapToBean(User.class)
+                    .list()
+        );
     }
 }

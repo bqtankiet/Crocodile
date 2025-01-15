@@ -124,7 +124,8 @@
                         <c:url var="sortByDefault" value="<%=UrlProperties.productList()%>">
                             <c:param name="idCate" value="${requestScope.category.id}"/>
                         </c:url>
-                        <a class="btn custom-btn-primary ${empty param.sortBy ? 'custom-bg-primary text-white' : 'bg-white text-black'}" href="${sortByDefault}"> Mặc định </a>
+                        <c:set var="sortByIdName" value="<%=StrategySortByID.NAME%>"/>
+                        <a class="btn custom-btn-primary ${empty param.sortBy || param.sortBy == sortByIdName ? 'custom-bg-primary text-white' : 'bg-white text-black'}" href="${sortByDefault}"> Mặc định </a>
 
                         <c:url var="sortByCreateDate" value="<%=UrlProperties.productList()%>">
                             <c:param name="idCate" value="${requestScope.category.id}"/>
@@ -231,7 +232,7 @@
     </div>
 
     <!-- Pagination-->
-    <c:if test="${empty requestScope.productList}">
+    <c:if test="${not empty requestScope.productList}">
         <div class="container">
             <ul class="pagination pagination-lg justify-content-center m-5">
                 <c:url var="prev" value="<%=UrlProperties.productList()%>">

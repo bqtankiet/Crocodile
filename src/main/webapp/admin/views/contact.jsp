@@ -28,6 +28,9 @@
     <!-- Javascript  -->
     <script src="<c:url value="/admin/assets/vendor/js/helpers.js"/>"></script>
     <script src="<c:url value="/admin/assets/js/config.js"/>"></script>
+
+    <script src="<c:url value="/public/jquery-3.7.1.min.js"/>"></script>
+
   </head>
   <body>
   <div class="layout-wrapper layout-content-navbar">

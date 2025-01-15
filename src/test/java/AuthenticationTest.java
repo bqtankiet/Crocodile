@@ -3,39 +3,36 @@ import vn.edu.hcmuaf.fit.crocodile.service.AuthenticationService;
 
 public class AuthenticationTest {
     public static void main(String[] args) {
-//        AuthenticationService auth = new AuthenticationService();
-//
-//        System.out.println("===== Test =====");
-////        // Test với người dùng đã tồn tại
-////        String username = "admin";
-////        String correctPassword = "Admin@123";  // Mật khẩu đúng
-////        String wrongPassword = "incorrectPassword"; // Mật khẩu sai
-////
-////        // Test login với mật khẩu đúng
-////        int userId = auth.login(username, correctPassword);
-////        System.out.println("Login với mật khẩu đúng: " + (userId != -1 ? "Thành công (User ID: " + userId + ")" : "Thất bại"));
-////
-////        // Test login với mật khẩu sai
-////        int userId1 = auth.login(username, wrongPassword);
-////        System.out.println("Login với mật khẩu sai: " + (userId1 != -1 ? "Thành công (User ID: " + userId1 + ")" : "Thất bại"));
-////
-//        String unameTest = "admin";
-//        String passTest = "Admin@123";
-//
-////        User newUser = new User();
-//
-//        newUser.setUsername(unameTest);
-//        newUser.setPassword(passTest);
-//
-////        int signup = auth.signup(newUser); // Đăng ký người dùng mới
-////        System.out.println("Đăng ký tk danganhkiet:  " + (signup != -1 ? "Thành công (User ID: " + signup + ")" : "Thất bại"));
-//
-//        int login = auth.login(unameTest, passTest);
-//        System.out.println("Login tk danganhkiet: " + (login != -1 ? "Thành công (User ID: " + login + ")" : "Thất bại"));
-//
-////        int dak = auth.login("dak", "dak");
-////        // Kiểm tra đăng nhập lại với thông tin người dùng mới
-//////        int newUserLoginId = auth.login(username1, password1);
-////        System.out.println("Login với người dùng mới: " + (dak != -1 ? "Thành công (User ID: " + dak + ")" : "Thất bại"));
+        // Khởi tạo AuthenticationService
+        AuthenticationService authService = new AuthenticationService();
+
+        // Giả lập userId của người dùng
+        int userId = 8;  // Giả sử user có ID là 1
+
+        // Giả lập mật khẩu hiện tại và mật khẩu mới
+        String currentPassword = "ad";  // Mật khẩu hiện tại (đã được băm trong DB)
+        String newPassword = "newPassword123";   // Mật khẩu mới
+        String confirmPassword = "newPassword123"; // Mật khẩu xác nhận
+
+        // Kiểm tra mật khẩu hiện tại có đúng không
+        boolean isCurrentPasswordCorrect = authService.checkCurrentPassword(userId, currentPassword);
+
+        if (isCurrentPasswordCorrect) {
+            // Kiểm tra mật khẩu mới và xác nhận mật khẩu có khớp không
+            if (newPassword.equals(confirmPassword)) {
+                // Cập nhật mật khẩu mới
+                boolean isPasswordUpdated = authService.updatePassword(userId, newPassword);
+
+                if (isPasswordUpdated) {
+                    System.out.println("Mật khẩu đã được thay đổi thành công!");
+                } else {
+                    System.out.println("Có lỗi xảy ra khi cập nhật mật khẩu.");
+                }
+            } else {
+                System.out.println("Mật khẩu mới và mật khẩu xác nhận không khớp.");
+            }
+        } else {
+            System.out.println("Mật khẩu hiện tại không đúng.");
+        }
     }
 }

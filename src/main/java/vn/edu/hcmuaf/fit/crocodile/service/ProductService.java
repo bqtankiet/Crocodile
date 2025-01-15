@@ -111,4 +111,12 @@ public class ProductService {
     public List<Product> getTopSellingProductsOfCategory(int topN, int days, int idCategory) {
         return productDao.getTopSellingProductsOfCategory(topN, days, idCategory);
     }
+
+    public List<Product> searchProductsWithPagination(String keyword, int page, int size){
+        return productDao.searchProductsWithPagination(keyword, page, size);
+    }
+
+    public int deleteProduct(int id) {
+        return productDaoAdmin.deleteProduct(id);
+    }
 }

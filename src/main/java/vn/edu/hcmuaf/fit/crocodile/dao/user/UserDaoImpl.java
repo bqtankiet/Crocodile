@@ -1,77 +1,88 @@
 package vn.edu.hcmuaf.fit.crocodile.dao.user;
 
-import org.jdbi.v3.core.Jdbi;
 import vn.edu.hcmuaf.fit.crocodile.config.JdbiConnect;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.Address;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.Order;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
-import vn.edu.hcmuaf.fit.crocodile.service.AuthenticationService;
-import vn.edu.hcmuaf.fit.crocodile.util.HashUtil;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 public class UserDaoImpl implements UserDao {
-
-//    // ------------------------ Begin admin method ------------------------
-//    @Override
-//    public List<User> getAllUser() {
-//        String sql = "select * from user where role = 0";
-//        return JdbiConnect.getJdbi().withHandle(handle ->
-//                handle.createQuery(sql)
-//                        .mapToBean(User.class)
-//                        .list()
-//        );
-//
-//    }
-    // ------------------------ End admin method ------------------------
-
     @Override
     public Optional<User> findById(int id) {
-        String query = "select * from users where id = :id ";
-        return JdbiConnect.getJdbi().withHandle(
-                handle ->
-                        handle.createQuery(query)
-                                .bind("id", id)
-                                .mapToBean(User.class)
-                                .findFirst()
+        String query = "SELECT * FROM users WHERE id = :id";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(query)
+                        .bind("id", id)
+                        .mapToBean(User.class)
+                        .findFirst() // Nếu không tìm thấy người dùng, trả về Optional.empty()
         );
     }
 
     @Override
     public Optional<User> findByUsername(String username) {
-        String query = "select * from users where username = :username";
-        return JdbiConnect.getJdbi().withHandle(
-                handle ->
-                        handle.createQuery(query)
-                                .bind("username", username)
-                                .mapToBean(User.class)
-                                .findOne()
+        String query = "SELECT * FROM users WHERE username = :username";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(query)
+                        .bind("username", username)
+                        .mapToBean(User.class)
+                        .findOne()
         );
     }
 
     @Override
+    public Optional<String> getUserRoleById(int id) {
+        String query = "SELECT role FROM users WHERE id = :id";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(query)
+                        .bind("id", id)
+                        .mapTo(String.class)
+                        .findFirst()
+        );
+    }
+
+    @Override
+    public boolean checkActive(int userId) {
+        String query = "SELECT active FROM users WHERE id = :id";
+        Integer active = JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(query)
+                        .bind("id", userId)
+                        .mapTo(Integer.class)
+                        .findFirst()
+                        .orElse(0)
+        );
+
+        return active != null && active == 1;
+    }
+
+
+    @Override
     public void update(User user) {
-        String query = "UPDATE users SET fullname = :fullname, email = :email, phoneNumber = :phoneNumber, gender = :gender, birthdate = :birthdate WHERE username = :username";
+        String query = "UPDATE users SET fullname = :fullname, email = :email, phoneNumber = :phoneNumber, " +
+                "gender = :gender, birthdate = :birthdate WHERE id = :id";
+
         JdbiConnect.getJdbi().withHandle(handle ->
                 handle.createUpdate(query)
-                        .bind("username", user.getUsername())
                         .bind("fullname", user.getFullname())
                         .bind("email", user.getEmail())
                         .bind("phoneNumber", user.getPhoneNumber())
                         .bind("gender", user.getGender())
                         .bind("birthdate", user.getBirthdate())
+                        .bind("id", user.getId())
                         .execute()
         );
     }
 
     @Override
     public Optional<User> findByEmail(String email) {
-        String query = "select * from users where email = :email";
-        return JdbiConnect.getJdbi().withHandle(
-                handle ->
-                        handle.createQuery(query)
-                                .bind("email", email)
-                                .mapToBean(User.class)
-                                .findOne()
+        String query = "SELECT * FROM users WHERE email = :email";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(query)
+                        .bind("email", email)
+                        .mapToBean(User.class)
+                        .findOne()
         );
     }
 
@@ -86,6 +97,45 @@ public class UserDaoImpl implements UserDao {
         );
     }
 
+    @Override
+    public void addAddress(Address address) {
+        String query = "INSERT INTO addresses (userId, fullname, phoneNumber, province, district, ward, street) " +
+                "VALUES (:userId, :fullname, :phoneNumber, :province, :district, :ward, :street)";
+        JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createUpdate(query)
+                        .bind("userId", address.getUserId())
+                        .bind("fullname", address.getFullname())
+                        .bind("phoneNumber", address.getPhoneNumber())
+                        .bind("province", address.getProvince())
+                        .bind("district", address.getDistrict())
+                        .bind("ward", address.getWard())
+                        .bind("street", address.getStreet())
+                        .execute()
+        );
+    }
+
+    @Override
+    public List<Order> getOrdersByUserId(int userId) {
+        String query = "SELECT * FROM orders WHERE idUser = :idUser";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(query)
+                        .bind("idUser", userId)
+                        .mapToBean(Order.class)
+                        .list()
+        );
+    }
+
+
+    @Override
+    public List<Address> getAddressesByUserId(int userId) {
+        String query = "SELECT * FROM addresses WHERE userId = :userId";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(query)
+                        .bind("userId", userId)
+                        .mapToBean(Address.class)
+                        .list()
+        );
+    }
 
     @Override
     public int create(User user) {
@@ -93,7 +143,6 @@ public class UserDaoImpl implements UserDao {
         if (existingUser.isPresent()) {
             throw new IllegalArgumentException("Tài khoản đã tồn tại.");
         }
-
 
         String query = "INSERT INTO users (username, password, fullname, email, phoneNumber, gender, birthdate) " +
                 "VALUES (:username, :password, :fullname, :email, :phoneNumber , :gender, :dateOfBirth)";
@@ -112,5 +161,4 @@ public class UserDaoImpl implements UserDao {
                         .one()
         );
     }
-
 }

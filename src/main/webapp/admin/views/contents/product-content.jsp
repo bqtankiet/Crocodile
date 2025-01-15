@@ -72,8 +72,11 @@
                                         <div class="dropdown-menu">
                                             <a class="dropdown-item" href="javascript:void(0);"><i
                                                     class="bx bx-edit-alt me-1"></i> Chỉnh sửa</a>
-                                            <a class="dropdown-item" href="javascript:void(0);"><i
-                                                    class="bx bx-trash me-1"></i> Xóa</a>
+<%--                                            <a class="dropdown-item" href="javascript:void(0);"><i--%>
+<%--                                                    class="bx bx-trash me-1"></i> Xóa</a>--%>
+                                            <button class="dropdown-item btn-delete" data-id="${p.id}">
+                                                <i class="bx bx-trash me-1"></i> Xóa
+                                            </button>
                                         </div>
                                     </div>
                                 </td>
@@ -91,3 +94,36 @@
     </div>
     <!-- Content wrapper -->
 </div>
+
+<c:url var="delProductUrl" value="<%= UrlProperties.deleteProduct()%>"/>
+<%--<c:url var="delProductUrl" value="/hello-word"/>--%>
+
+<script>
+    $(document).on('click', '.btn-delete', function (event) {
+        event.preventDefault();
+
+        const deleteButton = $(this);
+        const productId = deleteButton.data('id');
+
+        if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) {
+            $.ajax({
+                url: "${delProductUrl}",
+                type: "POST",
+                data: { id: productId },
+                success: function (response) {
+                    alert("Sản phẩm đã được xóa thành công!");
+                    deleteButton.closest("tr").remove();
+                },
+                error: function (xhr, status, error) {
+                    if (xhr.status === 404) {
+                        alert("Không tìm thấy endpoint " + "${delProductUrl}");
+                    } else {
+                        alert("Đã xảy ra lỗi khi xóa. Vui lòng thử lại.");
+                    }
+                    console.error("Error:", error);
+                }
+            });
+        }
+    });
+
+</script>

@@ -4,7 +4,9 @@ import vn.edu.hcmuaf.fit.crocodile.config.JdbiConnect;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Product;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Product.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 public class ProductDao implements IProductDao {
     @Override
@@ -342,6 +344,52 @@ public class ProductDao implements IProductDao {
                     .list()
         );
     }
+
+    public List<Product> searchProductsWithPagination(String keyWord, int page, int size) {
+        // Sử dụng StringTokenizer để tách từ khóa thành các từ
+        StringTokenizer tokenizer = new StringTokenizer(keyWord);
+        List<String> words = new ArrayList<>();
+        while (tokenizer.hasMoreTokens()) {
+            words.add(tokenizer.nextToken());
+        }
+
+        // Xây dựng câu điều kiện LIKE động
+        StringBuilder whereClause = new StringBuilder();
+        for (int i = 0; i < words.size(); i++) {
+            whereClause.append("`name` LIKE :word").append(i);
+            if (i < words.size() - 1) {
+                whereClause.append(" AND ");
+            } else {
+                whereClause.append("\n");
+            }
+        }
+
+        // Tạo câu truy vấn SQL
+        String sql = """
+        SELECT *
+        FROM products
+        WHERE """ + whereClause + """
+        ORDER BY id
+        LIMIT :size OFFSET :offset
+        """;
+
+        // Sử dụng JDBI để thực thi truy vấn
+        return JdbiConnect.getJdbi().withHandle(handle -> {
+            var query = handle.createQuery(sql);
+
+            // Gắn giá trị cho từng tham số động
+            for (int i = 0; i < words.size(); i++) {
+                query.bind("word" + i, "%" + words.get(i) + "%");
+            }
+
+            // Gắn các tham số phân trang
+            query.bind("offset", (page - 1) * size)
+                    .bind("size", size);
+
+            return query.mapToBean(Product.class).list();
+        });
+    }
+
 
     // ------------------------ em khoi test ----------------------------
 }

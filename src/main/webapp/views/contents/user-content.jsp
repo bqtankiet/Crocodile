@@ -21,6 +21,18 @@
         cursor: pointer;
     }
 
+    .card-custom {
+        border-radius: 8px; /* Viền tròn cho các thẻ */
+        box-shadow: 0 4px 8px rgba(0, 128, 0, 0.2); /* Bóng xanh lá nhẹ */
+        transition: transform 0.2s ease-in-out; /* Hiệu ứng chuyển động khi hover */
+    }
+
+    .card-custom:hover {
+        transform: scale(1.03); /* Khi hover, thẻ sẽ phóng to một chút */
+        box-shadow: 0 8px 16px rgba(0, 128, 0, 0.4); /* Bóng đậm hơn khi hover */
+    }
+
+
     .tooltip-custom .tooltip-inner {
         background-color: white; /* Màu nền nhạt hơn */
         color: black; /* Màu chữ nổi bật */
@@ -51,22 +63,11 @@
                             </div>
                         </div>
                     </div>
-                    <%--                    <c:choose>--%>
-                    <%--                        <c:when test="${not empty sessionScope.userName && not empty sessionScope.fullName}">--%>
                     <div class="col d-flex flex-column gap-1 justify-content-center">
                         <!-- Hiển thị fullName và userName từ session -->
                         <div class="fw-bold text-capitalize">${sessionScope.fullName}</div>
                         <div class="text-muted">#${sessionScope.userName}</div>
                     </div>
-                    <%--                        </c:when>--%>
-                    <%--                        <c:otherwise>--%>
-                    <%--                            <!-- Hiển thị nếu chưa đăng nhập -->--%>
-                    <%--                            <div class="col d-flex flex-column gap-1 justify-content-center">--%>
-                    <%--                                <div class="fw-bold text-capitalize">Chưa đăng nhập</div>--%>
-                    <%--                                <div class="text-muted">#N/A</div>--%>
-                    <%--                            </div>--%>
-                    <%--                        </c:otherwise>--%>
-                    <%--                    </c:choose>--%>
 
                 </div>
                 <div>
@@ -145,20 +146,18 @@
                             <div class="row">
                                 <label for="fullname" class="col-form-label col-sm-2 text-muted">Họ và tên</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="fullname"
+                                    <input type="text" class="form-control" id="fullname" name="fullname"
                                            value="${sessionScope.fullName != null ? sessionScope.fullName : ''}">
-
                                 </div>
                             </div>
                             <div class="row">
                                 <label for="email" class="col-form-label col-sm-2 text-muted">Email</label>
                                 <div class="col-sm-10 d-flex align-items-center">
-                                    <input type="text" readonly class="form-control-plaintext" id="email"
+                                    <input type="text" class="form-control" id="email" name="email"
                                            value="${sessionScope.email != null ? sessionScope.email : ''}">
-                                    <a href="" class="text-nowrap" data-bs-toggle="modal"
-                                       data-bs-target="#modal-edit-email">Thay đổi</a>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <label class="col-form-label col-sm-2 text-muted">Giới tính</label>
                                 <div class="col-sm-10">
@@ -192,7 +191,7 @@
                             <div class="row">
                                 <label for="birth-date" class="col-form-label col-sm-2 text-muted">Ngày sinh</label>
                                 <div class="col-sm-10">
-                                    <input type="date" class="form-control-plaintext" id="birth-date"
+                                    <input type="date" class="form-control-plaintext" id="birth-date" name="birth-date"
                                            value="${sessionScope.birthDate != null ? sessionScope.birthDate : ''}"
                                            style="width: min-content;">
                                 </div>
@@ -208,12 +207,13 @@
                             <h4 class="fw-semibold">Thay đổi mật khẩu </h4>
                             <hr class="text-light">
                         </div>
-                        <form class="d-flex flex-column gap-4">
+                        <form action="<c:url value="/password-change"/>" method="POST" class="d-flex flex-column gap-4">
                             <div class="row">
                                 <label for="current-password" class="col-form-label text-muted">Mật khẩu hiện
                                     tại</label>
                                 <div class="col-12">
-                                    <input type="password" class="form-control" id="current-password" value="password">
+                                    <input type="password" class="form-control" id="current-password"
+                                           name="current-password" required>
                                 </div>
                             </div>
                             <div class="row">
@@ -224,7 +224,8 @@
                                           data-bs-placement="right">*</span>
                                 </label>
                                 <div class="col-12">
-                                    <input type="password" class="form-control" id="new-password" value="">
+                                    <input type="password" class="form-control" id="new-password" name="new-password"
+                                           required>
                                 </div>
                             </div>
                             <div class="row">
@@ -234,42 +235,31 @@
                                           data-bs-title="Mật khẩu phải khớp với mật khẩu mới" data-bs-placement="right">*</span>
                                 </label>
                                 <div class="col-12">
-                                    <input type="password" class="form-control" id="new-password-check" value="">
+                                    <input type="password" class="form-control" id="new-password-check"
+                                           name="new-password-check" required>
                                 </div>
                             </div>
                             <button type="submit" id="save-password-btn"
                                     class="btn custom-btn-primary btn-block w-100 p-2 ms-auto "
                                     style="width: max-content">Lưu
                             </button>
+                            <c:if test="${not empty requestScope.success}">
+                                <div class="alert alert-success">${requestScope.success}</div>
+                            </c:if>
+                            <c:if test="${not empty requestScope.fail}">
+                                <div class="alert alert-danger">${requestScope.fail}</div>
+                            </c:if>
                         </form>
-                        <div class="modal fade" id="passwordChangeSuccessModal" tabindex="-1"
-                             aria-labelledby="passwordChangeSuccessModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content p-2">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="passwordChangeSuccessModalLabel">Thông báo</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Thay đổi mật khẩu thành công!
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Đóng
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
+
                     <div class="tab-pane fade" id="account-address">
                         <div class="card-body pb-2">
                             <div class="form-group">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h4 class="fw-semibold">Địa chỉ của tôi</h4>
                                     <button type="button" class="btn custom-btn-primary btn-block p-2 mb-3"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#newAddressModal">+ Thêm địa chỉ mới
+                                            data-bs-toggle="modal" data-bs-target="#newAddressModal">
+                                        + Thêm địa chỉ mới
                                     </button>
                                 </div>
                                 <div style="height: 1px; background-color: #dbdbdb; width: 100%"></div>
@@ -278,349 +268,188 @@
                         <hr class="border-light m-0">
                         <div class="card-body pb-2">
                             <h6 class="mb-4">Địa Chỉ</h6>
-                            <div id="addressList">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="account-purchase-order">
-                        <div class="tab-header">
-                            <h4 class="fw-semibold">Đơn mua </h4>
-                            <hr>
-                        </div>
-                        <div class="tab-body d-grid gap-4">
-                            <div class="order-item p-3 bg-secondary-subtle">
-                                <div class="order-info d-flex">
-                                    <div>
-                                        <span class="order-id">2406069WHSDP56</span>
-                                        <span class="px-2">-</span>
-                                        <span class="order-date col">
-                                        10:22 01/01/2024
-                                    </span>
-                                    </div>
-                                    <div class="order-status ms-auto">
-                                        <span class="badge text-bg-danger">Hoàn thành</span>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="order-product row g-0">
-                                    <div class="col-2 me-3 position-relative" style="width: 5em;">
-                                        <div class="ratio ratio-1x1">
-                                            <img src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg"
-                                                 class="img-fluid border rounded-2" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="col lh-1 my-auto">
-                                        <div class="w-100">
-                                            <div class="d-flex align-items-center">
-                                                <div class="me-2">
-                                                    <p class="fw-semibold mb-0 line-clamp-2"
-                                                       style="height: fit-content ;max-height: 2.5rem; line-height: 1.2">
-                                                        Ví gấp nam da cá sấu V7068
-                                                    </p>
-                                                    <p class="text-muted mt-1 mb-0">Da trơn</p>
-                                                </div>
-                                                <div class="ms-auto fw-medium fs-6">1.100.000<sup>₫</sup> × 1</div>
+                            <div id="addressList" class="row">
+                                <!-- Hiển thị danh sách địa chỉ -->
+                                <c:forEach var="address" items="${requestScope.addressList}">
+                                    <div class="col-md-6 col-lg-4 mb-4">
+                                        <div class="card card-custom border shadow-sm h-100">
+                                            <!-- Thêm class card-custom -->
+                                            <div class="card-body">
+                                                <h6 class="fw-bold">${address.fullname}</h6>
+                                                <p class="mb-1">${address.street}, ${address.ward}, ${address.district}, ${address.province}</p>
+                                                <p class="mb-1">Số điện thoại: ${address.phoneNumber}</p>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <hr>
-                                <div class="order-total">
-                                    <div class="text-end">
-                                        Thành tiền:
-                                        <span class="fw-medium text-danger fs-5">1.100.000₫</span>
+                                </c:forEach>
+
+                                <!-- Hiển thị thông báo nếu không có địa chỉ -->
+                                <c:if test="${not empty requestScope.message}">
+                                    <div class="col-12">
+                                        <div class="alert alert-info">${requestScope.message}</div>
                                     </div>
-                                </div>
+                                </c:if>
                             </div>
                         </div>
                     </div>
+
+
+                    <!-- hiển thị thông tin đơn hàng (order) -->
+                    <div class="tab-pane fade" id="account-purchase-order">
+                        <div class="card-body pb-2">
+                            <div class="form-group">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h4 class="fw-semibold">Đơn Hàng</h4>
+                                </div>
+                                <div style="height: 1px; background-color: #dbdbdb; width: 100%"></div>
+                            </div>
+                            <h6 class="mb-4 mt-3">Danh sách đơn hàng</h6>
+                            <div id="ordersList" class="row">
+                                <!-- Hiển thị danh sách đơn hàng -->
+                                <c:forEach var="order" items="${ordersList}">
+                                    <div class="col-md-6 col-lg-4 mb-4">
+                                        <div class="card card-custom border shadow-sm h-100">
+                                            <!-- Thêm class card-custom -->
+                                            <div class="card-body">
+                                                <h6 class="fw-bold">Mã đơn hàng: ${order.id}</h6>
+                                                <p class="mb-1"><strong>Ngày tạo:</strong> ${order.invoiceDate}</p>
+                                                <p class="mb-1"><strong>Phương thức thanh
+                                                    toán:</strong> ${order.paymentMethod}</p>
+                                                <p class="mb-1"><strong>Tổng tiền:</strong> ${order.total} VNĐ</p>
+                                                <p class="mb-1">
+                                                    <strong>Trạng thái:</strong>
+                                                    <c:choose>
+                                                        <c:when test="${order.status == 'PENDING'}">Chờ xử lý</c:when>
+                                                        <c:when test="${order.status == 'PROCESSING'}">Đang xử lý</c:when>
+                                                        <c:when test="${order.status == 'COMPLETED'}">Hoàn thành</c:when>
+                                                        <c:when test="${order.status == 'CANCELLED'}">Đã hủy</c:when>
+                                                        <c:when test="${order.status == 'AWAITING'}">Đang chờ</c:when>
+                                                        <c:otherwise>Không xác định</c:otherwise>
+                                                    </c:choose>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:forEach>
+
+                                <!-- Nếu không có đơn hàng -->
+                                <c:if test="${empty ordersList}">
+                                    <div class="col-12">
+                                        <div class="alert alert-info">Không có đơn hàng nào.</div>
+                                    </div>
+                                </c:if>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--######### MODAL ########-->
+    <!-- Modal edit phone -->
+    <div class="modal fade" tabindex="-1" id="modal-edit-phone">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Chỉnh sửa số điện thoại</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" id="form-edit-phone">
+                        <label for="edit-phone">Số điện thoại mới</label>
+                        <input type="tel" autocomplete="none" name="edit-phone" id="edit-phone" class="form-control">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quay lại</button>
+                    <button type="submit" form="form-edit-phone" class="btn custom-btn-primary">Lưu thay đổi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal edit email -->
+    <div class="modal fade" tabindex="-1" id="modal-edit-email">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Chỉnh sửa email</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" id="form-edit-email">
+                        <label for="edit-email">Nhập email mới</label>
+                        <input type="tel" autocomplete="none" name="edit-email" id="edit-email" class="form-control">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quay lại</button>
+                    <button type="submit" form="form-edit-email" class="btn custom-btn-primary">Lưu thay đổi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Address -->
+    <div class="modal fade" tabindex="-1" id="newAddressModal" data-bs-backdrop="static"
+         data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-2">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Nhập địa chỉ mới</h1>
+                </div>
+                <div class="modal-body">
+                    <form action="<c:url value="/address"/>" method="post" class="d-flex flex-column gap-3"
+                          id="newAddressForm">
+                        <div class="row">
+                            <div class="col-6 form-group">
+                                <input class="form-control" id="name" name="name"
+                                       placeholder="Nhập họ và tên" aria-label="">
+                            </div>
+                            <div class="col-6 form-group">
+                                <input type="text" class="form-control" id="phone" name="phone"
+                                       placeholder="Nhập số điện thoại" aria-label="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" id="city" name="cityName" autocomplete="off"
+                                   list="cityList"
+                                   placeholder="Nhập tỉnh/thành phố" aria-label="">
+                            <datalist id="cityList"></datalist>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" id="district" name="districtName"
+                                   autocomplete="off"
+                                   list="districtList"
+                                   placeholder="Nhập quận/huyện" aria-label="">
+                            <datalist id="districtList"></datalist>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="ward" name="wardName"
+                                   autocomplete="off"
+                                   list="wardList"
+                                   placeholder="Nhập phường/xã" aria-label="">
+                            <datalist id="wardList"></datalist>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="soNha" name="soNha"
+                                   autocomplete="off"
+                                   placeholder="Nhập địa chỉ cụ thể" aria-label="">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" id="submitAddess" class="btn btn-success" form="newAddressForm">
+                                Hoàn thành
+                            </button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                Quay lại
+                            </button>
+                        </div>
+                        <c:if test="${not empty requestScope.errorMessage}">
+                            <div class="alert alert-danger">${requestScope.errorMessage}</div>
+                        </c:if>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!--######### MODAL ########-->
-<!-- Modal edit phone -->
-<div class="modal fade" tabindex="-1" id="modal-edit-phone">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Chỉnh sửa số điện thoại</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="" id="form-edit-phone">
-                    <label for="edit-phone">Số điện thoại mới</label>
-                    <input type="tel" autocomplete="none" name="edit-phone" id="edit-phone" class="form-control">
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quay lại</button>
-                <button type="submit" form="form-edit-phone" class="btn custom-btn-primary">Lưu thay đổi</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Modal edit email -->
-<div class="modal fade" tabindex="-1" id="modal-edit-email">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Chỉnh sửa email</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="" id="form-edit-email">
-                    <label for="edit-email">Nhập email mới</label>
-                    <input type="tel" autocomplete="none" name="edit-email" id="edit-email" class="form-control">
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quay lại</button>
-                <button type="submit" form="form-edit-email" class="btn custom-btn-primary">Lưu thay đổi</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Modal Address -->
-<div class="modal fade" tabindex="-1" id="newAddressModal" data-bs-backdrop="static"
-     data-bs-keyboard="false">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content p-2">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Nhập địa chỉ mới</h1>
-            </div>
-            <div class="modal-body">
-                <form action="" class="d-flex flex-column gap-3" id="newAddressForm">
-                    <div class="row">
-                        <div class="col-6 form-group">
-                            <input class="form-control" id="name" name="name"
-                                   placeholder="Nhập họ và tên" aria-label="">
-                        </div>
-                        <div class="col-6 form-group">
-                            <input type="text" class="form-control" id="phone" name="phone"
-                                   placeholder="Nhập số điện thoại" aria-label="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" id="city" name="cityName" autocomplete="off"
-                               list="cityList"
-                               placeholder="Nhập tỉnh/thành phố" aria-label="">
-                        <datalist id="cityList"></datalist>
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" id="district" name="districtName"
-                               autocomplete="off"
-                               list="districtList"
-                               placeholder="Nhập quận/huyện" aria-label="">
-                        <datalist id="districtList"></datalist>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="ward" name="wardName"
-                               autocomplete="off"
-                               list="wardList"
-                               placeholder="Nhập phường/xã" aria-label="">
-                        <datalist id="wardList"></datalist>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="soNha" name="soNha"
-                               autocomplete="off"
-                               placeholder="Nhập địa chỉ cụ thể" aria-label="">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" id="submitAddess" class="btn btn-success" form="newAddressForm">
-                    Hoàn thành
-                </button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    Quay lại
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-<script>
-    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
-    document.getElementById('save-password-btn').addEventListener('click', function (event) {
-        const newPassword = document.getElementById('new-password');
-        const newPasswordCheck = document.getElementById('new-password-check');
-        // Kiểm tra độ dài mật khẩu mới, có ít nhất 1 kí tự in hoa và số
-        const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
-        let isValid = true;
-        // Tạo tooltip tùy chỉnh cho mật khẩu mới
-        if (!passwordRegex.test(newPassword.value)) {
-            new bootstrap.Tooltip(newPassword, {
-                title: 'Mật khẩu phải chứa ít nhất 8 kí tự, bao gồm chữ viết hoa, số và kí tự đặc biệt',
-                placement: 'right',
-                trigger: 'manual',
-                customClass: 'tooltip-custom' // Thêm lớp tùy chỉnh
-            }).show();
-            isValid = false;
-        }
-        // Kiểm tra mật khẩu mới và mật khẩu nhập lại có khớp không
-        if (newPassword.value !== newPasswordCheck.value) {
-            new bootstrap.Tooltip(newPasswordCheck, {
-                title: 'Mật khẩu nhập lại không khớp với mật khẩu mới',
-                placement: 'right',
-                trigger: 'manual',
-                customClass: 'tooltip-custom' // Thêm lớp tùy chỉnh
-            }).show();
-            isValid = false;
-        }
-        if (!isValid) {
-            event.preventDefault(); // Ngăn không cho gửi form nếu không hợp lệ
-        } else {
-            // Ẩn các tooltip khi hợp lệ
-            bootstrap.Tooltip.getInstance(newPassword)?.hide();
-            bootstrap.Tooltip.getInstance(newPasswordCheck)?.hide();
-            // Hiển thị modal thành công
-            const successModal = new bootstrap.Modal(document.getElementById('passwordChangeSuccessModal'));
-            successModal.show();
-        }
-        // Ẩn tooltip khi người dùng bắt đầu chỉnh sửa lại
-        newPassword.addEventListener('input', () => bootstrap.Tooltip.getInstance(newPassword)?.hide());
-        newPasswordCheck.addEventListener('input', () => bootstrap.Tooltip.getInstance(newPasswordCheck)?.hide());
-    });
-    // Danh sách các địa chỉ mẫu
-    const sampleAddresses = [
-        {
-            name: "Đặng Anh Kiệt",
-            phone: "22130133",
-            city: "TP Hồ Chí Minh",
-            district: "Thủ Đức",
-            ward: "Phường Long Thạnh Mỹ",
-            soNha: "54/2 đường số 2D"
-        },
-        {
-            name: "Bùi Quang Tấn Kiệt",
-            phone: "22130132",
-            city: "Đồng Nai",
-            district: "Biên Hoà",
-            ward: "...",
-            soNha: "Số 88, Đường Nguyễn Huệ"
-        },
-        {
-            name: "Đặng Minh Khôi",
-            phone: "22130126",
-            city: "TP Hồ Chí Minh",
-            district: "Thủ Đức",
-            ward: "Phường Linh Trung",
-            soNha: "Số 26, KTX khu A"
-        }
-    ];
-
-    // Hàm hiển thị một địa chỉ
-    function renderAddress(address) {
-        const addressList = document.getElementById('addressList');
-        const newAddress = document.createElement('div');
-        newAddress.className = 'card mb-3 p-3';
-        newAddress.innerHTML = `
-        <h6 class="fw-bold">${address.name}</h6>
-        <p>Số điện thoại: ${address.phone}</p>
-        <p>Địa chỉ: ${address.soNha}, ${address.ward}, Thành Phố ${address.district}, ${address.city}</p>
-        <button class="btn custom-btn-primary btn-sm mt-2" onclick="removeAddress(this)">Xóa</button>
-    `;
-        addressList.appendChild(newAddress);
-    }
-
-    // Hàm để hiển thị danh sách địa chỉ mẫu
-    function loadSampleAddresses() {
-        sampleAddresses.forEach(address => {
-            renderAddress(address);
-        });
-    }
-
-    // Hàm xử lý sự kiện thêm địa chỉ mới
-    document.getElementById('newAddressForm').addEventListener('submit', function (event) {
-        event.preventDefault(); // Ngăn chặn hành động mặc định của form
-        // Lấy dữ liệu từ các input trong form
-        const name = document.getElementById('name').value.trim();
-        const phone = document.getElementById('phone').value.trim();
-        const city = document.getElementById('city').value.trim();
-        const district = document.getElementById('district').value.trim();
-        const ward = document.getElementById('ward').value.trim();
-        const soNha = document.getElementById('soNha').value.trim();
-        // Kiểm tra dữ liệu nhập
-        if (!name || !phone || !city || !district || !ward || !soNha) {
-            // Hiển thị tooltip trên các trường bị thiếu
-            showValidationTooltips({name, phone, city, district, ward, soNha});
-            return;
-        }
-        // Tạo một đối tượng địa chỉ mới
-        const newAddress = {
-            name,
-            phone,
-            city,
-            district,
-            ward,
-            soNha
-        };
-        // Hiển thị địa chỉ mới trong danh sách
-        renderAddress(newAddress);
-        // Đóng modal sau khi thêm địa chỉ
-        const modal = bootstrap.Modal.getInstance(document.getElementById('newAddressModal'));
-        modal.hide();
-        // Reset form
-        document.getElementById('newAddressForm').reset();
-    });
-
-    // Hàm để hiển thị tooltip trên các trường bị thiếu
-    function showValidationTooltips(fields) {
-        Object.keys(fields).forEach(key => {
-            const value = fields[key];
-            const inputElement = document.getElementById(key);
-            if (!value) {
-                // Gắn tooltip vào các trường bị thiếu
-                const tooltip = new bootstrap.Tooltip(inputElement, {
-                    title: 'Vui lòng nhập thông tin này!',
-                    placement: 'top',
-                    trigger: 'manual',
-                    customClass: 'tooltip-custom'
-                });
-                tooltip.show();
-                // Ẩn tooltip sau 3 giây
-                setTimeout(() => {
-                    tooltip.dispose();
-                }, 3000);
-                inputElement.classList.add('is-invalid');
-            } else {
-                inputElement.classList.remove('is-invalid');
-            }
-        });
-    }
-
-    // Hàm để xóa địa chỉ
-    function removeAddress(button) {
-        const addressCard = button.parentElement;
-        addressCard.remove();
-    }
-
-    // Gọi hàm để tải danh sách địa chỉ mẫu khi trang tải xong
-    document.addEventListener('DOMContentLoaded', loadSampleAddresses);
-
-    function getAuthorizationCode() {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get('code');
-
-    }
-
-    async function
-    updateUserInfo() {
-        const authorizationCode = getAuthorizationCode();
-        if (authorizationCode) {
-            try {
-                let response = await fetch(`/signup?code=${authorizationCode}`);
-                let userInfo = await response.json(); // Cập nhật thông tin người dùng lên form
-                document.getElementById('email').value = userInfo.email;
-            } catch (error) {
-                console.error('Error fetching user info:', error);
-            }
-        }
-        window.onload = updateUserInfo();
-
-    }
-
-
-</script>

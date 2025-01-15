@@ -6,7 +6,9 @@ import jakarta.servlet.annotation.*;
 import vn.edu.hcmuaf.fit.crocodile.model.cart.Cart;
 import vn.edu.hcmuaf.fit.crocodile.model.cart.CartItem;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Order;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.Product;
 import vn.edu.hcmuaf.fit.crocodile.service.OrderService;
+import vn.edu.hcmuaf.fit.crocodile.service.ProductService;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -15,14 +17,36 @@ import java.util.List;
 
 @WebServlet(name = "CheckoutController", value = "/checkout")
 public class CheckoutController extends HttpServlet {
+    ProductService productService = new ProductService();
     private OrderService orderService = new OrderService();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String selectedIds = request.getParameter("selectedIds");
-
+//        ----------------Cho phan mua ngay-------------------
+        String action = request.getParameter("action");
         HttpSession session = request.getSession();
-        Cart cart = (Cart) session.getAttribute("cart");
 
+        if ("buyNow".equals(action)) {
+            session.removeAttribute("selectedCartItems");
+            int idVariant = Integer.parseInt(request.getParameter("idVariant"));
+
+            if (idVariant != 0) {
+                int quantity = Integer.parseInt(request.getParameter("quantity"));
+                System.out.println(quantity);
+
+                Product.ProductVariant pv = productService.getProductVariantById(idVariant);
+                CartItem cartItem = new CartItem(pv, quantity);
+                request.setAttribute("cartItem", cartItem);
+                request.getRequestDispatcher("/views/checkout.jsp").forward(request, response);
+
+                return;
+            }
+        }
+//        ----------------Cho phan mua ngay-------------------
+
+//        ----------------Cho phan gio hang-------------------
+        Cart cart = (Cart) session.getAttribute("cart");
+        String selectedIds = request.getParameter("selectedIds");
 
         if (selectedIds != null) {
             // Tách chuỗi thành các idVariant
@@ -47,6 +71,7 @@ public class CheckoutController extends HttpServlet {
         }
 
         request.getRequestDispatcher("/views/checkout.jsp").forward(request, response);
+//        ----------------Cho phan gio hang-------------------
     }
 
     @Override
@@ -58,9 +83,26 @@ public class CheckoutController extends HttpServlet {
         int total = Integer.parseInt(request.getParameter("total"));
 
 
-        orderService.insertOrder(idUser, idAddress, total, currentDateTime,
+        int order = orderService.insertOrder(idUser, idAddress, total, currentDateTime,
                 convertPaymentMethod(paymentMethod), Order.Status.PENDING);
 
+        String action = request.getParameter("action");
+        System.out.println(action);
+        if (order > 0 && "buySuccess".equals(action)) {
+            String idBuys = request.getParameter("idBuys");
+
+            String[] idVariants = idBuys.split(",");
+            HttpSession session = request.getSession();
+
+            Cart cart = (Cart) session.getAttribute("cart");
+
+            for(String idV : idVariants) {
+                int id = Integer.parseInt(idV);
+
+                if(cart.containItem(id)) cart.removeItem(id);
+            }
+            session.setAttribute("cart", cart);
+        }
     }
 
     private Order.PaymentMethod convertPaymentMethod(String paymentMethod) {

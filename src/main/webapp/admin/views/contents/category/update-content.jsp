@@ -58,3 +58,4 @@
     </div>
     <!-- Content wrapper -->
 </div>
+</div>

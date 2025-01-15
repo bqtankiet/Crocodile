@@ -16,7 +16,14 @@ public class ContactDaoAdmin implements IContactDaoAdmin{
 
     @Override
     public int updateContact(String title, String location, String phone, String iframe) {
-        String sql = "";
-        return 0;
+        String sql = "update contacts set title = :title, location = :location, phone = :phone, iframe = :iframe";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createUpdate(sql)
+                        .bind("title", title)
+                        .bind("location", location)
+                        .bind("phone", phone)
+                        .bind("iframe", iframe)
+                        .execute()
+        );
     }
 }
