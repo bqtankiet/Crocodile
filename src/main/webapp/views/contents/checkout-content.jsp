@@ -71,7 +71,7 @@
                                 <tbody>
                                 <tr>
                                     <td class="col-3 text-muted"> Tên người nhận </td>
-                                    <td class="id-user" data-id-user="1">Tấn Kiệt</td>
+                                    <td class="id-user" data-id-user="${sessionScope.userId}">Tấn Kiệt</td>
                                 </tr>
                                 <tr>
                                     <td class="col-3 text-muted">Liên hệ</td>
