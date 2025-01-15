@@ -17,4 +17,6 @@ public interface IProductDaoAdmin extends IProductDao{
     int insertAllProductVariants(List<Product.ProductVariant> variants, int productId);
 
     int insertAndGetIdProductVariant(Product.ProductVariant variant, int productId);
+
+    int deleteProduct(int id);
 }

@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface IUserDaoAdmin {
     int banUser(int id);
-    List<User> getAllUsers();
+
+    List<User> getAllUser();
 }

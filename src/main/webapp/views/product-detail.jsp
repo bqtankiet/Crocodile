@@ -56,16 +56,20 @@
 
     <!--  INTERNAL CSS  -->
     <style>
+
         #product_descriptions {
             line-height: 1.5;
             letter-spacing: 0.05rem;
-            height: 50ch;
+            height: 100%;
             overflow: hidden;
         }
 
-        #product_descriptions img {
-            max-width: 100%;
-        }
+        /*#product_descriptions img {*/
+        /*    width: 100% !important;*/
+        /*    height: auto !important;*/
+        /*    aspect-ratio: 1;*/
+        /*    object-fit: cover;*/
+        /*}*/
 
         .show-more {
             position: relative;
@@ -105,7 +109,7 @@
             });
 
             $('.show-less').on("click", function () {
-                $('#product_descriptions').css("height", "50ch");
+                $('#product_descriptions').css("height", "10ch");
                 $('.show-more').toggleClass("d-none");
                 $('.show-less').toggleClass("d-none");
             });

@@ -23,12 +23,21 @@
                                         <input type="text" class="form-control" id="name" name="name"
                                                placeholder="Nhập tên danh mục" autofocus />
                                     </div>
+                                    <%--TODO ckfinder--%>
                                     <div class="mb-3">
 <%--                                        <label for="image" class="form-label">Hình ảnh</label>--%>
 <%--                                        <input type="text" class="form-control" id="image" name="image"--%>
 <%--                                               placeholder="Nhập hình ảnh" />--%>
-                                            <label for="image" class="form-label">Chọn ảnh:</label>
-                                            <input type="file" name="image" id="image">
+                                            <label class="form-label">Chọn ảnh:</label>
+                                            <div class="[ upload-image ]">
+                                                <input class="form-control d-none" type="text" name="image-url" aria-label=""/>
+                                                <div class="cursor-pointer">
+                                                    <div class="position-relative">
+                                                        <img src="" alt="" class="[ preview ] d-block border border-danger"
+                                                             style="width: 5rem; height: 5rem; object-fit: cover">
+                                                    </div>
+                                                </div>
+                                            </div>
                                     </div>
 
                                     <div class="mb-3">
@@ -52,4 +61,7 @@
 
     </div>
     <!-- Content wrapper -->
+    <script src="<c:url value="/public/ckfinder/ckfinder.js"/>"></script>
+    <script src="<c:url value="/admin/assets/js/ckfinder/popupCkfinder.js"/>"></script>
+    <script src="<c:url value="/admin/assets/js/pages/product-detail-content/handle-popup-ckfinder.js"/>"></script>
 </div>

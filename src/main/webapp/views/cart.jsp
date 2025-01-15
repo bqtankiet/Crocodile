@@ -18,8 +18,6 @@
     <script src="<c:url value="/public/bootstrap/js/bootstrap.bundle.js"/>"></script>
     <!--  css  -->
     <link rel="stylesheet" href="<c:url value="/assets/css/main.css"/>">
-    <!--  js  -->
-<%--    <script src="<c:url value="/assets/js/quantity-control.js"/>"></script>--%>
 
     <!--  Khai báo Bootstrap tooltip  -->
     <script>
@@ -53,8 +51,13 @@
 </head>
 <body>
     <%--HEADER--%>
-    <jsp:include page="includes/header.jsp" />
+    <jsp:include page="includes/header.jsp" >
+        <jsp:param name="activePage" value="cart"/>
+    </jsp:include>
     <%--CONTENT--%>
     <jsp:include page="contents/cart-content.jsp"/>
+
+    <!--  js  -->
+    <script src="<c:url value="/assets/js/quantity-control.js"/>"></script>
 </body>
 </html>

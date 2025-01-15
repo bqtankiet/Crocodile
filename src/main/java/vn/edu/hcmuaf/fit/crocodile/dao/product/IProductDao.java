@@ -44,5 +44,7 @@ public interface IProductDao extends BasicDao<Integer, Product> {
     List<Product> getTopSellingProductsOfCategory(int topN, int days, int idCategory);
 
     List<Product> searchProduct(String keyWord);
-    // ------------------------ em khoi test ----------------------------
+
+    List<Product> searchProductsWithPagination(String keyWord, int page, int size);
+        // ------------------------ em khoi test ----------------------------
 }

@@ -9,7 +9,7 @@ $(document).ready(function() {
         // $input.val(min);
 
         // Sự kiện khi nhập số vào input
-        $input.on("input", function() {
+        $input.on("change", function() {
             let value = parseInt($input.val()) || 0;
             if (value < min) {
                 $input.val(min);
@@ -22,7 +22,7 @@ $(document).ready(function() {
         $control.find(".increment").on("click", function() {
             let currentValue = parseInt($input.val()) || 0;
             if (currentValue < max) {
-                $input.val(currentValue + 1);
+                $input.val(currentValue + 1).trigger('input');
             }
         });
 
@@ -30,7 +30,7 @@ $(document).ready(function() {
         $control.find(".decrement").on("click", function() {
             let currentValue = parseInt($input.val()) || 0;
             if (currentValue > min) {
-                $input.val(currentValue - 1);
+                $input.val(currentValue - 1).trigger('input');
             }
         });
     });

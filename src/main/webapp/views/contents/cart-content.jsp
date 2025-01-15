@@ -74,7 +74,7 @@
                             <label for="selectAll">Chọn tất cả</label>
                         </div>
                         <div class="table-responsive">
-                            <table class="table text-center table-hover">
+                            <table class="table text-center table-hover" id="cartTable">
                                 <thead>
                                 <tr>
                                     <th scope="col" class="col">Sản phẩm</th>
@@ -120,6 +120,7 @@
                                             </p>
                                         </td>
                                         <td class="align-middle">
+
                                             <div class="quantity-control input-group justify-content-center" data-min="1"
                                                  data-max="200">
                                                 <button type="button" class="decrement btn btn-secondary">-</button>
@@ -159,11 +160,11 @@
                         <div>
                             <h5>Tổng thanh toán
                                 <c:if test="${sessionScope.cart.totalQuantity > 0}">
-                                    <span class="[ count-products ]">(${sessionScope.cart.totalQuantity} sản phẩm)</span>
+                                    <span class="[ count-products ]" id="myProductCount">(${sessionScope.cart.totalQuantity} sản phẩm)</span>
                                 </c:if>
                             </h5>
                             <div class="text-danger fw-medium">
-                    <span class="fs-5 fw-bold">
+                    <span id="totalPayment" class="fs-5 fw-bold">
                         <fmt:formatNumber value="${sessionScope.cart.totalPrice}" type="number" pattern="#,##0" />
                             <sup>₫</sup>
                     </span>
@@ -184,6 +185,7 @@
     // Chức năng chọn tất cả
     $("#selectAll").on("click", function () {
         $(".product-check").prop("checked", this.checked);
+        $(".product-check").trigger('change');
         toggleRemoveAllButton();
     });
 
@@ -269,6 +271,7 @@
                 },
                 success: function(response) {
                     console.log('Đã cập nhật số lượng ');
+                    updateTotal();
                 },
                 error: function(xhr, status, error) {
                     console.error('Lỗi khi gửi dữ liệu: ', error);
@@ -276,6 +279,40 @@
             });
         });
     });
+
+    function updateTotal() {
+        console.log("execute updateTotal");
+        let totalAmount = 0;
+        let productCount = 0;
+
+        // Duyệt qua từng hàng sản phẩm trong bảng
+        $('#cartTable tbody tr').each(function() {
+            const $checkbox = $(this).find('.product-check'); // Lấy checkbox
+            const isChecked = $checkbox.prop('checked'); // Kiểm tra xem checkbox có được chọn không
+
+            if (isChecked) {
+                productCount ++;
+                // Lấy giá sản phẩm
+                const productPrice = parseFloat($(this).find('.product-price').text().replace(/[₫,\.]/g, '').trim());
+
+                // Lấy số lượng sản phẩm
+                const quantity = parseInt($(this).find('.quantity-input').val());
+
+                // Tính tổng tiền cho sản phẩm này
+                const totalPrice = productPrice * quantity;
+
+                // Cộng vào tổng tiền
+                totalAmount += totalPrice;
+            }
+        });
+        console.log(totalAmount)
+
+        // Cập nhật tổng tiền cho giỏ hàng
+        $('#totalPayment').text(totalAmount.toLocaleString('vi-VN') + '₫');
+
+        // Cập nhật tổng số sản phẩm cần thanh toán
+        $('#myProductCount').text('('+productCount+' sản phẩm)');
+    }
 </script>
 
 <script>
@@ -341,5 +378,28 @@
             event.preventDefault();
         }
 
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        // Hàm tính lại tổng tiền
+
+        // Lắng nghe sự kiện thay đổi trên checkbox
+        $('.product-check').on('change', function() {
+            updateTotal(); // Cập nhật tổng tiền khi checkbox thay đổi
+        });
+
+        $('.selectAll').on('change', function() {
+            updateTotal(); // Cập nhật tổng tiền khi checkbox thay đổi
+        });
+
+        // Lắng nghe sự kiện thay đổi trên ô nhập số lượng (nếu có)
+        $('.quantity-input').on('change', function() {
+            updateTotal(); // Cập nhật tổng tiền khi số lượng thay đổi
+        });
+
+        // Gọi hàm tính toán tổng tiền khi trang được tải lần đầu
+        updateTotal();
     });
 </script>

@@ -10,7 +10,7 @@
 
 <c:url var="urlAddToCart" value="<%=UrlProperties.addToCart()%>"/>
 <c:url var="url_categoryId" value="<%= UrlProperties.productList()%>">
-    <c:param name="id" value="${requestScope.product.category.id}"/>
+    <c:param name="idCate" value="${requestScope.product.category.id}"/>
 </c:url>
 
 <div id="CONTENT">
@@ -42,6 +42,9 @@
             appendAlert(liveMessage, messageType);
             sessionStorage.removeItem('liveMessage');
             sessionStorage.removeItem('liveMessageType');
+            if(messageType==='success'){
+                $('#offcanvasRight').toggleClass('show');
+            }
         }
     </script>
 
@@ -70,13 +73,17 @@
                         <%-- TODO: Hiển thị hình ảnh bìa của sản phẩm (data-hash = 0)--%>
                         <c:if test="${empty requestScope.productImages}">
                             <div class="item" data-hash=0>
-                                <img src="${requestScope.product.image}" alt="">
+                                <div class="ratio ratio-1x1 overflow-hidden">
+                                    <img src="${requestScope.product.image}" alt="" style="object-fit: cover">
+                                </div>
                             </div>
                         </c:if>
                         <%-- TODO: Hiển thị các hình ảnh minh họa của ản phẩm (data-hash = img.id) --%>
                         <c:forEach var="img" items="${requestScope.productImages}">
                             <div class="item" data-hash=${img.index}>
-                                <img src="${img.image}" alt="">
+                                <div class="ratio ratio-1x1 overflow-hidden">
+                                    <img src="${img.image}" alt="" style="object-fit: cover">
+                                </div>
                             </div>
                         </c:forEach>
                     </div>
@@ -180,17 +187,22 @@
                 <div class="col-9 mx-auto">
                     <h3 class="text-center text-uppercase mb-5 pb-2 fw-bold border-bottom">Mô tả sản phẩm</h3>
                     <div id="product_descriptions_wrapper">
-                        <div id="product_descriptions"></div>
-                        <div class="show-more">
-                            <div class="d-flex justify-content-center">
-                                <button id="show-more-btn" class="btn btn-outline-primary">Xem thêm</button>
-                            </div>
+                        <div id="product_descriptions">
+                        <c:if test="${empty requestScope.product.description}">
+                            Sản phẩm chưa có mô tả.
+                        </c:if>
+                            ${requestScope.product.description}
                         </div>
-                        <div class="show-less d-none">
-                            <div class="d-flex justify-content-center">
-                                <button id="show-less-btn" class="btn btn-outline-primary">Thu gọn</button>
-                            </div>
-                        </div>
+<%--                        <div class="show-more">--%>
+<%--                            <div class="d-flex justify-content-center">--%>
+<%--                                <button id="show-more-btn" class="btn btn-outline-primary">Xem thêm</button>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
+<%--                        <div class="show-less d-none">--%>
+<%--                            <div class="d-flex justify-content-center">--%>
+<%--                                <button id="show-less-btn" class="btn btn-outline-primary">Thu gọn</button>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
                     </div>
                 </div>
             </div>

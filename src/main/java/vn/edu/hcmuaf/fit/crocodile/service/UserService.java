@@ -17,5 +17,7 @@ public class UserService {
         return userDaoAdmin.banUser(id);
     }
 
-    public List<User> getAllUsers() { return userDaoAdmin.getAllUsers(); }
+    public List<User> getAllUser() {
+        return userDaoAdmin.getAllUser();
+    }
 }

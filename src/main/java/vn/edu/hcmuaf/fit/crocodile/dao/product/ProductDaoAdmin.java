@@ -53,6 +53,7 @@ public class ProductDaoAdmin extends ProductDao implements IProductDaoAdmin {
         return JdbiConnect.getJdbi().withHandle(handle -> {
             var batch = handle.prepareBatch(sql);
             for (Product.ProductImage image : images) {
+                if(image.getImage() == null || image.getImage().isBlank()) continue;
                 batch.bind("idProduct", productId)
                         .bind("index", image.getIndex())
                         .bind("image", image.getImage())
@@ -143,6 +144,17 @@ public class ProductDaoAdmin extends ProductDao implements IProductDaoAdmin {
     }
 
     @Override
+    public int deleteProduct(int id) {
+        String sql = "DELETE FROM products WHERE id = :id";
+
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createUpdate(sql)
+                        .bind("id", id)
+                        .execute()
+        );
+    }
+
+    @Override
     public int insertAndGetIdProductOption(Product.ProductOption option, int productId) {
         if (option == null) {
             return -1;
@@ -154,7 +166,7 @@ public class ProductDaoAdmin extends ProductDao implements IProductDaoAdmin {
         return JdbiConnect.getJdbi().withHandle(handle -> {
             String image = option.getImage();
             int imageIndex = getExistingImageIndex(image, productId);
-            if (image != null && imageIndex == -1) {
+            if (image != null && !image.isBlank() && imageIndex == -1) {
                 imageIndex = insertAndGetIndexProductImage(image, productId);
             }
 

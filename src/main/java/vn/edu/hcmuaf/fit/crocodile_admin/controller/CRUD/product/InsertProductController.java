@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Product;
 import vn.edu.hcmuaf.fit.crocodile.service.CategoryService;
 import vn.edu.hcmuaf.fit.crocodile.service.ProductService;
+import vn.edu.hcmuaf.fit.crocodile_admin.config.properties.UrlProperties;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -29,6 +30,7 @@ public class InsertProductController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("categories", new CategoryService().getAllCategoryAdmin());
         request.getRequestDispatcher("/admin/views/product-detail.jsp").forward(request, response);
     }
 
@@ -67,6 +69,7 @@ public class InsertProductController extends HttpServlet {
         JsonObject jsonResponse = new JsonObject();
         jsonResponse.addProperty("status", "success");
         jsonResponse.addProperty("message", "Product data received successfully");
+        jsonResponse.addProperty("redirect_url", request.getContextPath() + UrlProperties.product());
         jsonResponse.add("received_data", jsonData); // Include the received data in the response
 
 

@@ -33,7 +33,7 @@
                         </thead>
                         <tbody>
                         <!-- Hàng 1 -->
-                            <c:forEach items="${users}" var="u">
+                            <c:forEach items="${requestScope.listUser}" var="u">
                                 <tr>
                                     <th scope="row">${u.id}</th>
                                     <td>${u.username}</td>
@@ -53,7 +53,10 @@
                                                     <i class="bx bx-block me-1"></i>
                                                         ${u.active == 1 ? 'Cấm' : 'Bỏ cấm'}
                                                 </button>
-                                                <a class="dropdown-item" href="#"><i
+                                                <c:url var="updateUserUrl" value="<%=UrlProperties.updateUser()%>">
+                                                    <c:param name="id" value="${u.id}"/>
+                                                </c:url>
+                                                <a class="dropdown-item" href="${updateUserUrl}"><i
                                                         class="bx bx-edit-alt me-1"></i> Chỉnh sửa</a>
                                                 <button class="dropdown-item btn-delete" data-id="${u.id}">
                                                     <i class="bx bx-trash me-1"></i> Xóa

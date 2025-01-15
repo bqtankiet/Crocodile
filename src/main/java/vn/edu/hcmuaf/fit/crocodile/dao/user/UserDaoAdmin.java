@@ -18,13 +18,12 @@ public class UserDaoAdmin implements IUserDaoAdmin{
     }
 
     @Override
-    public List<User> getAllUsers() {
-        String sql = "select * from users where role = 0";
+    public List<User> getAllUser() {
+        String sql = "SELECT * FROM users";
         return JdbiConnect.getJdbi().withHandle(handle ->
-                handle.createQuery(sql)
-                        .mapToBean(User.class)
-                        .list()
+            handle.createQuery(sql)
+                    .mapToBean(User.class)
+                    .list()
         );
-
     }
 }
