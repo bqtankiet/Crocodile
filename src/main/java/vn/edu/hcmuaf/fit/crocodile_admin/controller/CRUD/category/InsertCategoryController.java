@@ -27,15 +27,11 @@ public class InsertCategoryController extends HttpServlet {
         String uploadServerPath = getServletContext().getRealPath(AssetsProperties.categoriesImageDir());
 
         String uniqueFileName = UploadImage.uploadImage(part, uploadWebAppPath, uploadServerPath);
-        System.out.println(uniqueFileName);
-        System.out.println(request.getContextPath());
-        System.out.println(getServletContext().getRealPath(""));
 
         CategoryService categoryService = new CategoryService();
         String name = request.getParameter("name");
         int active = Integer.parseInt(request.getParameter("active"));
         categoryService.insertCategory(name, uniqueFileName, active);
-        System.out.println("Insert Category Successfully");
         response.sendRedirect(request.getContextPath() + "/admin/category");
     }
 }

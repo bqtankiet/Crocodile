@@ -40,9 +40,9 @@ public class ProductDetailController extends HttpServlet {
         List<ProductImage> productImages = productService.getAllImagesByProductId(productId);
         request.setAttribute("productImages", productImages);
 
-        // "productDetails"
-        List<Product.ProductDetail> productDetails = productService.getAllDetailsByProductId(productId);
-        request.setAttribute("productDetails", productDetails);
+        // "productAttributes"
+        List<Product.ProductAttribute> productAttributes = productService.getAllAttributesByProductId(productId);
+        request.setAttribute("productDetails", productAttributes);
 
         // "productOptionGroup"
         ProductOptionGroup optionGroup1 = productService.getProductOptionGroupById(productId, 1);
@@ -60,6 +60,9 @@ public class ProductDetailController extends HttpServlet {
         String productVariantsJson = gson.toJson(productVariants);
         request.setAttribute("productVariantsJson", productVariantsJson);
 
+        // List similar products
+        List<Product> similarProducts = productService.findRandomNSimilarProducts(10, productId);
+        request.setAttribute("similarProducts", similarProducts);
 
         // forward
         request.getRequestDispatcher("/views/product-detail.jsp").forward(request, response);

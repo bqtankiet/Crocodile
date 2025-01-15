@@ -98,6 +98,7 @@ public class Product implements Serializable {
 
         private int id;
         private int idProduct;
+        private int index;
         private String image;
 
         @Override
@@ -110,6 +111,14 @@ public class Product implements Serializable {
         }
 
         // getter, setter
+        public int getIndex() {
+            return index;
+        }
+
+        public void setIndex(int imageIndex) {
+            this.index = imageIndex;
+        }
+
         public int getId() {
             return id;
         }
@@ -182,6 +191,7 @@ public class Product implements Serializable {
         private String value;
         private String idImage;
         private String image;
+        private int imageIndex;
 
         @Override
         public String toString() {
@@ -196,6 +206,15 @@ public class Product implements Serializable {
         }
 
         // getter, setter
+
+        public int getImageIndex() {
+            return imageIndex;
+        }
+
+        public void setImageIndex(int imageIndex) {
+            this.imageIndex = imageIndex;
+        }
+
         public int getId() {
             return id;
         }
@@ -292,6 +311,14 @@ public class Product implements Serializable {
         private int idOption1;
         private int idOption2;
         private int stock;
+//<<<<<<< HEAD
+//        private ProductOption option1;
+//        private ProductOption option2;
+//=======
+        private Product product;
+        private ProductOption pOption1;
+        private ProductOption pOption2;
+//>>>>>>> develop
 
         @Override
         public String toString() {
@@ -306,6 +333,45 @@ public class Product implements Serializable {
         }
 
         // getter, setter
+
+//<<<<<<< HEAD
+//        public ProductOption getOption1() {
+//            return option1;
+//        }
+//
+//        public void setOption1(ProductOption option1) {
+//            this.option1 = option1;
+//        }
+//
+//        public ProductOption getOption2() {
+//            return option2;
+//        }
+//
+//        public void setOption2(ProductOption option2) {
+//            this.option2 = option2;
+//=======
+        public ProductOption getpOption2() {
+            return pOption2;
+        }
+
+        public void setpOption2(ProductOption pOption2) {
+            this.pOption2 = pOption2;
+        }
+
+        public ProductOption getpOption1() {
+            return pOption1;
+        }
+
+        public void setpOption1(ProductOption pOption1) {
+            this.pOption1 = pOption1;
+        }
+
+        public Product getProduct() { return product; }
+
+        public void setProduct(Product product) {
+            this.product = product;
+//>>>>>>> develop
+        }
 
         public int getId() {
             return id;
@@ -353,6 +419,68 @@ public class Product implements Serializable {
 
         public void setStock(int stock) {
             this.stock = stock;
+        }
+    }
+
+    public static class ProductAttribute implements Serializable{
+        private int id;
+        private int idProduct;
+        private String key;
+        private String value;
+
+        // constructors
+        public ProductAttribute() {
+        }
+
+        public ProductAttribute(int id, int idProduct, String key, String value) {
+            this.id = id;
+            this.idProduct = idProduct;
+            this.key = key;
+            this.value = value;
+        }
+
+        // methods
+        @Override
+        public String toString() {
+            return "ProductAttribute{" +
+                    "id=" + id +
+                    ", idProduct=" + idProduct +
+                    ", key='" + key + '\'' +
+                    ", value='" + value + '\'' +
+                    '}';
+        }
+
+        // getter, setter
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public int getIdProduct() {
+            return idProduct;
+        }
+
+        public void setIdProduct(int idProduct) {
+            this.idProduct = idProduct;
+        }
+
+        public String getKey() {
+            return key;
+        }
+
+        public void setKey(String key) {
+            this.key = key;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
         }
     }
 }

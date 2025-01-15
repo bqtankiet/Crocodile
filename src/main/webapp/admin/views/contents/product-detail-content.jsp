@@ -350,6 +350,14 @@
                 <!-- nút thoát -->
                 <a href="${url_product}" class="btn btn-danger">Thoát</a>
             </div>
+            <script>
+                document.getElementById('form-product').addEventListener('keydown', function(event) {
+                    // Nếu phím nhấn là Enter (keyCode 13), ngừng sự kiện
+                    if (event.key === "Enter") {
+                        event.preventDefault();
+                    }
+                });
+            </script>
         </form>
         <!-- ---------------------end bảng thêm sản phẩm---------------------------- -->
     </div>

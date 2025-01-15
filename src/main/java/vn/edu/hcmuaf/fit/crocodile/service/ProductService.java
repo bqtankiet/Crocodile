@@ -1,7 +1,9 @@
 package vn.edu.hcmuaf.fit.crocodile.service;
 
 import vn.edu.hcmuaf.fit.crocodile.dao.product.IProductDao;
+import vn.edu.hcmuaf.fit.crocodile.dao.product.IProductDaoAdmin;
 import vn.edu.hcmuaf.fit.crocodile.dao.product.ProductDao;
+import vn.edu.hcmuaf.fit.crocodile.dao.product.ProductDaoAdmin;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Product;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Product.*;
 
@@ -10,12 +12,14 @@ import java.util.List;
 public class ProductService {
 
     private final IProductDao productDao;
+    private final IProductDaoAdmin productDaoAdmin;
 
     public ProductService() {
         this.productDao = new ProductDao();
+        this.productDaoAdmin = new ProductDaoAdmin();
     }
 
-    public Product getProductById(int id){
+    public Product getProductById(int id) {
         return productDao.findById(id);
     }
 
@@ -23,12 +27,12 @@ public class ProductService {
         return productDao.findAllImagesByProductId(productId);
     }
 
-    public List<ProductDetail> getAllDetailsByProductId(int productId) {
-        return productDao.findAllDetailsByProductId(productId);
+    public List<ProductAttribute> getAllAttributesByProductId(int productId) {
+        return productDao.findAllAttributesByProductId(productId);
     }
 
     public ProductOptionGroup getProductOptionGroupById(int productId, int group) {
-        List<ProductOption> options = productDao.findAllOptionsByProductId(productId, group);
+        List<ProductOption> options = productDao.findAllOptionsByProductIdV1(productId, group);
         if (options.isEmpty()) {
             return null;
         }
@@ -45,16 +49,66 @@ public class ProductService {
         return productDao.findAllVariantsByProductId(productId);
     }
 
-    // ------------------------ begin admin method ------------------------
+    public int getMaxPage(int idCate) {
+        return productDao.getMaxPage(idCate);
+    }
+
     public List<Product> getAllProducts() {
         return productDao.findAll();
     }
-    // ------------------------ close admin method ------------------------
 
     // ------------------------ em khoi test ----------------------------
-    public List<ProductOption> findOptionsByProductId(int productId) {
-        return productDao.findOptionsByProductId(productId);
+
+    public ProductOption findOptionsById(int id) {
+        return productDao.findOptionsById(id);
+    }
+
+//    public ProductVariant getProductVariantById(int idVariant) {
+//        return productDao.getProductVariantById(idVariant);
+//    }
+
+    // Em Kiet Test
+    public ProductVariant getProductVariantById(int idVariant) {
+        ProductVariant pv = productDao.getProductVariantById(idVariant);
+        pv.setProduct(getProductById(pv.getIdProduct()));
+        pv.setpOption1(productDao.findOptionsById(pv.getIdOption1()));
+        pv.setpOption2(productDao.findOptionsById(pv.getIdOption2()));
+        return pv;
+    }
+
+    public List<Product> searchProduct(String keyword) {
+        return productDao.searchProduct(keyword);
     }
 
     // ------------------------ em khoi test ----------------------------
+
+    public int insertProduct(Product product) {
+        int productId = productDaoAdmin.insertAndGetIdProduct(product);
+        product.setId(productId);
+        return productId;
+    }
+
+    public int insertAttributes(List<ProductAttribute> attributes, int productId) {
+        return productDaoAdmin.insertAllAttributes(attributes, productId);
+    }
+
+    public int insertImages(List<ProductImage> images, int productId) {
+        return productDaoAdmin.insertAllImages(images, productId);
+    }
+
+    public int insertProductVariants(List<ProductVariant> variants, int productId) {
+        return productDaoAdmin.insertAllProductVariants(variants, productId);
+    }
+
+    public List<Product> getTopSellingProductsInDays(int topN, int days) {
+        return productDao.getTopSellingProductsInDays(topN, days);
+    }
+
+    public List<Product> findRandomNSimilarProducts(int n, int idProduct) {
+        return productDao.findRandomNSimilarProducts(n, idProduct);
+    }
+
+    public List<Product> getTopSellingProductsOfCategory(int topN, int days, int idCategory) {
+        return productDao.getTopSellingProductsOfCategory(topN, days, idCategory);
+    }
 }

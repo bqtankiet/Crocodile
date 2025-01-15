@@ -14,17 +14,17 @@ public class UrlProperties extends ApplicationProperties {
         return getProperty("url.contact");
     }
 
-    public static String category() {
-        return getProperty("url.category");
+    public static String productList() {
+        return getProperty("url.productList");
     }
 
     public static String addToCart() {
         return getProperty("url.addToCart");
     }
 
-    public static String checkout() {
-        return getProperty("url.checkout");
-    }
+    public static String cart() {return getProperty("url.cart");}
+
+    public static String checkout() {return getProperty("url.checkout");}
 
     public static String login() {
         return getProperty("url.login");
@@ -33,6 +33,8 @@ public class UrlProperties extends ApplicationProperties {
     public static String signup() {
         return getProperty("url.signup");
     }
+
+    public static String productDetail() {return getProperty("url.productDetail");}
 
     public static String user() {
         return getProperty("url.user");
