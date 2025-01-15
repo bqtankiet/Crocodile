@@ -38,7 +38,7 @@
                                     <th scope="row">${u.id}</th>
                                     <td>${u.username}</td>
                                     <td>${u.email}</td>
-                                    <td>${u.phone_number}</td>
+                                    <td>${u.phoneNumber}</td>
                                     <td>${u.gender}</td>
                                     <td>${u.birthdate}</td>
                                     <td>${u.active == 1 ? 'Cho phép' : 'Cấm'} </td>

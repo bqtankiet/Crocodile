@@ -7,7 +7,7 @@ import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
 
 import java.io.IOException;
 
-@WebFilter(filterName = "AdminFilter", urlPatterns = "/admin/*")
+//@WebFilter(filterName = "AdminFilter", urlPatterns = "/admin/*")
 public class AdminFilterController implements Filter {
 
     @Override
