@@ -131,7 +131,8 @@
                             <c:when test="${empty requestScope.cartItem}">
                                 <c:forEach var="item" items="${sessionScope.selectedCartItems}">
                                     <c:set var="productVariant" value="${item.productVariant}"/>
-                                    <input type="text" value="${productVariant.id}" hidden="hidden">
+                                    <input class="item-buy" type="text" value="${productVariant.id}"
+                                           hidden="hidden" data-action="buySuccess">
                                     <div class="d-flex flex-column">
                                         <div class="row g-0">
                                             <div class="col-2 me-3 position-relative">
@@ -265,6 +266,12 @@
         const selectedPaymentMethod = $('input[name="payment-method"]:checked').val();
         const totalAmount = $('.total-amount').data('total')
 
+        const idBuys = $('.item-buy').map(function () {
+            return $(this).val();
+        }).get();
+
+        const action = $('.item-buy').data('action')
+
         $.ajax({
             url: "${urlCheckout}",
             type: "POST",
@@ -272,7 +279,9 @@
                 idUser: idUser,
                 idAddress: idAddress,
                 paymentMethod: selectedPaymentMethod,
-                total: totalAmount
+                total: totalAmount,
+                action: action,
+                idBuys: idBuys.join(',')
             },
             success: function(response) {
                 sessionStorage.setItem('liveMessage', 'Đặt hàng thành công!');
@@ -288,6 +297,5 @@
     });
 </script>
 
-<script>
 
-</script>
+
