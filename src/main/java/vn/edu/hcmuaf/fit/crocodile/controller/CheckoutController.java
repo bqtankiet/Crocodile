@@ -83,9 +83,26 @@ public class CheckoutController extends HttpServlet {
         int total = Integer.parseInt(request.getParameter("total"));
 
 
-        orderService.insertOrder(idUser, idAddress, total, currentDateTime,
+        int order = orderService.insertOrder(idUser, idAddress, total, currentDateTime,
                 convertPaymentMethod(paymentMethod), Order.Status.PENDING);
 
+        String action = request.getParameter("action");
+        System.out.println(action);
+        if (order > 0 && "buySuccess".equals(action)) {
+            String idBuys = request.getParameter("idBuys");
+
+            String[] idVariants = idBuys.split(",");
+            HttpSession session = request.getSession();
+
+            Cart cart = (Cart) session.getAttribute("cart");
+
+            for(String idV : idVariants) {
+                int id = Integer.parseInt(idV);
+
+                if(cart.containItem(id)) cart.removeItem(id);
+            }
+            session.setAttribute("cart", cart);
+        }
     }
 
     private Order.PaymentMethod convertPaymentMethod(String paymentMethod) {

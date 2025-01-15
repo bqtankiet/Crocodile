@@ -6,6 +6,36 @@
 
 <!-- Content wrapper -->
 <div class="content-wrapper">
+    <div id="liveAlertPlaceholder" class="fixed-top"></div>
+    <script>
+        const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+
+        // Hàm để thêm alert
+        const appendAlert = (message, type) => {
+            const wrapper = document.createElement('div')
+            wrapper.innerHTML = [
+                `<div class="alert alert-` + type + ` alert-dismissible" role="alert">`,
+                `   <div class="text-center fw-semibold">` + message + `</div>`,
+                '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+                '</div>'
+            ].join('')
+
+            alertPlaceholder.append(wrapper)
+
+            // Tự động ẩn alert sau 5 giây
+            setTimeout(() => {
+                wrapper.remove()  // Loại bỏ alert sau 5 giây
+            }, 5000)  // 5000ms = 5s
+        }
+
+        const liveMessage = sessionStorage.getItem('liveMessage');
+        const messageType = sessionStorage.getItem('liveMessageType');
+        if (liveMessage) {
+            appendAlert(liveMessage, messageType);
+            sessionStorage.removeItem('liveMessage');
+            sessionStorage.removeItem('liveMessageType');
+        }
+    </script>
 
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="fw-bold py-3 mb-4">Quản lý thông tin</h4>
@@ -92,8 +122,9 @@
                 iframe: iframe
             },
             success: function (response) {
-                // window.location.reload();
-                alert(1)
+                window.location.reload();
+                sessionStorage.setItem('liveMessage', 'Chỉnh sửa thông tin liên hệ thành công');
+                sessionStorage.setItem('liveMessageType', 'success');
             },
 
             error: function (xhr, status, error) {
