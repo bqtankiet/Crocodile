@@ -206,12 +206,13 @@
                             <h4 class="fw-semibold">Thay đổi mật khẩu </h4>
                             <hr class="text-light">
                         </div>
-                        <form class="d-flex flex-column gap-4">
+                        <form action="<c:url value="/password-change"/>" method="POST" class="d-flex flex-column gap-4">
                             <div class="row">
                                 <label for="current-password" class="col-form-label text-muted">Mật khẩu hiện
                                     tại</label>
                                 <div class="col-12">
-                                    <input type="password" class="form-control" id="current-password" value="password">
+                                    <input type="password" class="form-control" id="current-password"
+                                           name="current-password" required>
                                 </div>
                             </div>
                             <div class="row">
@@ -222,7 +223,8 @@
                                           data-bs-placement="right">*</span>
                                 </label>
                                 <div class="col-12">
-                                    <input type="password" class="form-control" id="new-password" value="">
+                                    <input type="password" class="form-control" id="new-password" name="new-password"
+                                           required>
                                 </div>
                             </div>
                             <div class="row">
@@ -232,34 +234,23 @@
                                           data-bs-title="Mật khẩu phải khớp với mật khẩu mới" data-bs-placement="right">*</span>
                                 </label>
                                 <div class="col-12">
-                                    <input type="password" class="form-control" id="new-password-check" value="">
+                                    <input type="password" class="form-control" id="new-password-check"
+                                           name="new-password-check" required>
                                 </div>
                             </div>
                             <button type="submit" id="save-password-btn"
                                     class="btn custom-btn-primary btn-block w-100 p-2 ms-auto "
                                     style="width: max-content">Lưu
                             </button>
+                            <c:if test="${not empty success}">
+                                <div class="alert alert-success">${success}</div>
+                            </c:if>
+                            <c:if test="${not empty fail}">
+                                <div class="alert alert-danger">${fail}</div>
+                            </c:if>
                         </form>
-                        <div class="modal fade" id="passwordChangeSuccessModal" tabindex="-1"
-                             aria-labelledby="passwordChangeSuccessModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content p-2">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="passwordChangeSuccessModalLabel">Thông báo</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Thay đổi mật khẩu thành công!
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Đóng
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
+
                     <div class="tab-pane fade" id="account-address">
                         <div class="card-body pb-2">
                             <div class="form-group">
@@ -445,14 +436,15 @@
                                 Quay lại
                             </button>
                         </div>
+                        <c:if test="${not empty errorMessage}">
+                            <div class="alert alert-danger">${errorMessage}</div>
+                        </c:if>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <c:if test="${not empty errorMessage}">
-    <div class="alert alert-danger">${errorMessage}</div>
-    </c:if>
+
 
     <script>
         // const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');

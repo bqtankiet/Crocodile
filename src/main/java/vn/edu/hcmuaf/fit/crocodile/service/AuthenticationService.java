@@ -5,7 +5,6 @@ import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDaoImpl;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
 import vn.edu.hcmuaf.fit.crocodile.util.HashUtil;
 
-import java.time.LocalDate;
 import java.util.Optional;
 
 public class AuthenticationService {
@@ -28,7 +27,6 @@ public class AuthenticationService {
             String hashedPassword = HashUtil.hashMD5(password);
 
             if (hashedPassword.equals(user.getPassword())) {
-
                 return user.getId();
             } else {
                 System.out.println("Mật khẩu không khớp");
@@ -79,9 +77,28 @@ public class AuthenticationService {
     }
 
     public Optional<User> getUserById(int userId) {
-        System.out.println(userDao.findById(userId));
         return userDao.findById(userId);
     }
 
+    public boolean checkCurrentPassword(int userId, String currentPassword) {
+        Optional<User> userOpt = userDao.findById(userId); // Lấy thông tin người dùng từ DB
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+            String hashedPassword = HashUtil.hashMD5(currentPassword); // Mã hóa mật khẩu hiện tại
+            return hashedPassword.equals(user.getPassword()); // So sánh mật khẩu hiện tại đã mã hóa
+        }
+        return false;
+    }
 
+    // Cập nhật mật khẩu mới vào DB
+    public boolean updatePassword(int userId, String newPassword) {
+        try {
+            String hashedPassword = HashUtil.hashMD5(newPassword);
+            userDao.updatePassword(userId, hashedPassword); // Cập nhật mật khẩu mới vào DB
+            return true;
+        } catch (Exception e) {
+            System.out.println("Lỗi khi cập nhật mật khẩu: " + e.getMessage());
+            return false;
+        }
+    }
 }

@@ -10,37 +10,30 @@ import java.util.Optional;
 public class UserDaoImpl implements UserDao {
     @Override
     public Optional<User> findById(int id) {
-        String query = "select * from users where id = :id ";
-        return JdbiConnect.getJdbi().withHandle(
-                handle ->
-                        handle.createQuery(query)
-                                .bind("id", id)
-                                .mapToBean(User.class)
-                                .findFirst()
+        String query = "SELECT * FROM users WHERE id = :id";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(query)
+                        .bind("id", id)
+                        .mapToBean(User.class)
+                        .findFirst() // Nếu không tìm thấy người dùng, trả về Optional.empty()
         );
     }
 
     @Override
     public Optional<User> findByUsername(String username) {
-        String query = "select * from users where username = :username";
-        return JdbiConnect.getJdbi().withHandle(
-                handle ->
-                        handle.createQuery(query)
-                                .bind("username", username)
-                                .mapToBean(User.class)
-                                .findOne()
+        String query = "SELECT * FROM users WHERE username = :username";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(query)
+                        .bind("username", username)
+                        .mapToBean(User.class)
+                        .findOne() // Tìm một người dùng theo tên đăng nhập
         );
     }
 
     @Override
     public void update(User user) {
-        String query = "UPDATE users " +
-                "SET fullname = :fullname, " +
-                "    email = :email, " +
-                "    phoneNumber = :phoneNumber, " +
-                "    gender = :gender, " +
-                "    birthdate = :birthdate " +
-                "WHERE id = :id";
+        String query = "UPDATE users SET fullname = :fullname, email = :email, phoneNumber = :phoneNumber, " +
+                "gender = :gender, birthdate = :birthdate WHERE id = :id";
 
         JdbiConnect.getJdbi().withHandle(handle ->
                 handle.createUpdate(query)
@@ -54,16 +47,14 @@ public class UserDaoImpl implements UserDao {
         );
     }
 
-
     @Override
     public Optional<User> findByEmail(String email) {
-        String query = "select * from users where email = :email";
-        return JdbiConnect.getJdbi().withHandle(
-                handle ->
-                        handle.createQuery(query)
-                                .bind("email", email)
-                                .mapToBean(User.class)
-                                .findOne()
+        String query = "SELECT * FROM users WHERE email = :email";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(query)
+                        .bind("email", email)
+                        .mapToBean(User.class)
+                        .findOne() // Tìm một người dùng theo email
         );
     }
 
@@ -95,18 +86,16 @@ public class UserDaoImpl implements UserDao {
         );
     }
 
-
     @Override
     public List<Address> getAddressesByUserId(int userId) {
-        String query = "SELECT * FROM addresses WHERE id_user = ?";
+        String query = "SELECT * FROM addresses WHERE id_user = :userId";
         return JdbiConnect.getJdbi().withHandle(handle ->
                 handle.createQuery(query)
-                        .bind(0, userId)
+                        .bind("userId", userId)
                         .mapToBean(Address.class)
                         .list()
         );
     }
-
 
     @Override
     public int create(User user) {
@@ -114,7 +103,6 @@ public class UserDaoImpl implements UserDao {
         if (existingUser.isPresent()) {
             throw new IllegalArgumentException("Tài khoản đã tồn tại.");
         }
-
 
         String query = "INSERT INTO users (username, password, fullname, email, phoneNumber, gender, birthdate) " +
                 "VALUES (:username, :password, :fullname, :email, :phoneNumber , :gender, :dateOfBirth)";
@@ -133,5 +121,4 @@ public class UserDaoImpl implements UserDao {
                         .one()
         );
     }
-
 }
