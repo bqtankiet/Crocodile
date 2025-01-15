@@ -1,12 +1,10 @@
 package vn.edu.hcmuaf.fit.crocodile.dao.user;
 
-import org.jdbi.v3.core.Jdbi;
 import vn.edu.hcmuaf.fit.crocodile.config.JdbiConnect;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.Address;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
-import vn.edu.hcmuaf.fit.crocodile.service.AuthenticationService;
-import vn.edu.hcmuaf.fit.crocodile.util.HashUtil;
 
-import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 public class UserDaoImpl implements UserDao {
@@ -77,6 +75,35 @@ public class UserDaoImpl implements UserDao {
                         .bind("userId", userId)
                         .bind("password", newPassword)
                         .execute()
+        );
+    }
+
+    @Override
+    public void addAddress(Address address) {
+        String query = "INSERT INTO addresses (id_user, fullname, phone_number, province, district, ward, street) " +
+                "VALUES (:userId, :fullname, :phoneNumber, :province, :district, :ward, :street)";
+        JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createUpdate(query)
+                        .bind("userId", address.getUserId())
+                        .bind("fullname", address.getFullname())
+                        .bind("phoneNumber", address.getPhoneNumber())
+                        .bind("province", address.getProvince())
+                        .bind("district", address.getDistrict())
+                        .bind("ward", address.getWard())
+                        .bind("street", address.getStreet())
+                        .execute()
+        );
+    }
+
+
+    @Override
+    public List<Address> getAddressesByUserId(int userId) {
+        String query = "SELECT * FROM addresses WHERE id_user = ?";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(query)
+                        .bind(0, userId)
+                        .mapToBean(Address.class)
+                        .list()
         );
     }
 
