@@ -28,6 +28,13 @@ public class LoginController extends HttpServlet {
         int userId = auth.login(username, password);
 
         if (userId != -1) {
+            if (userId == -2) {
+                request.setAttribute("errorMessage", "Tài khoản của bạn đã bị vô hiệu hóa.");
+                request.getRequestDispatcher("/views/login.jsp").forward(request, response);
+                return;
+            }
+
+            // Lấy thông tin người dùng từ UserDao
             UserDao userDao = new UserDaoImpl();
             Optional<User> optionalUser = userDao.findById(userId);
 
@@ -55,7 +62,12 @@ public class LoginController extends HttpServlet {
 
                 session.setAttribute("gender", genderDisplay);
 
-                response.sendRedirect(request.getContextPath() + "/");
+                // Kiểm tra role và chuyển hướng
+                if ("1".equals(user.getRole())) {
+                    response.sendRedirect(request.getContextPath() + "/views/admin.jsp");
+                } else {
+                    response.sendRedirect(request.getContextPath() + "/");
+                }
             } else {
                 request.setAttribute("errorMessage", "Không tìm thấy thông tin người dùng.");
                 request.getRequestDispatcher("/views/login.jsp").forward(request, response);
@@ -65,4 +77,5 @@ public class LoginController extends HttpServlet {
             request.getRequestDispatcher("/views/login.jsp").forward(request, response);
         }
     }
+
 }

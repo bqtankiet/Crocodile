@@ -1,8 +1,10 @@
 package vn.edu.hcmuaf.fit.crocodile.model.entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-public class Order {
+public class Order implements Serializable {
     public enum PaymentMethod {
         MOMO, CASH, ZALOPAY, VNPAY
     }
@@ -12,15 +14,15 @@ public class Order {
     }
 
     private int id;
-    private int userId;
+    private int idUser;
     private int idAddress;
     private int total;
-    private LocalDate invoiceDate;
-    private LocalDate paymentDate;
+    private LocalDateTime invoiceDate;
+    private LocalDateTime paymentDate;
     private PaymentMethod paymentMethod;
     private Status status;
 
-    // Getters and Setters
+
     public int getId() {
         return id;
     }
@@ -29,12 +31,12 @@ public class Order {
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getIdUser() {
+        return idUser;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
 
     public int getIdAddress() {
@@ -53,19 +55,19 @@ public class Order {
         this.total = total;
     }
 
-    public LocalDate getInvoiceDate() {
+    public LocalDateTime getInvoiceDate() {
         return invoiceDate;
     }
 
-    public void setInvoiceDate(LocalDate invoiceDate) {
+    public void setInvoiceDate(LocalDateTime invoiceDate) {
         this.invoiceDate = invoiceDate;
     }
 
-    public LocalDate getPaymentDate() {
+    public LocalDateTime getPaymentDate() {
         return paymentDate;
     }
 
-    public void setPaymentDate(LocalDate paymentDate) {
+    public void setPaymentDate(LocalDateTime paymentDate) {
         this.paymentDate = paymentDate;
     }
 
@@ -89,7 +91,7 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", userId=" + userId +
+                ", userId=" + idUser +
                 ", idAddress=" + idAddress +
                 ", total=" + total +
                 ", invoiceDate=" + invoiceDate +

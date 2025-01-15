@@ -9,6 +9,7 @@ import vn.edu.hcmuaf.fit.crocodile.model.entity.Order;
 import vn.edu.hcmuaf.fit.crocodile.service.OrderService;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 @WebServlet(name = "UserController", urlPatterns = {"/user"})
@@ -28,16 +29,13 @@ public class UserController extends HttpServlet {
         Integer userId = (Integer) session.getAttribute("userId");
 
         try {
-            // Khởi tạo DAO và lấy dữ liệu
             UserDaoImpl userDao = new UserDaoImpl();
             List<Address> addressList = userDao.getAddressesByUserId(userId);
             List<Order> ordersList = userDao.getOrdersByUserId(userId);
 
-            // Đặt thông tin vào request attribute
             request.setAttribute("addressList", addressList);
             request.setAttribute("ordersList", ordersList);
 
-            // Kiểm tra và thêm thông báo nếu cần
             if (addressList == null || addressList.isEmpty()) {
                 request.setAttribute("message", "Bạn chưa có địa chỉ nào.");
             }
@@ -45,11 +43,10 @@ public class UserController extends HttpServlet {
                 request.setAttribute("ordersMessage", "Bạn chưa có đơn hàng nào.");
             }
 
-            // Forward tới JSP
             request.getRequestDispatcher("/views/user.jsp").forward(request, response);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(new PrintWriter(System.out, true));
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Đã xảy ra lỗi khi lấy dữ liệu người dùng.");
         }
     }

@@ -27,16 +27,22 @@ public class AuthenticationService {
             String hashedPassword = HashUtil.hashMD5(password);
 
             if (hashedPassword.equals(user.getPassword())) {
+                if (!userDao.checkActive(user.getId())) {
+                    System.out.println("Tài khoản của bạn đã bị vô hiệu hóa.");
+                    return -2;
+                }
+
                 return user.getId();
             } else {
-                System.out.println("Mật khẩu không khớp");
+                System.out.println("Mật khẩu không khớp.");
             }
         } else {
-            System.out.println("Không tìm thấy user với username: " + username);
+            System.out.println("Không tìm thấy người dùng với username: " + username);
         }
 
         return -1;
     }
+
 
     public Optional<User> findEmail(String email) {
         return userDao.findByEmail(email);
@@ -81,24 +87,27 @@ public class AuthenticationService {
     }
 
     public boolean checkCurrentPassword(int userId, String currentPassword) {
-        Optional<User> userOpt = userDao.findById(userId); // Lấy thông tin người dùng từ DB
+        Optional<User> userOpt = userDao.findById(userId);
         if (userOpt.isPresent()) {
             User user = userOpt.get();
-            String hashedPassword = HashUtil.hashMD5(currentPassword); // Mã hóa mật khẩu hiện tại
-            return hashedPassword.equals(user.getPassword()); // So sánh mật khẩu hiện tại đã mã hóa
+            String hashedPassword = HashUtil.hashMD5(currentPassword);
+            return hashedPassword.equals(user.getPassword());
         }
         return false;
     }
 
-    // Cập nhật mật khẩu mới vào DB
     public boolean updatePassword(int userId, String newPassword) {
         try {
             String hashedPassword = HashUtil.hashMD5(newPassword);
-            userDao.updatePassword(userId, hashedPassword); // Cập nhật mật khẩu mới vào DB
+            userDao.updatePassword(userId, hashedPassword);
             return true;
         } catch (Exception e) {
             System.out.println("Lỗi khi cập nhật mật khẩu: " + e.getMessage());
             return false;
         }
+    }
+
+    public Optional<String> checkRole(int userId) {
+        return userDao.getUserRoleById(userId);
     }
 }

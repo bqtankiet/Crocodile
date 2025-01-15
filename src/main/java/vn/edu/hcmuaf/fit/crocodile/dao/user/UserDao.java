@@ -18,6 +18,10 @@ public interface UserDao {
 
     Optional<User> findByUsername(String username);
 
+    Optional<String> getUserRoleById(int id);
+
+    boolean checkActive(int userId);
+
     void update(User user);
 
     Optional<User> findByEmail(String email);
@@ -27,4 +31,5 @@ public interface UserDao {
     void addAddress(Address address);
 
     List<Order> getOrdersByUserId(int userId);
+
 }

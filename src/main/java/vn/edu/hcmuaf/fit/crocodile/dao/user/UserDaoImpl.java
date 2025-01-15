@@ -28,9 +28,35 @@ public class UserDaoImpl implements UserDao {
                 handle.createQuery(query)
                         .bind("username", username)
                         .mapToBean(User.class)
-                        .findOne() // Tìm một người dùng theo tên đăng nhập
+                        .findOne()
         );
     }
+
+    @Override
+    public Optional<String> getUserRoleById(int id) {
+        String query = "SELECT role FROM users WHERE id = :id";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(query)
+                        .bind("id", id)
+                        .mapTo(String.class)
+                        .findFirst()
+        );
+    }
+
+    @Override
+    public boolean checkActive(int userId) {
+        String query = "SELECT active FROM users WHERE id = :id";
+        Integer active = JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(query)
+                        .bind("id", userId)
+                        .mapTo(Integer.class)
+                        .findFirst()
+                        .orElse(0)
+        );
+
+        return active != null && active == 1;
+    }
+
 
     @Override
     public void update(User user) {
@@ -56,7 +82,7 @@ public class UserDaoImpl implements UserDao {
                 handle.createQuery(query)
                         .bind("email", email)
                         .mapToBean(User.class)
-                        .findOne() // Tìm một người dùng theo email
+                        .findOne()
         );
     }
 
@@ -90,22 +116,11 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<Order> getOrdersByUserId(int userId) {
-        String query = "SELECT * FROM orders WHERE userId = :userId";
+        String query = "SELECT * FROM orders WHERE idUser = :idUser";
         return JdbiConnect.getJdbi().withHandle(handle ->
                 handle.createQuery(query)
-                        .bind("userId", userId)
-                        .map((rs, ctx) -> {
-                            Order order = new Order();
-                            order.setId(rs.getInt("id"));
-                            order.setUserId(rs.getInt("userId"));
-                            order.setIdAddress(rs.getInt("idAddress"));
-                            order.setTotal(rs.getInt("total"));
-                            order.setInvoiceDate(rs.getObject("invoiceDate", LocalDate.class));
-                            order.setPaymentDate(rs.getObject("paymentDate", LocalDate.class));
-                            order.setPaymentMethod(Order.PaymentMethod.valueOf(rs.getString("paymentMethod")));
-                            order.setStatus(Order.Status.valueOf(rs.getString("status")));
-                            return order;
-                        })
+                        .bind("idUser", userId)
+                        .mapToBean(Order.class)
                         .list()
         );
     }
