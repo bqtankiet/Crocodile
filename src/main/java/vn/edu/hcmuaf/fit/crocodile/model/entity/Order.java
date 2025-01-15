@@ -19,7 +19,21 @@ public class Order implements Serializable {
     }
 
     public enum Status {
-        PENDING, PROCESSING, AWAITING, COMPLETED, CANCELLED
+        PENDING("Chờ phê duyệt"),
+        PROCESSING("Đã duyệt"),
+        AWAITING("Đang giao hàng"),
+        COMPLETED("Hoàn thành"),
+        CANCELLED("Hủy bỏ");
+
+        private final String description;
+
+        Status(String description) {
+            this.description = description;
+        }
+
+        public String getDescription() {
+            return description;
+        }
     }
 
     public int getId() {

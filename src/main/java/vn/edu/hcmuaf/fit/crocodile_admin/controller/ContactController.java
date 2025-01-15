@@ -19,6 +19,16 @@ public class ContactController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String title = request.getParameter("title");
+        String phone = request.getParameter("phone");
+        String location = request.getParameter("location");
+        String iframe = request.getParameter("iframe");
+        System.out.println(title);
+        System.out.println(phone);
+        System.out.println(location);
+        System.out.println(iframe);
 
+        contactService.updateContact(title, location, phone, iframe);
+        request.getRequestDispatcher("/admin/views/contact.jsp").forward(request, response);
     }
 }

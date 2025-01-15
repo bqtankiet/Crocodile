@@ -131,6 +131,7 @@
                             <c:when test="${empty requestScope.cartItem}">
                                 <c:forEach var="item" items="${sessionScope.selectedCartItems}">
                                     <c:set var="productVariant" value="${item.productVariant}"/>
+                                    <input type="text" value="${productVariant.id}" hidden="hidden">
                                     <div class="d-flex flex-column">
                                         <div class="row g-0">
                                             <div class="col-2 me-3 position-relative">
@@ -276,8 +277,7 @@
             success: function(response) {
                 sessionStorage.setItem('liveMessage', 'Đặt hàng thành công!');
                 sessionStorage.setItem('liveMessageType', 'success');
-                window.location.replace(<c:url value="<%= UrlProperties.home() %>"/>
-                )
+                window.location.reload();
             },
             error: function (xhr, status, error) {
                 sessionStorage.setItem('liveMessage', 'Đặt hàng thất bại, vui lòng thử lại!');
@@ -286,4 +286,8 @@
             }
         })
     });
+</script>
+
+<script>
+
 </script>

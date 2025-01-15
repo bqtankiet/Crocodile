@@ -34,6 +34,7 @@ public class UrlProperties extends ApplicationProperties {
     // --------------------- order -----------------------
     public static String order() { return getProperty("admin.order"); }
 
+    public static String updateOrder() { return getProperty("admin.order.update"); }
     // --------------------- order -----------------------
 
 
