@@ -28,6 +28,22 @@ public class User implements Serializable {
         this.birthdate = birthdate;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", fullname='" + fullname + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", gender='" + gender + '\'' +
+                ", birthdate=" + birthdate +
+                ", active=" + active +
+                ", role=" + role +
+                '}';
+    }
+
     public String getFullname() {
         return fullname;
     }
