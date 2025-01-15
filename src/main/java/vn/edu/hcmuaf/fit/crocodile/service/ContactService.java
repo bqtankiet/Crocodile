@@ -14,4 +14,8 @@ public class ContactService {
     public Contact getContact() {
         return contactDaoAdmin.getContact();
     }
+
+    public int updateContact(String title, String location, String phone, String iframe) {
+        return contactDaoAdmin.updateContact(title, location, phone, iframe);
+    }
 }

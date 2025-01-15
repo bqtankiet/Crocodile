@@ -157,6 +157,7 @@
                             <div class="d-flex gap-2">
                                 <input id="submit-idVariant" type="number" name="idVariant" value="0" hidden="hidden">
                                 <input id="submit-quantity" type="number" name="quantity" value="0" hidden="hidden">
+                                <input id="submit-acition" type="text" name="action" value="buyNow" hidden="hidden">
                                 <button class="btn custom-btn-primary flex-grow-1 text-uppercase text-center custom-bg-primary p-3 fw-semibold"
                                         role="button" type="submit" onclick="handleSubmitBuyNow()">
                                         Đặt mua ngay

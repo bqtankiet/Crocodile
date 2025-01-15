@@ -19,6 +19,8 @@ public class CheckoutFilterController implements Filter {
         User user = (User) session.getAttribute("user");
 
         if (user == null) {
+            request.removeAttribute("forwardUrl");
+            request.setAttribute("forwardUrl", "/views/cart.jsp");
             request.getRequestDispatcher("/views/login.jsp").forward(request, response);
             return;
         }

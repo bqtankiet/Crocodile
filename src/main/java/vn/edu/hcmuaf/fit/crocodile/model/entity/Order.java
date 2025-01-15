@@ -5,13 +5,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Order implements Serializable {
-    public enum PaymentMethod {
-        MOMO, CASH, ZALOPAY, VNPAY
-    }
+//    public enum PaymentMethod {
+//        MOMO, CASH, ZALOPAY, VNPAY
+//    }
 
-    public enum Status {
-        PENDING, PROCESSING, COMPLETED, CANCELLED, AWAITING
-    }
+//    public enum Status {
+//        PENDING, PROCESSING, COMPLETED, CANCELLED, AWAITING
+//    }
 
     private int id;
     private int idUser;
@@ -22,6 +22,29 @@ public class Order implements Serializable {
     private PaymentMethod paymentMethod;
     private Status status;
 
+    // Các enum cho PaymentMethod và Status
+    public enum PaymentMethod {
+        CASH, MOMO, ZALOPAY
+    }
+
+    public enum Status {
+        PENDING("Chờ phê duyệt"),
+        PROCESSING("Đã duyệt"),
+        AWAITING("Đang giao hàng"),
+        COMPLETED("Hoàn thành"),
+        CANCELLED("Hủy bỏ");
+
+        private final String description;
+
+        Status(String description) {
+            this.description = description;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+    }
+//>>>>>>> update
 
     public int getId() {
         return id;

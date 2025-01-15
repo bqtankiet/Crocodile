@@ -365,14 +365,17 @@
                     selectedIds: selectedIds.join(','),
                 },
                 success: function(response) {
-                    alert("Đặt hàng thành công!");
+
                 },
                 error: function(xhr, status, error) {
-                    alert("Có lỗi xảy ra khi đặt hàng!");
+
                 }
             });
         } else {
-            alert("Vui lòng chọn ít nhất một sản phẩm.");
+            window.location.reload();
+            sessionStorage.setItem('liveMessage', 'Vui lòng chọn ít nhất 1 sản phẩm!');
+            sessionStorage.setItem('liveMessageType', 'danger');
+            event.preventDefault();
         }
 
     });

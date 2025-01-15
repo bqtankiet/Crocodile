@@ -17,6 +17,8 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String forwardUrl = request.getParameter("forwardUrl");
+        request.setAttribute("forwardUrl", forwardUrl);
         request.getRequestDispatcher("/views/login.jsp").forward(request, response);
     }
 
@@ -47,6 +49,11 @@ public class LoginController extends HttpServlet {
                 session.setAttribute("gender", user.getGender() != null ? user.getGender() : "");
                 session.setAttribute("phone", user.getPhoneNumber() != null ? user.getPhoneNumber() : "");
                 session.setAttribute("birthDate", user.getBirthdate());
+                session.setAttribute("role", user.getRole());
+
+                System.out.println(("role "+user.getRole()));
+                user.setPassword(null);
+                session.setAttribute("user", user);
 
                 String gender = user.getGender();
                 String genderDisplay = "";
@@ -60,7 +67,11 @@ public class LoginController extends HttpServlet {
                 }
 
                 session.setAttribute("gender", genderDisplay);
-
+                String forwardUrl = request.getParameter("forwardUrl");
+                if(forwardUrl != null && !forwardUrl.isBlank()) {
+                    request.getRequestDispatcher(forwardUrl).forward(request, response);
+                    return;
+                }
                 Optional<String> roleOpt = auth.checkRole(userId);
                 if (roleOpt.isPresent() && "1".equals(roleOpt.get())) {
                     System.out.println(auth.checkRole(userId));
