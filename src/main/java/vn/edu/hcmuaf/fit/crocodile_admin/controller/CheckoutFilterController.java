@@ -7,7 +7,7 @@ import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
 
 import java.io.IOException;
 
-@WebFilter(filterName = "CheckoutFilter", urlPatterns = "/checkout")
+//@WebFilter(filterName = "CheckoutFilter", urlPatterns = "/checkout")
 public class CheckoutFilterController implements Filter {
 
     @Override

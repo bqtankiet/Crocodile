@@ -5,6 +5,7 @@ import vn.edu.hcmuaf.fit.crocodile.dao.order.OrderDao;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Order;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class OrderService {
     private final IOrderDao orderDao;
@@ -12,6 +13,8 @@ public class OrderService {
     public OrderService() {
         orderDao = new OrderDao();
     }
+
+    public List<Order> findAll() { return orderDao.findAll(); }
 
     public int insertOrder(int idUser, int idAddress, int total, LocalDateTime invoiceDate,
                            Order.PaymentMethod paymentMethod, Order.Status status) {

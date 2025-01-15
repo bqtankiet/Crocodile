@@ -10,8 +10,37 @@
 
 <div id="page" class="layout-default ">
     <div id="CONTENT" class="h-100" style="margin-bottom: 10rem;">
-        <!-------------------- Breadcrumb -------------------->
+        <div id="liveAlertPlaceholder" class="fixed-top"></div>
+        <script>
+            const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
 
+            // Hàm để thêm alert
+            const appendAlert = (message, type) => {
+                const wrapper = document.createElement('div')
+                wrapper.innerHTML = [
+                    `<div class="alert alert-` + type + ` alert-dismissible" role="alert">`,
+                    `   <div class="text-center fw-semibold">` + message + `</div>`,
+                    '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+                    '</div>'
+                ].join('')
+
+                alertPlaceholder.append(wrapper)
+
+                // Tự động ẩn alert sau 5 giây
+                setTimeout(() => {
+                    wrapper.remove()  // Loại bỏ alert sau 5 giây
+                }, 5000)  // 5000ms = 5s
+            }
+
+            const liveMessage = sessionStorage.getItem('liveMessage');
+            const messageType = sessionStorage.getItem('liveMessageType');
+            if (liveMessage) {
+                appendAlert(liveMessage, messageType);
+                sessionStorage.removeItem('liveMessage');
+                sessionStorage.removeItem('liveMessageType');
+            }
+        </script>
+        <!-------------------- Breadcrumb -------------------->
         <div class="container">
             <nav style="--bs-breadcrumb-divider: '>'">
                 <ol class="breadcrumb">
@@ -98,6 +127,55 @@
                     <div class="p-4 rounded-2 bg-secondary-subtle gap-3">
                         <c:set var="totalAmount" value="0" />
 
+
+
+                        <c:choose>
+                            <c:when test="${empty requestScope.cartItem}">
+
+                            </c:when>
+                            <c:otherwise>
+                                <c:set var="i" value="${requestScope.cartItem.productVariant}"/>
+                                <div class="d-flex flex-column">
+                                    <div class="row g-0">
+                                        <div class="col-2 me-3 position-relative">
+                                            <div class="ratio ratio-1x1">
+                                                <img src="${i.product.image}"
+                                                     class="img-fluid border rounded-2" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="col lh-1 my-auto">
+                                            <div class="w-100">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="me-2">
+                                                        <p class="fw-semibold mb-0 line-clamp-2"
+                                                           style="height: fit-content ;max-height: 2.5rem; line-height: 1.2">
+                                                                ${i.product.name}
+                                                        </p>
+                                                        <p class="text-muted mt-1 mb-0">Da trơn</p>
+                                                    </div>
+                                                    <div class="ms-auto fw-bold fs-6 text-nowrap" style="width: max-content">
+                                                        <fmt:formatNumber value="${i.product.price}" type="number" pattern="#,##0" />
+                                                        <sup>₫</sup> × ${requestScope.cartItem.quantity}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center mt-3">
+                                    <span class="fw-medium text-muted">Tổng đơn hàng: </span>
+                                    <div class="ms-auto">
+                                    <span class="fw-bold">
+                                        <fmt:formatNumber value="${requestScope.cartItem.caculatePrice()}" type="number" pattern="#,##0" />
+                                         <sup>₫</sup>
+                                    </span>
+                                    </div>
+                                </div>
+                                <div class="border-top border-secondary-subtle mt-3 mb-2"></div>
+                                <c:set var="totalAmount" value="${requestScope.cartItem.caculatePrice()}" />
+                            </c:otherwise>
+                        </c:choose>
+
                         <c:forEach var="item" items="${sessionScope.selectedCartItems}">
                             <c:set var="productVariant" value="${item.productVariant}"/>
                             <div class="d-flex flex-column">
@@ -114,7 +192,7 @@
                                                 <div class="me-2">
                                                     <p class="fw-semibold mb-0 line-clamp-2"
                                                        style="height: fit-content ;max-height: 2.5rem; line-height: 1.2">
-                                                        ${productVariant.product.name}
+                                                            ${productVariant.product.name}
                                                     </p>
                                                     <p class="text-muted mt-1 mb-0">Da trơn</p>
                                                 </div>
@@ -184,12 +262,14 @@
                 total: totalAmount
             },
             success: function(response) {
-                alert("Đặt hàng thành công!");
+                sessionStorage.setItem('liveMessage', 'Đặt hàng thành công!');
+                sessionStorage.setItem('liveMessageType', 'success');
             },
-            error: function(xhr, status, error) {
-                alert("Có lỗi xảy ra khi đặt hàng!");
+            error: function (xhr, status, error) {
+                sessionStorage.setItem('liveMessage', 'Đặt hàng thất bại, vui lòng thử lại!');
+                sessionStorage.setItem('liveMessageType', 'danger');
+                window.location.reload();
             }
         })
     });
 </script>
-
