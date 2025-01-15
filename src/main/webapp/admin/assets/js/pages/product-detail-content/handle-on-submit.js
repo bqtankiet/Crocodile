@@ -36,10 +36,13 @@ function sendProductData(product) {
         contentType: "application/json",
         data: JSON.stringify(product.toJSON()),
         success: function (response) {
-            document.body.innerHTML = '<pre class="text-white" style="background-color: #000000">' + JSON.stringify(response, null, 2) + '</pre>';
+            alert("Thêm sản phẩm thành công!");
+            // document.body.innerHTML = '<pre class="text-white" style="background-color: #000000">' + JSON.stringify(response, null, 2) + '</pre>';
+            if(response.redirect_url) window.location.href = response.redirect_url;
         },
         error: function (xhr, status, error) {
             console.error("Lỗi khi gửi sản phẩm", error);
+            alert("Thêm sản phẩm thất bại. Hãy nhập đầy đủ các thông tin");
         }
     });
 }

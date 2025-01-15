@@ -26,6 +26,8 @@ public class UrlProperties extends ApplicationProperties {
 
     public static String productCreate() { return getProperty("admin.product.insert"); }
 
+    public static String deleteProduct() { return getProperty("admin.product.delete"); }
+
     // --------------------- product ---------------------
 
 
