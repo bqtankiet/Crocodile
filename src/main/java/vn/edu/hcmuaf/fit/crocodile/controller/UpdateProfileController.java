@@ -6,52 +6,77 @@ import jakarta.servlet.annotation.*;
 import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDao;
 import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDaoImpl;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
+import vn.edu.hcmuaf.fit.crocodile.service.AuthenticationService;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Optional;
 
 @WebServlet(name = "UpdateProfileController", urlPatterns = {"/update-profile"})
 public class UpdateProfileController extends HttpServlet {
 
-    private UserDao userDao;
 
     @Override
-    public void init() {
-        userDao = new UserDaoImpl();
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String fullName = request.getParameter("fullname");
+        String fullname = request.getParameter("fullname");
         String email = request.getParameter("email");
+        String phoneNumber = request.getParameter("phone-number");
         String gender = request.getParameter("gender");
-        String phone = request.getParameter("phone-number");
-        String birthDate = request.getParameter("birth-date");
+        String birthDateString = request.getParameter("birth-date");
 
-        User user = (User) request.getSession().getAttribute("user");
+        HttpSession session = request.getSession();
+        Integer userId = (Integer) session.getAttribute("userId");
 
-        if (user == null) {
-            response.sendRedirect("/views/login.jsp");
+
+        if (userId == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 
-        user.setUsername(username);
-        user.setFullname(fullName);
-        user.setEmail(email);
-        user.setGender(gender);
-        user.setPhoneNumber(phone);
-        user.setBirthdate(LocalDate.parse(birthDate));
+        try {
+            LocalDate birthDate = birthDateString != null && !birthDateString.isEmpty()
+                    ? LocalDate.parse(birthDateString)
+                    : null;
 
-        userDao.update(user);
+            User user = new User();
+            user.setId(userId);
+            user.setFullname(fullname);
+            user.setEmail(email);
+            user.setPhoneNumber(phoneNumber);
+            user.setGender(gender);
+            user.setBirthdate(birthDate);
+            if (fullname != null) session.setAttribute("fullName", fullname);
+            if (email != null) session.setAttribute("email", email);
+            if (phoneNumber != null) session.setAttribute("phone", phoneNumber);
+            if (gender != null) session.setAttribute("gender", gender);
+            if (birthDate != null) session.setAttribute("birthDate", birthDate);
 
-        request.getSession().setAttribute("user", user);
 
-        response.sendRedirect("views/user.jsp");
+            AuthenticationService authService = new AuthenticationService();
+            boolean isUpdated = authService.updateProfile(user);
+
+            if (isUpdated) {
+
+                session.setAttribute("fullName", fullname != null ? fullname : "");
+                session.setAttribute("email", email != null ? email : "");
+                session.setAttribute("phone", phoneNumber != null ? phoneNumber : "");
+                session.setAttribute("gender", gender != null ? gender : "");
+                session.setAttribute("birthDate", birthDate);
+
+                response.sendRedirect(request.getContextPath() + "/user");
+            } else {
+                request.setAttribute("errorMessage", "Cập nhật thông tin thất bại. Vui lòng thử lại.");
+                request.getRequestDispatcher("/views/user.jsp").forward(request, response);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("errorMessage", "Có lỗi xảy ra khi cập nhật thông tin.");
+            request.getRequestDispatcher("/views/user.jsp").forward(request, response);
+        }
     }
+
 }

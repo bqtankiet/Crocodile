@@ -12,6 +12,8 @@
 <c:url var="aboutUrl" value="<%= UrlProperties.about() %>"/>
 <c:url var="loginUrl" value="<%= UrlProperties.login() %>"/>
 <c:url var="cartUrl" value="<%= UrlProperties.cart() %>"/>
+<c:url var="productListUrl" value="<%= UrlProperties.productList() %>"/>
+
 
 <c:set var="activeHome" value="home"/>
 <c:set var="activeAbout" value="about"/>
@@ -81,7 +83,6 @@
             /*color: var(--custom-bg-primary);*/
             color: lightgray;
         }
-
     </style>
 
     <!--  Text uu dai  -->
@@ -99,10 +100,10 @@
                      style="width: 15rem">
             </a>
             <form class="d-flex p-2 mt-2 mt-lg-0 rounded-5 col-lg col-12 order-lg-1 order-3 mx-3 bg-secondary-subtle"
-                  role="search">
+                  role="search" action="${productListUrl}" method="get">
                 <input id="search-bar" class="form-control shadow-none mx-2 border-0" style="background-color: inherit"
-                       type="search"
-                       placeholder="Tìm kiếm sản phẩm"
+                       type="text"
+                       placeholder="Tìm kiếm sản phẩm" name="key"
                        aria-label="Search">
                 <button class="bg-transparent border-0 me-2" type="submit">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1.3rem" height="1.3rem"
@@ -119,11 +120,16 @@
                            class="text-decoration-none position-relative custom-text-primary col-6">
                             <div class="d-flex align-items-center justify-content-end">
                                 <div class="custom-icon" style="--size: 2rem">
-                                    <img src="${sessionScope.userAvatar}" alt="Avatar" class="rounded-circle"
-                                         style="width: 32px; height: 32px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-person-circle" viewBox="0 0 16 16">
+                                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"></path>
+                                        <path fill-rule="evenodd"
+                                              d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"></path>
+                                    </svg>
                                 </div>
                                 <div class="ps-2">
                                     <div class="small pb-1">Xin chào</div>
+                                    <!-- Giữ nguyên avatar, chỉ cập nhật username -->
                                     <div class="pb-1 fw-semibold text-truncate"
                                          style="width: 10ch">${sessionScope.userName}</div>
                                 </div>
@@ -150,14 +156,15 @@
                     </c:otherwise>
                 </c:choose>
 
-            <%-- TODO: giỏ hàng trên header--%>
+
+                <%-- TODO: giỏ hàng trên header--%>
                 <a id="cart-toggle" class="text-decoration-none position-relative custom-text-primary col-6"
-                   href="#offcanvasRight" role="button" data-bs-toggle="offcanvas">
+                   href="${param.activePage != "cart" ? '#offcanvasRight' : ''}" role="button" data-bs-toggle="offcanvas">
                     <div class="d-flex align-items-center justify-content-end">
                         <div class="custom-icon" style="--size: 2rem">
-                            <c:if test="${sessionScope.cart != null && sessionScope.cart.size != 0}" >
+                            <c:if test="${sessionScope.cart != null && sessionScope.cart.size != 0}">
                                 <span class="badge text-bg-danger position-absolute translate-middle rounded-pill">
-                                    ${sessionScope.cart.size}
+                                        ${sessionScope.cart.size}
                                 </span>
                             </c:if>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -298,11 +305,11 @@
                                 </svg>
                             </div>
                         </a>
-                        <a href="#offcanvasRight" role="button" data-bs-toggle="offcanvas">
+                        <a href="${param.activePage != "cart" ? '#offcanvasRight' : ''}" role="button" data-bs-toggle="offcanvas">
                             <div class="custom-icon text-white" style="--size: 2rem">
                                 <c:if test="${sessionScope.cart != null}">
                                     <span class="badge text-bg-danger position-absolute translate-middle rounded-pill">
-                                        ${sessionScope.cart.totalQuantity}
+                                            ${sessionScope.cart.totalQuantity}
                                     </span>
                                 </c:if>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -316,7 +323,6 @@
             </nav>
         </div>
     </div>
-
 
     <!--  Offcanvas Gio Hang  -->
     <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasRight" style="width: 420px">
@@ -338,7 +344,7 @@
                         <div class="col-2 me-3 position-relative">
                                 <%-- số lượng sản phẩm--%>
                             <span class="position-absolute top-0 start-100 z-1 translate-middle badge rounded-pill bg-danger">
-                                ${item.quantity}
+                                    ${item.quantity}
                             </span>
 
                                 <%-- hình ảnh sản phẩm --%>
@@ -351,12 +357,13 @@
                             <div class="w-100">
                                 <div class="d-flex align-items-center">
                                     <div class="me-2">
-                                        <%-- tên sản phẩm --%>
-                                        <p class="fw-semibold mb-0 line-clamp-2" style="height: fit-content ;max-height: 2.5rem; line-height: 1.2">
-                                            ${productVariant.product.name}
+                                            <%-- tên sản phẩm --%>
+                                        <p class="fw-semibold mb-0 line-clamp-2"
+                                           style="height: fit-content ;max-height: 2.5rem; line-height: 1.2">
+                                                ${productVariant.product.name}
                                         </p>
 
-                                        <%-- loại sản phẩm --%>
+                                            <%-- loại sản phẩm --%>
                                         <c:if test="${productVariant.idOption1 != null}">
                                             <p class="fw-normal">${productVariant.pOption1.key}: ${productVariant.pOption1.value}
                                                 <c:if test="${productVariant.pOption2 != null}">
@@ -365,10 +372,11 @@
                                             </p>
                                         </c:if>
                                     </div>
-                                    <%-- tổng tiền sản phẩm --%>
+                                        <%-- tổng tiền sản phẩm --%>
                                     <div class="ms-auto fw-medium fs-6">
                                         <c:if test="${empty sessionScope.cart}">0₫</c:if>
-                                        <fmt:formatNumber value="${item.caculatePrice()}" type="currency" currencySymbol="₫" groupingUsed="true"/>
+                                        <fmt:formatNumber value="${item.caculatePrice()}" type="currency"
+                                                          currencySymbol="₫" groupingUsed="true"/>
                                     </div>
                                 </div>
                             </div>
@@ -384,7 +392,8 @@
                 <p>Tổng:</p>
                 <p>
                     <c:if test="${empty sessionScope.cart}">0₫</c:if>
-                    <fmt:formatNumber value="${sessionScope.cart.totalPrice}" type="currency" currencySymbol="₫" groupingUsed="true"/>
+                    <fmt:formatNumber value="${sessionScope.cart.totalPrice}" type="currency" currencySymbol="₫"
+                                      groupingUsed="true"/>
                 </p>
             </div>
             <a href="${cartUrl}"
@@ -405,4 +414,37 @@
             }
         });
     </script>
+
+    <!-- Search -->
+    <script>
+        $(document).ready(function () {
+            let debounceTimeout;
+
+            $('#search-bar').on('keyup', function () {
+                const keyWord = $(this).val();
+                console.log(keyWord);
+
+                // Hủy bỏ yêu cầu trước đó nếu người dùng tiếp tục gõ
+                clearTimeout(debounceTimeout);
+
+                if (keyWord.length >= 1) {
+                    // Thực hiện tìm kiếm sau 300ms khi người dùng ngừng gõ
+                    debounceTimeout = setTimeout(function () {
+                        $.ajax({
+                            url: '${productListUrl}',
+                            method: 'GET',
+                            data: {key: keyWord},
+                            success: function (response) {
+
+                            },
+                            error: function (error) {
+                                console.log('Error: ', error);
+                            }
+                        });
+                    }, 300);
+                }
+            });
+        });
+    </script>
+
 </header>

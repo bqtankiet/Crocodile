@@ -2,6 +2,7 @@ package vn.edu.hcmuaf.fit.crocodile.dao.order;
 
 import vn.edu.hcmuaf.fit.crocodile.dao.BasicDao;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Order;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.OrderManagement;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,4 +16,10 @@ public interface IOrderDao extends BasicDao<Integer, Order> {
 
     int insertOrder(int idUser, int idAddress, int total, LocalDateTime invoiceDate,
                     Order.PaymentMethod paymentMethod, Order.Status status);
+
+    List<OrderManagement> finAllOrder();
+
+    int processing(int id);
+
+    int cancelled(int id);
 }

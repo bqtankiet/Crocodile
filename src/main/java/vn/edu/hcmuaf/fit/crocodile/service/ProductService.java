@@ -76,6 +76,10 @@ public class ProductService {
         return pv;
     }
 
+    public List<Product> searchProduct(String keyword) {
+        return productDao.searchProduct(keyword);
+    }
+
     // ------------------------ em khoi test ----------------------------
 
     public int insertProduct(Product product) {
@@ -106,5 +110,13 @@ public class ProductService {
 
     public List<Product> getTopSellingProductsOfCategory(int topN, int days, int idCategory) {
         return productDao.getTopSellingProductsOfCategory(topN, days, idCategory);
+    }
+
+    public List<Product> searchProductsWithPagination(String keyword, int page, int size){
+        return productDao.searchProductsWithPagination(keyword, page, size);
+    }
+
+    public int deleteProduct(int id) {
+        return productDaoAdmin.deleteProduct(id);
     }
 }

@@ -64,6 +64,21 @@ public class ProductListController extends HttpServlet {
         request.setAttribute("page", page);
         request.setAttribute("maxPage", maxPage);
         request.setAttribute("productList", productList);
+
+        //      ---------------  Search ---------------
+        String keyWord = request.getParameter("key");
+        if(keyWord!=null) {
+//            List<Product> list = productService.searchProduct(keyWord);
+            List<Product> list = productService.searchProductsWithPagination(keyWord, page, 99);
+            request.removeAttribute("page");
+            request.removeAttribute("maxPage");
+            request.removeAttribute("productList");
+            request.removeAttribute("sortStrategy");
+            request.removeAttribute("category");
+            request.setAttribute("listProductSearch", list);
+        }
+        //      ---------------  Search ---------------
+
         request.getRequestDispatcher("/views/product-list.jsp").forward(request, response);
     }
 

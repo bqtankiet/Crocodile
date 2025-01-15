@@ -1,5 +1,8 @@
+<%@ page import="vn.edu.hcmuaf.fit.crocodile_admin.config.properties.UrlProperties" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<c:url var="updateOrder" value="<%=UrlProperties.updateOrder() %>"/>
 
 
 <div class="content-wrapper">
@@ -23,35 +26,57 @@
                             <th scope="col">Số điện thoại</th>
                             <th scope="col">Tổng tiền</th>
                             <th scope="col">Phương thức thanh toán</th>
+                            <th scope="col">Trạng thái</th>
                             <th scope="col" class="align-middle">Ngày đặt</th>
                             <th scope="col">Tác vụ</th>
                         </tr>
                         </thead>
                         <tbody>
                         <!-- Hàng 1 -->
-                        <tr>
-                            <th scope="row">22</th>
-                            <td>DavidBecKhôi</td>
-                            <td>0123456789</td>
-                            <td>1.200.000</td>
-                            <td><img style="width: 300px; height: 300px" src="https://bizweb.dktcdn.net/thumb/compact/100/027/341/products/clutch-nam-da-ca-sau-8a.jpg?v=1701337832133" alt=""></td>
-                            <td>20/11/2022 15:30:30</td>
-                            <td>
-                                <div class="dropdown">
-                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                            data-bs-toggle="dropdown">
-                                        <i class="bx bx-dots-vertical-rounded"></i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="order-detail.html"><i
-                                                class="menu-icon tf-icons bx bx-file"></i> Chi
-                                            tiết</a>
-                                        <a class="dropdown-item" href="javascript:void(0);"><i
-                                                class="bx bx-trash me-1"></i> Xóa</a>
+                        <c:forEach items="${requestScope.orders}" var="o">
+
+                            <tr>
+                                <th scope="row">${o.id}</th>
+                                <td>${o.fullname}</td>
+                                <td>${o.phone}</td>
+                                <td>${o.total}</td>
+                                <td>${o.paymentMethod}</td>
+                                <td>${o.status.description}</td>
+                                <td>${o.invoiceDate}</td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                data-bs-toggle="dropdown">
+                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <c:if test="${o.status.description == 'Chờ phê duyệt'}">
+                                                <button class="dropdown-item btn-processing"
+                                                        data-id="${o.id}" data-action="processing">
+                                                    <i class="bx bx-check me-2 btn-save fs-3 cursor-pointer"></i>
+                                                    Phê duyệt
+                                                </button>
+                                            </c:if>
+                                            <c:if test="${
+                                                o.status.description != 'Hủy bỏ' &&
+                                                o.status.description != 'Hoàn thành'
+                                                }">
+                                                <button class="dropdown-item btn-cancelled"
+                                                        data-id="${o.id}" data-action="cancelled" >
+                                                    <i class="bx bx-undo me-2 btn-cancel fs-3 cursor-pointer"></i>
+                                                    Hủy bỏ
+                                                </button>
+                                            </c:if>
+                                            <a class="dropdown-item" href="order-detail.html"><i
+                                                    class="menu-icon tf-icons bx bx-file"></i> Chi
+                                                tiết</a>
+                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                    class="bx bx-trash me-1"></i> Xóa</a>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>
@@ -62,3 +87,57 @@
     </div>
     <!-- Content wrapper -->
 </div>
+
+<script>
+    $(document).on('click', '.btn-processing', function (event) {
+        event.preventDefault();
+        const orderId = $(this).data('id');
+        const action =  $(this).data('action');
+        $.ajax({
+            url: "${updateOrder}",
+            type: "POST",
+            data: {
+                id: orderId,
+                action: action
+            },
+            success: function (response) {
+                window.location.reload();
+            },
+            error: function (xhr, status, error) {
+                if (xhr.status === 404) {
+                    alert("Không tìm thấy endpoint " + "${updateOrder}");
+                } else {
+                }
+                console.error("Error:", error);
+            }
+        });
+    });
+
+</script>
+
+<script>
+    $(document).on('click', '.btn-cancelled', function (event) {
+        event.preventDefault();
+        const orderId = $(this).data('id');
+        const action =  $(this).data('action');
+        $.ajax({
+            url: "${updateOrder}",
+            type: "POST",
+            data: {
+                id: orderId,
+                action: action
+            },
+            success: function (response) {
+                window.location.reload();
+            },
+            error: function (xhr, status, error) {
+                if (xhr.status === 404) {
+                    alert("Không tìm thấy endpoint " + "${updateOrder}");
+                } else {
+                }
+                console.error("Error:", error);
+            }
+        });
+    });
+
+</script>

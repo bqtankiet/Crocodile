@@ -13,7 +13,10 @@
         <!-- phần đăng nhập -->
         <div class="card shadow p-4" style="width: 28rem">
             <h3 class="text-center mb-4">Đăng Nhập</h3>
+<%--            <c:url var="forwardUrl" value="${requestScope.forwardUrl}"/>--%>
             <form id="loginForm" class="d-grid gap-4" action="<c:url value='/login'/>" method="post">
+                <input class="form-control d-none" type="text" id="forwardUrl" name="forwardUrl" value="${requestScope.forwardUrl}">
+<%--                <h1>${requestScope.forwardUrl}</h1>--%>
                 <input class="form-control" type="text" id="username" name="username" placeholder="Nhập tài khoản"
                        required>
                 <input class="form-control" type="password" id="password" name="password" placeholder="Nhập mật khẩu"
