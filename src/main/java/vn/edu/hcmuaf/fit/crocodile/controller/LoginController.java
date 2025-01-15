@@ -34,7 +34,6 @@ public class LoginController extends HttpServlet {
                 return;
             }
 
-            // Lấy thông tin người dùng từ UserDao
             UserDao userDao = new UserDaoImpl();
             Optional<User> optionalUser = userDao.findById(userId);
 
@@ -62,9 +61,10 @@ public class LoginController extends HttpServlet {
 
                 session.setAttribute("gender", genderDisplay);
 
-                // Kiểm tra role và chuyển hướng
-                if ("1".equals(user.getRole())) {
-                    response.sendRedirect(request.getContextPath() + "/views/admin.jsp");
+                Optional<String> roleOpt = auth.checkRole(userId);
+                if (roleOpt.isPresent() && "1".equals(roleOpt.get())) {
+                    System.out.println(auth.checkRole(userId));
+                    response.sendRedirect(request.getContextPath() + "/admin");
                 } else {
                     response.sendRedirect(request.getContextPath() + "/");
                 }
