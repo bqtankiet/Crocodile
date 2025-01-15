@@ -268,14 +268,14 @@
                         <div class="card-body pb-2">
                             <h6 class="mb-4">Địa Chỉ</h6>
                             <div id="addressList">
-                                <c:forEach var="address" items="${addressList}">
+                                <c:forEach var="address" items="${requestScope.addressList}">
                                     <div class="mb-3">
                                         <h6 class="fw-bold">${address.fullname}</h6>
                                         <p class="mb-1">${address.street}, ${address.ward}, ${address.district}, ${address.province}</p>
                                         <p class="mb-1">Số điện thoại: ${address.phoneNumber}</p>
                                     </div>
-                                </c:forEach>
 
+                                </c:forEach>
                                 <c:if test="${not empty message}">
                                     <div class="alert alert-info">${message}</div>
                                 </c:if>
@@ -528,3 +528,4 @@
 
 
     </script>
+</div>

@@ -88,7 +88,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<Address> getAddressesByUserId(int userId) {
-        String query = "SELECT * FROM addresses WHERE id_user = :userId";
+        String query = "SELECT * FROM addresses WHERE userId = :userId";
         return JdbiConnect.getJdbi().withHandle(handle ->
                 handle.createQuery(query)
                         .bind("userId", userId)

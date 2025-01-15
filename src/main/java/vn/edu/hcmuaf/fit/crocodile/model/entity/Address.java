@@ -2,7 +2,9 @@ package vn.edu.hcmuaf.fit.crocodile.model.entity;
 
 import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDaoImpl;
 
-public class Address {
+import java.io.Serializable;
+
+public class Address implements Serializable {
     private int id;
     private int userId;
     private String fullname;
@@ -99,5 +101,19 @@ public class Address {
             e.printStackTrace();
             System.out.println("Có lỗi xảy ra khi thêm địa chỉ.");
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", fullname='" + fullname + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", province='" + province + '\'' +
+                ", district='" + district + '\'' +
+                ", ward='" + ward + '\'' +
+                ", street='" + street + '\'' +
+                '}';
     }
 }

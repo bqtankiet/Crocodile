@@ -15,7 +15,7 @@ public class AddressController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Integer userId = (Integer) session.getAttribute("userId");
-
+        System.out.println(userId);
         if (userId == null) {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
@@ -24,6 +24,7 @@ public class AddressController extends HttpServlet {
         try {
             UserDaoImpl userDao = new UserDaoImpl();
             List<Address> addressList = userDao.getAddressesByUserId(userId);
+            System.out.println(addressList);
 
             // Nếu không có địa chỉ, bạn có thể thông báo cho người dùng
             if (addressList == null || addressList.isEmpty()) {
@@ -31,6 +32,7 @@ public class AddressController extends HttpServlet {
             }
 
             // Đặt danh sách địa chỉ vào request attribute
+//            session.setAttribute("addressList", addressList);
             request.setAttribute("addressList", addressList);
 
             // Chuyển tiếp đến JSP hiển thị
