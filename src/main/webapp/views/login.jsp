@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="<c:url value="/public/bootstrap/css/bootstrap.css"/>">
     <script src="<c:url value="/public/bootstrap/js/bootstrap.bundle.js"/>"></script>
     <!--  css  -->
-    <link rel="stylesheet" href="<c:url value="/layouts/layout.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/main.css"/>">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script>
@@ -31,7 +30,7 @@
     </script>
 </c:if>
 <jsp:include page="includes/header.jsp">
-    <jsp:param name="activePage" value="about"/>
+    <jsp:param name="activePage" value="home"/>
 </jsp:include>
 <%--CONTENT--%>
 <jsp:include page="contents/login-content.jsp"/>
