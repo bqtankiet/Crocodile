@@ -49,9 +49,9 @@
 </head>
 <body>
     <%--HEADER--%>
-<%--    <jsp:include page="includes/header.jsp">--%>
-<%--        <jsp:param name="activePage" value="home"/>--%>
-<%--    </jsp:include>--%>
+    <jsp:include page="includes/header.jsp">
+        <jsp:param name="activePage" value="home"/>
+    </jsp:include>
     <%--CONTENT--%>
     <jsp:include page="contents/home-content.jsp"/>
     <%--FOOTER--%>
