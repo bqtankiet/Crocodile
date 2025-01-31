@@ -53,7 +53,7 @@
         <jsp:param name="activePage" value="home"/>
     </jsp:include>
     <%--CONTENT--%>
-<%--    <jsp:include page="contents/home-content.jsp"/>--%>
+    <jsp:include page="contents/home-content.jsp"/>
     <%--FOOTER--%>
     <jsp:include page="includes/footer.jsp"/>
 </body>
