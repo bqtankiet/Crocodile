@@ -1,0 +1,52 @@
+name: "🐞 Bug Report"
+description: "Báo cáo lỗi."
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: "🐞 Mô tả lỗi"
+      description: "Hãy mô tả lỗi một cách chi tiết! Nếu được hãy cung cấp thêm hình ảnh hoặc video"
+      placeholder: "Ví dụ: Khi tôi nhấn vào nút Đăng nhập, trang web bị trắng..."
+    validations:
+      required: true
+      
+  - type: textarea
+    id: steps
+    attributes:
+      label: "🔄 Tái hiện lỗi"
+      description: "Hãy liệt kê các bước cụ thể để chúng tôi có thể tái hiện lỗi."
+      placeholder: |
+        1. Mở ứng dụng
+        2. Nhấn vào 'Đăng nhập'
+        3. Nhập email & mật khẩu
+        4. Nhấn Submit
+        5. ❌ Lỗi xảy ra...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: "✅ Kết quả mong đợi"
+      description: "Bạn mong đợi điều gì sẽ xảy ra?"
+      placeholder: "VD: Tôi mong muốn được đăng nhập thành công..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: "⚠️ Log lỗi (Nếu có)"
+      description: "Hãy copy và paste những thông báo lỗi mà bạn đã gặp phải vào đây."
+      placeholder: "Copy and paste here"
+      render: shell
+      
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: "☑️ Xác nhận tạo Issue"
+      options:
+        - label: "Tôi đã kiểm tra rằng lỗi này chưa có trong các Issue đã mở."
+          required: true
