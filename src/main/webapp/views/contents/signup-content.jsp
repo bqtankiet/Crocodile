@@ -25,13 +25,17 @@
         background-color: white;
     }
 
-    #feedback-tooltips {
+    #feedback-tooltips, .password-criteria-holder {
         position: absolute;
         border: 1px solid lightgray;
         border-radius: 5px;
         padding: 5px 10px;
         background-color: white;
         transform: translate(0%, 5%);
+    }
+
+    .password-criteria-holder ul {
+        margin-bottom: 0 !important;
     }
 </style>
 <div id="page">
@@ -56,11 +60,13 @@
                         <div>
                             <div id="gender" class="d-flex gap-4 align-items-center justify-content-around">
                                 <!-- Nam -->
-                                <input type="radio" class="btn-check" name="gender" id="male" autocomplete="off" value="male"
+                                <input type="radio" class="btn-check" name="gender" id="male" autocomplete="off"
+                                       value="male"
                                        required>
                                 <label class="btn btn-outline-secondary col" for="male" style="border-color: #dbdbdb">Nam</label>
                                 <!-- Nữ -->
-                                <input type="radio" class="btn-check" name="gender" id="female" autocomplete="off" value="female"
+                                <input type="radio" class="btn-check" name="gender" id="female" autocomplete="off"
+                                       value="female"
                                        required>
                                 <label class="btn btn-outline-secondary col" for="female" style="border-color: #dbdbdb">Nữ</label>
                             </div>
@@ -81,15 +87,16 @@
                             <input class="form-control" type="password" id="password" name="password"
                                    placeholder="Mật khẩu"
                                    required="" aria-label="">
-                            <div class="invalid-feedback"></div>
-                            <div id="feedback-tooltips" class="d-none">
-                                <ul class="m-0">
-                                    <li class="text-danger" id="longRequired">Ít nhất 8 ký tự</li>
-                                    <li class="text-danger" id="numberRequired">Phải có số (1..9)</li>
-                                    <li class="text-danger" id="uppercaseRequired">Phải có chữ viết hoa (A..Z)</li>
-                                    <li class="text-danger" id="symbolRequired">Phải có ký tự đặc biệt (!..*)</li>
-                                </ul>
-                            </div>
+                            <div class="password-criteria-holder d-none shadow-sm"></div>
+                            <div class="invalid-feedback">Mật khẩu không hợp lệ</div>
+                            <%--                            <div id="feedback-tooltips" class="d-none">--%>
+                            <%--                                <ul class="m-0">--%>
+                            <%--                                    <li class="text-danger" id="longRequired">Ít nhất 8 ký tự</li>--%>
+                            <%--                                    <li class="text-danger" id="numberRequired">Phải có số (1..9)</li>--%>
+                            <%--                                    <li class="text-danger" id="uppercaseRequired">Phải có chữ viết hoa (A..Z)</li>--%>
+                            <%--                                    <li class="text-danger" id="symbolRequired">Phải có ký tự đặc biệt (!..*)</li>--%>
+                            <%--                                </ul>--%>
+                            <%--                            </div>--%>
                         </div>
 
                         <!-- Confirm password -->
@@ -166,142 +173,226 @@
 </div>
 
 <script>
-    $('#signupForm').on('submit', function(event) {
-        event.preventDefault();
+    class RegisterFormValidator {
+        constructor(formSelector) {
+            this.$form = $(formSelector);
 
-        $.ajax({
-            type: 'POST',
-            url: '<c:url value="/signup"/>',
-            data: $(this).serialize(),
-            success: function (response){
-                alert("Success");
-            },
-            error: function(){
-                alert("Failed");
-            },
-        });
-    });
+            this.errors = {};
+
+            this.$nameInput = this.$form.find('#fullName');
+            this.$genderInput = this.$form.find('#gender');
+            this.$contactInput = this.$form.find('#contact');
+            this.$passwordInput = this.$form.find('#password');
+            this.$confirmPasswordInput = this.$form.find('#confirmPassword');
+
+            this.passwordCriteria = new PasswordCriteria([
+                'Ít nhất 8 ký tự',
+                'Ít nhất 1 chữ số (0..9)',
+                'Ít nhất 1 chữ hoa (A..Z)',
+                'Ít nhất 1 ký tự đặc biệt'
+            ]).bind('#password');
+
+            // Chặn copy, cut, paste, space
+            this.$passwordInput.on('keydown paste', function (e) {
+                if (e.key === ' ' || (e.ctrlKey && ['c', 'v', 'x'].includes(e.key))) {
+                    e.preventDefault();
+                }
+            });
+
+            this.$confirmPasswordInput.on('keydown paste', function (e) {
+                if (e.key === ' ' || (e.ctrlKey && ['c', 'v', 'x'].includes(e.key))) {
+                    e.preventDefault();
+                }
+            });
+
+            this.registerCallbacks();
+        }
+
+        /**
+         * Đăng ký các callbacks để xử lý validate cho từng input
+         */
+        registerCallbacks() {
+            this.$nameInput.on('input', () => this.validateName());
+            this.$genderInput.on('input', () => this.validateGender());
+            this.$contactInput.on('input', () => this.validateEmailAndPhone());
+            this.$passwordInput.on('input', () => this.validatePassword());
+            this.$confirmPasswordInput.on('input', () => this.validateConfirmPassword());
+        }
+
+        validateEmailAndPhone() {
+            let input = this.$contactInput.val().trim(); // Lấy giá trị từ input
+
+            // Regex kiểm tra email
+            let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+            // Regex kiểm tra số điện thoại (Việt Nam, 10-11 số, bắt đầu bằng 0)
+            let phoneRegex = /^(0[1-9][0-9]{8,9})$/;
+
+            let isValid = emailRegex.test(input) || phoneRegex.test(input);
+
+            // Cập nhật trạng thái validation
+            this.setValidationState(this.$contactInput, isValid, 'Email hoặc số điện thoại không hợp lệ');
+
+            return isValid;
+        }
+
+        /**
+         * Validate password sử dụng passwordCriteria, cập nhật feedback thời gian thực
+         * @returns {boolean}
+         */
+        validatePassword() {
+            let pass = this.$passwordInput.val();
+            // check validations
+            let isLongEnough = pass.length >= 8;
+            let hasNumber = /\d/.test(pass);
+            let hasUppercase = /[A-Z]/.test(pass);
+            let hasSymbol = /[^a-zA-Z0-9]/.test(pass);
+
+            // update feedback
+            isLongEnough ? this.passwordCriteria.success(0) : this.passwordCriteria.danger(0)
+            hasNumber ? this.passwordCriteria.success(1) : this.passwordCriteria.danger(1);
+            hasUppercase ? this.passwordCriteria.success(2) : this.passwordCriteria.danger(2);
+            hasSymbol ? this.passwordCriteria.success(3) : this.passwordCriteria.danger(3);
+
+            this.validateConfirmPassword();
+
+            let isValid = isLongEnough && hasSymbol && hasUppercase && hasSymbol;
+            this.setValidationState(this.$passwordInput, isValid, 'Mật khẩu không hợp lệ');
+            return isValid;
+        }
+
+        /**
+         * Validate mật khẩu nhập lại không rỗng và khớp với mật khẩu đã nhập
+         * @returns {boolean}
+         */
+        validateConfirmPassword() {
+            let isNotEmpty = !(this.$confirmPasswordInput.val().trim().length === 0);
+            let isMatch = this.$passwordInput.val() === this.$confirmPasswordInput.val();
+            let isValid = isMatch && isNotEmpty;
+            this.setValidationState(this.$confirmPasswordInput, isValid, 'Mật khẩu không khớp');
+            return isValid;
+        }
+
+        /**
+         * Validate name ít nhất 5 ký tự, và xử lý các khoảng trắng
+         * @returns {boolean}
+         */
+        validateName() {
+            let name = this.$nameInput.val().replace(/^\s+/, "").replace(/\s+/g, " "); // Xóa khoảng trắng đầu + thừa
+            this.$nameInput.val(name); // Cập nhật lại giá trị đã chuẩn hóa
+            let isValid = name.length >= 5;
+            this.setValidationState(this.$nameInput, isValid, 'Họ và tên không hợp lệ');
+            return isValid;
+        }
+
+        validateGender() {
+            let genderInputs = $('input[name=gender], #gender');
+            let isChecked = [...genderInputs].some(input => input.checked);
+            this.setValidationState(this.$genderInput, isChecked, 'Vui lòng chọn giới tính');
+            return isChecked;
+        }
+
+        /**
+         * Hiển thị feedback
+         * @param $input
+         * @param isValid
+         * @param message
+         */
+        setValidationState($input, isValid, message) {
+            let $feedback = $input.siblings('.invalid-feedback');
+            if (!$feedback.length) {
+                $feedback = $('<div class="invalid-feedback"></div>').insertAfter($input);
+            }
+            if (isValid) {
+                $input.removeClass('is-invalid').addClass('is-valid');
+                $feedback.text('');
+            } else {
+                $input.removeClass('is-valid').addClass('is-invalid');
+                $feedback.text(message);
+            }
+        }
+
+        /**
+         * Kiểm tra xem form có hợp lệ hay không?
+         * @returns {boolean}
+         */
+        checkValidity() {
+            let isValidName = this.validateName();
+            let isValidGender = this.validateGender();
+            let isValidContact = this.validateEmailAndPhone();
+            let isValidPassword = this.validatePassword();
+            let isValidConfirmPassword = this.validateConfirmPassword();
+            return isValidName && isValidGender && isValidContact && isValidPassword && isValidConfirmPassword;
+        }
+    }
+
+    class PasswordCriteria {
+        constructor(criteriaMessages) {
+            this.criteriaMessages = criteriaMessages;
+            this.$criteriaHolder = null;
+            this.$passwordInput = null;
+        }
+
+        success(i) {
+            this.$criteriaHolder.find('li').eq(i).removeClass('text-danger').addClass('text-success');
+        }
+
+        danger(i) {
+            this.$criteriaHolder.find('li').eq(i).removeClass('text-success').addClass('text-danger');
+        }
+
+        bind(inputSelector) {
+            this.$passwordInput = $(inputSelector);
+            this.$criteriaHolder = this.$passwordInput.siblings('.password-criteria-holder');
+            let $ul = $('<ul></ul>')
+            this.criteriaMessages.forEach(function (m) {
+                $ul.append($('<li class="text-danger">' + m + '</li>'));
+            });
+            this.$criteriaHolder.html($ul);
+
+            this.$passwordInput.on('focus', () => {
+                this.$criteriaHolder.removeClass('d-none')
+            });
+            this.$passwordInput.on('blur', () => {
+                this.$criteriaHolder.addClass('d-none')
+            });
+
+            return this;
+        }
+    }
 
 </script>
 
-<%--<script>--%>
-<%--    // Example starter JavaScript for disabling form submissions if there are invalid fields--%>
-<%--    (() => {--%>
-<%--        'use strict'--%>
+<script>
 
-<%--        // Fetch all the forms we want to apply custom Bootstrap validation styles to--%>
-<%--        const forms = document.querySelectorAll('.needs-validation')--%>
+    const formValidator = new RegisterFormValidator('#signupForm');
 
-<%--        // Loop over them and prevent submission--%>
-<%--        Array.from(forms).forEach(form => {--%>
-<%--            form.addEventListener('submit', event => {--%>
-<%--                if (!form.checkValidity()) {--%>
-<%--                    event.preventDefault()--%>
-<%--                    event.stopPropagation()--%>
-<%--                }--%>
-<%--                form.classList.add('was-validated')--%>
-<%--            }, false)--%>
-<%--        })--%>
-<%--    })()--%>
-<%--</script>--%>
+    // Copy from bootstrap 5.3 document
+    (() => {
+        'use strict'
 
-<%--<script>--%>
-<%--    let $feedbackTooltips = $('#feedback-tooltips');--%>
-<%--    let $passwordInput = $('#password');--%>
+        const form = document.querySelector('#signupForm');
 
-<%--    // Hiển thị tooltip khi focus vào input--%>
-<%--    $passwordInput.on('focus', function () {--%>
-<%--        $feedbackTooltips.removeClass('d-none');--%>
-<%--    });--%>
-
-<%--    // Ẩn tooltip khi blur khỏi input--%>
-<%--    $passwordInput.on('blur', function () {--%>
-<%--        $feedbackTooltips.addClass('d-none');--%>
-<%--    });--%>
-
-<%--    $passwordInput.on('input', function () {--%>
-<%--        let pass = $(this).val();--%>
-
-<%--        // Kiểm tra các điều kiện--%>
-<%--        let isLongEnough = pass.length >= 8;--%>
-<%--        let hasNumber = /\d/.test(pass);--%>
-<%--        let hasUppercase = /[A-Z]/.test(pass);--%>
-<%--        let hasSymbol = /[^a-zA-Z0-9]/.test(pass);--%>
-
-<%--        // Cập nhật màu sắc điều kiện--%>
-<%--        $('#longRequired').toggleClass('text-success', isLongEnough).toggleClass('text-danger', !isLongEnough);--%>
-<%--        $('#numberRequired').toggleClass('text-success', hasNumber).toggleClass('text-danger', !hasNumber);--%>
-<%--        $('#uppercaseRequired').toggleClass('text-success', hasUppercase).toggleClass('text-danger', !hasUppercase);--%>
-<%--        $('#symbolRequired').toggleClass('text-success', hasSymbol).toggleClass('text-danger', !hasSymbol);--%>
-
-<%--        // Nếu tất cả điều kiện đúng, đánh dấu input là hợp lệ--%>
-<%--        if (isLongEnough && hasNumber && hasUppercase && hasSymbol) {--%>
-<%--            $(this).removeClass('is-invalid').addClass('is-valid');--%>
-<%--        } else {--%>
-<%--            $(this).removeClass('is-valid').addClass('is-invalid');--%>
-<%--        }--%>
-<%--    });--%>
-
-<%--    // Chặn copy, cut, paste, space--%>
-<%--    $passwordInput.on('keydown paste', function (e) {--%>
-<%--        if (e.key === ' ' || (e.ctrlKey && ['c', 'v', 'x'].includes(e.key))) {--%>
-<%--            e.preventDefault();--%>
-<%--        }--%>
-<%--    });--%>
-<%--</script>--%>
-
-<%--<script>--%>
-<%--    class RegisterFormValidator {--%>
-<%--        constructor(formSelector) {--%>
-<%--            this.$form = $(formSelector);--%>
-
-<%--            this.errors = {};--%>
-
-<%--            this.error_messages = {--%>
-<%--              name: 'Name',--%>
-<%--              gender: 'Gender',--%>
-<%--              email: 'Email',--%>
-<%--              password: 'Password',--%>
-<%--              confirmPassword: 'ConfirmPassword'--%>
-<%--            };--%>
-
-<%--            this.$nameInput = this.$form.find('#name');--%>
-<%--            this.$genderInput = this.$form.find('#gender');--%>
-<%--            this.$emailInput = this.$form.find('#email');--%>
-<%--            this.$passwordInput = this.$form.find('#password');--%>
-<%--            this.$confirmPasswordInput = this.$form.find('#confirmPassword');--%>
-
-<%--            this.registerCallbacks();--%>
-<%--        }--%>
-
-<%--        registerCallbacks() {--%>
-<%--            this.$nameInput.on('input', () => this.validateName());--%>
-<%--            this.$genderInput.on('input', () => this.validateGender());--%>
-<%--            this.$emailInput.on('input', () => this.validateEmail());--%>
-<%--            this.$passwordInput.on('input', () => this.validatePassword());--%>
-<%--            this.$confirmPasswordInput.on('input', () => this.validateConfirmPassword());--%>
-<%--        }--%>
-
-<%--        validateName() {--%>
-<%--            let name = this.$nameInput.val();--%>
-<%--            let isValid = name.length > 5;--%>
-<%--            let feedback = isValid ? '' : 'Họ tên không được để trống.';--%>
-<%--            setValidationState(this.$nameInput, isValid, feedback)--%>
-<%--        }--%>
-
-<%--        setValidationState($input, isValid, message){--%>
-<%--            let $feedback = $input.siblings('.invalid-feedback'); // Chọn phần hiển thị lỗi gần input--%>
-<%--            if (!$feedback.length) {--%>
-<%--                $feedback = $('<div class="invalid-feedback"></div>').insertAfter($input);--%>
-<%--            }--%>
-<%--            if (isValid) {--%>
-<%--                $input.removeClass('is-invalid').addClass('is-valid');--%>
-<%--                $feedback.text('');--%>
-<%--            } else {--%>
-<%--                $input.removeClass('is-valid').addClass('is-invalid');--%>
-<%--                $feedback.text(message);--%>
-<%--            }--%>
-
-<%--        }--%>
-<%--    }--%>
-<%--</script>--%>
+        form.addEventListener('submit', event => {
+            if (!formValidator.checkValidity()) {
+                // Nếu ko hợp lệ -> chặn gửi form và hiện feedback
+                event.preventDefault()
+                event.stopPropagation()
+            } else {
+                // Nếu hợp lệ -> gửi form bằng ajax
+                event.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: '<c:url value="/signup"/>',
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        alert("Success");
+                    },
+                    error: function () {
+                        alert("Failed");
+                    },
+                });
+            }
+        }, false);
+    })()
+</script>
