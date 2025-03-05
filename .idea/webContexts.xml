@@ -9,6 +9,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/views/contents/cart-content.jsp" value="file://$PROJECT_DIR$/src/main/webapp/views/contents" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/views/contents/checkout-content.jsp" value="file://$PROJECT_DIR$/src/main/webapp/views/contents" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/views/contents/product-detail-content.jsp" value="file://$PROJECT_DIR$/src/main/webapp/views/contents" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/views/contents/signup-content.jsp" value="file://$PROJECT_DIR$/src/main/webapp/views/contents" />
       </map>
     </option>
   </component>

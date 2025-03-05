@@ -22,52 +22,68 @@ public class SignupController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String firstName = request.getParameter("firstname");
-        String lastName = request.getParameter("lastname");
-
-        String day = String.format("%02d", Integer.parseInt(request.getParameter("day")));
-        String month = String.format("%02d", Integer.parseInt(request.getParameter("month")));
-        String year = request.getParameter("year");
-
-        String birthdate = year + "-" + month + "-" + day;
-
-        String gender = request.getParameter("gender");
-        String username = request.getParameter("username");
-        String emailOrPhone = request.getParameter("email").trim();
+        String fullName = request.getParameter("fullName");
+        String gender = request.getParameter("gender"); // male or female
+        String contact = request.getParameter("contact"); // email or phone
         String password = request.getParameter("password");
+        String confirmPassword = request.getParameter("confirmPassword");
 
-        User user = new User();
-        user.setFullname(firstName + " " + lastName);
-        user.setBirthdate(LocalDate.parse(birthdate));
-        user.setUsername(username);
-        user.setPassword(password);
-
-        if (gender != null) {
-            user.setGender(gender);
-        }
-
-        if (emailOrPhone.matches("^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
-            user.setEmail(emailOrPhone);
-            user.setPhoneNumber(null);
-        } else if (emailOrPhone.matches("^[0-9]{10,15}$")) {
-            user.setPhoneNumber(emailOrPhone);
-            user.setEmail(null);
-        }
-
-        int result = auth.signup(user);
-        String subject = "Welcome To Crocodile!";
-        String content = getHtmlWelcome(user.getFullname());
-        boolean success = sendEmailService.sendEmail(user.getEmail(), subject, content, SendEmailService.CONTENT_TYPE_HTML_UTF8);
-        if (success) {
-            System.out.println("Send email successful");
-        }
-        if (result > 0) {
-            response.sendRedirect(request.getContextPath() + "/login");
-        } else {
-            request.setAttribute("errorMessage", "Đăng ký thất bại. Vui lòng thử lại.");
-            request.getRequestDispatcher("/views/signup.jsp").forward(request, response);
-        }
+        System.out.println(fullName);
+        System.out.println(gender);
+        System.out.println(contact);
+        System.out.println(password);
+        System.out.println(confirmPassword);
     }
+
+//        @Override
+//    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        String firstName = request.getParameter("firstname");
+//        String lastName = request.getParameter("lastname");
+//
+//        String day = String.format("%02d", Integer.parseInt(request.getParameter("day")));
+//        String month = String.format("%02d", Integer.parseInt(request.getParameter("month")));
+//        String year = request.getParameter("year");
+//
+//        String birthdate = year + "-" + month + "-" + day;
+//
+//        String gender = request.getParameter("gender");
+//        String username = request.getParameter("username");
+//        String emailOrPhone = request.getParameter("email").trim();
+//        String password = request.getParameter("password");
+//
+//        User user = new User();
+//        user.setFullname(firstName + " " + lastName);
+//        user.setBirthdate(LocalDate.parse(birthdate));
+//        user.setUsername(username);
+//        user.setPassword(password);
+//
+//        if (gender != null) {
+//            user.setGender(gender);
+//        }
+//
+//        if (emailOrPhone.matches("^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
+//            user.setEmail(emailOrPhone);
+//            user.setPhoneNumber(null);
+//        } else if (emailOrPhone.matches("^[0-9]{10,15}$")) {
+//            user.setPhoneNumber(emailOrPhone);
+//            user.setEmail(null);
+//        }
+//
+//        int result = auth.signup(user);
+//        String subject = "Welcome To Crocodile!";
+//        String content = getHtmlWelcome(user.getFullname());
+//        boolean success = sendEmailService.sendEmail(user.getEmail(), subject, content, SendEmailService.CONTENT_TYPE_HTML_UTF8);
+//        if (success) {
+//            System.out.println("Send email successful");
+//        }
+//        if (result > 0) {
+//            response.sendRedirect(request.getContextPath() + "/login");
+//        } else {
+//            request.setAttribute("errorMessage", "Đăng ký thất bại. Vui lòng thử lại.");
+//            request.getRequestDispatcher("/views/signup.jsp").forward(request, response);
+//        }
+//    }
+
 
     private String getHtmlWelcome(String userName) {
         String html = """
