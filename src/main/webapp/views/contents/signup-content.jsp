@@ -38,14 +38,14 @@
     <div class="img-background py-5 d-flex justify-content-center" style="overflow-x: hidden; height: 60em">
         <div class="row">
             <div class="p-5 col translucent-background shadow-lg" style="width: 60ch; height: fit-content">
-                <form novalidate action="???" method="post" id="signupForm" class="needs-validation w-100">
+                <form novalidate method="post" id="signupForm" class="needs-validation w-100">
                     <h3 class="text-center mb-4" style="color: var(--color-primary);">Đăng ký</h3>
                     <!-- Thông tin cá nhân -->
                     <div class="d-grid gap-3 mb-3">
                         <!-- Họ tên -->
                         <div class="d-flex gap-4">
                             <div class="col">
-                                <input class="form-control" type="text" name="firstname" id="firstname"
+                                <input class="form-control" type="text" name="fullName" id="fullName"
                                        placeholder="Họ và tên"
                                        aria-label="" required="">
                                 <div class="invalid-feedback">Họ và tên không được để trống.</div>
@@ -56,11 +56,11 @@
                         <div>
                             <div id="gender" class="d-flex gap-4 align-items-center justify-content-around">
                                 <!-- Nam -->
-                                <input type="radio" class="btn-check" name="gender" id="male" autocomplete="off"
+                                <input type="radio" class="btn-check" name="gender" id="male" autocomplete="off" value="male"
                                        required>
                                 <label class="btn btn-outline-secondary col" for="male" style="border-color: #dbdbdb">Nam</label>
                                 <!-- Nữ -->
-                                <input type="radio" class="btn-check" name="gender" id="female" autocomplete="off"
+                                <input type="radio" class="btn-check" name="gender" id="female" autocomplete="off" value="female"
                                        required>
                                 <label class="btn btn-outline-secondary col" for="female" style="border-color: #dbdbdb">Nữ</label>
                             </div>
@@ -69,9 +69,9 @@
                             </div>
                         </div>
 
-                        <!-- Email -->
+                        <!-- Contact: Email / Phone -->
                         <div>
-                            <input class="form-control p-2" type="text" id="email" name="email"
+                            <input class="form-control p-2" type="text" id="contact" name="contact"
                                    placeholder="Email hoặc số điện thoại" required="" aria-label="">
                             <div class="invalid-feedback">Hãy nhập email hoặc số điện thoại của bạn.</div>
                         </div>
@@ -164,124 +164,144 @@
         </div>
     </div>
 </div>
-<script>
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
-    (() => {
-        'use strict'
-
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        const forms = document.querySelectorAll('.needs-validation')
-
-        // Loop over them and prevent submission
-        Array.from(forms).forEach(form => {
-            form.addEventListener('submit', event => {
-                if (!form.checkValidity()) {
-                    event.preventDefault()
-                    event.stopPropagation()
-                }
-                form.classList.add('was-validated')
-            }, false)
-        })
-    })()
-</script>
 
 <script>
-    let $feedbackTooltips = $('#feedback-tooltips');
-    let $passwordInput = $('#password');
+    $('#signupForm').on('submit', function(event) {
+        event.preventDefault();
 
-    // Hiển thị tooltip khi focus vào input
-    $passwordInput.on('focus', function () {
-        $feedbackTooltips.removeClass('d-none');
+        $.ajax({
+            type: 'POST',
+            url: '<c:url value="/signup"/>',
+            data: $(this).serialize(),
+            success: function (response){
+                alert("Success");
+            },
+            error: function(){
+                alert("Failed");
+            },
+        });
     });
 
-    // Ẩn tooltip khi blur khỏi input
-    $passwordInput.on('blur', function () {
-        $feedbackTooltips.addClass('d-none');
-    });
-
-    $passwordInput.on('input', function () {
-        let pass = $(this).val();
-
-        // Kiểm tra các điều kiện
-        let isLongEnough = pass.length >= 8;
-        let hasNumber = /\d/.test(pass);
-        let hasUppercase = /[A-Z]/.test(pass);
-        let hasSymbol = /[^a-zA-Z0-9]/.test(pass);
-
-        // Cập nhật màu sắc điều kiện
-        $('#longRequired').toggleClass('text-success', isLongEnough).toggleClass('text-danger', !isLongEnough);
-        $('#numberRequired').toggleClass('text-success', hasNumber).toggleClass('text-danger', !hasNumber);
-        $('#uppercaseRequired').toggleClass('text-success', hasUppercase).toggleClass('text-danger', !hasUppercase);
-        $('#symbolRequired').toggleClass('text-success', hasSymbol).toggleClass('text-danger', !hasSymbol);
-
-        // Nếu tất cả điều kiện đúng, đánh dấu input là hợp lệ
-        if (isLongEnough && hasNumber && hasUppercase && hasSymbol) {
-            $(this).removeClass('is-invalid').addClass('is-valid');
-        } else {
-            $(this).removeClass('is-valid').addClass('is-invalid');
-        }
-    });
-
-    // Chặn copy, cut, paste, space
-    $passwordInput.on('keydown paste', function (e) {
-        if (e.key === ' ' || (e.ctrlKey && ['c', 'v', 'x'].includes(e.key))) {
-            e.preventDefault();
-        }
-    });
 </script>
 
-<script>
-    class RegisterFormValidator {
-        constructor(formSelector) {
-            this.$form = $(formSelector);
+<%--<script>--%>
+<%--    // Example starter JavaScript for disabling form submissions if there are invalid fields--%>
+<%--    (() => {--%>
+<%--        'use strict'--%>
 
-            this.errors = {};
+<%--        // Fetch all the forms we want to apply custom Bootstrap validation styles to--%>
+<%--        const forms = document.querySelectorAll('.needs-validation')--%>
 
-            this.error_messages = {
-              name: 'Name',
-              gender: 'Gender',
-              email: 'Email',
-              password: 'Password',
-              confirmPassword: 'ConfirmPassword'
-            };
+<%--        // Loop over them and prevent submission--%>
+<%--        Array.from(forms).forEach(form => {--%>
+<%--            form.addEventListener('submit', event => {--%>
+<%--                if (!form.checkValidity()) {--%>
+<%--                    event.preventDefault()--%>
+<%--                    event.stopPropagation()--%>
+<%--                }--%>
+<%--                form.classList.add('was-validated')--%>
+<%--            }, false)--%>
+<%--        })--%>
+<%--    })()--%>
+<%--</script>--%>
 
-            this.$nameInput = this.$form.find('#name');
-            this.$genderInput = this.$form.find('#gender');
-            this.$emailInput = this.$form.find('#email');
-            this.$passwordInput = this.$form.find('#password');
-            this.$confirmPasswordInput = this.$form.find('#confirmPassword');
+<%--<script>--%>
+<%--    let $feedbackTooltips = $('#feedback-tooltips');--%>
+<%--    let $passwordInput = $('#password');--%>
 
-            this.registerCallbacks();
-        }
+<%--    // Hiển thị tooltip khi focus vào input--%>
+<%--    $passwordInput.on('focus', function () {--%>
+<%--        $feedbackTooltips.removeClass('d-none');--%>
+<%--    });--%>
 
-        registerCallbacks() {
-            this.$nameInput.on('input', () => this.validateName());
-            this.$genderInput.on('input', () => this.validateGender());
-            this.$emailInput.on('input', () => this.validateEmail());
-            this.$passwordInput.on('input', () => this.validatePassword());
-            this.$confirmPasswordInput.on('input', () => this.validateConfirmPassword());
-        }
+<%--    // Ẩn tooltip khi blur khỏi input--%>
+<%--    $passwordInput.on('blur', function () {--%>
+<%--        $feedbackTooltips.addClass('d-none');--%>
+<%--    });--%>
 
-        validateName() {
-            let name = this.$nameInput.val();
-            let isValid = name.length > 5;
-            let feedback = isValid ? '' : 'Họ tên không được để trống.';
-            setValidationState(this.$nameInput, isValid, feedback)
-        }
+<%--    $passwordInput.on('input', function () {--%>
+<%--        let pass = $(this).val();--%>
 
-        setValidationState($input, isValid, message){
-            let $feedback = $input.siblings('.invalid-feedback'); // Chọn phần hiển thị lỗi gần input
-            if (!$feedback.length) {
-                $feedback = $('<div class="invalid-feedback"></div>').insertAfter($input);
-            }
-            if (isValid) {
-                $input.removeClass('is-invalid').addClass('is-valid');
-                $feedback.text('');
-            } else {
-                $input.removeClass('is-valid').addClass('is-invalid');
-                $feedback.text(message);
-            }
+<%--        // Kiểm tra các điều kiện--%>
+<%--        let isLongEnough = pass.length >= 8;--%>
+<%--        let hasNumber = /\d/.test(pass);--%>
+<%--        let hasUppercase = /[A-Z]/.test(pass);--%>
+<%--        let hasSymbol = /[^a-zA-Z0-9]/.test(pass);--%>
 
-        }
-    }
-</script>
+<%--        // Cập nhật màu sắc điều kiện--%>
+<%--        $('#longRequired').toggleClass('text-success', isLongEnough).toggleClass('text-danger', !isLongEnough);--%>
+<%--        $('#numberRequired').toggleClass('text-success', hasNumber).toggleClass('text-danger', !hasNumber);--%>
+<%--        $('#uppercaseRequired').toggleClass('text-success', hasUppercase).toggleClass('text-danger', !hasUppercase);--%>
+<%--        $('#symbolRequired').toggleClass('text-success', hasSymbol).toggleClass('text-danger', !hasSymbol);--%>
+
+<%--        // Nếu tất cả điều kiện đúng, đánh dấu input là hợp lệ--%>
+<%--        if (isLongEnough && hasNumber && hasUppercase && hasSymbol) {--%>
+<%--            $(this).removeClass('is-invalid').addClass('is-valid');--%>
+<%--        } else {--%>
+<%--            $(this).removeClass('is-valid').addClass('is-invalid');--%>
+<%--        }--%>
+<%--    });--%>
+
+<%--    // Chặn copy, cut, paste, space--%>
+<%--    $passwordInput.on('keydown paste', function (e) {--%>
+<%--        if (e.key === ' ' || (e.ctrlKey && ['c', 'v', 'x'].includes(e.key))) {--%>
+<%--            e.preventDefault();--%>
+<%--        }--%>
+<%--    });--%>
+<%--</script>--%>
+
+<%--<script>--%>
+<%--    class RegisterFormValidator {--%>
+<%--        constructor(formSelector) {--%>
+<%--            this.$form = $(formSelector);--%>
+
+<%--            this.errors = {};--%>
+
+<%--            this.error_messages = {--%>
+<%--              name: 'Name',--%>
+<%--              gender: 'Gender',--%>
+<%--              email: 'Email',--%>
+<%--              password: 'Password',--%>
+<%--              confirmPassword: 'ConfirmPassword'--%>
+<%--            };--%>
+
+<%--            this.$nameInput = this.$form.find('#name');--%>
+<%--            this.$genderInput = this.$form.find('#gender');--%>
+<%--            this.$emailInput = this.$form.find('#email');--%>
+<%--            this.$passwordInput = this.$form.find('#password');--%>
+<%--            this.$confirmPasswordInput = this.$form.find('#confirmPassword');--%>
+
+<%--            this.registerCallbacks();--%>
+<%--        }--%>
+
+<%--        registerCallbacks() {--%>
+<%--            this.$nameInput.on('input', () => this.validateName());--%>
+<%--            this.$genderInput.on('input', () => this.validateGender());--%>
+<%--            this.$emailInput.on('input', () => this.validateEmail());--%>
+<%--            this.$passwordInput.on('input', () => this.validatePassword());--%>
+<%--            this.$confirmPasswordInput.on('input', () => this.validateConfirmPassword());--%>
+<%--        }--%>
+
+<%--        validateName() {--%>
+<%--            let name = this.$nameInput.val();--%>
+<%--            let isValid = name.length > 5;--%>
+<%--            let feedback = isValid ? '' : 'Họ tên không được để trống.';--%>
+<%--            setValidationState(this.$nameInput, isValid, feedback)--%>
+<%--        }--%>
+
+<%--        setValidationState($input, isValid, message){--%>
+<%--            let $feedback = $input.siblings('.invalid-feedback'); // Chọn phần hiển thị lỗi gần input--%>
+<%--            if (!$feedback.length) {--%>
+<%--                $feedback = $('<div class="invalid-feedback"></div>').insertAfter($input);--%>
+<%--            }--%>
+<%--            if (isValid) {--%>
+<%--                $input.removeClass('is-invalid').addClass('is-valid');--%>
+<%--                $feedback.text('');--%>
+<%--            } else {--%>
+<%--                $input.removeClass('is-valid').addClass('is-invalid');--%>
+<%--                $feedback.text(message);--%>
+<%--            }--%>
+
+<%--        }--%>
+<%--    }--%>
+<%--</script>--%>
