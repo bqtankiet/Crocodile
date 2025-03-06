@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <style>
     #page {
         --color-primary: #004c45;
@@ -107,13 +107,15 @@
                         </div>
                     </div>
 
+                    <!-- captcha -->
+                    <div class="g-recaptcha"
+                         data-sitekey="6Le5eOsqAAAAAP1g0oVT2AQyKqXMnbibrG4SgAzL"
+                         data-callback="enableSubmit"></div>
                     <!-- Nút đăng ký -->
                     <div class="text-center my-2">
-                        <button type="submit" class="btn btn-primary w-100">Đăng ký</button>
+                        <button type="submit" class="btn btn-primary w-100" disabled>Đăng ký</button>
                     </div>
 
-                    <!-- captcha -->
-                    <div>Captcha ???</div>
                 </form>
                 <div class="w-100">
                     <!-- Dòng phân cách -->
@@ -395,4 +397,10 @@
             }
         }, false);
     })()
+</script>
+<script>
+    // Hàm được gọi khi captcha hoàn thành
+    function enableSubmit() {
+        document.getElementById("submitBtn").disabled = false;
+    }
 </script>
