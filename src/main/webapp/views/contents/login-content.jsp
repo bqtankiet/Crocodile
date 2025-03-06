@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <div id="page">
     <!-- Form đăng nhập -->
     <div class="container-fluid d-flex flex-wrap justify-content-center align-items-center gap-4 py-5">
@@ -13,15 +14,21 @@
         <!-- phần đăng nhập -->
         <div class="card shadow p-4" style="width: 28rem">
             <h3 class="text-center mb-4">Đăng Nhập</h3>
-<%--            <c:url var="forwardUrl" value="${requestScope.forwardUrl}"/>--%>
+            <%--            <c:url var="forwardUrl" value="${requestScope.forwardUrl}"/>--%>
             <form id="loginForm" class="d-grid gap-4" action="<c:url value='/login'/>" method="post">
-                <input class="form-control d-none" type="text" id="forwardUrl" name="forwardUrl" value="${requestScope.forwardUrl}">
-<%--                <h1>${requestScope.forwardUrl}</h1>--%>
+                <input class="form-control d-none" type="text" id="forwardUrl" name="forwardUrl"
+                       value="${requestScope.forwardUrl}">
+                <%--                <h1>${requestScope.forwardUrl}</h1>--%>
                 <input class="form-control" type="text" id="username" name="username" placeholder="Nhập tài khoản"
                        required>
                 <input class="form-control" type="password" id="password" name="password" placeholder="Nhập mật khẩu"
                        required>
-                <button type="submit" class="btn custom-btn-primary btn-block w-100 p-2">Đăng Nhập</button>
+                <%--                thêm bảo mật reCaptcha vào phần đăng nhập--%>
+                <div class="g-recaptcha"
+                     data-sitekey="6Le5eOsqAAAAAP1g0oVT2AQyKqXMnbibrG4SgAzL"
+                     data-callback="enableSubmit"></div>
+                <button type="submit" id="submitBtn" class="btn custom-btn-primary btn-block w-100 p-2" disabled>Đăng Nhập
+                </button>
                 <div class="d-flex justify-content-between mt-2">
                     <a href="<c:url value="/forget-password"/>"
                        class="custom-text-primary text-decoration-none">Quên Mật
@@ -79,3 +86,10 @@
         </div>
     </div>
 </div>
+<script>
+    // Hàm được gọi khi captcha hoàn thành
+    function enableSubmit() {
+        document.getElementById("submitBtn").disabled = false;
+    }
+</script>
+
