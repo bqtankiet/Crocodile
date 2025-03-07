@@ -107,72 +107,72 @@
     function login() {
     }
 </script>
-<%--<script type="module">--%>
-<%--    // Import the functions you need from the SDKs you need--%>
-<%--    import {initializeApp} from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";--%>
-<%--    import {--%>
-<%--        getAuth,--%>
-<%--        GoogleAuthProvider,--%>
-<%--        signInWithPopup,--%>
-<%--        onAuthStateChanged--%>
-<%--    } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";--%>
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import {initializeApp} from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+    import {
+        getAuth,
+        GoogleAuthProvider,
+        signInWithPopup,
+        onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 
-<%--    // JS xử lý login bằng Google--%>
-<%--    const firebaseConfig = {--%>
-<%--        apiKey: "AIzaSyAN1bs13AN-4mMYf3pzTDH99643kZe41uM",--%>
-<%--        authDomain: "crocodile-bd209.firebaseapp.com",--%>
-<%--        projectId: "crocodile-bd209",--%>
-<%--        storageBucket: "crocodile-bd209.firebasestorage.app",--%>
-<%--        messagingSenderId: "653977599527",--%>
-<%--        appId: "1:653977599527:web:cc4f29e1675f32fcf75802"--%>
-<%--    };--%>
+    // JS xử lý login bằng Google
+    const firebaseConfig = {
+        apiKey: "AIzaSyAN1bs13AN-4mMYf3pzTDH99643kZe41uM",
+        authDomain: "crocodile-bd209.firebaseapp.com",
+        projectId: "crocodile-bd209",
+        storageBucket: "crocodile-bd209.firebasestorage.app",
+        messagingSenderId: "653977599527",
+        appId: "1:653977599527:web:cc4f29e1675f32fcf75802"
+    };
 
-<%--    // Initialize Firebase--%>
-<%--    const app = initializeApp(firebaseConfig);--%>
-<%--    const auth = getAuth(app);--%>
-<%--    auth.languageCode = 'en';--%>
-<%--    const provider = new GoogleAuthProvider()--%>
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    auth.languageCode = 'en';
+    const provider = new GoogleAuthProvider()
 
-<%--    const googleLogin = document.getElementById("google-login-btn")--%>
-<%--    googleLogin.addEventListener("click", function () {--%>
-<%--        signInWithPopup(auth, provider)--%>
-<%--            .then((result) => {--%>
-<%--                const credential = GoogleAuthProvider.credentialFromResult(result);--%>
-<%--                const token = credential.accessToken;--%>
-<%--                const user = result.user;--%>
-<%--                console.log(user)--%>
-<%--                window.location.href = "login";--%>
-<%--            }).catch((error) => {--%>
-<%--            const errorCode = error.code;--%>
-<%--            const errorMessage = error.message;--%>
-<%--            const email = error.customData.email;--%>
-<%--            const credential = GoogleAuthProvider.credentialFromError(error);--%>
-<%--        });--%>
-<%--    })--%>
+    const googleLogin = document.getElementById("google-login-btn")
+    googleLogin.addEventListener("click", function () {
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                const credential = GoogleAuthProvider.credentialFromResult(result);
+                const token = credential.accessToken;
+                const user = result.user;
+                console.log(user)
+                window.location.href = "login";
+            }).catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            const email = error.customData.email;
+            const credential = GoogleAuthProvider.credentialFromError(error);
+        });
+    })
 
-<%--    function updateUserProfile(user) {--%>
-<%--        const email = user.email;--%>
-<%--        const name = user.displayName;--%>
-<%--        const profilePicture = user.photoURL;--%>
-<%--        console.log(email)--%>
+    function updateUserProfile(user) {
+        const email = user.email;
+        const name = user.displayName;
+        const profilePicture = user.photoURL;
+        console.log(email)
 
 
-<%--        document.getElementById("nameUser").textContent = name--%>
-<%--        document.getElementById("emailUser").textContent = email--%>
-<%--        document.getElementById("userProfilePicture").src = profilePicture--%>
+        document.getElementById("nameUser").textContent = name
+        document.getElementById("emailUser").textContent = email
+        document.getElementById("userProfilePicture").src = profilePicture
 
-<%--    }--%>
+    }
 
-<%--    onAuthStateChanged(auth, (user) => {--%>
-<%--        if (user) {--%>
-<%--            updateUserProfile(user)--%>
-<%--            const uid = user.uid;--%>
-<%--            return uid;--%>
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            updateUserProfile(user)
+            const uid = user.uid;
+            return uid;
 
-<%--        }--%>
+        }
 
-<%--    });--%>
-<%--</script>--%>
+    });
+</script>
 <script type="module">
     // Import các hàm cần thiết từ Firebase SDK
     import {initializeApp} from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
@@ -183,7 +183,7 @@
         onAuthStateChanged
     } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 
-    // Cấu hình Firebase (giữ nguyên cấu hình đã dùng cho Google)
+    // Initialize Firebase
     const firebaseConfig = {
         apiKey: "AIzaSyAN1bs13AN-4mMYf3pzTDH99643kZe41uM",
         authDomain: "crocodile-bd209.firebaseapp.com",
@@ -198,7 +198,6 @@
     auth.languageCode = 'en';
     const provider = new FacebookAuthProvider();
 
-    // Xử lý sự kiện click nút đăng nhập Facebook
     const facebookLogin = document.getElementById("facebook-login-btn");
     facebookLogin.addEventListener("click", function () {
         signInWithPopup(auth, provider)
@@ -215,22 +214,18 @@
             });
     });
 
-    // Hàm cập nhật thông tin người dùng lên giao diện (name, email, profile picture)
     function updateUserProfile(user) {
         const name = user.displayName;
         const email = user.email;
         const profilePicture = user.photoURL;
-        // Phone number có thể không có từ Facebook
+
+
         console.log("User email:", email);
         document.getElementById("nameUserFB").textContent = name;
         document.getElementById("emailUserFB").textContent = email;
         document.getElementById("userProfilePictureFB").src = profilePicture;
-        print(name)
-        print(email)
 
     }
-
-    // Lắng nghe sự thay đổi trạng thái đăng nhập
     onAuthStateChanged(auth, (user) => {
         if (user) {
             updateUserProfile(user)
