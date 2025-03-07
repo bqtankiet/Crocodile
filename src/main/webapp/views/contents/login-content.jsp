@@ -23,11 +23,12 @@
                        required>
                 <input class="form-control" type="password" id="password" name="password" placeholder="Nhập mật khẩu"
                        required>
-                <%--                thêm bảo mật reCaptcha vào phần đăng nhập--%>
+                <%-- thêm bảo mật reCaptcha vào phần đăng nhập--%>
                 <div class="g-recaptcha"
                      data-sitekey="6Le5eOsqAAAAAP1g0oVT2AQyKqXMnbibrG4SgAzL"
                      data-callback="enableSubmit"></div>
-                <button type="submit" id="submitBtn" class="btn custom-btn-primary btn-block w-100 p-2" disabled>Đăng Nhập
+                <button type="submit" id="submitBtn" class="btn custom-btn-primary btn-block w-100 p-2" disabled>Đăng
+                    Nhập
                 </button>
                 <div class="d-flex justify-content-between mt-2">
                     <a href="<c:url value="/forget-password"/>"
@@ -41,10 +42,10 @@
                     <div style="height: 1px; background-color: #dbdbdb; width: 100%"></div>
                 </div>
                 <div class="d-flex gap-3 justify-content-between mt-3">
-                    <a href="https://www.facebook.com/v16.0/dialog/oauth?client_id=605632051831778&redirect_uri=http://localhost:8080/crocodile/facebook-login&scope=email,public_profile"
-                       target="_blank"
-                       class="d-flex flex-grow-1 align-items-center justify-content-center text-decoration-none border p-2">
-                        <div class="custom-icon" style="--size: 2rem">
+                    <a
+                            target="_blank"
+                            class="d-flex flex-grow-1 align-items-center justify-content-center text-decoration-none border p-2">
+                        <div class="custom-icon" id="facebook-login-btn" style="--size: 2rem">
                             <!-- Icon Facebook -->
                             <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 48 48">
                                 <path fill="#039be5" d="M24 5A19 19 0 1 0 24 43A19 19 0 1 0 24 5Z"></path>
@@ -54,13 +55,10 @@
                         </div>
                         <span class="text-black ps-1">Facebook</span>
                     </a>
-                    <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid
-                    &redirect_uri=http://localhost:8080/crocodile/google-login
-                    &response_type=code&client_id=183146911471-otedkdah3ihnpvc5fovddjsubn5ma5pn.apps.googleusercontent.com
-                    &approval_prompt=force"
-                       target="_blank"
-                       class="d-flex flex-grow-1 align-items-center justify-content-center text-decoration-none border p-2">
-                        <div class="custom-icon" style="--size: 2rem">
+                    <a
+                            target="_blank"
+                            class="d-flex flex-grow-1 align-items-center justify-content-center text-decoration-none border p-2">
+                        <div class="custom-icon" id="google-login-btn" style="--size: 2rem">
                             <!-- Icon Google -->
                             <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 48 48">
                                 <path fill="#fbc02d"
@@ -75,6 +73,7 @@
                         </div>
                         <span class="text-black ps-1">Google</span>
                     </a>
+
                 </div>
                 <div>
                     <p class="text-center">Bạn Chưa Có Tài Khoản? <a
@@ -85,11 +84,160 @@
             </form>
         </div>
     </div>
+    <div>
+        <h1>User GG Profile</h1>
+        <p id="nameUser"></p>
+        <p id="emailUser"></p>
+        <img id="userProfilePicture" alt="">
+    </div>
+    <div>
+        <h1>User FB Profile</h1>
+        <p id="nameUserFB"></p>
+        <p id="emailUserFB"></p>
+        <img id="userProfilePictureFB" alt="">
+    </div>
+
 </div>
 <script>
     // Hàm được gọi khi captcha hoàn thành
     function enableSubmit() {
         document.getElementById("submitBtn").disabled = false;
     }
+
+    function login() {
+    }
 </script>
+<%--<script type="module">--%>
+<%--    // Import the functions you need from the SDKs you need--%>
+<%--    import {initializeApp} from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";--%>
+<%--    import {--%>
+<%--        getAuth,--%>
+<%--        GoogleAuthProvider,--%>
+<%--        signInWithPopup,--%>
+<%--        onAuthStateChanged--%>
+<%--    } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";--%>
+
+<%--    // JS xử lý login bằng Google--%>
+<%--    const firebaseConfig = {--%>
+<%--        apiKey: "AIzaSyAN1bs13AN-4mMYf3pzTDH99643kZe41uM",--%>
+<%--        authDomain: "crocodile-bd209.firebaseapp.com",--%>
+<%--        projectId: "crocodile-bd209",--%>
+<%--        storageBucket: "crocodile-bd209.firebasestorage.app",--%>
+<%--        messagingSenderId: "653977599527",--%>
+<%--        appId: "1:653977599527:web:cc4f29e1675f32fcf75802"--%>
+<%--    };--%>
+
+<%--    // Initialize Firebase--%>
+<%--    const app = initializeApp(firebaseConfig);--%>
+<%--    const auth = getAuth(app);--%>
+<%--    auth.languageCode = 'en';--%>
+<%--    const provider = new GoogleAuthProvider()--%>
+
+<%--    const googleLogin = document.getElementById("google-login-btn")--%>
+<%--    googleLogin.addEventListener("click", function () {--%>
+<%--        signInWithPopup(auth, provider)--%>
+<%--            .then((result) => {--%>
+<%--                const credential = GoogleAuthProvider.credentialFromResult(result);--%>
+<%--                const token = credential.accessToken;--%>
+<%--                const user = result.user;--%>
+<%--                console.log(user)--%>
+<%--                window.location.href = "login";--%>
+<%--            }).catch((error) => {--%>
+<%--            const errorCode = error.code;--%>
+<%--            const errorMessage = error.message;--%>
+<%--            const email = error.customData.email;--%>
+<%--            const credential = GoogleAuthProvider.credentialFromError(error);--%>
+<%--        });--%>
+<%--    })--%>
+
+<%--    function updateUserProfile(user) {--%>
+<%--        const email = user.email;--%>
+<%--        const name = user.displayName;--%>
+<%--        const profilePicture = user.photoURL;--%>
+<%--        console.log(email)--%>
+
+
+<%--        document.getElementById("nameUser").textContent = name--%>
+<%--        document.getElementById("emailUser").textContent = email--%>
+<%--        document.getElementById("userProfilePicture").src = profilePicture--%>
+
+<%--    }--%>
+
+<%--    onAuthStateChanged(auth, (user) => {--%>
+<%--        if (user) {--%>
+<%--            updateUserProfile(user)--%>
+<%--            const uid = user.uid;--%>
+<%--            return uid;--%>
+
+<%--        }--%>
+
+<%--    });--%>
+<%--</script>--%>
+<script type="module">
+    // Import các hàm cần thiết từ Firebase SDK
+    import {initializeApp} from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+    import {
+        getAuth,
+        FacebookAuthProvider,
+        signInWithPopup,
+        onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+
+    // Cấu hình Firebase (giữ nguyên cấu hình đã dùng cho Google)
+    const firebaseConfig = {
+        apiKey: "AIzaSyAN1bs13AN-4mMYf3pzTDH99643kZe41uM",
+        authDomain: "crocodile-bd209.firebaseapp.com",
+        projectId: "crocodile-bd209",
+        storageBucket: "crocodile-bd209.firebasestorage.app",
+        messagingSenderId: "653977599527",
+        appId: "1:653977599527:web:cc4f29e1675f32fcf75802"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    auth.languageCode = 'en';
+    const provider = new FacebookAuthProvider();
+
+    // Xử lý sự kiện click nút đăng nhập Facebook
+    const facebookLogin = document.getElementById("facebook-login-btn");
+    facebookLogin.addEventListener("click", function () {
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                const user = result.user;
+                const credential = FacebookAuthProvider.credentialFromResult(result);
+                const accessToken = credential.accessToken;
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                const email = error.customData.email;
+                const credential = FacebookAuthProvider.credentialFromError(error);
+            });
+    });
+
+    // Hàm cập nhật thông tin người dùng lên giao diện (name, email, profile picture)
+    function updateUserProfile(user) {
+        const name = user.displayName;
+        const email = user.email;
+        const profilePicture = user.photoURL;
+        // Phone number có thể không có từ Facebook
+        console.log("User email:", email);
+        document.getElementById("nameUserFB").textContent = name;
+        document.getElementById("emailUserFB").textContent = email;
+        document.getElementById("userProfilePictureFB").src = profilePicture;
+        print(name)
+        print(email)
+
+    }
+
+    // Lắng nghe sự thay đổi trạng thái đăng nhập
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            updateUserProfile(user)
+            const uid = user.uid;
+            return uid;
+        }
+    });
+</script>
+
 

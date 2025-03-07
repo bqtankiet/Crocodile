@@ -99,12 +99,12 @@
                     </div>
 
                     <!-- captcha -->
-<%--                    <div class="g-recaptcha"--%>
-<%--                         data-sitekey="6Le5eOsqAAAAAP1g0oVT2AQyKqXMnbibrG4SgAzL"--%>
-<%--                         data-callback="enableSubmit"></div>--%>
+                    <div class="g-recaptcha"
+                         data-sitekey="6Le5eOsqAAAAAP1g0oVT2AQyKqXMnbibrG4SgAzL"
+                         data-callback="enableSubmit"></div>
                     <!-- Nút đăng ký -->
                     <div class="text-center my-2">
-                        <button type="submit" id="submitBtn" class="btn btn-primary w-100" >Đăng ký</button>
+                        <button type="submit" id="submitBtn" class="btn btn-primary w-100" disabled>Đăng ký</button>
                     </div>
 
                 </form>
@@ -155,7 +155,7 @@
                     <div class="text-center mt-3">
                         <hr>
                         <p>Bạn đã có tài khoản?
-                            <a href="login-content.jsp">Đăng nhập</a> ngay.
+                            <a href="<c:url value="/login"/>">Đăng nhập</a> ngay.
                         </p>
                         <div class=""><a href=#>Quay lại trang chủ</a></div>
                     </div>
