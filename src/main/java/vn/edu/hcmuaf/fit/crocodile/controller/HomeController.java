@@ -14,7 +14,9 @@ import vn.edu.hcmuaf.fit.crocodile.service.ProductService;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @WebServlet(name = "HomeController", value = "")
@@ -36,18 +38,46 @@ public class HomeController extends HttpServlet {
         request.setAttribute("carousels", carouselService.getAllActiveCarousel());
         request.setAttribute("categories", categoryService.getAllActiveCategory());
 
-        List<Product> topSellingProducts = productService.getTopSellingProductsInDays(10, 30);
+        /* Lấy danh sách 10 sản phẩm bán chạy nhất:
+        ưu tiên dữ liệu trong quý trước tiên, nếu không đủ 10 sản phẩm
+        thì mở rộng phạm vi thời gian ra đến tối đa 1 năm.
+        */
+        int period = 90;
+        int topN = 10;
+        List<Product> topSellingProducts = productService.getTopSellingProductsInDays(topN, period);
+        while (topSellingProducts.size() < topN && period < 360) {
+            period += 90;
+            topSellingProducts = productService.getTopSellingProductsInDays(topN, period);
+        }
         request.setAttribute("topSellingProducts", topSellingProducts);
 
-        List<Category> topSellingCategories = categoryService.getTopSellingCategoriesInDays(3, 30);
+        // Lấy danh sách 3 danh mục bán chạy nhất ưu tiên quý gần nhất và mở rộng qua các quý sau (giới hạn 1 năm)
+        period = 90;
+        topN = 3;
+        List<Category> topSellingCategories = categoryService.getTopSellingCategoriesInDays(topN, 90);
+        while (topSellingCategories.size() < topN && period < 360) {
+            period += 90;
+            topSellingCategories = categoryService.getTopSellingCategoriesInDays(topN, period);
+        }
         request.setAttribute("topSellingCategories", topSellingCategories);
 
-        List<List<Product>> topSellingProductsInCategory = topSellingCategories
-                .stream()
-                .map(c -> productService.getTopSellingProductsOfCategory(10, 30, c.getId()))
-                .toList();
-        request.setAttribute("topSellingProductsInCategory", topSellingProductsInCategory);
+        // Lấy 10 sản phẩm bán chạy theo các danh mục đã lấy ở trên
+        period = 90;
+        topN = 10;
 
+        List<List<Product>> topSellingProductsInCategory = new ArrayList<>();
+        for (Category category : topSellingCategories) {
+            List<Product> topProducts = Collections.emptyList();
+            int searchPeriod = period;
+            while (topProducts.size() < topN && searchPeriod < 360) {
+                topProducts = productService.getTopSellingProductsOfCategory(topN, searchPeriod, category.getId());
+                searchPeriod += 90;
+            }
+            topSellingProductsInCategory.add(topProducts);
+        }
+
+// Gán danh sách vào request để sử dụng trên giao diện
+        request.setAttribute("topSellingProductsInCategory", topSellingProductsInCategory);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/views/home.jsp");
         dispatcher.forward(request, response);
     }
