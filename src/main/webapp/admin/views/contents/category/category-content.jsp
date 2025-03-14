@@ -19,7 +19,12 @@
             <div class="card-body">
 
                 <div class="container">
+
                     <h2>Danh sách danh mục
+                        <%--  --------------------- Nút in -------------------------- --%>
+                        <jsp:include page="/admin/views/includes/button-print.jsp"/>
+                        <%--  --------------------- end Nút in -------------------------- --%>
+
                         <a href="${insCateUrl}"
                            class="btn btn-secondary float-end text-white">Thêm
                         </a>

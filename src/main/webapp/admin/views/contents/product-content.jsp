@@ -20,6 +20,10 @@
                 <div class="container">
                     <h2>
                         Danh sách sản phẩm
+                        <%--  --------------------- Nút in -------------------------- --%>
+                        <jsp:include page="/admin/views/includes/button-print.jsp"/>
+                        <%--  --------------------- end Nút in -------------------------- --%>
+
                         <a href="${url_productCreate}"
                            class="btn btn-secondary float-end text-white">Thêm</a>
                     </h2>

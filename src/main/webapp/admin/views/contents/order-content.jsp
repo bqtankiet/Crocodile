@@ -17,7 +17,11 @@
             <!-- ------------------------------Bảng sản phẩm------------------------------ -->
             <div class="card-body">
                 <div class="container">
-                    <h2>Danh sách đơn hàng</h2>
+                    <h2>Danh sách đơn hàng
+                        <%--  --------------------- Nút in -------------------------- --%>
+                        <jsp:include page="/admin/views/includes/button-print.jsp"/>
+                        <%--  --------------------- end Nút in -------------------------- --%>
+                    </h2>
                     <table class="table table-striped table-hover my-3 pt-3" id="products-table">
                         <thead class="table-primary">
                         <tr>
