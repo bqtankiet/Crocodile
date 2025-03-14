@@ -39,6 +39,11 @@
     <script>
         $(document).ready(function () {
             $('#products-table').DataTable({
+                "ordering": true,
+                "columnDefs": [
+                    { "orderable": false, "targets": [0, -1] } // cột checkbox và action
+                ],
+                "order": [],
                 "language": {
                     "search": "Tìm kiếm:",
                     "lengthMenu": "Hiển thị _MENU_ mục",

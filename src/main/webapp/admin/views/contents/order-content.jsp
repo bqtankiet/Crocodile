@@ -1,9 +1,27 @@
 <%@ page import="vn.edu.hcmuaf.fit.crocodile_admin.config.properties.UrlProperties" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <c:url var="updateOrder" value="<%=UrlProperties.updateOrder() %>"/>
 
+<style>
+    table#products-table{
+        border-collapse: collapse;
+        tbody tr:hover, tbody tr.checked {
+            background-color: #f2f2f2;
+            transition: background-color 0.3s ease;
+        }
+        tbody th, tbody td {
+            padding: 1rem 0;
+            border-bottom: 1px solid #ddd;
+        }
+        thead th:first-child {
+            margin: 0 !important;
+            padding-left: 0 !important;
+        }
+    }
+</style>
 
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
@@ -17,18 +35,18 @@
             <!-- ------------------------------Bảng sản phẩm------------------------------ -->
             <div class="card-body">
                 <div class="container">
-                    <h2>Danh sách đơn hàng</h2>
-                    <table class="table table-striped table-hover my-3 pt-3" id="products-table">
+                    <table class="my-3 pt-3" id="products-table">
                         <thead class="table-primary">
                         <tr>
-                            <th scope="col" class="align-middle">Mã đơn hàng</th>
-                            <th scope="col">Tên khách hàng</th>
+                            <th scope="col"><input type="checkbox" id="selectAll" class="form-check-input" aria-label=""></th>
+                            <th scope="col" class="align-middle">Mã đơn</th>
+                            <th scope="col">Khách hàng</th>
                             <th scope="col">Số điện thoại</th>
                             <th scope="col">Tổng tiền</th>
-                            <th scope="col">Phương thức thanh toán</th>
-                            <th scope="col">Trạng thái</th>
+<%--                            <th scope="col">Phương thức thanh toán</th>--%>
                             <th scope="col" class="align-middle">Ngày đặt</th>
-                            <th scope="col">Tác vụ</th>
+                            <th scope="col">Trạng thái</th>
+                            <th scope="col"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -36,13 +54,14 @@
                         <c:forEach items="${requestScope.orders}" var="o">
 
                             <tr>
+                                <td><input type="checkbox" class="rowCheckbox form-check-input" aria-label=""></td>
                                 <th scope="row">${o.id}</th>
                                 <td>${o.fullname}</td>
                                 <td>${o.phone}</td>
-                                <td>${o.total}</td>
-                                <td>${o.paymentMethod}</td>
-                                <td>${o.status.description}</td>
-                                <td>${o.invoiceDate}</td>
+                                <td><fmt:formatNumber value="${o.total}" type="currency" currencyCode="VND"/></td>
+<%--                                <td>${o.paymentMethod}</td>--%>
+                                <td><fmt:formatDate value="${o.invoiceUtilDate}" pattern="dd/MM/yyyy HH:mm:ss"/></td>
+                                <td><span class="badge bg-gray">${o.status.description}</span></td>
                                 <td>
                                     <div class="dropdown">
                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -83,12 +102,13 @@
 
             </div>
         </div>
-
     </div>
     <!-- Content wrapper -->
 </div>
 
+<%-- Xử lý sự kiện của các action --%>
 <script>
+    // Action Processing
     $(document).on('click', '.btn-processing', function (event) {
         event.preventDefault();
         const orderId = $(this).data('id');
@@ -112,10 +132,7 @@
             }
         });
     });
-
-</script>
-
-<script>
+    // Action Cancel
     $(document).on('click', '.btn-cancelled', function (event) {
         event.preventDefault();
         const orderId = $(this).data('id');
@@ -139,5 +156,24 @@
             }
         });
     });
+</script>
 
+<%-- Xử lý sự kiện checkbox --%>
+<script>
+    // Xử lý checkbox "Chọn tất cả"
+    $('#products-table #selectAll').on('change', function () {
+        if(this.checked){
+            $('.rowCheckbox').prop('checked', true).closest('tr').addClass('checked');
+        } else {
+            $('.rowCheckbox').prop('checked', false).closest('tr').removeClass('checked');
+        }
+    });
+
+    // Nếu bỏ chọn bất kỳ checkbox nào, bỏ chọn "Chọn tất cả"
+    $('#products-table .rowCheckbox').on('change', function () {
+        $(this).closest('tr').toggleClass('checked');
+        if (!this.checked) {
+            $('#selectAll').prop('checked', false);
+        }
+    });
 </script>
