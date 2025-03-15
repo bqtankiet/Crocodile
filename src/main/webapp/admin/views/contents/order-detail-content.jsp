@@ -1,6 +1,6 @@
 <%@ page import="vn.edu.hcmuaf.fit.crocodile_admin.config.properties.UrlProperties" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <fmt:setLocale value="vi_VN"/>
 <c:url var="url_product" value="<%=UrlProperties.product()%>"/>
@@ -42,7 +42,7 @@
 <!-- Content wrapper -->
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y pb-5">
-        <h4 class="fw-bold py-3 mb-4">Chi tiết đơn hàng</h4>
+<%--        <h4 class="fw-bold py-3 mb-4">Chi tiết đơn hàng</h4>--%>
 
         <!-- --------------------------------Bảng thêm sản phẩm------------------------------- -->
         <form method="post" id="form-order">
@@ -104,31 +104,35 @@
                             <div class="row px-0">
                                 <h5 class="px-0 mt-3"><strong>Thông tin giao hàng</strong></h5>
                                 <div class="col">
-                                    <div class="row mb-2">
+                                    <div class="row mb-2 me-3 align-items-center">
                                         <label class="col-5 col-form-label px-0">Tên người nhận</label>
-                                        <input class="col me-3 border-0 border border-bottom text-secondary bg-transparent"
-                                               type="text"
+                                        <input class="col border-0 border border-bottom text-secondary bg-transparent"
+                                               type="text" disabled
                                                value="Tấn Kiệt">
+                                        <i class='col-1 bx bxs-edit-alt'></i>
                                     </div>
-                                    <div class="row mb-2">
+                                    <div class="row mb-2 me-3 align-items-center">
                                         <label class="col-5 col-form-label px-0">Số điện thoại</label>
-                                        <input class="col me-3 border-0 border border-bottom text-secondary bg-transparent"
-                                               type="text"
+                                        <input class="col border-0 border border-bottom text-secondary bg-transparent"
+                                               type="text" disabled
                                                value="0113 113 113">
+                                        <i class='col-1 bx bxs-edit-alt'></i>
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <div class="row mb-2">
+                                    <div class="row mb-2 me-3 align-items-center">
                                         <label class="col-5 col-form-label px-0">Đơn vị vận chuyển</label>
-                                        <input class="col me-3 border-0 border border-bottom text-secondary bg-transparent"
-                                               type="text"
+                                        <input class="col border-0 border border-bottom text-secondary bg-transparent"
+                                               type="text" disabled
                                                value="Viettel Post">
+                                        <i class='col-1 bx bxs-edit-alt'></i>
                                     </div>
-                                    <div class="row mb-2">
+                                    <div class="row mb-2 me-3 align-items-center">
                                         <label class="col-5 col-form-label px-0">Mã vận đơn</label>
-                                        <input class="col me-3 border-0 text-secondary bg-transparent" disabled
-                                               type="text"
+                                        <input class="col border-0 border border-bottom text-secondary bg-transparent"
+                                               type="text" disabled
                                                value="123456">
+                                        <i class='col-1 bx bxs-edit-alt'></i>
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -264,36 +268,13 @@
                 <!-- nút thoát -->
                 <a href="${url_product}" class="btn btn-danger">Thoát</a>
             </div>
-            <script>
-                document.getElementById('form-product').addEventListener('keydown', function (event) {
-                    // Nếu phím nhấn là Enter (keyCode 13), ngừng sự kiện
-                    if (event.key === "Enter") {
-                        event.preventDefault();
-                    }
-                });
-            </script>
         </form>
         <!-- ---------------------end bảng thêm sản phẩm---------------------------- -->
     </div>
     <!-- Content wrapper -->
 
-    <!-- ckfinder -->
-    <script src="<c:url value="/public/ckfinder/ckfinder.js"/>"></script>
-    <!--  ckeditor  -->
-    <script src="<c:url value="/public/ckeditor/ckeditor.js"/> "></script>
-    <script>
-        CKEDITOR.replace('descriptionCkeditor');
-    </script>
-
     <!--  bootstrap  -->
-    <script src="<c:url value="/public/bootstrap/js/bootstrap.bundle.js"/>"></script>
+<%--    <script src="<c:url value="/public/bootstrap/js/bootstrap.bundle.js"/>"></script>--%>
 
-    <!-- js -->
-    <script src="<c:url value="/admin/assets/js/ckfinder/popupCkfinder.js"/>"></script>
-    <script src="<c:url value="/admin/assets/js/pages/product-detail-content/auto-append-option.js"/>"></script>
-    <script src="<c:url value="/admin/assets/js/pages/product-detail-content/handle-popup-ckfinder.js"/>"></script>
-    <script src="<c:url value="/admin/assets/js/pages/product-detail-content/product-attribute.js"/>"></script>
-    <script src="<c:url value="/admin/assets/js/pages/product-detail-content/variants-table.js"/>"></script>
-    <script src="<c:url value="/admin/assets/js/pages/product-detail-content/handle-on-submit.js"/>"></script>
 </div>
 

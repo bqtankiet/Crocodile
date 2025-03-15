@@ -54,7 +54,10 @@
         <div class="layout-page">
 
             <!-- Header -->
-<%--            <jsp:include page="/admin/views/includes/header.jsp"/>--%>
+            <jsp:include page="/admin/views/includes/header-breadcrumb.jsp">
+                <jsp:param name="breadcrumbs" value="Quản lý sản phẩm|/admin/product"/>
+                <jsp:param name="breadcrumbs" value="Chi tiết sản phẩm"/>
+            </jsp:include>
             <!-- / Header -->
 
             <!-- Content -->
@@ -64,5 +67,8 @@
 
     </div>
 </div>
+<script src="<c:url value="/admin/assets/vendor/js/bootstrap.js"/>"></script>
+<script src="<c:url value="/admin/assets/vendor/js/menu.js"/>"></script>
+<script src="<c:url value="/admin/assets/js/main.js"/>"></script>
 </body>
 </html>

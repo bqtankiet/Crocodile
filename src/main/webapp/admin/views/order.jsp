@@ -72,7 +72,9 @@
         <div class="layout-page">
 
             <!-- Header -->
-            <jsp:include page="/admin/views/includes/header.jsp" />
+            <jsp:include page="/admin/views/includes/header-breadcrumb.jsp">
+                <jsp:param name="breadcrumbs" value="Quản lý đơn hàng"/>
+            </jsp:include>
             <!-- / Header -->
 
             <!-- Content -->

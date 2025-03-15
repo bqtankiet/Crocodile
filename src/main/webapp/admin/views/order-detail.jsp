@@ -1,5 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -25,6 +25,7 @@
     <!-- JavaScript  -->
     <script src="<c:url value="/admin/assets/vendor/js/helpers.js"/>"></script>
     <script src="<c:url value="/admin/assets/js/config.js"/>"></script>
+
 </head>
 
 <body>
@@ -37,9 +38,11 @@
         </jsp:include>
         <!-- / Sidebar -->
         <div class="layout-page">
-
             <!-- Header -->
-<%--            <jsp:include page="/admin/views/includes/header.jsp" />--%>
+            <jsp:include page="/admin/views/includes/header-breadcrumb.jsp">
+                <jsp:param name="breadcrumbs" value="Quản lý đơn hàng|/admin/order"/>
+                <jsp:param name="breadcrumbs" value="Chi tiết đơn hàng"/>
+            </jsp:include>
             <!-- / Header -->
 
             <!-- Content -->
@@ -48,7 +51,6 @@
         </div>
     </div>
 </div>
-
 <script src="<c:url value="/admin/assets/vendor/js/bootstrap.js"/>"></script>
 <script src="<c:url value="/admin/assets/vendor/js/menu.js"/>"></script>
 <script src="<c:url value="/admin/assets/js/main.js"/>"></script>
