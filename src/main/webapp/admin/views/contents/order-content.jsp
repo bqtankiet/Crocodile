@@ -20,7 +20,25 @@
             <div class="card-body">
                 <div class="container">
                     <div class="float-end mb-3">
-                        <jsp:include page="/admin/views/includes/button-print.jsp"/>
+
+                        <%--Nút xuất dữ liệu--%>
+                        <div class="btn-group">
+                            <button
+                                    type="button"
+                                    class="btn btn-outline-primary dropdown-toggle"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false"
+                            >
+                                <i class="bx bx-export"></i> Xuất dữ liệu
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" data-action="copy"><i class="bx bx-copy"></i> Sao chép</a></li>
+                                <li><a class="dropdown-item" data-action="print"><i class='bx bxs-printer'></i> In</a></li>
+                                <li><a class="dropdown-item" data-action="excel"><i class="bx bx-table"></i> Xuất Excel</a></li>
+                                <li><a class="dropdown-item" data-action="pdf"><i class="bx bx-file-blank"></i> Xuất PDF</a></li>
+                            </ul>
+                        </div>
+
                     </div>
                     <table class="my-3 pt-3 my-table" id="products-table">
                         <thead class="table-primary">
@@ -33,7 +51,7 @@
 <%--                            <th scope="col">Phương thức thanh toán</th>--%>
                             <th scope="col">Ngày đặt</th>
                             <th scope="col">Trạng thái</th>
-                            <th scope="col"></th>
+                            <th scope="col" class="action-column"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -91,6 +109,80 @@
     </div>
     <!-- Content wrapper -->
 </div>
+
+<!-- Kích hoạt Data table  -->
+<script>
+    var tb = $('table.my-table').DataTable({
+        dom: '<"row"<"col-md-6 d-flex align-items-center"l><"col-md-6"f>>' +
+            '<"row"<"col-md-12"tr>>' +
+            '<"row"<"col-md-5"i><"col-md-7"p>>',
+        buttons: [
+            {
+                extend: 'copy',
+                exportOptions: {
+                    columns: ':not(.action-column)'  // Loại bỏ cột có class action-column
+                }
+            },
+            {
+                extend: 'excel',
+                exportOptions: {
+                    columns: ':not(.action-column)'
+                }
+            },
+            {
+                extend: 'pdf',
+                exportOptions: {
+                    columns: ':not(.action-column)'
+                }
+            },
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: ':not(.action-column)'
+                }
+            }
+        ],
+        "ordering": true,
+        "columnDefs": [
+            { "orderable": false, "targets": [0, -1] } // cột checkbox và action
+        ],
+        "order": [],
+        "language": {
+            "search": "Tìm kiếm:",
+            "lengthMenu": "Hiển thị _MENU_ mục",
+            "info": "Hiển thị _START_ đến _END_ trong tổng số _TOTAL_ mục",
+            "paginate": {
+                "first": "Đầu",
+                "last": "Cuối",
+                "next": "Sau",
+                "previous": "Trước"
+            }
+        }
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('.dropdown-menu').on('click', '.dropdown-item', function (e) {
+            e.preventDefault();
+
+            var action = $(this).data('action');
+            if (action) {
+
+                if (action === 'copy') {
+                    tb.button(0).trigger();
+                } else if (action === 'print') {
+                    tb.button(3).trigger();
+                } else if (action === 'excel') {
+                    tb.button(1).trigger();
+                } else if (action === 'pdf') {
+                    tb.button(2).trigger();
+                }
+            }
+        });
+    });
+</script>
+<!-- Data table -->
 
 <%-- Xử lý sự kiện của các action --%>
 <script>
