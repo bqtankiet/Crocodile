@@ -35,6 +35,9 @@
             <!-- ------------------------------Bảng sản phẩm------------------------------ -->
             <div class="card-body">
                 <div class="container">
+                    <div class="float-end mb-3">
+                        <jsp:include page="/admin/views/includes/button-print.jsp"/>
+                    </div>
                     <table class="my-3 pt-3" id="products-table">
                         <thead class="table-primary">
                         <tr>

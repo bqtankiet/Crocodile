@@ -16,7 +16,11 @@
         <div class="card">
             <div class="card-body">
                 <div class="container">
-                    <h2>Danh sách người dùng</h2>
+                    <h2>Danh sách người dùng
+                        <%--  --------------------- Nút in -------------------------- --%>
+                        <jsp:include page="/admin/views/includes/button-print.jsp"/>
+                        <%--  --------------------- end Nút in -------------------------- --%>
+                    </h2>
 
                     <table class="table table-striped table-hover table-bordered my-3 pt-3" id="users-table">
                         <thead class="table-primary">
