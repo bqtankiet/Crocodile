@@ -1,0 +1,20 @@
+table.my-table{
+    padding-top: 2em;
+    /*border-collapse: collapse;*/
+    thead th {
+        background-color: #435971;
+        color: white;
+    }
+    tbody tr:hover, tbody tr.checked {
+        background-color: #f2f2f2;
+        transition: background-color 0.3s ease;
+    }
+    tbody th, tbody td, thead th, thead td {
+        padding: 1rem 10px;
+        border-bottom: 1px solid #ddd;
+    }
+    thead th:first-child {
+        margin: 0 !important;
+        /*padding-left: 0 !important;*/
+    }
+}

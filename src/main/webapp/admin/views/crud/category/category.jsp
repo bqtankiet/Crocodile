@@ -39,23 +39,23 @@
 
 
     <!-- Kích hoạt Data table  -->
-    <script>
-        $(document).ready(function () {
-            $('#categories-table').DataTable({
-                "language": {
-                    "search": "Tìm kiếm:",
-                    "lengthMenu": "Hiển thị _MENU_ mục",
-                    "info": "Hiển thị _START_ đến _END_ trong tổng số _TOTAL_ mục",
-                    "paginate": {
-                        "first": "Đầu",
-                        "last": "Cuối",
-                        "next": "Sau",
-                        "previous": "Trước"
-                    }
-                }
-            });
-        });
-    </script>
+<%--    <script>--%>
+<%--        $(document).ready(function () {--%>
+<%--            $('#categories-table').DataTable({--%>
+<%--                "language": {--%>
+<%--                    "search": "Tìm kiếm:",--%>
+<%--                    "lengthMenu": "Hiển thị _MENU_ mục",--%>
+<%--                    "info": "Hiển thị _START_ đến _END_ trong tổng số _TOTAL_ mục",--%>
+<%--                    "paginate": {--%>
+<%--                        "first": "Đầu",--%>
+<%--                        "last": "Cuối",--%>
+<%--                        "next": "Sau",--%>
+<%--                        "previous": "Trước"--%>
+<%--                    }--%>
+<%--                }--%>
+<%--            });--%>
+<%--        });--%>
+<%--    </script>--%>
     <!-- Data table -->
 </head>
 <body>
@@ -69,7 +69,9 @@
 
             <div class="layout-page">
                 <!-- Header -->
-                <jsp:include page="/admin/views/includes/header.jsp" />
+                <jsp:include page="/admin/views/includes/header-breadcrumb.jsp">
+                    <jsp:param name="breadcrumbs" value="Quản lý danh mục"/>
+                </jsp:include>
                 <!-- / Header -->
 
                 <!-- Content -->

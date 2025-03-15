@@ -5,6 +5,9 @@
 
 <c:url var="url_productCreate" value="<%=UrlProperties.productCreate()%>"/>
 
+<link rel="stylesheet" href="<c:url value="/admin/assets/css/my-table.css"/> ">
+
+
 <!-- Content wrapper -->
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
@@ -18,54 +21,51 @@
             <!-- ------------------------------Bảng sản phẩm------------------------------ -->
             <div class="card-body">
                 <div class="container">
-                    <h2>
-                        Danh sách sản phẩm
-                        <%--  --------------------- Nút in -------------------------- --%>
-                        <jsp:include page="/admin/views/includes/button-print.jsp"/>
-                        <%--  --------------------- end Nút in -------------------------- --%>
+                        <div class="float-end mb-3 d-flex">
+                            <jsp:include page="/admin/views/includes/button-print.jsp"/>
+                            <a href="${url_productCreate}"
+                               class="btn btn-secondary float-end text-white ms-2">Thêm</a>
+                        </div>
 
-                        <a href="${url_productCreate}"
-                           class="btn btn-secondary float-end text-white">Thêm</a>
-                    </h2>
-
-                    <table class="table table-striped table-hover my-3 pt-3" id="products-table">
+                    <table class="my-table my-3 pt-3" id="products-table">
                         <thead class="table-primary">
                         <tr>
-                            <th scope="col" class="align-middle">#</th>
+                            <th scope="col"><input type="checkbox" id="selectAll" class="form-check-input" aria-label=""></th>
+                            <th scope="col">ID</th>
                             <th scope="col">Tên sản phẩm</th>
-                            <th scope="col">Loại danh mục</th>
-                            <th scope="col">Hình ảnh</th>
-                            <th scope="col">Giá tiền</th>
-                            <th scope="col">Trạng thái</th>
-                            <th scope="col">Tác vụ</th>
+                            <th scope="col" style="min-width: 10ch">Danh mục</th>
+<%--                            <th scope="col">Hình ảnh</th>--%>
+                            <th scope="col">Đơn giá</th>
+                            <th scope="col" style="min-width: 10ch">Trạng thái</th>
+                            <th scope="col"></th>
                         </tr>
                         </thead>
                         <tbody>
 
                         <!-- Product -->
-                        <c:forEach items="${products}" var="p">
+                        <c:forEach items="${requestScope.products}" var="p">
                             <tr>
-                                <th scope="row">
-                                    <strong>${p.id}</strong>
-                                </th>
+                                <td><input type="checkbox" class="rowCheckbox form-check-input" aria-label=""></td>
                                 <td>
-                                    <strong class="product-name">${p.name}</strong>
+                                    ${p.id}
                                 </td>
                                 <td>
-                                    <strong class="category-name">${p.category.name}</strong>
-
+                                    <div class="d-flex align-items-center gap-3">
+                                        <img style="max-height: 50px;" class="img-fluid" src="<c:url value="${p.image}" />" alt="">
+                                        ${p.name}
+                                    </div>
                                 </td>
                                 <td>
-                                    <img style="max-height: 80px;" class="img-fluid"
-                                         src="<c:url value="${p.image}" />" alt="">
+                                    ${p.category.name}
+                                </td>
+<%--                                <td>--%>
+<%--                                    <img style="max-height: 50px;" class="img-fluid" src="<c:url value="${p.image}" />" alt="">--%>
+<%--                                </td>--%>
+                                <td>
+                                    <fmt:formatNumber value="${p.price}" type="currency" currencyCode="VND" maxFractionDigits="0"/>
                                 </td>
                                 <td>
-                                    <strong class="product-price">
-                                        <fmt:formatNumber value="${p.price}" type="number" pattern="#,##0" /> <sup>₫</sup>
-                                    </strong>
-                                </td>
-                                <td>
-                                    <strong >${p.active == true ? 'Hiển thị' : 'Ẩn'}</strong>
+                                    <span class="badge bg-gray">${p.active == true ? 'Hiển thị' : 'Ẩn'}</span>
                                 </td>
                                 <td>
                                     <div class="dropdown option-box">
@@ -131,3 +131,6 @@
     });
 
 </script>
+
+<script src="<c:url value="/admin/assets/js/my-table.js"/> "></script>
+

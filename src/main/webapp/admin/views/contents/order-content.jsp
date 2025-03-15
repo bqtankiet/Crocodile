@@ -5,23 +5,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <c:url var="updateOrder" value="<%=UrlProperties.updateOrder() %>"/>
 
-<style>
-    table#products-table{
-        border-collapse: collapse;
-        tbody tr:hover, tbody tr.checked {
-            background-color: #f2f2f2;
-            transition: background-color 0.3s ease;
-        }
-        tbody th, tbody td {
-            padding: 1rem 0;
-            border-bottom: 1px solid #ddd;
-        }
-        thead th:first-child {
-            margin: 0 !important;
-            padding-left: 0 !important;
-        }
-    }
-</style>
+<link rel="stylesheet" href="<c:url value="/admin/assets/css/my-table.css"/> ">
 
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
@@ -38,16 +22,16 @@
                     <div class="float-end mb-3">
                         <jsp:include page="/admin/views/includes/button-print.jsp"/>
                     </div>
-                    <table class="my-3 pt-3" id="products-table">
+                    <table class="my-3 pt-3 my-table" id="products-table">
                         <thead class="table-primary">
                         <tr>
                             <th scope="col"><input type="checkbox" id="selectAll" class="form-check-input" aria-label=""></th>
-                            <th scope="col" class="align-middle">Mã đơn</th>
+                            <th scope="col">Mã đơn</th>
                             <th scope="col">Khách hàng</th>
                             <th scope="col">Số điện thoại</th>
                             <th scope="col">Tổng tiền</th>
 <%--                            <th scope="col">Phương thức thanh toán</th>--%>
-                            <th scope="col" class="align-middle">Ngày đặt</th>
+                            <th scope="col">Ngày đặt</th>
                             <th scope="col">Trạng thái</th>
                             <th scope="col"></th>
                         </tr>
@@ -61,7 +45,7 @@
                                 <th scope="row">${o.id}</th>
                                 <td>${o.fullname}</td>
                                 <td>${o.phone}</td>
-                                <td><fmt:formatNumber value="${o.total}" type="currency" currencyCode="VND"/></td>
+                                <td><fmt:formatNumber value="${o.total}" type="currency" currencyCode="VND" maxFractionDigits="0"/></td>
 <%--                                <td>${o.paymentMethod}</td>--%>
                                 <td><fmt:formatDate value="${o.invoiceUtilDate}" pattern="dd/MM/yyyy HH:mm:ss"/></td>
                                 <td><span class="badge bg-gray">${o.status.description}</span></td>
@@ -161,21 +145,4 @@
 </script>
 
 <%-- Xử lý sự kiện checkbox --%>
-<script>
-    // Xử lý checkbox "Chọn tất cả"
-    $('#products-table #selectAll').on('change', function () {
-        if(this.checked){
-            $('.rowCheckbox').prop('checked', true).closest('tr').addClass('checked');
-        } else {
-            $('.rowCheckbox').prop('checked', false).closest('tr').removeClass('checked');
-        }
-    });
-
-    // Nếu bỏ chọn bất kỳ checkbox nào, bỏ chọn "Chọn tất cả"
-    $('#products-table .rowCheckbox').on('change', function () {
-        $(this).closest('tr').toggleClass('checked');
-        if (!this.checked) {
-            $('#selectAll').prop('checked', false);
-        }
-    });
-</script>
+<script src="<c:url value="/admin/assets/js/my-table.js"/> "></script>
