@@ -5,6 +5,7 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
     >
+        <i class='bx bxs-printer'></i>
         In
     </button>
     <ul class="dropdown-menu">
