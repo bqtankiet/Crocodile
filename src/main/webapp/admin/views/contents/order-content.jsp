@@ -86,7 +86,7 @@
                                                     Hủy bỏ
                                                 </button>
                                             </c:if>
-                                            <a class="dropdown-item" href="order-detail.html"><i
+                                            <a class="dropdown-item" href="<c:url value="/admin/order/update"/> "><i
                                                     class="menu-icon tf-icons bx bx-file"></i> Chi
                                                 tiết</a>
                                             <a class="dropdown-item" href="javascript:void(0);"><i

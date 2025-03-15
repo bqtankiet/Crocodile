@@ -13,7 +13,7 @@ public class UpdateOrderController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        request.getRequestDispatcher("/admin/views/order-detail.jsp").forward(request, response);
     }
 
     @Override
