@@ -12,6 +12,31 @@
             border-bottom: 1px solid #DDD;
         }
     }
+    .timeline {
+        border-left: 1px solid hsl(0, 0%, 90%);
+        position: relative;
+        list-style: none;
+    }
+
+    .timeline .timeline-item {
+        position: relative;
+    }
+
+    .timeline .timeline-item:after {
+        position: absolute;
+        display: block;
+        top: 0;
+    }
+
+    .timeline .timeline-item:after {
+        background-color: hsl(0, 0%, 90%);
+        left: -38px;
+        top: 2px;
+        border-radius: 50%;
+        height: 11px;
+        width: 11px;
+        content: "";
+    }
 </style>
 
 <!-- Content wrapper -->
@@ -25,8 +50,8 @@
                 <%-- LEFT --%>
                 <div class="col">
                     <%--  Thông tin đơn hàng --%>
-                    <div class="ps-3 card">
-                        <div class="row px-0 card-body needs-validation mx-4">
+                    <div class="ps-3 card h-100">
+                        <div class="px-0 card-body needs-validation mx-4">
                             <%-- Thông tin chung --%>
                             <div class="row px-0">
                                 <h5 class="px-0"><strong>Thông tin chung</strong></h5>
@@ -119,8 +144,49 @@
                 <div class="col-3 ps-0">
                     <div class="card h-100">
                         <h5 class="card-header"><strong>Trạng thái đơn hàng</strong></h5>
-                        <div class="card-body needs-validation mx-4">
-
+                        <div class="card-body">
+                        <h3 class="badge bg-success">Giao hàng thành công</h3>
+                            <!-- Section: Timeline -->
+                            <section class="py-2">
+                                <ul class="timeline">
+                                    <li class="timeline-item">
+                                        <h6 class="fw-bold mb-1">Đã giao hàng</h6>
+                                        <p class="text-muted mb-1">11/10/2024 10:20:30</p>
+                                        <p class="text-muted">
+                                            Đơn hàng đã được giao thành công
+                                        </p>
+                                    </li>
+                                    <li class="timeline-item">
+                                        <h6 class="fw-bold mb-1">Đang giao hàng</h6>
+                                        <p class="text-muted mb-1">9/10/2024 10:20:30</p>
+                                        <p class="text-muted">
+                                            Đơn hàng đang trên đường giao cho khách hàng.
+                                        </p>
+                                    </li>
+                                    <li class="timeline-item">
+                                        <h6 class="fw-bold mb-1">Đã lấy hàng</h6>
+                                        <p class="text-muted mb-1">9/10/2024 9:20:30</p>
+                                        <p class="text-muted">
+                                            Đã lấy hàng tại Cửa hàng Crocodile chi nhánh NLU
+                                        </p>
+                                    </li>
+                                    <li class="timeline-item">
+                                        <h6 class="fw-bold mb-1">Đơn hàng đang chuẩn bị</h6>
+                                        <p class="text-muted mb-1">9/10/2024 9:20:30</p>
+                                        <p class="text-muted">
+                                            Đơn hàng đang được đóng gói
+                                        </p>
+                                    </li>
+                                    <li class="timeline-item">
+                                        <h6 class="fw-bold mb-1">Đang chờ xử lý</h6>
+                                        <p class="text-muted mb-1">9/10/2024 9:20:30</p>
+                                        <p class="text-muted">
+                                            Đơn hàng đang chờ xử lý
+                                        </p>
+                                    </li>
+                                </ul>
+                            </section>
+                            <!-- Section: Timeline -->
                         </div>
                     </div>
                 </div>
@@ -144,17 +210,15 @@
                             <tbody>
                             <tr class="">
                                 <%--Mã sản phẩm--%>
-                                <td class="align-middle text-start py-3">12345</td>
+                                <td class="align-middle text-start">12345</td>
                                 <%--Tên Sản phẩm--%>
-                                <td class="align-middle text-start">
+                                <td class="align-middle text-start py-3">
                                     <div class="">
-                                        <p class="mb-2 line-clamp-2" style="height: fit-content">Sản phẩm
-                                            ABC</p>
-                                        <c:if test="${productVariant.pOption1 != null}">
-                                            <p class="fw-normal">${productVariant.pOption1.key}: ${productVariant.pOption1.value}
-
-                                                <c:if test="${productVariant.pOption2 != null}">
-                                                    , ${productVariant.pOption2.key}: ${productVariant.pOption2.value}
+                                        <p class="mb-2 line-clamp-2" style="height: fit-content">Sản phẩm ABC</p>
+                                        <c:if test="${'productVariant.pOption1' != null}">
+                                            <p class="fw-normal m-0 text-muted">Màu sắc: Đỏ
+                                                <c:if test="${'productVariant.pOption2' != null}">
+                                                    , Kích thước: 43
                                                 </c:if>
                                             </p>
                                         </c:if>

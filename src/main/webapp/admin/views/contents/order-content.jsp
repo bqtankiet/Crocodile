@@ -69,10 +69,12 @@
                                             <i class="bx bx-dots-vertical-rounded"></i>
                                         </button>
                                         <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="<c:url value="/admin/order/update"/> "><i
+                                                    class="menu-icon tf-icons bx bx-file"></i> Chi tiết</a>
                                             <c:if test="${o.status.description == 'Chờ phê duyệt'}">
                                                 <button class="dropdown-item btn-processing"
                                                         data-id="${o.id}" data-action="processing">
-                                                    <i class="bx bx-check me-2 btn-save fs-3 cursor-pointer"></i>
+                                                    <i class="bx bx-check btn-save fs-3 cursor-pointer"></i>
                                                     Phê duyệt
                                                 </button>
                                             </c:if>
@@ -82,15 +84,12 @@
                                                 }">
                                                 <button class="dropdown-item btn-cancelled"
                                                         data-id="${o.id}" data-action="cancelled" >
-                                                    <i class="bx bx-undo me-2 btn-cancel fs-3 cursor-pointer"></i>
+                                                    <i class="bx bx-x btn-cancel fs-3 cursor-pointer"></i>
                                                     Hủy bỏ
                                                 </button>
                                             </c:if>
-                                            <a class="dropdown-item" href="<c:url value="/admin/order/update"/> "><i
-                                                    class="menu-icon tf-icons bx bx-file"></i> Chi
-                                                tiết</a>
-                                            <a class="dropdown-item" href="javascript:void(0);"><i
-                                                    class="bx bx-trash me-1"></i> Xóa</a>
+                                            <a class="dropdown-item text-danger" href="javascript:void(0);"><i
+                                                    class="menu-icon tf-icons bx bx-trash"></i> Xóa</a>
                                         </div>
                                     </div>
                                 </td>
