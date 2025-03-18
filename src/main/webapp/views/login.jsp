@@ -20,9 +20,9 @@
             document.getElementById("username").value = "";
             document.getElementById("password").value = "";
         }
+
+
     </script>
-    <meta name="google-signin-client_id"
-          content="841108618342-pc5358jl3u8dnsaru2hitfjers87naaj.apps.googleusercontent.com.apps.googleusercontent.com">
 </head>
 <body>
 <c:if test="${not empty errorMessage}">

@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <style>
     #page {
         --color-primary: #004c45;
@@ -42,7 +42,7 @@
     <div class="img-background py-5 d-flex justify-content-center" style="overflow-x: hidden; height: 60em">
         <div class="row">
             <div class="p-5 col translucent-background shadow-lg" style="width: 60ch; height: fit-content">
-                <form novalidate method="post" id="signupForm" class="needs-validation w-100">
+                <form novalidate method="post" id="signupForm" action="<c:url value="/signup"/>" class="needs-validation w-100">
                     <h3 class="text-center mb-4" style="color: var(--color-primary);">Đăng ký</h3>
                     <!-- Thông tin cá nhân -->
                     <div class="d-grid gap-3 mb-3">
@@ -89,16 +89,7 @@
                                    required="" aria-label="">
                             <div class="password-criteria-holder d-none shadow-sm"></div>
                             <div class="invalid-feedback">Mật khẩu không hợp lệ</div>
-                            <%--                            <div id="feedback-tooltips" class="d-none">--%>
-                            <%--                                <ul class="m-0">--%>
-                            <%--                                    <li class="text-danger" id="longRequired">Ít nhất 8 ký tự</li>--%>
-                            <%--                                    <li class="text-danger" id="numberRequired">Phải có số (1..9)</li>--%>
-                            <%--                                    <li class="text-danger" id="uppercaseRequired">Phải có chữ viết hoa (A..Z)</li>--%>
-                            <%--                                    <li class="text-danger" id="symbolRequired">Phải có ký tự đặc biệt (!..*)</li>--%>
-                            <%--                                </ul>--%>
-                            <%--                            </div>--%>
                         </div>
-
                         <!-- Confirm password -->
                         <div>
                             <input class="form-control" type="password" id="confirmPassword" name="confirmPassword"
@@ -107,13 +98,15 @@
                         </div>
                     </div>
 
+                    <!-- captcha -->
+                    <div class="g-recaptcha"
+                         data-sitekey="6Le5eOsqAAAAAP1g0oVT2AQyKqXMnbibrG4SgAzL"
+                         data-callback="enableSubmit"></div>
                     <!-- Nút đăng ký -->
                     <div class="text-center my-2">
-                        <button type="submit" class="btn btn-primary w-100">Đăng ký</button>
+                        <button type="submit" id="submitBtn" class="btn btn-primary w-100" disabled>Đăng ký</button>
                     </div>
 
-                    <!-- captcha -->
-                    <div>Captcha ???</div>
                 </form>
                 <div class="w-100">
                     <!-- Dòng phân cách -->
@@ -162,7 +155,7 @@
                     <div class="text-center mt-3">
                         <hr>
                         <p>Bạn đã có tài khoản?
-                            <a href="login-content.jsp">Đăng nhập</a> ngay.
+                            <a href="<c:url value="/login"/>">Đăng nhập</a> ngay.
                         </p>
                         <div class=""><a href=#>Quay lại trang chủ</a></div>
                     </div>
@@ -395,4 +388,10 @@
             }
         }, false);
     })()
+</script>
+<script>
+    // Hàm được gọi khi captcha hoàn thành
+    function enableSubmit() {
+        document.getElementById("submitBtn").disabled = false;
+    }
 </script>
