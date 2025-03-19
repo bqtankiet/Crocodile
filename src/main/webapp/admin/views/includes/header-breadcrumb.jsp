@@ -2,6 +2,7 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:url var="loginUrl" value="<%= vn.edu.hcmuaf.fit.crocodile.config.properties.UrlProperties.login()%>" />
 <c:url var="accountUrl" value="<%= UrlProperties.account()%>"/>
@@ -15,15 +16,25 @@
     </div>
 
     <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-        <!-- Search -->
         <div class="navbar-nav flex-grow-1">
             <div class="nav-item d-flex align-items-center">
-                <i class="bx bx-search fs-4 lh-0"></i>
-                <input type="text" class="form-control border-0 shadow-none" placeholder="Tìm kiếm đi barr..."
-                       aria-label="Search..." />
+                <ol class="breadcrumb m-0">
+                    <c:forEach var="breadcrumb" items="${paramValues.breadcrumbs}" varStatus="status">
+                        <c:set var="breadcrumbData" value="${fn:split(breadcrumb, '|')}" />
+                        <li class="breadcrumb-item ${status.last ? 'active' : ''}" ${status.last ? 'aria-current="page"' : ''}>
+                            <c:choose>
+                                <c:when test="${status.last}">
+                                    ${breadcrumbData[0]}
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="<c:url value="${breadcrumbData[1]}"/>">${breadcrumbData[0]}</a>
+                                </c:otherwise>
+                            </c:choose>
+                        </li>
+                    </c:forEach>
+                </ol>
             </div>
         </div>
-        <!-- /Search -->
         <div class="px-2">|</div>
         <!-- Right side -->
         <ul class="navbar-nav flex-row align-items-center">

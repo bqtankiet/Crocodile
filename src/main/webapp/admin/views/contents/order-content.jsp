@@ -1,34 +1,57 @@
 <%@ page import="vn.edu.hcmuaf.fit.crocodile_admin.config.properties.UrlProperties" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <c:url var="updateOrder" value="<%=UrlProperties.updateOrder() %>"/>
 
+<link rel="stylesheet" href="<c:url value="/admin/assets/css/my-table.css"/> ">
 
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
 
-        <h4 class="fw-bold py-3 mb-4">
-            <span class="text-muted fw-light">Quản lý thông tin /</span>
-            Đơn hàng
-        </h4>
+<%--        <h4 class="fw-bold py-3 mb-4">--%>
+<%--            <span class="text-muted fw-light">Quản lý thông tin /</span>--%>
+<%--            Đơn hàng--%>
+<%--        </h4>--%>
         <!-- Bordered Table -->
         <div class="card">
             <!-- ------------------------------Bảng sản phẩm------------------------------ -->
             <div class="card-body">
                 <div class="container">
-                    <h2>Danh sách đơn hàng</h2>
-                    <table class="table table-striped table-hover my-3 pt-3" id="products-table">
+                    <div class="float-end mb-3">
+
+                        <%--Nút xuất dữ liệu--%>
+                        <div class="btn-group">
+                            <button
+                                    type="button"
+                                    class="btn btn-outline-primary dropdown-toggle"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false"
+                            >
+                                <i class="bx bx-export"></i> Xuất dữ liệu
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" data-action="copy"><i class="bx bx-copy"></i> Sao chép</a></li>
+                                <li><a class="dropdown-item" data-action="print"><i class='bx bxs-printer'></i> In</a></li>
+                                <li><a class="dropdown-item" data-action="excel"><i class="bx bx-table"></i> Xuất Excel</a></li>
+                                <li><a class="dropdown-item" data-action="pdf"><i class="bx bx-file-blank"></i> Xuất PDF</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <table class="my-3 pt-3 my-table" id="products-table">
                         <thead class="table-primary">
                         <tr>
-                            <th scope="col" class="align-middle">Mã đơn hàng</th>
-                            <th scope="col">Tên khách hàng</th>
+                            <th scope="col"><input type="checkbox" id="selectAll" class="form-check-input" aria-label=""></th>
+                            <th scope="col">Mã đơn</th>
+                            <th scope="col">Khách hàng</th>
                             <th scope="col">Số điện thoại</th>
                             <th scope="col">Tổng tiền</th>
-                            <th scope="col">Phương thức thanh toán</th>
+<%--                            <th scope="col">Phương thức thanh toán</th>--%>
+                            <th scope="col">Ngày đặt</th>
                             <th scope="col">Trạng thái</th>
-                            <th scope="col" class="align-middle">Ngày đặt</th>
-                            <th scope="col">Tác vụ</th>
+                            <th scope="col" class="action-column"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -36,13 +59,14 @@
                         <c:forEach items="${requestScope.orders}" var="o">
 
                             <tr>
+                                <td><input type="checkbox" class="rowCheckbox form-check-input" aria-label=""></td>
                                 <th scope="row">${o.id}</th>
                                 <td>${o.fullname}</td>
                                 <td>${o.phone}</td>
-                                <td>${o.total}</td>
-                                <td>${o.paymentMethod}</td>
-                                <td>${o.status.description}</td>
-                                <td>${o.invoiceDate}</td>
+                                <td><fmt:formatNumber value="${o.total}" type="currency" currencyCode="VND" maxFractionDigits="0"/></td>
+<%--                                <td>${o.paymentMethod}</td>--%>
+                                <td><fmt:formatDate value="${o.invoiceUtilDate}" pattern="dd/MM/yyyy HH:mm:ss"/></td>
+                                <td><span class="badge bg-gray">${o.status.description}</span></td>
                                 <td>
                                     <div class="dropdown">
                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -50,10 +74,12 @@
                                             <i class="bx bx-dots-vertical-rounded"></i>
                                         </button>
                                         <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="<c:url value="/admin/order/update"/> "><i
+                                                    class="menu-icon tf-icons bx bx-file"></i> Chi tiết</a>
                                             <c:if test="${o.status.description == 'Chờ phê duyệt'}">
                                                 <button class="dropdown-item btn-processing"
                                                         data-id="${o.id}" data-action="processing">
-                                                    <i class="bx bx-check me-2 btn-save fs-3 cursor-pointer"></i>
+                                                    <i class="bx bx-check btn-save fs-3 cursor-pointer"></i>
                                                     Phê duyệt
                                                 </button>
                                             </c:if>
@@ -63,15 +89,12 @@
                                                 }">
                                                 <button class="dropdown-item btn-cancelled"
                                                         data-id="${o.id}" data-action="cancelled" >
-                                                    <i class="bx bx-undo me-2 btn-cancel fs-3 cursor-pointer"></i>
+                                                    <i class="bx bx-x btn-cancel fs-3 cursor-pointer"></i>
                                                     Hủy bỏ
                                                 </button>
                                             </c:if>
-                                            <a class="dropdown-item" href="order-detail.html"><i
-                                                    class="menu-icon tf-icons bx bx-file"></i> Chi
-                                                tiết</a>
-                                            <a class="dropdown-item" href="javascript:void(0);"><i
-                                                    class="bx bx-trash me-1"></i> Xóa</a>
+                                            <a class="dropdown-item text-danger" href="javascript:void(0);"><i
+                                                    class="menu-icon tf-icons bx bx-trash"></i> Xóa</a>
                                         </div>
                                     </div>
                                 </td>
@@ -83,12 +106,87 @@
 
             </div>
         </div>
-
     </div>
     <!-- Content wrapper -->
 </div>
 
+<!-- Kích hoạt Data table  -->
 <script>
+    var tb = $('table.my-table').DataTable({
+        dom: '<"row"<"col-md-6 d-flex align-items-center"l><"col-md-6"f>>' +
+            '<"row"<"col-md-12"tr>>' +
+            '<"row"<"col-md-5"i><"col-md-7"p>>',
+        buttons: [
+            {
+                extend: 'copy',
+                exportOptions: {
+                    columns: ':not(.action-column)'  // Loại bỏ cột có class action-column
+                }
+            },
+            {
+                extend: 'excel',
+                exportOptions: {
+                    columns: ':not(.action-column)'
+                }
+            },
+            {
+                extend: 'pdf',
+                exportOptions: {
+                    columns: ':not(.action-column)'
+                }
+            },
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: ':not(.action-column)'
+                }
+            }
+        ],
+        "ordering": true,
+        "columnDefs": [
+            { "orderable": false, "targets": [0, -1] } // cột checkbox và action
+        ],
+        "order": [],
+        "language": {
+            "search": "Tìm kiếm:",
+            "lengthMenu": "Hiển thị _MENU_ mục",
+            "info": "Hiển thị _START_ đến _END_ trong tổng số _TOTAL_ mục",
+            "paginate": {
+                "first": "Đầu",
+                "last": "Cuối",
+                "next": "Sau",
+                "previous": "Trước"
+            }
+        }
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('.dropdown-menu').on('click', '.dropdown-item', function (e) {
+            e.preventDefault();
+
+            var action = $(this).data('action');
+            if (action) {
+
+                if (action === 'copy') {
+                    tb.button(0).trigger();
+                } else if (action === 'print') {
+                    tb.button(3).trigger();
+                } else if (action === 'excel') {
+                    tb.button(1).trigger();
+                } else if (action === 'pdf') {
+                    tb.button(2).trigger();
+                }
+            }
+        });
+    });
+</script>
+<!-- Data table -->
+
+<%-- Xử lý sự kiện của các action --%>
+<script>
+    // Action Processing
     $(document).on('click', '.btn-processing', function (event) {
         event.preventDefault();
         const orderId = $(this).data('id');
@@ -112,10 +210,7 @@
             }
         });
     });
-
-</script>
-
-<script>
+    // Action Cancel
     $(document).on('click', '.btn-cancelled', function (event) {
         event.preventDefault();
         const orderId = $(this).data('id');
@@ -139,5 +234,7 @@
             }
         });
     });
-
 </script>
+
+<%-- Xử lý sự kiện checkbox --%>
+<script src="<c:url value="/admin/assets/js/my-table.js"/> "></script>

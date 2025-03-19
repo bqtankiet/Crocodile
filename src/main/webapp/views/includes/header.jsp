@@ -1,4 +1,4 @@
-l<%@ page import="vn.edu.hcmuaf.fit.crocodile.config.properties.UrlProperties" %>
+<%@ page import="vn.edu.hcmuaf.fit.crocodile.config.properties.UrlProperties" %>
 <%@ page import="vn.edu.hcmuaf.fit.crocodile.service.CategoryService" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>

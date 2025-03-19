@@ -7,34 +7,58 @@
 <c:url var="insUserUrl" value="<%= UrlProperties.insertUser() %>" />
 <c:url var="updateUserUrl" value="<%= UrlProperties.updateUser() %>"/>
 
+<link rel="stylesheet" href="<c:url value="/admin/assets/css/my-table.css"/>">
 <!-- Content wrapper -->
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4">Quản lý người dùng</h4>
+<%--        <h4 class="fw-bold py-3 mb-4">Quản lý người dùng</h4>--%>
 
         <!-- Bordered Table -->
         <div class="card">
             <div class="card-body">
                 <div class="container">
-                    <h2>Danh sách người dùng</h2>
 
-                    <table class="table table-striped table-hover table-bordered my-3 pt-3" id="users-table">
+                    <div class="float-end mb-3">
+
+                        <%--Nút xuất dữ liệu--%>
+                        <div class="btn-group">
+                            <button
+                                    type="button"
+                                    class="btn btn-outline-primary dropdown-toggle"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false"
+                            >
+                                <i class="bx bx-export"></i> Xuất dữ liệu
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" data-action="copy"><i class="bx bx-copy"></i> Sao chép</a></li>
+                                <li><a class="dropdown-item" data-action="print"><i class='bx bxs-printer'></i> In</a></li>
+                                <li><a class="dropdown-item" data-action="excel"><i class="bx bx-table"></i> Xuất Excel</a></li>
+                                <li><a class="dropdown-item" data-action="pdf"><i class="bx bx-file-blank"></i> Xuất PDF</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <table class="my-table my-3 pt-3" id="users-table">
                         <thead class="table-primary">
                         <tr>
-                            <th scope="col">#</th>
+                            <th scope="col"><input type="checkbox" id="selectAll" class="form-check-input" aria-label=""></th>
+                            <th scope="col">ID</th>
                             <th scope="col">Tên người dùng</th>
                             <th scope="col">Email</th>
                             <th scope="col">Số điện thoại</th>
                             <th scope="col">Giới tính</th>
                             <th scope="col">Ngày sinh</th>
                             <th scope="col">Quyền truy cập</th>
-                            <th scope="col">Tác vụ</th>
+                            <th scope="col" class="action-column"></th>
                         </tr>
                         </thead>
                         <tbody>
                         <!-- Hàng 1 -->
                             <c:forEach items="${requestScope.listUser}" var="u">
                                 <tr>
+                                    <td><input type="checkbox" class="rowCheckbox form-check-input" aria-label=""></td>
                                     <th scope="row">${u.id}</th>
                                     <td>${u.username}</td>
                                     <td>${u.email}</td>
@@ -78,6 +102,79 @@
 <!-- Content wrapper -->
 
 <script>
+    var tb = $('table.my-table').DataTable({
+        dom: '<"row"<"col-md-6 d-flex align-items-center"l><"col-md-6"f>>' +
+            '<"row"<"col-md-12"tr>>' +
+            '<"row"<"col-md-5"i><"col-md-7"p>>',
+        buttons: [
+            {
+                extend: 'copy',
+                exportOptions: {
+                    columns: ':not(.action-column)'  // Loại bỏ cột có class action-column
+                }
+            },
+            {
+                extend: 'excel',
+                exportOptions: {
+                    columns: ':not(.action-column)'
+                }
+            },
+            {
+                extend: 'pdf',
+                exportOptions: {
+                    columns: ':not(.action-column)'
+                }
+            },
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: ':not(.action-column)'
+                }
+            }
+        ],
+
+        "ordering": true,
+        "columnDefs": [
+            { "orderable": false, "targets": [0, -1] } // cột checkbox và action
+        ],
+        "order": [],
+        "language": {
+            "search": "Tìm kiếm:",
+            "lengthMenu": "Hiển thị _MENU_ mục",
+            "info": "Hiển thị _START_ đến _END_ trong tổng số _TOTAL_ mục",
+            "paginate": {
+                "first": "Đầu",
+                "last": "Cuối",
+                "next": "Sau",
+                "previous": "Trước"
+            }
+        }
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('.dropdown-menu').on('click', '.dropdown-item', function (e) {
+            e.preventDefault();
+
+            var action = $(this).data('action');
+            if (action) {
+
+                if (action === 'copy') {
+                    tb.button(0).trigger();
+                } else if (action === 'print') {
+                    tb.button(3).trigger();
+                } else if (action === 'excel') {
+                    tb.button(1).trigger();
+                } else if (action === 'pdf') {
+                    tb.button(2).trigger();
+                }
+            }
+        });
+    });
+</script>
+
+<script>
     $(document).on('click', '.btn-ban', function (event) {
         event.preventDefault();
         const banBtn = $(this);
@@ -109,3 +206,5 @@
     })
 
 </script>
+
+<script src="<c:url value="/admin/assets/js/my-table.js"/>"></script>

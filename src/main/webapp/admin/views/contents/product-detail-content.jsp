@@ -7,7 +7,7 @@
 <!-- Content wrapper -->
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y pb-5">
-        <h4 class="fw-bold py-3 mb-4">Thêm sản phẩm mới</h4>
+<%--        <h4 class="fw-bold py-3 mb-4">Thêm sản phẩm mới</h4>--%>
 
         <!-- --------------------------------Bảng thêm sản phẩm------------------------------- -->
         <form method="post" id="form-product">
@@ -374,7 +374,7 @@
     </script>
 
     <!--  bootstrap  -->
-    <script src="<c:url value="/public/bootstrap/js/bootstrap.bundle.js"/>"></script>
+<%--    <script src="<c:url value="/public/bootstrap/js/bootstrap.bundle.js"/>"></script>--%>
 
     <!-- js -->
     <script src="<c:url value="/admin/assets/js/ckfinder/popupCkfinder.js"/>"></script>

@@ -9,6 +9,8 @@ public class UrlProperties extends ApplicationProperties {
 
     public static String contact() { return getProperty("admin.contact"); }
 
+    public static String dashboard() { return getProperty("admin.dashboard"); }
+
 
     // --------------------- category --------------------
     public static String category() { return getProperty("admin.category"); }
@@ -46,6 +48,7 @@ public class UrlProperties extends ApplicationProperties {
     public static String insertUser() { return getProperty("admin.user.insert"); }
 
     public static String updateUser() { return getProperty("admin.user.update"); }
+
     // --------------------- user ------------------------
 
 
