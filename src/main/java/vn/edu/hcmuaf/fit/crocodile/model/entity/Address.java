@@ -13,6 +13,23 @@ public class Address implements Serializable {
     private String district;
     private String ward;
     private String street;
+    private boolean isDefault;
+
+    public String getFullAddress(){
+        return String.format("%s, %s, %s, %s", province, district, ward, street);
+    }
+
+    public String getFormatedPhoneNumber() {
+        return phoneNumber.replaceAll("(\\d{4})(\\d{3})(\\d{3})", "$1 $2 $3");
+    }
+
+    public boolean isDefault() {
+        return isDefault;
+    }
+
+    public void setDefault(boolean aDefault) {
+        isDefault = aDefault;
+    }
 
     public int getId() {
         return id;

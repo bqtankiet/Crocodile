@@ -7,6 +7,10 @@
 <c:url var="urlCart" value="<%=UrlProperties.cart()%>"/>
 <c:url var="urlCheckout" value="<%=UrlProperties.checkout()%>"/>
 
+<style>
+    body { padding-right: 0 !important }
+</style>
+
 <div id="page" class="layout-default ">
     <div id="CONTENT" class="h-100" style="margin-bottom: 10rem;">
         <!-------------------- Breadcrumb -------------------->
@@ -64,23 +68,24 @@
                         <%-- TODO: sủa lại thành thông tin user --%>
                         <div class="d-flex align-items-center mb-2">
                             <h5>Địa chỉ nhận hàng</h5>
-                            <a role="button" class="ms-auto text-decoration-none">Thay đổi</a>
+                            <a role="button" class="ms-auto text-decoration-none" data-bs-toggle="modal" data-bs-target="#addressModal">Thay đổi</a>
+                            <%--TODO: Thay đổi địa chỉ--%>
                         </div>
                         <div>
                             <table class="table mb-0">
                                 <tbody>
                                 <tr>
                                     <td class="col-3 text-muted"> Tên người nhận </td>
-                                    <td class="id-user" data-id-user="${sessionScope.userId}">Tấn Kiệt</td>
+                                    <td class="id-user" data-id-user="${sessionScope.userId}">${requestScope.defaultAddress.fullname}</td>
                                 </tr>
                                 <tr>
                                     <td class="col-3 text-muted">Liên hệ</td>
-                                    <td>0122 532 520</td>
+                                    <td>${requestScope.defaultAddress.formatedPhoneNumber}</td>
                                 </tr>
                                 <tr>
                                     <td class="col-3 text-muted">Địa chỉ</td>
-                                    <td class="address" data-id-address="1">Trường Đại Học Nông Lâm Thành Phố Hồ Chí Minh.
-                                        Khu phố 6, Phường Linh Trung, TP. Thủ Đức, TP. Hồ Chí Minh
+                                    <td class="address" data-id-address="1">
+                                        ${requestScope.defaultAddress.fullAddress}
                                     </td>
                                 </tr>
                                 </tbody>
@@ -254,6 +259,108 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal Saved Address -->
+    <div class="modal fade" id="addressModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addressModalLabel">Các địa chỉ đã lưu</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="d-flex flex-column gap-2">
+                        <c:forEach var="address" items="${requestScope.savedAddressList}">
+                            <li class="bg-body-secondary p-2 rounded d-flex align-items-center">
+                                <div class="col me-2">
+                                    <i class='bx bxs-map'></i>
+                                    <span>${address.fullname} - ${address.phoneNumber}</span>
+                                    <small class="text-muted d-block line-clamp-2">
+                                        ${address.fullAddress}
+                                    </small>
+                                </div>
+                                    <div class="d-flex align-items-center justify-content-end">
+                                        <button class="btn btn-outline-success">Áp dụng</button>
+                                    </div>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn custom-btn-primary" role="button" data-bs-toggle="modal" data-bs-target="#newAddressModal">
+                        Địa chỉ mới
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Close Modal Saved Address -->
+
+
+    <!-- Modal New Address -->
+    <div class="modal fade" tabindex="-1" id="newAddressModal" data-bs-backdrop="static"
+         data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-2">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Nhập địa chỉ mới</h1>
+                </div>
+                <div class="modal-body">
+                    <form action="<c:url value="/address"/>" method="post" class="d-flex flex-column gap-3"
+                          id="newAddressForm">
+                        <div class="row">
+                            <div class="col-6 form-group">
+                                <input class="form-control" id="name" name="name"
+                                       placeholder="Nhập họ và tên" aria-label="">
+                            </div>
+                            <div class="col-6 form-group">
+                                <input type="text" class="form-control" id="phone" name="phone"
+                                       placeholder="Nhập số điện thoại" aria-label="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" id="city" name="cityName" autocomplete="off"
+                                   list="cityList"
+                                   placeholder="Nhập tỉnh/thành phố" aria-label="">
+                            <datalist id="cityList"></datalist>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" id="district" name="districtName"
+                                   autocomplete="off"
+                                   list="districtList"
+                                   placeholder="Nhập quận/huyện" aria-label="">
+                            <datalist id="districtList"></datalist>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="ward" name="wardName"
+                                   autocomplete="off"
+                                   list="wardList"
+                                   placeholder="Nhập phường/xã" aria-label="">
+                            <datalist id="wardList"></datalist>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="soNha" name="soNha"
+                                   autocomplete="off"
+                                   placeholder="Nhập địa chỉ cụ thể" aria-label="">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" id="submitAddess" class="btn btn-success" form="newAddressForm">
+                                Hoàn thành
+                            </button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                Quay lại
+                            </button>
+                        </div>
+                        <c:if test="${not empty requestScope.errorMessage}">
+                            <div class="alert alert-danger">${requestScope.errorMessage}</div>
+                        </c:if>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Close Modal New Address -->
+
 </div>
 
 

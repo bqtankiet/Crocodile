@@ -138,6 +138,18 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public Address getDefaultAddressByUserId(int userId) {
+        String query = "SELECT * FROM addresses WHERE userId = :userId AND isDefault = 1";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+            handle.createQuery(query)
+                    .bind("userId", userId)
+                    .mapToBean(Address.class)
+                    .findFirst()
+                    .orElse(null)
+        );
+    }
+
+    @Override
     public int create(User user) {
         Optional<User> existingUser = findByUsername(user.getUsername());
         if (existingUser.isPresent()) {

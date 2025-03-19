@@ -3,8 +3,11 @@ package vn.edu.hcmuaf.fit.crocodile.controller;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDao;
+import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDaoImpl;
 import vn.edu.hcmuaf.fit.crocodile.model.cart.Cart;
 import vn.edu.hcmuaf.fit.crocodile.model.cart.CartItem;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.Address;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Order;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Product;
 import vn.edu.hcmuaf.fit.crocodile.service.OrderService;
@@ -22,9 +25,21 @@ public class CheckoutController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+
+        UserDao userDao = new UserDaoImpl();
+        Integer userId = (Integer) session.getAttribute("userId");
+        // Default address
+        Address address = userDao.getDefaultAddressByUserId(userId);
+        request.setAttribute("defaultAddress", address);
+        System.out.println("isDefault" + address.isDefault());
+        // List saved address
+        List<Address> addressList = userDao.getAddressesByUserId(userId);
+        request.setAttribute("savedAddressList", addressList);
+
+
 //        ----------------Cho phan mua ngay-------------------
         String action = request.getParameter("action");
-        HttpSession session = request.getSession();
 
         if ("buyNow".equals(action)) {
             session.removeAttribute("selectedCartItems");
