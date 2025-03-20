@@ -6,9 +6,12 @@
 <c:url var="url_home" value="<%= UrlProperties.home()%>"/>
 <c:url var="urlCart" value="<%=UrlProperties.cart()%>"/>
 <c:url var="urlCheckout" value="<%=UrlProperties.checkout()%>"/>
+<c:url var="urlApiAddress" value="/api/user/address"/>
 
 <style>
-    body { padding-right: 0 !important }
+    body {
+        padding-right: 0 !important
+    }
 </style>
 
 <div id="page" class="layout-default ">
@@ -68,23 +71,25 @@
                         <%-- TODO: sủa lại thành thông tin user --%>
                         <div class="d-flex align-items-center mb-2">
                             <h5>Địa chỉ nhận hàng</h5>
-                            <a role="button" class="ms-auto text-decoration-none" data-bs-toggle="modal" data-bs-target="#addressModal">Thay đổi</a>
+                            <a role="button" class="ms-auto text-decoration-none" data-bs-toggle="modal"
+                               data-bs-target="#addressModal">Thay đổi</a>
                             <%--TODO: Thay đổi địa chỉ--%>
                         </div>
                         <div>
                             <table class="table mb-0">
                                 <tbody>
                                 <tr>
-                                    <td class="col-3 text-muted"> Tên người nhận </td>
-                                    <td class="id-user" data-id-user="${sessionScope.userId}">${requestScope.defaultAddress.fullname}</td>
+                                    <td class="col-3 text-muted"> Tên người nhận</td>
+                                    <td class="id-user" id="address-fullName"
+                                        data-id-user="${sessionScope.userId}">${requestScope.defaultAddress.fullname}</td>
                                 </tr>
                                 <tr>
                                     <td class="col-3 text-muted">Liên hệ</td>
-                                    <td>${requestScope.defaultAddress.formatedPhoneNumber}</td>
+                                    <td id="address-phone">${requestScope.defaultAddress.formatedPhoneNumber}</td>
                                 </tr>
                                 <tr>
                                     <td class="col-3 text-muted">Địa chỉ</td>
-                                    <td class="address" data-id-address="1">
+                                    <td class="address" data-id-address="1" id="address-fullAddress">
                                         ${requestScope.defaultAddress.fullAddress}
                                     </td>
                                 </tr>
@@ -129,7 +134,7 @@
                 </div>
                 <div class="col-5 ">
                     <div class="p-4 rounded-2 bg-secondary-subtle gap-3">
-                        <c:set var="totalAmount" value="0" />
+                        <c:set var="totalAmount" value="0"/>
 
                         <c:choose>
 
@@ -162,8 +167,10 @@
                                                                 </p>
                                                             </c:if>
                                                         </div>
-                                                        <div class="ms-auto fw-bold fs-6 text-nowrap" style="width: max-content">
-                                                            <fmt:formatNumber value="${productVariant.product.price}" type="number" pattern="#,##0" />
+                                                        <div class="ms-auto fw-bold fs-6 text-nowrap"
+                                                             style="width: max-content">
+                                                            <fmt:formatNumber value="${productVariant.product.price}"
+                                                                              type="number" pattern="#,##0"/>
                                                             <sup>₫</sup> × ${item.quantity}
                                                         </div>
                                                     </div>
@@ -175,7 +182,8 @@
                                         <span class="fw-medium text-muted">Tổng đơn hàng: </span>
                                         <div class="ms-auto">
                                     <span class="fw-bold">
-                                        <fmt:formatNumber value="${item.caculatePrice()}" type="number" pattern="#,##0" />
+                                        <fmt:formatNumber value="${item.caculatePrice()}" type="number"
+                                                          pattern="#,##0"/>
                                          <sup>₫</sup>
                                     </span>
                                         </div>
@@ -183,7 +191,7 @@
 
                                     <div class="border-top border-secondary-subtle mt-3 mb-2"></div>
 
-                                    <c:set var="totalAmount" value="${totalAmount + item.caculatePrice()}" />
+                                    <c:set var="totalAmount" value="${totalAmount + item.caculatePrice()}"/>
                                 </c:forEach>
                             </c:when>
 
@@ -213,8 +221,10 @@
                                                             </p>
                                                         </c:if>
                                                     </div>
-                                                    <div class="ms-auto fw-bold fs-6 text-nowrap" style="width: max-content">
-                                                        <fmt:formatNumber value="${i.product.price}" type="number" pattern="#,##0" />
+                                                    <div class="ms-auto fw-bold fs-6 text-nowrap"
+                                                         style="width: max-content">
+                                                        <fmt:formatNumber value="${i.product.price}" type="number"
+                                                                          pattern="#,##0"/>
                                                         <sup>₫</sup> × ${requestScope.cartItem.quantity}
                                                     </div>
                                                 </div>
@@ -226,13 +236,14 @@
                                     <span class="fw-medium text-muted">Tổng đơn hàng: </span>
                                     <div class="ms-auto">
                                     <span class="fw-bold">
-                                        <fmt:formatNumber value="${requestScope.cartItem.caculatePrice()}" type="number" pattern="#,##0" />
+                                        <fmt:formatNumber value="${requestScope.cartItem.caculatePrice()}" type="number"
+                                                          pattern="#,##0"/>
                                          <sup>₫</sup>
                                     </span>
                                     </div>
                                 </div>
                                 <div class="border-top border-secondary-subtle mt-3 mb-2"></div>
-                                <c:set var="totalAmount" value="${requestScope.cartItem.caculatePrice()}" />
+                                <c:set var="totalAmount" value="${requestScope.cartItem.caculatePrice()}"/>
                             </c:otherwise>
 
                         </c:choose>
@@ -241,7 +252,7 @@
                             <span class="fw-bold fs-5">Tổng cộng: </span>
                             <div class="ms-auto">
                                 <span class="fs-5 fw-bold total-amount" data-total="${totalAmount}">
-                                    <fmt:formatNumber value="${totalAmount}" type="number" pattern="#,##0" />
+                                    <fmt:formatNumber value="${totalAmount}" type="number" pattern="#,##0"/>
                                      <sup>₫</sup>
                                 </span>
                             </div>
@@ -269,25 +280,30 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <ul class="d-flex flex-column gap-2">
-                        <c:forEach var="address" items="${requestScope.savedAddressList}">
+                    <ul class="d-flex flex-column gap-2" id="listSavedAddresses">
+                        <c:forEach var="address" items="${requestScope.savedAddressList}" varStatus="status">
+                            <c:set var="inUse"
+                                   value="${address.id == requestScope.defaultAddress.id ? 'inUse disabled' : ''}"/>
                             <li class="bg-body-secondary p-2 rounded d-flex align-items-center">
                                 <div class="col me-2">
                                     <i class='bx bxs-map'></i>
                                     <span>${address.fullname} - ${address.phoneNumber}</span>
                                     <small class="text-muted d-block line-clamp-2">
-                                        ${address.fullAddress}
+                                            ${address.fullAddress}
                                     </small>
                                 </div>
-                                    <div class="d-flex align-items-center justify-content-end">
-                                        <button class="btn btn-outline-success">Áp dụng</button>
-                                    </div>
+                                <div class="d-flex align-items-center justify-content-end">
+                                    <button class="[ btn-apply-address ${inUse} ] btn btn-outline-success"
+                                            data-address-id="${address.id}">Áp dụng
+                                    </button>
+                                </div>
                             </li>
                         </c:forEach>
                     </ul>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn custom-btn-primary" role="button" data-bs-toggle="modal" data-bs-target="#newAddressModal">
+                    <button type="button" class="btn custom-btn-primary" role="button" data-bs-toggle="modal"
+                            data-bs-target="#newAddressModal">
                         Địa chỉ mới
                     </button>
                 </div>
@@ -364,7 +380,6 @@
 </div>
 
 
-
 <script>
     $(document).on('click', '.payBtn', function () {
         const idUser = $('.id-user').data('id-user');
@@ -390,7 +405,7 @@
                 action: action,
                 idBuys: idBuys.join(',')
             },
-            success: function(response) {
+            success: function (response) {
                 sessionStorage.setItem('liveMessage', 'Đặt hàng thành công!');
                 sessionStorage.setItem('liveMessageType', 'success');
                 window.location.reload();
@@ -402,6 +417,50 @@
             }
         })
     });
+</script>
+
+<%-- Xử lý thay đổi địa chỉ nhận hàng --%>
+<script>
+    $(document).ready(function () {
+        const $listSavedAddresses = $('#listSavedAddresses');
+
+        $listSavedAddresses.on('click', '.btn-apply-address', function () {
+            const $button = $(this);
+            if ($button.hasClass('inUse')) return;
+
+            // Xóa class khỏi tất cả các nút khác và thêm class vào nút hiện tại
+            $listSavedAddresses.find('.btn-apply-address').removeClass('inUse disabled');
+            $button.addClass('inUse disabled');
+
+            // Lấy Id từ data-attribute
+            const addressId = $button.data('address-id');
+            $.ajax({
+                url: "${urlApiAddress}",
+                type: "GET",
+                data: {id: addressId},
+                dataType: "json",
+                success: function (response) {
+                    if(response.data){
+                        $('#addressModal').find('.btn-close').trigger('click');
+                        updateAddress(response.data);
+                    }
+                },
+            });
+        });
+    });
+
+    function updateAddress(address){
+        let fullName = address.fullname;
+        let phoneNumber = address.phoneNumber;
+        let province = address.province;
+        let district = address.district;
+        let ward = address.ward;
+        let street = address.street;
+
+        $('#address-fullName').text(fullName);
+        $('#address-phone').text(phoneNumber);
+        $('#address-fullAddress').text([street, ward, district, province].join(', '));
+    }
 </script>
 
 
