@@ -31,6 +31,10 @@ public class Address implements Serializable {
         isDefault = aDefault;
     }
 
+    public void setIsDefault(boolean aDefault) {
+        isDefault = aDefault;
+    }
+
     public int getId() {
         return id;
     }

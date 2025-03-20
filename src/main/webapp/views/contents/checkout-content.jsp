@@ -6,7 +6,7 @@
 <c:url var="url_home" value="<%= UrlProperties.home()%>"/>
 <c:url var="urlCart" value="<%=UrlProperties.cart()%>"/>
 <c:url var="urlCheckout" value="<%=UrlProperties.checkout()%>"/>
-<c:url var="urlApiAddress" value="/api/user/address"/>
+<c:url var="urlApiAddress" value="/api/user/profile/address"/>
 
 <style>
     body {

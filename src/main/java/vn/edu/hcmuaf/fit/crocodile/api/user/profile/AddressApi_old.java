@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.crocodile.api.user.address;
+package vn.edu.hcmuaf.fit.crocodile.api.user.profile;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -7,14 +7,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import vn.edu.hcmuaf.fit.crocodile.api.util.Authentication;
 import vn.edu.hcmuaf.fit.crocodile.dao.address.AddressDao;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Address;
 
 import java.io.IOException;
 
-@WebServlet("/api/user/address")
-public class UserAddressAPI extends HttpServlet {
+@WebServlet("/api/v1/user/profile/address")
+public class AddressApi_old extends HttpServlet {
     private AddressDao addressDao;
     private Gson gson;
 
@@ -29,12 +28,7 @@ public class UserAddressAPI extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JsonObject jsonResponse = new JsonObject();
 
-        int userId = new Authentication().authenticate(request);
-        if (userId == -1) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-            return;
-        }
+        int userId = Integer.parseInt(request.getSession().getAttribute("userId").toString());
 
         int addressId = tryToGetAddressId(request);
         Address address = addressDao.getAddressByIdAndUserId(addressId, userId);
