@@ -8,6 +8,9 @@
 <c:url var="urlCheckout" value="<%=UrlProperties.checkout()%>"/>
 <c:url var="urlApiAddress" value="/api/user/profile/address"/>
 
+<link rel="stylesheet" href="<c:url value="/assets/css/combobox.css"/>">
+<script src="<c:url value="/assets/js/combobox.js"/>" defer></script>
+
 <style>
     body {
         padding-right: 0 !important
@@ -314,7 +317,7 @@
 
 
     <!-- Modal New Address -->
-    <div class="modal fade" tabindex="-1" id="newAddressModal" data-bs-backdrop="static"
+    <div class="modal fade" tabindex="-1" id="newAddressModal"
          data-bs-keyboard="false">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content p-2">
@@ -322,7 +325,7 @@
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Nhập địa chỉ mới</h1>
                 </div>
                 <div class="modal-body">
-                    <form action="<c:url value="/address"/>" method="post" class="d-flex flex-column gap-3"
+                    <form class="d-flex flex-column gap-3"
                           id="newAddressForm">
                         <div class="row">
                             <div class="col-6 form-group">
@@ -359,6 +362,8 @@
                                    autocomplete="off"
                                    placeholder="Nhập địa chỉ cụ thể" aria-label="">
                         </div>
+
+                        <%-- Modal footer buttons --%>
                         <div class="modal-footer">
                             <button type="submit" id="submitAddess" class="btn btn-success" form="newAddressForm">
                                 Hoàn thành
@@ -367,9 +372,6 @@
                                 Quay lại
                             </button>
                         </div>
-                        <c:if test="${not empty requestScope.errorMessage}">
-                            <div class="alert alert-danger">${requestScope.errorMessage}</div>
-                        </c:if>
                     </form>
                 </div>
             </div>
