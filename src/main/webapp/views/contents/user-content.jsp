@@ -66,7 +66,6 @@
                     <div class="col d-flex flex-column gap-1 justify-content-center">
                         <!-- Hiển thị fullName và userName từ session -->
                         <div class="fw-bold text-capitalize">${sessionScope.fullName}</div>
-                        <div class="text-muted">#${sessionScope.userName}</div>
                     </div>
 
                 </div>
@@ -137,25 +136,66 @@
                         </div>
                         <form action="<c:url value="/update-profile"/>" method="post" class="d-flex flex-column gap-4">
                             <div class="row">
-                                <label for="username" class="col-form-label col-sm-2 text-muted">Tên đăng nhập</label>
-                                <div class="col-sm-10">
-                                    <input type="text" readonly class="form-control-plaintext" id="username"
-                                           value="${sessionScope.userName != null ? sessionScope.userName : ''}">
-                                </div>
-                            </div>
-                            <div class="row">
                                 <label for="fullname" class="col-form-label col-sm-2 text-muted">Họ và tên</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="fullname" name="fullname"
                                            value="${sessionScope.fullName != null ? sessionScope.fullName : ''}">
                                 </div>
                             </div>
+
                             <div class="row">
-                                <label for="email" class="col-form-label col-sm-2 text-muted">Email</label>
+                                <label class="col-form-label col-sm-2 text-muted">Số điện thoại</label>
                                 <div class="col-sm-10 d-flex align-items-center">
-                                    <input type="text" class="form-control" id="email" name="email"
-                                           value="${sessionScope.email != null ? sessionScope.email : ''}">
+                                   <span>
+                                        <c:choose>
+                                            <c:when test="${sessionScope.phone != null}">
+                                                <span class="phone-number">${sessionScope.phone}</span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                Chưa thêm số điện thoại
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </span>
+                                    <a role="button" class="ms-auto">
+                                        <c:choose>
+                                            <c:when test="${sessionScope.phone != null}">
+                                                Chỉnh sửa
+                                            </c:when>
+                                            <c:otherwise>
+                                                Thêm
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </a>
                                 </div>
+
+                            </div>
+
+                            <div class="row">
+                                <label class="col-form-label col-sm-2 text-muted">Email</label>
+                                <div class="col-sm-10 d-flex align-items-center">
+                                    <span>
+                                        <c:choose>
+                                            <c:when test="${sessionScope.email != null}">
+                                                <span class="email">${sessionScope.email}</span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                Chưa thêm email
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </span>
+                                    <a role="button" class="ms-auto">
+                                        <c:choose>
+                                            <c:when test="${sessionScope.email != null}">
+                                                Chỉnh sửa
+                                            </c:when>
+                                            <c:otherwise>
+                                                Thêm
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </a>
+                                </div>
+
+
                             </div>
 
                             <div class="row">
@@ -179,14 +219,7 @@
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <label for="phone-number" class="col-form-label col-sm-2 text-muted">Số điện
-                                    thoại</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="phone-number" name="phone-number"
-                                           value="${sessionScope.phone != null ? sessionScope.phone : ''}">
-                                </div>
-                            </div>
+
 
                             <div class="row">
                                 <label for="birth-date" class="col-form-label col-sm-2 text-muted">Ngày sinh</label>
@@ -453,3 +486,14 @@
         </div>
     </div>
 </div>
+
+<script>
+    function formatPhoneNumber(phoneNumber) {
+        return '*'.repeat(phoneNumber.length - 3) + phoneNumber.slice(-3);
+    }
+
+    // Ví dụ sử dụng
+    let phone = "0987654321";
+    console.log(formatPhoneNumber(phone)); // Kết quả: *******321
+
+</script>
