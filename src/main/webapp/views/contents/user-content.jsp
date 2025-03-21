@@ -149,7 +149,7 @@
                                    <span>
                                         <c:choose>
                                             <c:when test="${sessionScope.phone != null}">
-                                                <span class="phone-number">${sessionScope.phone}</span>
+                                                <span id="phone-number">${sessionScope.phone}</span>
                                             </c:when>
                                             <c:otherwise>
                                                 Chưa thêm số điện thoại
@@ -176,7 +176,7 @@
                                     <span>
                                         <c:choose>
                                             <c:when test="${sessionScope.email != null}">
-                                                <span class="email">${sessionScope.email}</span>
+                                                <span id="email">${sessionScope.email}</span>
                                             </c:when>
                                             <c:otherwise>
                                                 Chưa thêm email
@@ -488,12 +488,29 @@
 </div>
 
 <script>
-    function formatPhoneNumber(phoneNumber) {
-        return '*'.repeat(phoneNumber.length - 3) + phoneNumber.slice(-3);
-    }
+    document.addEventListener("DOMContentLoaded", function () {
+        // format phone number
+        var phoneElement = document.getElementById("phone-number");
+        var phoneNumber = phoneElement.innerText;
+        var hiddenNumber = "*******";
+        var visibleNumber = phoneNumber.slice(-3);
 
-    // Ví dụ sử dụng
-    let phone = "0987654321";
-    console.log(formatPhoneNumber(phone)); // Kết quả: *******321
+        phoneElement.innerText = hiddenNumber + visibleNumber;
+
+        // format email
+        var emailElement = document.getElementById("email");
+        var email = emailElement.innerText;
+        var atIndex = email.indexOf("@");
+
+        // Chia email thành phần username và domain
+        var username = email.slice(0, atIndex);
+        var domain = email.slice(atIndex);
+
+        // Giữ lại một số ký tự đầu của username và ẩn phần còn lại
+        var hiddenPart = "*".repeat(username.length - 2);
+        var visiblePart = username.slice(-2);
+
+        emailElement.innerText = hiddenPart + visiblePart + domain;
+    });
 
 </script>
