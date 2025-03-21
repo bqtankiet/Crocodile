@@ -33,7 +33,7 @@ jobs:
             const labels = issue.labels.map(label => label.name);
             const labelToAdd = "In Progress";
             
-            if (columnName === "In Progress") {
+            if (columnName === "In progress") {
               // Nếu chuyển vào "In Progress" và chưa có nhãn, thì thêm nhãn
               if (!labels.includes(labelToAdd)) {
                 await github.rest.issues.addLabels({
