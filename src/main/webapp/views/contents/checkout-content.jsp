@@ -8,12 +8,25 @@
 <c:url var="urlCheckout" value="<%=UrlProperties.checkout()%>"/>
 <c:url var="urlApiAddress" value="/api/user/profile/address"/>
 
-<link rel="stylesheet" href="<c:url value="/assets/css/combobox.css"/>">
-<script src="<c:url value="/assets/js/combobox.js"/>" defer></script>
+<%-- Combobox --%>
+<script src="<c:url value="/assets/components/combobox/combobox.js"/>" defer></script>
+<link rel="stylesheet" href="<c:url value="/assets/components/combobox/combobox.css"/>">
+<%-- open-api.vn location selector --%>
+<script src="<c:url value="/assets/js/OpenApiVNLocationSelector.js"/>" defer></script>
 
 <style>
     body {
         padding-right: 0 !important
+    }
+
+    .combo-box {
+        datalist {
+            min-width: 300px;
+        }
+
+        option {
+            padding: 0.25rem 1rem;
+        }
     }
 </style>
 
@@ -325,7 +338,7 @@
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Nhập địa chỉ mới</h1>
                 </div>
                 <div class="modal-body">
-                    <form class="d-flex flex-column gap-3"
+                    <form class="d-flex flex-column gap-3" id="openApiVnLocationSelector"
                           id="newAddressForm">
                         <div class="row">
                             <div class="col-6 form-group">
@@ -337,30 +350,27 @@
                                        placeholder="Nhập số điện thoại" aria-label="">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <input class="form-control" id="city" name="cityName" autocomplete="off"
-                                   list="cityList"
-                                   placeholder="Nhập tỉnh/thành phố" aria-label="">
-                            <datalist id="cityList"></datalist>
+                        <div class="form-group combo-box">
+                            <input class="form-control" id="provinceInput" name="province" autocomplete="off"
+                                   placeholder="Chọn Tỉnh/Thành phố" aria-label="">
+                            <datalist id="provinceList"></datalist>
                         </div>
-                        <div class="form-group">
-                            <input class="form-control" id="district" name="districtName"
+                        <div class="form-group combo-box">
+                            <input class="form-control" id="districtInput" name="district"
                                    autocomplete="off"
-                                   list="districtList"
-                                   placeholder="Nhập quận/huyện" aria-label="">
+                                   placeholder="Chọn Quận/Huyện" aria-label="">
                             <datalist id="districtList"></datalist>
                         </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="ward" name="wardName"
+                        <div class="form-group combo-box">
+                            <input type="text" class="form-control" id="wardInput" name="ward"
                                    autocomplete="off"
-                                   list="wardList"
-                                   placeholder="Nhập phường/xã" aria-label="">
+                                   placeholder="Chọn Phường/Xã" aria-label="">
                             <datalist id="wardList"></datalist>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="soNha" name="soNha"
-                                   autocomplete="off"
-                                   placeholder="Nhập địa chỉ cụ thể" aria-label="">
+                            <input type="text" class="form-control" id="homeAddressInput" name="soNha"
+                                   autocomplete="off" disabled
+                                   placeholder="Số nhà, tên đường, ..." aria-label="">
                         </div>
 
                         <%-- Modal footer buttons --%>
@@ -442,7 +452,7 @@
                 data: {id: addressId},
                 dataType: "json",
                 success: function (response) {
-                    if(response.data){
+                    if (response.data) {
                         $('#addressModal').find('.btn-close').trigger('click');
                         updateAddress(response.data);
                     }
@@ -451,7 +461,7 @@
         });
     });
 
-    function updateAddress(address){
+    function updateAddress(address) {
         let fullName = address.fullname;
         let phoneNumber = address.phoneNumber;
         let province = address.province;
