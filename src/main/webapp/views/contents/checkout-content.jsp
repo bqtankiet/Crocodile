@@ -342,40 +342,40 @@
                           id="newAddressForm">
                         <div class="row">
                             <div class="col-6 form-group">
-                                <input class="form-control" id="name" name="name"
+                                <input class="form-control" id="nameInput" name="name" required
                                        placeholder="Nhập họ và tên" aria-label="">
                             </div>
                             <div class="col-6 form-group">
-                                <input type="text" class="form-control" id="phone" name="phone"
+                                <input type="text" class="form-control" id="phoneInput" name="phone" required
                                        placeholder="Nhập số điện thoại" aria-label="">
                             </div>
                         </div>
                         <div class="form-group combo-box">
-                            <input class="form-control" id="provinceInput" name="province" autocomplete="off"
+                            <input class="form-control" id="provinceInput" name="province" autocomplete="off" required
                                    placeholder="Chọn Tỉnh/Thành phố" aria-label="">
                             <datalist id="provinceList"></datalist>
                         </div>
                         <div class="form-group combo-box">
-                            <input class="form-control" id="districtInput" name="district"
+                            <input class="form-control" id="districtInput" name="district" required
                                    autocomplete="off"
                                    placeholder="Chọn Quận/Huyện" aria-label="">
                             <datalist id="districtList"></datalist>
                         </div>
                         <div class="form-group combo-box">
-                            <input type="text" class="form-control" id="wardInput" name="ward"
+                            <input type="text" class="form-control" id="wardInput" name="ward" required
                                    autocomplete="off"
                                    placeholder="Chọn Phường/Xã" aria-label="">
                             <datalist id="wardList"></datalist>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" id="homeAddressInput" name="soNha"
-                                   autocomplete="off" disabled
+                                   autocomplete="off" disabled required
                                    placeholder="Số nhà, tên đường, ..." aria-label="">
                         </div>
 
                         <%-- Modal footer buttons --%>
                         <div class="modal-footer">
-                            <button type="submit" id="submitAddess" class="btn btn-success" form="newAddressForm">
+                            <button type="submit" id="submitAddess" class="btn btn-success" form="newAddressForm" data-bs-dismiss="modal">
                                 Hoàn thành
                             </button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -391,6 +391,21 @@
 
 </div>
 
+
+<script>
+    $('#submitAddess').on('click', function() {
+        const fullName = $('#nameInput').val();
+        const phoneNumber = $('#phoneInput').val();
+        const province = $('#provinceInput').val();
+        const district = $('#districtInput').val();
+        const ward = $('#wardInput').val();
+        const street = $('#homeAddressInput').val();
+
+        $('#address-fullName').text(fullName);
+        $('#address-phone').text(phoneNumber);
+        $('#address-fullAddress').text([street, ward, district, province].join(', '));
+    });
+</script>
 
 <script>
     $(document).on('click', '.payBtn', function () {

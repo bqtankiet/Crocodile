@@ -39,7 +39,6 @@ class LocationSelector {
                 input.addEventListener("keydown", function(event){
                    if(event.key === "Enter") {
                        const option = input.parentElement.querySelector("option.active");
-                       alert("Selected: " + option.textContent);
                        self.handleOptionClick(option);
                    }
                 });
