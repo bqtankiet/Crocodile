@@ -157,7 +157,7 @@
                                             </c:otherwise>
                                         </c:choose>
                                     </span>
-                                    <a role="button" class="ms-auto">
+                                    <a role="button" class="ms-auto" data-bs-toggle="modal" data-bs-target="#modal-edit-phone">
                                         <c:choose>
                                             <c:when test="${not empty sessionScope.phone}">
                                                 Chỉnh sửa
@@ -390,10 +390,15 @@
                 <div class="modal-body">
                     <form action="" id="form-edit-phone">
                         <label for="edit-phone">Số điện thoại mới</label>
-                        <input type="tel" autocomplete="none" name="edit-phone" id="edit-phone" class="form-control">
+                        <input type="tel" autocomplete="none" name="edit-phone" id="edit-phone"
+                               class="form-control mb-2" placeholder="Nhập số điện thoại mới"
+                               oninput="validatePPhoneNumber()" required>
+                        <div id="phone-number-error" class="text-danger" style="display: none;">Số điện thoại không hợp lệ.</div>
                         <label for="OTP-code">Nhập mã xác thực</label>
-                        <input type="text" autocomplete="none" name="OTP-code" id="OTP-code" class="form-control">
+                        <input type="text" autocomplete="none" name="OTP-code" id="OTP-code" class="form-control" placeholder="Nhập mã OTP" required>
+                        <small id="otp-info" class="form-text text-muted">Mã OTP sẽ được gửi đến số điện thoại mới của bạn.</small>
                     </form>
+                    <button type="button" id="send-otp" class="btn btn-primary mt-2">Gửi mã OTP</button>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quay lại</button>
@@ -491,61 +496,5 @@
     </div>
 </div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Lấy phần tử số điện thoại
-        var phoneElement = document.getElementById("phone-number");
-        if (phoneElement) {
-            var phoneNumber = phoneElement.innerText;
 
-            if (phoneNumber) {
-                // Format số điện thoại chỉ khi có giá trị
-                var hiddenNumber = "*******";
-                var visibleNumber = phoneNumber.slice(-3);
-                phoneElement.innerText = hiddenNumber + visibleNumber;
-            }
-        }
-
-        // format email
-        var emailElement = document.getElementById("email");
-        var email = emailElement.innerText;
-        var atIndex = email.indexOf("@");
-
-        // Chia email thành phần username và domain
-        var username = email.slice(0, atIndex);
-        var domain = email.slice(atIndex);
-
-        // Giữ lại một số ký tự đầu của username và ẩn phần còn lại
-        var hiddenPart = "*".repeat(username.length - 2);
-        var visiblePart = username.slice(-2);
-
-        emailElement.innerText = hiddenPart + visiblePart + domain;
-    });
-</script>
-
-
-<script>
-    function validateFullname() {
-        const fullname = document.getElementById("fullname").value;
-        const errorMessage = document.getElementById("fullname-error");
-        const regex = /[<>@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?`~!]/;
-
-        if (fullname.length > 20 || regex.test(fullname)) {
-            errorMessage.style.display = "block";
-        } else {
-            errorMessage.style.display = "none";
-        }
-    }
-
-    function validateForm() {
-        const fullname = document.getElementById("fullname").value;
-        const regex = /[<>@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?`~!]/;
-
-        if (fullname.length > 20 || regex.test(fullname)) {
-            alert("Họ và tên không được chứa ký tự đặc biệt và không quá 20 ký tự.");
-            return false;
-        }
-        return true;
-    }
-</script>
 
