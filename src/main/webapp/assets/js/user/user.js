@@ -59,8 +59,10 @@ function validateForm() {
 
 // ---------------thêm, sửa SĐT---------------
 // TODO: check OTP ở backend
+const phoneRegex = /^(0[3|5|7|8|9])\d{8}$/;
+const phoneNumber = document.getElementById('edit-phone').value;
+
 document.getElementById('send-otp').addEventListener('click', function() {
-    const phoneNumber = document.getElementById('edit-phone').value;
     if (validatePhoneNumber(phoneNumber)) {
         // Gửi yêu cầu OTP đến server
         sendOtpRequest(phoneNumber);
@@ -69,24 +71,21 @@ document.getElementById('send-otp').addEventListener('click', function() {
     }
 });
 
-function validatePPhoneNumber() {
-    const phoneNumber = document.getElementById("edit-phone").value;
+function validateInputPhoneNumber() {
     const errorMessage = document.getElementById("phone-number-error");
-    const phoneRegex = /^(0[3|5|7|8|9])\d{8}$/;
     if (phoneRegex.test(phoneNumber)) {
         errorMessage.style.display = "none";
     } else {
         errorMessage.style.display = "block";
     }
 }
+
 function validatePhoneNumber(phoneNumber) {
-    const phoneRegex = /^(0[3|5|7|8|9])\d{8}$/;
     return phoneRegex.test(phoneNumber);
 }
 
 document.getElementById('form-edit-phone').addEventListener('submit', function(e) {
     e.preventDefault();
-    const phoneNumber = document.getElementById('edit-phone').value;
     const otpCode = document.getElementById('OTP-code').value;
     if (validatePhoneNumber(phoneNumber) && otpCode.length === 6) {
         // Gửi yêu cầu cập nhật số điện thoại và OTP
@@ -97,11 +96,58 @@ document.getElementById('form-edit-phone').addEventListener('submit', function(e
 });
 
 function sendOtpRequest(phoneNumber) {
-    // Giả lập việc gửi mã OTP
-    console.log(`Gửi mã OTP đến số điện thoại: ${phoneNumber}`);
-    document.getElementById('otp-info').textContent = 'Mã OTP đã được gửi. Vui lòng kiểm tra số điện thoại của bạn.';
+
 }
 
 function updatePhoneNumber(phoneNumber, otpCode) {
+
+}
+
+
+// Thêm, sửa email
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+const email = document.getElementById('edit-email').value;
+
+document.getElementById('send-otp').addEventListener('click', function() {
+    if (validateEmail(email)) {
+        // Gửi yêu cầu OTP đến server cho email
+        sendOtp(email);
+    } else {
+        alert('Email không hợp lệ!');
+    }
+});
+
+function validateInputEmail() {
+    const errorMessage = document.getElementById("email-error");
+
+    if (emailRegex.test(email)) {
+        errorMessage.style.display = "none";
+    } else {
+        errorMessage.style.display = "block";
+    }
+}
+
+function validateEmail(email) {
+    return emailRegex.test(email);
+}
+
+document.getElementById('form-edit-email').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const otpCode = document.getElementById('OTP-code').value;
+    if (validateEmail(email) && otpCode.length === 6) {
+        // Gửi yêu cầu cập nhật email và OTP
+        updateEmail(email, otpCode);
+    } else {
+        alert('Vui lòng kiểm tra lại email và mã OTP!');
+    }
+});
+
+function sendOtp(email) {
+    // Gửi yêu cầu OTP đến server cho email
+
+}
+
+function updateEmail(email, otpCode) {
+    // Gửi yêu cầu cập nhật email và OTP
 
 }

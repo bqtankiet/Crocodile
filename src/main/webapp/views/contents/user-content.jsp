@@ -183,7 +183,7 @@
                                             </c:otherwise>
                                         </c:choose>
                                     </span>
-                                    <a role="button" class="ms-auto">
+                                    <a role="button" class="ms-auto" data-bs-toggle="modal" data-bs-target="#modal-edit-email">
                                         <c:choose>
                                             <c:when test="${not empty sessionScope.email}">
                                                 Chỉnh sửa
@@ -392,11 +392,10 @@
                         <label for="edit-phone">Số điện thoại mới</label>
                         <input type="tel" autocomplete="none" name="edit-phone" id="edit-phone"
                                class="form-control mb-2" placeholder="Nhập số điện thoại mới"
-                               oninput="validatePPhoneNumber()" required>
+                               oninput="validateInputPhoneNumber()" required>
                         <div id="phone-number-error" class="text-danger" style="display: none;">Số điện thoại không hợp lệ.</div>
                         <label for="OTP-code">Nhập mã xác thực</label>
                         <input type="text" autocomplete="none" name="OTP-code" id="OTP-code" class="form-control" placeholder="Nhập mã OTP" required>
-                        <small id="otp-info" class="form-text text-muted">Mã OTP sẽ được gửi đến số điện thoại mới của bạn.</small>
                     </form>
                     <button type="button" id="send-otp" class="btn btn-primary mt-2">Gửi mã OTP</button>
                 </div>
@@ -420,8 +419,15 @@
                 <div class="modal-body">
                     <form action="" id="form-edit-email">
                         <label for="edit-email">Nhập email mới</label>
-                        <input type="tel" autocomplete="none" name="edit-email" id="edit-email" class="form-control">
+                        <input type="email" autocomplete="none" name="edit-email"
+                               id="edit-email" class="form-control mb-2"
+                               oninput="validateInputEmail()" placeholder="Nhập email mới" required>
+                        <div id="email-error" class="text-danger" style="display: none;">Email không hợp lệ.</div>
+
+                        <label for="OTP-email-code">Nhập mã xác thực</label>
+                        <input type="text" autocomplete="none" name="OTP-email-code" id="OTP-email-code" class="form-control" placeholder="Nhập mã OTP" required>
                     </form>
+                    <button type="button" id="send-email-otp" class="btn btn-primary mt-2">Gửi mã OTP</button>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quay lại</button>
@@ -430,6 +436,7 @@
             </div>
         </div>
     </div>
+
 
 
     <!-- Modal Address -->
