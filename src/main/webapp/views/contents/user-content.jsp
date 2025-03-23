@@ -66,7 +66,6 @@
                     <div class="col d-flex flex-column gap-1 justify-content-center">
                         <!-- Hiển thị fullName và userName từ session -->
                         <div class="fw-bold text-capitalize">${sessionScope.fullName}</div>
-                        <div class="text-muted">#${sessionScope.userName}</div>
                     </div>
 
                 </div>
@@ -135,26 +134,65 @@
                             <h4 class="fw-semibold">Quản lý thông tin cá nhân</h4>
                             <hr class="text-light">
                         </div>
-                        <form action="<c:url value="/update-profile"/>" method="post" class="d-flex flex-column gap-4">
-                            <div class="row">
-                                <label for="username" class="col-form-label col-sm-2 text-muted">Tên đăng nhập</label>
-                                <div class="col-sm-10">
-                                    <input type="text" readonly class="form-control-plaintext" id="username"
-                                           value="${sessionScope.userName != null ? sessionScope.userName : ''}">
-                                </div>
-                            </div>
+                        <form action="<c:url value='/update-profile'/>" method="post" class="d-flex flex-column gap-4" onsubmit="return validateForm()">
                             <div class="row">
                                 <label for="fullname" class="col-form-label col-sm-2 text-muted">Họ và tên</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="fullname" name="fullname"
-                                           value="${sessionScope.fullName != null ? sessionScope.fullName : ''}">
+                                    <input type="text" class="form-control" id="fullname" name="fullname" value="${sessionScope.fullName != null ? sessionScope.fullName : ''}"
+                                           maxlength="20" oninput="validateFullname()" required>
+                                    <div id="fullname-error" class="text-danger" style="display: none;">Họ và tên không được chứa ký tự đặc biệt và không quá 20 ký tự.</div>
                                 </div>
                             </div>
+
                             <div class="row">
-                                <label for="email" class="col-form-label col-sm-2 text-muted">Email</label>
+                                <label class="col-form-label col-sm-2 text-muted">Số điện thoại</label>
                                 <div class="col-sm-10 d-flex align-items-center">
-                                    <input type="text" class="form-control" id="email" name="email"
-                                           value="${sessionScope.email != null ? sessionScope.email : ''}">
+                                    <span>
+                                        <c:choose>
+                                            <c:when test="${not empty sessionScope.phone}">
+                                                <span id="phone-number">${sessionScope.phone}</span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                Chưa thêm số điện thoại
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </span>
+                                    <a role="button" class="ms-auto" data-bs-toggle="modal" data-bs-target="#modal-edit-phone">
+                                        <c:choose>
+                                            <c:when test="${not empty sessionScope.phone}">
+                                                Chỉnh sửa
+                                            </c:when>
+                                            <c:otherwise>
+                                                Thêm
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <label class="col-form-label col-sm-2 text-muted">Email</label>
+                                <div class="col-sm-10 d-flex align-items-center">
+                                    <span>
+                                        <c:choose>
+                                            <c:when test="${not empty sessionScope.email}">
+                                                <span id="email">${sessionScope.email}</span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                Chưa thêm email
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </span>
+                                    <a role="button" class="ms-auto" data-bs-toggle="modal" data-bs-target="#modal-edit-email">
+                                        <c:choose>
+                                            <c:when test="${not empty sessionScope.email}">
+                                                Chỉnh sửa
+                                            </c:when>
+                                            <c:otherwise>
+                                                Thêm
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </a>
                                 </div>
                             </div>
 
@@ -162,29 +200,20 @@
                                 <label class="col-form-label col-sm-2 text-muted">Giới tính</label>
                                 <div class="col-sm-10">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" id="gender-male"
-                                               value="Nam" ${sessionScope.gender == 'Nam' ? 'checked' : ''}>
+                                        <input class="form-check-input" type="radio" name="gender" id="gender-male" value="Nam"
+                                        ${sessionScope.gender == 'Nam' ? 'checked' : ''}>
                                         <label class="form-check-label" for="gender-male">Nam</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" id="gender-female"
-                                               value="Nữ" ${sessionScope.gender == 'Nữ' ? 'checked' : ''}>
+                                        <input class="form-check-input" type="radio" name="gender" id="gender-female" value="Nữ"
+                                        ${sessionScope.gender == 'Nữ' ? 'checked' : ''}>
                                         <label class="form-check-label" for="gender-female">Nữ</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" id="gender-other"
-                                               value="Khác" ${sessionScope.gender == 'Khác' ? 'checked' : ''}>
+                                        <input class="form-check-input" type="radio" name="gender" id="gender-other" value="Khác"
+                                        ${sessionScope.gender == 'Khác' ? 'checked' : ''}>
                                         <label class="form-check-label" for="gender-other">Khác</label>
                                     </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <label for="phone-number" class="col-form-label col-sm-2 text-muted">Số điện
-                                    thoại</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="phone-number" name="phone-number"
-                                           value="${sessionScope.phone != null ? sessionScope.phone : ''}">
                                 </div>
                             </div>
 
@@ -192,16 +221,15 @@
                                 <label for="birth-date" class="col-form-label col-sm-2 text-muted">Ngày sinh</label>
                                 <div class="col-sm-10">
                                     <input type="date" class="form-control-plaintext" id="birth-date" name="birth-date"
-                                           value="${sessionScope.birthDate != null ? sessionScope.birthDate : ''}"
-                                           style="width: min-content;">
+                                           value="${sessionScope.birthDate != null ? sessionScope.birthDate : ''}" style="width: min-content;">
                                 </div>
                             </div>
-                            <button type="submit" class="btn custom-btn-primary btn-block p-2 ms-auto w-100"
-                                    style="width: max-content">Lưu thay đổi
-                            </button>
+
+                            <button type="submit" class="btn custom-btn-primary btn-block p-2 ms-auto w-100" style="width: max-content">Lưu thay đổi</button>
                         </form>
                     </div>
 
+            <%--------------------------------------Đổi mật khẩu----------------------------------------%>
                     <div class="tab-pane fade" id="account-change-password">
                         <div>
                             <h4 class="fw-semibold">Thay đổi mật khẩu </h4>
@@ -252,6 +280,7 @@
                         </form>
                     </div>
 
+            <%--------------------------------------Địa chỉ----------------------------------------%>
                     <div class="tab-pane fade" id="account-address">
                         <div class="card-body pb-2">
                             <div class="form-group">
@@ -347,6 +376,8 @@
             </div>
         </div>
     </div>
+
+
     <!--######### MODAL ########-->
     <!-- Modal edit phone -->
     <div class="modal fade" tabindex="-1" id="modal-edit-phone">
@@ -359,8 +390,14 @@
                 <div class="modal-body">
                     <form action="" id="form-edit-phone">
                         <label for="edit-phone">Số điện thoại mới</label>
-                        <input type="tel" autocomplete="none" name="edit-phone" id="edit-phone" class="form-control">
+                        <input type="tel" autocomplete="none" name="edit-phone" id="edit-phone"
+                               class="form-control mb-2" placeholder="Nhập số điện thoại mới"
+                               oninput="validateInputPhoneNumber()" required>
+                        <div id="phone-number-error" class="text-danger" style="display: none;">Số điện thoại không hợp lệ.</div>
+                        <label for="OTP-code">Nhập mã xác thực</label>
+                        <input type="text" autocomplete="none" name="OTP-code" id="OTP-code" class="form-control" placeholder="Nhập mã OTP" required>
                     </form>
+                    <button type="button" id="send-otp" class="btn btn-primary mt-2">Gửi mã OTP</button>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quay lại</button>
@@ -369,6 +406,8 @@
             </div>
         </div>
     </div>
+
+
     <!-- Modal edit email -->
     <div class="modal fade" tabindex="-1" id="modal-edit-email">
         <div class="modal-dialog">
@@ -380,8 +419,15 @@
                 <div class="modal-body">
                     <form action="" id="form-edit-email">
                         <label for="edit-email">Nhập email mới</label>
-                        <input type="tel" autocomplete="none" name="edit-email" id="edit-email" class="form-control">
+                        <input type="email" autocomplete="none" name="edit-email"
+                               id="edit-email" class="form-control mb-2"
+                               oninput="validateInputEmail()" placeholder="Nhập email mới" required>
+                        <div id="email-error" class="text-danger" style="display: none;">Email không hợp lệ.</div>
+
+                        <label for="OTP-email-code">Nhập mã xác thực</label>
+                        <input type="text" autocomplete="none" name="OTP-email-code" id="OTP-email-code" class="form-control" placeholder="Nhập mã OTP" required>
                     </form>
+                    <button type="button" id="send-email-otp" class="btn btn-primary mt-2">Gửi mã OTP</button>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quay lại</button>
@@ -390,6 +436,9 @@
             </div>
         </div>
     </div>
+
+
+
     <!-- Modal Address -->
     <div class="modal fade" tabindex="-1" id="newAddressModal" data-bs-backdrop="static"
          data-bs-keyboard="false">
@@ -453,3 +502,6 @@
         </div>
     </div>
 </div>
+
+
+
