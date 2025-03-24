@@ -393,7 +393,7 @@
 
 
 <script>
-    $('#submitAddess').on('click', function() {
+    $('#submitAddess').on('click', function(event) {
         const fullName = $('#nameInput').val();
         const phoneNumber = $('#phoneInput').val();
         const province = $('#provinceInput').val();

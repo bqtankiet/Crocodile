@@ -60,10 +60,10 @@ class ComboBox {
         // });
 
         for (let option of options) {
-            if(option.value.toUpperCase().indexOf(searchText) > -1){
+            if (option.value.toUpperCase().includes(searchText)) {
                 option.style.display = "block";
                 hasSuggestions = true;
-            }else{
+            } else {
                 option.style.display = "none";
             }
         }
