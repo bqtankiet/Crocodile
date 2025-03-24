@@ -153,41 +153,48 @@
                             <!-- Section: Timeline -->
                             <section class="py-2">
                                 <ul class="timeline">
-                                    <li class="timeline-item">
-                                        <h6 class="fw-bold mb-1">Đã giao hàng</h6>
-                                        <p class="text-muted mb-1">11/10/2024 10:20:30</p>
-                                        <p class="text-muted">
-                                            Đơn hàng đã được giao thành công
-                                        </p>
-                                    </li>
-                                    <li class="timeline-item">
-                                        <h6 class="fw-bold mb-1">Đang giao hàng</h6>
-                                        <p class="text-muted mb-1">9/10/2024 10:20:30</p>
-                                        <p class="text-muted">
-                                            Đơn hàng đang trên đường giao cho khách hàng.
-                                        </p>
-                                    </li>
-                                    <li class="timeline-item">
-                                        <h6 class="fw-bold mb-1">Đã lấy hàng</h6>
-                                        <p class="text-muted mb-1">9/10/2024 9:20:30</p>
-                                        <p class="text-muted">
-                                            Đã lấy hàng tại Cửa hàng Crocodile chi nhánh NLU
-                                        </p>
-                                    </li>
-                                    <li class="timeline-item">
-                                        <h6 class="fw-bold mb-1">Đơn hàng đang chuẩn bị</h6>
-                                        <p class="text-muted mb-1">9/10/2024 9:20:30</p>
-                                        <p class="text-muted">
-                                            Đơn hàng đang được đóng gói
-                                        </p>
-                                    </li>
-                                    <li class="timeline-item">
-                                        <h6 class="fw-bold mb-1">Đang chờ xử lý</h6>
-                                        <p class="text-muted mb-1">9/10/2024 9:20:30</p>
-                                        <p class="text-muted">
-                                            Đơn hàng đang chờ xử lý
-                                        </p>
-                                    </li>
+                                    <c:forEach var="trackingUnit" items="${requestScope.tracking}">
+                                        <li class="timeline-item">
+                                            <h6 class="fw-bold mb-1">${trackingUnit.statusDescript}</h6>
+                                            <p class="text-muted mb-1"><fmt:formatDate value="${trackingUnit.updateAtDate}" pattern="dd/MM/yyyy HH:mm:ss"/></p>
+                                            <p class="text-muted">${trackingUnit.note}</p>
+                                        </li>
+                                    </c:forEach>
+<%--                                    <li class="timeline-item">--%>
+<%--                                        <h6 class="fw-bold mb-1">Đã giao hàng</h6>--%>
+<%--                                        <p class="text-muted mb-1">11/10/2024 10:20:30</p>--%>
+<%--                                        <p class="text-muted">--%>
+<%--                                            Đơn hàng đã được giao thành công--%>
+<%--                                        </p>--%>
+<%--                                    </li>--%>
+<%--                                    <li class="timeline-item">--%>
+<%--                                        <h6 class="fw-bold mb-1">Đang giao hàng</h6>--%>
+<%--                                        <p class="text-muted mb-1">9/10/2024 10:20:30</p>--%>
+<%--                                        <p class="text-muted">--%>
+<%--                                            Đơn hàng đang trên đường giao cho khách hàng.--%>
+<%--                                        </p>--%>
+<%--                                    </li>--%>
+<%--                                    <li class="timeline-item">--%>
+<%--                                        <h6 class="fw-bold mb-1">Đã lấy hàng</h6>--%>
+<%--                                        <p class="text-muted mb-1">9/10/2024 9:20:30</p>--%>
+<%--                                        <p class="text-muted">--%>
+<%--                                            Đã lấy hàng tại Cửa hàng Crocodile chi nhánh NLU--%>
+<%--                                        </p>--%>
+<%--                                    </li>--%>
+<%--                                    <li class="timeline-item">--%>
+<%--                                        <h6 class="fw-bold mb-1">Đơn hàng đang chuẩn bị</h6>--%>
+<%--                                        <p class="text-muted mb-1">9/10/2024 9:20:30</p>--%>
+<%--                                        <p class="text-muted">--%>
+<%--                                            Đơn hàng đang được đóng gói--%>
+<%--                                        </p>--%>
+<%--                                    </li>--%>
+<%--                                    <li class="timeline-item">--%>
+<%--                                        <h6 class="fw-bold mb-1">Đang chờ xử lý</h6>--%>
+<%--                                        <p class="text-muted mb-1">9/10/2024 9:20:30</p>--%>
+<%--                                        <p class="text-muted">--%>
+<%--                                            Đơn hàng đang chờ xử lý--%>
+<%--                                        </p>--%>
+<%--                                    </li>--%>
                                 </ul>
                             </section>
                             <!-- Section: Timeline -->
