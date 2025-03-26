@@ -62,44 +62,52 @@
                                 <div class="col">
                                     <div class="row mb-2">
                                         <label class="col-5 col-form-label px-0">Mã đơn hàng</label>
-                                        <input id="orderCode" class="col border-0 text-secondary bg-transparent" disabled type="text"
+                                        <input id="orderCode" class="col border-0 text-secondary bg-transparent"
+                                               disabled type="text"
                                                value="123adf141">
                                     </div>
                                     <div class="row mb-2">
                                         <label class="col-5 col-form-label px-0">Ngày đặt hàng</label>
-                                        <input id="orderDate" class="col border-0 text-secondary bg-transparent" disabled type="text"
+                                        <input id="orderDate" class="col border-0 text-secondary bg-transparent"
+                                               disabled type="text"
                                                value="10/10/2025 12:20:30">
                                     </div>
                                     <div class="row mb-2">
                                         <label class="col-5 col-form-label px-0">HT Thanh toán</label>
-                                        <input id="paymentMethod" class="col border-0 text-secondary bg-transparent" disabled type="text"
+                                        <input id="paymentMethod" class="col border-0 text-secondary bg-transparent"
+                                               disabled type="text"
                                                value="COD">
                                     </div>
                                     <div class="row mb-2">
                                         <label class="col-5 col-form-label px-0">Giá trị đơn hàng</label>
-                                        <input id="total" class="col border-0 text-secondary bg-transparent" disabled type="text"
+                                        <input id="total" class="col border-0 text-secondary bg-transparent" disabled
+                                               type="text"
                                                value="1700000">
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="row mb-2">
                                         <label class="col-5 col-form-label px-0">Mã khách hàng</label>
-                                        <input id="customerId" class="col border-0 text-secondary bg-transparent" disabled type="text"
+                                        <input id="customerId" class="col border-0 text-secondary bg-transparent"
+                                               disabled type="text"
                                                value="11223344">
                                     </div>
                                     <div class="row mb-2">
                                         <label class="col-5 col-form-label px-0">Tên khách hàng</label>
-                                        <input id="customerName" class="col border-0 text-secondary bg-transparent" disabled type="text"
+                                        <input id="customerName" class="col border-0 text-secondary bg-transparent"
+                                               disabled type="text"
                                                value="Bùi Quang Tấn Kiệt">
                                     </div>
                                     <div class="row mb-2">
                                         <label class="col-5 col-form-label px-0">Số điện thoại</label>
-                                        <input id="customerPhone" class="col border-0 text-secondary bg-transparent" disabled type="text"
+                                        <input id="customerPhone" class="col border-0 text-secondary bg-transparent"
+                                               disabled type="text"
                                                value="0113 113 113">
                                     </div>
                                     <div class="row mb-2">
                                         <label class="col-5 col-form-label px-0">Email</label>
-                                        <input id="customerEmail" class="col border-0 text-secondary bg-transparent" disabled type="text"
+                                        <input id="customerEmail" class="col border-0 text-secondary bg-transparent"
+                                               disabled type="text"
                                                value="example@gmail.com">
                                     </div>
                                 </div>
@@ -110,14 +118,16 @@
                                 <div class="col">
                                     <div class="row mb-2 me-3 align-items-center">
                                         <label class="col-5 col-form-label px-0">Tên người nhận</label>
-                                        <input id="recipientName" class="col border-0 border border-bottom text-secondary bg-transparent"
+                                        <input id="recipientName"
+                                               class="col border-0 border border-bottom text-secondary bg-transparent"
                                                type="text" disabled
                                                value="Tấn Kiệt">
                                         <i class='col-1 bx bxs-edit-alt'></i>
                                     </div>
                                     <div class="row mb-2 me-3 align-items-center">
                                         <label class="col-5 col-form-label px-0">Số điện thoại</label>
-                                        <input id="recipientPhone" class="col border-0 border border-bottom text-secondary bg-transparent"
+                                        <input id="recipientPhone"
+                                               class="col border-0 border border-bottom text-secondary bg-transparent"
                                                type="text" disabled
                                                value="0113 113 113">
                                         <i class='col-1 bx bxs-edit-alt'></i>
@@ -126,14 +136,16 @@
                                 <div class="col">
                                     <div class="row mb-2 me-3 align-items-center">
                                         <label class="col-5 col-form-label px-0">Đơn vị vận chuyển</label>
-                                        <input id="shippingCompany" class="col border-0 border border-bottom text-secondary bg-transparent"
+                                        <input id="shippingCompany"
+                                               class="col border-0 border border-bottom text-secondary bg-transparent"
                                                type="text" disabled
                                                value="Viettel Post">
                                         <i class='col-1 bx bxs-edit-alt'></i>
                                     </div>
                                     <div class="row mb-2 me-3 align-items-center">
                                         <label class="col-5 col-form-label px-0">Mã vận đơn</label>
-                                        <input id="shippingCode" class="col border-0 border border-bottom text-secondary bg-transparent"
+                                        <input id="shippingCode"
+                                               class="col border-0 border border-bottom text-secondary bg-transparent"
                                                type="text" disabled
                                                value="123456">
                                         <i class='col-1 bx bxs-edit-alt'></i>
@@ -141,7 +153,8 @@
                                 </div>
                                 <div class="row mb-2">
                                     <label class="col-form-label px-0">Địa chỉ giao hàng</label>
-                                    <textarea id="shippingAddress" class="form-control text-secondary bg-transparent" rows="2">Khoa CNTT, Trường ĐH.Nông Lâm, Phường Linh Trung, TP.Thủ Đức, Hồ Chí Minh</textarea>
+                                    <textarea id="shippingAddress" class="form-control text-secondary bg-transparent"
+                                              rows="2">Khoa CNTT, Trường ĐH.Nông Lâm, Phường Linh Trung, TP.Thủ Đức, Hồ Chí Minh</textarea>
                                 </div>
                             </div>
 
@@ -224,51 +237,49 @@
                                 <th scope="col" class="col-1">Thao tác</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr class="">
-                                <%--Mã sản phẩm--%>
-                                <td class="align-middle text-start">12345</td>
-                                <%--Tên Sản phẩm--%>
-                                <td class="align-middle text-start py-3">
-                                    <div class="">
-                                        <p class="mb-2 line-clamp-2" style="height: fit-content">Sản phẩm ABC</p>
-                                        <c:if test="${'productVariant.pOption1' != null}">
-                                            <p class="fw-normal m-0 text-muted">Màu sắc: Đỏ
-                                                <c:if test="${'productVariant.pOption2' != null}">
-                                                    , Kích thước: 43
-                                                </c:if>
-                                            </p>
-                                        </c:if>
-                                    </div>
-                                </td>
-                                <%--Đơn giá--%>
-                                <td class="align-middle">
-                                    <p class="mb-0 product-price">
-                                        <fmt:formatNumber value="123456" type="currency" currencySymbol="₫"
-                                                          groupingUsed="true"/>
-                                    </p>
-                                </td>
-                                <%--Số lượng--%>
-                                <td class="align-middle">1</td>
-                                <%--Thành tiền--%>
-                                <td class="align-middle">
-                                    <p class="mb-0 product-total-price">
-                                        <fmt:formatNumber value="123456" type="currency" currencySymbol="₫"
-                                                          groupingUsed="true"/>
-                                    </p>
-                                </td>
-                                <%--Thao tác--%>
-                                <td class="align-middle">
-                                    <button class="removeBtn btn btn-outline-danger px-2 custom-icon mx-auto"
-                                            data-id="?" data-action="remove">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                             fill="currentColor"
-                                             class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"></path>
-                                        </svg>
-                                    </button>
-                                </td>
-                            </tr>
+                            <tbody id="product-list">
+                            <%--                            <tr class="">--%>
+                            <%--                                &lt;%&ndash;Mã sản phẩm&ndash;%&gt;--%>
+                            <%--                                <td class="align-middle text-start"></td>--%>
+                            <%--                                &lt;%&ndash;Tên Sản phẩm&ndash;%&gt;--%>
+                            <%--                                <td class="align-middle text-start py-3">--%>
+                            <%--                                    <div class="">--%>
+                            <%--                                        <p class="mb-2 line-clamp-2" style="height: fit-content"></p>--%>
+                            <%--&lt;%&ndash;                                        <c:if test="${'productVariant.pOption1' != null}">&ndash;%&gt;--%>
+                            <%--&lt;%&ndash;                                            <p class="fw-normal m-0 text-muted">Màu sắc: Đỏ&ndash;%&gt;--%>
+                            <%--&lt;%&ndash;                                                <c:if test="${'productVariant.pOption2' != null}">&ndash;%&gt;--%>
+                            <%--&lt;%&ndash;                                                    , Kích thước: 43&ndash;%&gt;--%>
+                            <%--&lt;%&ndash;                                                </c:if>&ndash;%&gt;--%>
+                            <%--&lt;%&ndash;                                            </p>&ndash;%&gt;--%>
+                            <%--&lt;%&ndash;                                        </c:if>&ndash;%&gt;--%>
+                            <%--                                    </div>--%>
+                            <%--                                </td>--%>
+                            <%--                                &lt;%&ndash;Đơn giá&ndash;%&gt;--%>
+                            <%--                                <td class="align-middle">--%>
+                            <%--                                    <p class="mb-0 product-price">--%>
+                            <%--                                        <fmt:formatNumber value="0" type="currency" currencySymbol="₫" groupingUsed="true"/>--%>
+                            <%--                                    </p>--%>
+                            <%--                                </td>--%>
+                            <%--                                &lt;%&ndash;Số lượng&ndash;%&gt;--%>
+                            <%--                                <td class="align-middle">0</td>--%>
+                            <%--                                &lt;%&ndash;Thành tiền&ndash;%&gt;--%>
+                            <%--                                <td class="align-middle">--%>
+                            <%--                                    <p class="mb-0 product-total-price">--%>
+                            <%--                                        <fmt:formatNumber value="0" type="currency" currencySymbol="₫" groupingUsed="true"/>--%>
+                            <%--                                    </p>--%>
+                            <%--                                </td>--%>
+                            <%--                                &lt;%&ndash;Thao tác&ndash;%&gt;--%>
+                            <%--                                <td class="align-middle">--%>
+                            <%--                                    <button class="removeBtn btn btn-outline-danger px-2 custom-icon mx-auto"--%>
+                            <%--                                            data-id="?" data-action="remove">--%>
+                            <%--                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"--%>
+                            <%--                                             fill="currentColor"--%>
+                            <%--                                             class="bi bi-trash3-fill" viewBox="0 0 16 16">--%>
+                            <%--                                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"></path>--%>
+                            <%--                                        </svg>--%>
+                            <%--                                    </button>--%>
+                            <%--                                </td>--%>
+                            <%--                            </tr>--%>
                             </tbody>
                         </table>
                     </div>
@@ -289,12 +300,13 @@
     <!--  bootstrap  -->
     <%--    <script src="<c:url value="/public/bootstrap/js/bootstrap.bundle.js"/>"></script>--%>
 
+    <%--  Lấy thông tin chung của order (thông tin đơn hàng, khách hàng, giao hàng)  --%>
     <script>
         $.ajax({
             url: '<c:url value="/api/admin/order?id=${requestScope.id}"/>',
             method: 'GET',
             dataType: 'json',
-            success: function(data) {
+            success: function (data) {
                 renderData(data);
             },
             error: function () {
@@ -302,7 +314,7 @@
             }
         });
 
-        function renderData(data){
+        function renderData(data) {
             $('#orderCode').val(data.code);
             $('#customerId').val(data.idUser);
             $('#orderDate').val(moment(data.orderDate).format("DD/MM/YYYY HH:mm:ss"));
@@ -319,5 +331,78 @@
         }
     </script>
 
+    <%--  Lấy danh sách sản phẩm order  --%>
+    <%--    <script>--%>
+
+    <%--        $.ajax({--%>
+    <%--            url: '<c:url value="/api/admin/order/items?id=${requestScope.id}"/>',--%>
+    <%--            dataType: 'json',--%>
+    <%--            method: 'GET',--%>
+    <%--            success: function(data) {--%>
+    <%--                console.log(data);--%>
+    <%--                renderOrderItems(data);--%>
+    <%--            },--%>
+    <%--            error: function() {--%>
+    <%--                alert("Lấy danh sách đơn hàng thất bại tại endpoint: /api/admin/order/items");--%>
+    <%--            }--%>
+    <%--        });--%>
+
+
+    <%--        function renderOrderItems(data) {--%>
+    <%--            for(let i = 0; i < data.length; i++){--%>
+    <%--                const productItem = data[i];--%>
+    <%--                let html = `--%>
+    <%--                    <tr class="">--%>
+    <%--                        &lt;%&ndash;Mã sản phẩm&ndash;%&gt;--%>
+    <%--                        <td class="align-middle text-start"> ${productItem.id} </td>--%>
+    <%--                        &lt;%&ndash;Tên Sản phẩm&ndash;%&gt;--%>
+    <%--                        <td class="align-middle text-start py-3">--%>
+    <%--                            <div class="">--%>
+    <%--                                <p class="mb-2 line-clamp-2" style="height: fit-content">`+productItem.name`</p>--%>
+    <%--&lt;%&ndash;                                        <c:if test="${'productVariant.pOption1' != null}">&ndash;%&gt;--%>
+    <%--&lt;%&ndash;                                            <p class="fw-normal m-0 text-muted">Màu sắc: Đỏ&ndash;%&gt;--%>
+    <%--&lt;%&ndash;                                                <c:if test="${'productVariant.pOption2' != null}">&ndash;%&gt;--%>
+    <%--&lt;%&ndash;                                                    , Kích thước: 43&ndash;%&gt;--%>
+    <%--&lt;%&ndash;                                                </c:if>&ndash;%&gt;--%>
+    <%--&lt;%&ndash;                                            </p>&ndash;%&gt;--%>
+    <%--&lt;%&ndash;                                        </c:if>&ndash;%&gt;--%>
+    <%--                            </div>--%>
+    <%--                        </td>--%>
+    <%--                        &lt;%&ndash;Đơn giá&ndash;%&gt;--%>
+    <%--                        <td class="align-middle">--%>
+    <%--                            <p class="mb-0 product-price">--%>
+    <%--                                <fmt:formatNumber value="0" type="currency" currencySymbol="₫" groupingUsed="true"/>--%>
+    <%--                            </p>--%>
+    <%--                        </td>--%>
+    <%--                        &lt;%&ndash;Số lượng&ndash;%&gt;--%>
+    <%--                        <td class="align-middle">0</td>--%>
+    <%--                        &lt;%&ndash;Thành tiền&ndash;%&gt;--%>
+    <%--                        <td class="align-middle">--%>
+    <%--                            <p class="mb-0 product-total-price">--%>
+    <%--                                <fmt:formatNumber value="0" type="currency" currencySymbol="₫" groupingUsed="true"/>--%>
+    <%--                            </p>--%>
+    <%--                        </td>--%>
+    <%--                        &lt;%&ndash;Thao tác&ndash;%&gt;--%>
+    <%--                        <td class="align-middle">--%>
+    <%--                            <button class="removeBtn btn btn-outline-danger px-2 custom-icon mx-auto"--%>
+    <%--                                    data-id="?" data-action="remove">--%>
+    <%--                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"--%>
+    <%--                                     fill="currentColor"--%>
+    <%--                                     class="bi bi-trash3-fill" viewBox="0 0 16 16">--%>
+    <%--                                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"></path>--%>
+    <%--                                </svg>--%>
+    <%--                            </button>--%>
+    <%--                        </td>--%>
+    <%--                    </tr>--%>
+    <%--                `;--%>
+    <%--                // chèn tr html vô table--%>
+    <%--                $('#product-list').append($(html));--%>
+    <%--            }--%>
+    <%--        }--%>
+    <%--    </script>--%>
+    <script src="<c:url value='/assets/js/fetchOrderItems.js'/>"></script>
+    <script>
+        fetchOrderItems(1);
+    </script>
 </div>
 
