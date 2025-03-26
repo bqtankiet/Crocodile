@@ -4,6 +4,7 @@ import vn.edu.hcmuaf.fit.crocodile.dao.order.IOrderDao;
 import vn.edu.hcmuaf.fit.crocodile.dao.order.OrderDao;
 import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDao;
 import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDaoImpl;
+import vn.edu.hcmuaf.fit.crocodile.model.dto.OrderDetailDTO;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Order;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.OrderManagement;
 
@@ -39,6 +40,8 @@ public class OrderService {
     public int processing(int id) { return orderDao.processing(id); }
 
     public int cancelled(int id) { return orderDao.cancelled(id); }
+
+    public OrderDetailDTO getOrderDetail(int id) { return orderDao.getOrderDetail(id); }
 }
 
 

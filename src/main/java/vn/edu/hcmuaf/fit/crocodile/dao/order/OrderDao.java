@@ -1,6 +1,8 @@
 package vn.edu.hcmuaf.fit.crocodile.dao.order;
 
+import org.jdbi.v3.core.mapper.reflect.ConstructorMapper;
 import vn.edu.hcmuaf.fit.crocodile.config.JdbiConnect;
+import vn.edu.hcmuaf.fit.crocodile.model.dto.OrderDetailDTO;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Order;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.OrderManagement;
 
@@ -79,6 +81,33 @@ public class OrderDao implements IOrderDao{
                         .bind("id", id)
                         .bind("status", Order.Status.CANCELLED)
                         .execute()
+        );
+    }
+
+    @Override
+    public OrderDetailDTO getOrderDetail(int id) {
+        String query = """
+                SELECT
+                  o.id,
+                  `code`, idUser,
+                  orderDate, u.fullname,
+                  paymentMethod, u.phoneNumber,
+                  total, u.email,
+                  recipientName, shippingCompany,
+                  recipientPhone, shippingCode,
+                  shippingAddress, isDelete
+                FROM orders_v2 o
+                JOIN users u
+                  ON o.idUser = u.id
+                WHERE o.id = :id;
+                """;
+        return JdbiConnect.getJdbi().withHandle(handle ->
+            handle.createQuery(query)
+                    .bind("id", id)
+                    .registerRowMapper(ConstructorMapper.factory(OrderDetailDTO.class))
+                    .mapTo(OrderDetailDTO.class)
+                    .findFirst()
+                    .orElse(null)
         );
     }
 }

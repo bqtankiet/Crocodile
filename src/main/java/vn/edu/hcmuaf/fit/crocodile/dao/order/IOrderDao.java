@@ -1,6 +1,7 @@
 package vn.edu.hcmuaf.fit.crocodile.dao.order;
 
 import vn.edu.hcmuaf.fit.crocodile.dao.BasicDao;
+import vn.edu.hcmuaf.fit.crocodile.model.dto.OrderDetailDTO;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Order;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.OrderManagement;
 
@@ -22,4 +23,6 @@ public interface IOrderDao extends BasicDao<Integer, Order> {
     int processing(int id);
 
     int cancelled(int id);
+
+    OrderDetailDTO getOrderDetail(int id);
 }

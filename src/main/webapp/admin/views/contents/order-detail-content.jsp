@@ -8,10 +8,12 @@
 <style>
     table {
         border-collapse: collapse;
+
         td, th {
             border-bottom: 1px solid #DDD;
         }
     }
+
     .timeline {
         border-left: 1px solid hsl(0, 0%, 90%);
         position: relative;
@@ -38,11 +40,13 @@
         content: "";
     }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 
 <!-- Content wrapper -->
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y pb-5">
-<%--        <h4 class="fw-bold py-3 mb-4">Chi tiết đơn hàng</h4>--%>
+        <%--        <h4 class="fw-bold py-3 mb-4">Chi tiết đơn hàng</h4>--%>
 
         <!-- --------------------------------Bảng thêm sản phẩm------------------------------- -->
         <form method="post" id="form-order">
@@ -58,44 +62,44 @@
                                 <div class="col">
                                     <div class="row mb-2">
                                         <label class="col-5 col-form-label px-0">Mã đơn hàng</label>
-                                        <input class="col border-0 text-secondary bg-transparent" disabled type="text"
+                                        <input id="orderCode" class="col border-0 text-secondary bg-transparent" disabled type="text"
                                                value="123adf141">
                                     </div>
                                     <div class="row mb-2">
                                         <label class="col-5 col-form-label px-0">Ngày đặt hàng</label>
-                                        <input class="col border-0 text-secondary bg-transparent" disabled type="text"
+                                        <input id="orderDate" class="col border-0 text-secondary bg-transparent" disabled type="text"
                                                value="10/10/2025 12:20:30">
                                     </div>
                                     <div class="row mb-2">
                                         <label class="col-5 col-form-label px-0">HT Thanh toán</label>
-                                        <input class="col border-0 text-secondary bg-transparent" disabled type="text"
+                                        <input id="paymentMethod" class="col border-0 text-secondary bg-transparent" disabled type="text"
                                                value="COD">
                                     </div>
                                     <div class="row mb-2">
                                         <label class="col-5 col-form-label px-0">Giá trị đơn hàng</label>
-                                        <input class="col border-0 text-secondary bg-transparent" disabled type="text"
+                                        <input id="total" class="col border-0 text-secondary bg-transparent" disabled type="text"
                                                value="1700000">
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="row mb-2">
                                         <label class="col-5 col-form-label px-0">Mã khách hàng</label>
-                                        <input class="col border-0 text-secondary bg-transparent" disabled type="text"
+                                        <input id="customerId" class="col border-0 text-secondary bg-transparent" disabled type="text"
                                                value="11223344">
                                     </div>
                                     <div class="row mb-2">
                                         <label class="col-5 col-form-label px-0">Tên khách hàng</label>
-                                        <input class="col border-0 text-secondary bg-transparent" disabled type="text"
+                                        <input id="customerName" class="col border-0 text-secondary bg-transparent" disabled type="text"
                                                value="Bùi Quang Tấn Kiệt">
                                     </div>
                                     <div class="row mb-2">
                                         <label class="col-5 col-form-label px-0">Số điện thoại</label>
-                                        <input class="col border-0 text-secondary bg-transparent" disabled type="text"
+                                        <input id="customerPhone" class="col border-0 text-secondary bg-transparent" disabled type="text"
                                                value="0113 113 113">
                                     </div>
                                     <div class="row mb-2">
                                         <label class="col-5 col-form-label px-0">Email</label>
-                                        <input class="col border-0 text-secondary bg-transparent" disabled type="text"
+                                        <input id="customerEmail" class="col border-0 text-secondary bg-transparent" disabled type="text"
                                                value="example@gmail.com">
                                     </div>
                                 </div>
@@ -106,14 +110,14 @@
                                 <div class="col">
                                     <div class="row mb-2 me-3 align-items-center">
                                         <label class="col-5 col-form-label px-0">Tên người nhận</label>
-                                        <input class="col border-0 border border-bottom text-secondary bg-transparent"
+                                        <input id="recipientName" class="col border-0 border border-bottom text-secondary bg-transparent"
                                                type="text" disabled
                                                value="Tấn Kiệt">
                                         <i class='col-1 bx bxs-edit-alt'></i>
                                     </div>
                                     <div class="row mb-2 me-3 align-items-center">
                                         <label class="col-5 col-form-label px-0">Số điện thoại</label>
-                                        <input class="col border-0 border border-bottom text-secondary bg-transparent"
+                                        <input id="recipientPhone" class="col border-0 border border-bottom text-secondary bg-transparent"
                                                type="text" disabled
                                                value="0113 113 113">
                                         <i class='col-1 bx bxs-edit-alt'></i>
@@ -122,14 +126,14 @@
                                 <div class="col">
                                     <div class="row mb-2 me-3 align-items-center">
                                         <label class="col-5 col-form-label px-0">Đơn vị vận chuyển</label>
-                                        <input class="col border-0 border border-bottom text-secondary bg-transparent"
+                                        <input id="shippingCompany" class="col border-0 border border-bottom text-secondary bg-transparent"
                                                type="text" disabled
                                                value="Viettel Post">
                                         <i class='col-1 bx bxs-edit-alt'></i>
                                     </div>
                                     <div class="row mb-2 me-3 align-items-center">
                                         <label class="col-5 col-form-label px-0">Mã vận đơn</label>
-                                        <input class="col border-0 border border-bottom text-secondary bg-transparent"
+                                        <input id="shippingCode" class="col border-0 border border-bottom text-secondary bg-transparent"
                                                type="text" disabled
                                                value="123456">
                                         <i class='col-1 bx bxs-edit-alt'></i>
@@ -137,7 +141,7 @@
                                 </div>
                                 <div class="row mb-2">
                                     <label class="col-form-label px-0">Địa chỉ giao hàng</label>
-                                    <textarea class="form-control text-secondary bg-transparent" rows="2">Khoa CNTT, Trường ĐH.Nông Lâm, Phường Linh Trung, TP.Thủ Đức, Hồ Chí Minh</textarea>
+                                    <textarea id="shippingAddress" class="form-control text-secondary bg-transparent" rows="2">Khoa CNTT, Trường ĐH.Nông Lâm, Phường Linh Trung, TP.Thủ Đức, Hồ Chí Minh</textarea>
                                 </div>
                             </div>
 
@@ -149,52 +153,54 @@
                     <div class="card h-100">
                         <h5 class="card-header"><strong>Trạng thái đơn hàng</strong></h5>
                         <div class="card-body">
-                        <h3 class="badge bg-success">Giao hàng thành công</h3>
+                            <h3 class="badge bg-success">Giao hàng thành công</h3>
                             <!-- Section: Timeline -->
                             <section class="py-2">
                                 <ul class="timeline">
                                     <c:forEach var="trackingUnit" items="${requestScope.tracking}">
                                         <li class="timeline-item">
                                             <h6 class="fw-bold mb-1">${trackingUnit.statusDescript}</h6>
-                                            <p class="text-muted mb-1"><fmt:formatDate value="${trackingUnit.updateAtDate}" pattern="dd/MM/yyyy HH:mm:ss"/></p>
+                                            <p class="text-muted mb-1"><fmt:formatDate
+                                                    value="${trackingUnit.updateAtDate}"
+                                                    pattern="dd/MM/yyyy HH:mm:ss"/></p>
                                             <p class="text-muted">${trackingUnit.note}</p>
                                         </li>
                                     </c:forEach>
-<%--                                    <li class="timeline-item">--%>
-<%--                                        <h6 class="fw-bold mb-1">Đã giao hàng</h6>--%>
-<%--                                        <p class="text-muted mb-1">11/10/2024 10:20:30</p>--%>
-<%--                                        <p class="text-muted">--%>
-<%--                                            Đơn hàng đã được giao thành công--%>
-<%--                                        </p>--%>
-<%--                                    </li>--%>
-<%--                                    <li class="timeline-item">--%>
-<%--                                        <h6 class="fw-bold mb-1">Đang giao hàng</h6>--%>
-<%--                                        <p class="text-muted mb-1">9/10/2024 10:20:30</p>--%>
-<%--                                        <p class="text-muted">--%>
-<%--                                            Đơn hàng đang trên đường giao cho khách hàng.--%>
-<%--                                        </p>--%>
-<%--                                    </li>--%>
-<%--                                    <li class="timeline-item">--%>
-<%--                                        <h6 class="fw-bold mb-1">Đã lấy hàng</h6>--%>
-<%--                                        <p class="text-muted mb-1">9/10/2024 9:20:30</p>--%>
-<%--                                        <p class="text-muted">--%>
-<%--                                            Đã lấy hàng tại Cửa hàng Crocodile chi nhánh NLU--%>
-<%--                                        </p>--%>
-<%--                                    </li>--%>
-<%--                                    <li class="timeline-item">--%>
-<%--                                        <h6 class="fw-bold mb-1">Đơn hàng đang chuẩn bị</h6>--%>
-<%--                                        <p class="text-muted mb-1">9/10/2024 9:20:30</p>--%>
-<%--                                        <p class="text-muted">--%>
-<%--                                            Đơn hàng đang được đóng gói--%>
-<%--                                        </p>--%>
-<%--                                    </li>--%>
-<%--                                    <li class="timeline-item">--%>
-<%--                                        <h6 class="fw-bold mb-1">Đang chờ xử lý</h6>--%>
-<%--                                        <p class="text-muted mb-1">9/10/2024 9:20:30</p>--%>
-<%--                                        <p class="text-muted">--%>
-<%--                                            Đơn hàng đang chờ xử lý--%>
-<%--                                        </p>--%>
-<%--                                    </li>--%>
+                                    <%--                                    <li class="timeline-item">--%>
+                                    <%--                                        <h6 class="fw-bold mb-1">Đã giao hàng</h6>--%>
+                                    <%--                                        <p class="text-muted mb-1">11/10/2024 10:20:30</p>--%>
+                                    <%--                                        <p class="text-muted">--%>
+                                    <%--                                            Đơn hàng đã được giao thành công--%>
+                                    <%--                                        </p>--%>
+                                    <%--                                    </li>--%>
+                                    <%--                                    <li class="timeline-item">--%>
+                                    <%--                                        <h6 class="fw-bold mb-1">Đang giao hàng</h6>--%>
+                                    <%--                                        <p class="text-muted mb-1">9/10/2024 10:20:30</p>--%>
+                                    <%--                                        <p class="text-muted">--%>
+                                    <%--                                            Đơn hàng đang trên đường giao cho khách hàng.--%>
+                                    <%--                                        </p>--%>
+                                    <%--                                    </li>--%>
+                                    <%--                                    <li class="timeline-item">--%>
+                                    <%--                                        <h6 class="fw-bold mb-1">Đã lấy hàng</h6>--%>
+                                    <%--                                        <p class="text-muted mb-1">9/10/2024 9:20:30</p>--%>
+                                    <%--                                        <p class="text-muted">--%>
+                                    <%--                                            Đã lấy hàng tại Cửa hàng Crocodile chi nhánh NLU--%>
+                                    <%--                                        </p>--%>
+                                    <%--                                    </li>--%>
+                                    <%--                                    <li class="timeline-item">--%>
+                                    <%--                                        <h6 class="fw-bold mb-1">Đơn hàng đang chuẩn bị</h6>--%>
+                                    <%--                                        <p class="text-muted mb-1">9/10/2024 9:20:30</p>--%>
+                                    <%--                                        <p class="text-muted">--%>
+                                    <%--                                            Đơn hàng đang được đóng gói--%>
+                                    <%--                                        </p>--%>
+                                    <%--                                    </li>--%>
+                                    <%--                                    <li class="timeline-item">--%>
+                                    <%--                                        <h6 class="fw-bold mb-1">Đang chờ xử lý</h6>--%>
+                                    <%--                                        <p class="text-muted mb-1">9/10/2024 9:20:30</p>--%>
+                                    <%--                                        <p class="text-muted">--%>
+                                    <%--                                            Đơn hàng đang chờ xử lý--%>
+                                    <%--                                        </p>--%>
+                                    <%--                                    </li>--%>
                                 </ul>
                             </section>
                             <!-- Section: Timeline -->
@@ -281,7 +287,37 @@
     <!-- Content wrapper -->
 
     <!--  bootstrap  -->
-<%--    <script src="<c:url value="/public/bootstrap/js/bootstrap.bundle.js"/>"></script>--%>
+    <%--    <script src="<c:url value="/public/bootstrap/js/bootstrap.bundle.js"/>"></script>--%>
+
+    <script>
+        $.ajax({
+            url: '<c:url value="/api/admin/order?id=${requestScope.id}"/>',
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                renderData(data);
+            },
+            error: function () {
+                alert("Error when fetch data form api/admin/order")
+            }
+        });
+
+        function renderData(data){
+            $('#orderCode').val(data.code);
+            $('#customerId').val(data.idUser);
+            $('#orderDate').val(moment(data.orderDate).format("DD/MM/YYYY HH:mm:ss"));
+            $('#customerName').val(data.fullName);
+            $('#paymentMethod').val(data.paymentMethod);
+            $('#customerPhone').val(data.phoneNumber);
+            $('#total').val(numeral(data.total).format('0,0') + " ₫");
+            $('#customerEmail').val(data.email);
+            $('#recipientName').val(data.recipientName);
+            $('#shippingCompany').val(data.shippingCompany);
+            $('#recipientPhone').val(data.recipientPhone);
+            $('#shippingCode').val(data.shippingCode);
+            $('#shippingAddress').val(data.shippingAddress);
+        }
+    </script>
 
 </div>
 
