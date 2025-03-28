@@ -6,13 +6,14 @@
 <c:url var="delUserUrl" value="<%= UrlProperties.deleteUser() %>"/>
 <c:url var="insUserUrl" value="<%= UrlProperties.insertUser() %>" />
 <c:url var="updateUserUrl" value="<%= UrlProperties.updateUser() %>"/>
+<c:url var="userDetailUrl" value="<%= UrlProperties.userDetail() %>"/>
 
 <link rel="stylesheet" href="<c:url value="/admin/assets/css/my-table.css"/>">
 <!-- Content wrapper -->
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
 <%--        <h4 class="fw-bold py-3 mb-4">Quản lý người dùng</h4>--%>
-
+    <a href="${userDetailUrl}">test</a>
         <!-- Bordered Table -->
         <div class="card">
             <div class="card-body">
@@ -50,7 +51,7 @@
                             <th scope="col">Số điện thoại</th>
                             <th scope="col">Giới tính</th>
                             <th scope="col">Ngày sinh</th>
-                            <th scope="col">Quyền truy cập</th>
+                            <th scope="col">Vai trò</th>
                             <th scope="col" class="action-column"></th>
                         </tr>
                         </thead>
@@ -73,6 +74,8 @@
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="${userDetailUrl}"><i
+                                                        class="menu-icon tf-icons bx bx-file"></i> Chi tiết</a>
                                                 <button class="dropdown-item btn-ban" data-id="${u.id}" data-action="ban">
                                                     <i class="bx bx-block me-1"></i>
                                                         ${u.active == 1 ? 'Cấm' : 'Bỏ cấm'}
@@ -103,9 +106,6 @@
 
 <script>
     var tb = $('table.my-table').DataTable({
-        dom: '<"row"<"col-md-6 d-flex align-items-center"l><"col-md-6"f>>' +
-            '<"row"<"col-md-12"tr>>' +
-            '<"row"<"col-md-5"i><"col-md-7"p>>',
         buttons: [
             {
                 extend: 'copy',

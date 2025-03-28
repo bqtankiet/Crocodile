@@ -49,6 +49,7 @@ public class UrlProperties extends ApplicationProperties {
 
     public static String updateUser() { return getProperty("admin.user.update"); }
 
+    public static String userDetail() { return getProperty("admin.user.detail"); }
     // --------------------- user ------------------------
 
 

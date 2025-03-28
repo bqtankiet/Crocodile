@@ -113,9 +113,6 @@
 <!-- Kích hoạt Data table  -->
 <script>
     var tb = $('table.my-table').DataTable({
-        dom: '<"row"<"col-md-6 d-flex align-items-center"l><"col-md-6"f>>' +
-            '<"row"<"col-md-12"tr>>' +
-            '<"row"<"col-md-5"i><"col-md-7"p>>',
         buttons: [
             {
                 extend: 'copy',
