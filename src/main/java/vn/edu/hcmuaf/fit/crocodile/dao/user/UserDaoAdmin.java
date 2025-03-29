@@ -1,6 +1,7 @@
 package vn.edu.hcmuaf.fit.crocodile.dao.user;
 
 import vn.edu.hcmuaf.fit.crocodile.config.JdbiConnect;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.OrderManagement;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
 
 import java.util.List;
@@ -26,4 +27,19 @@ public class UserDaoAdmin implements IUserDaoAdmin{
                     .list()
         );
     }
+
+    @Override
+    public List<OrderManagement> getAllUserOrder(int id) {
+        String sql = "SELECT o.id, o.total, o.paymentMethod, o.status, o.invoiceDate " +
+                "FROM orders o " +
+                "JOIN users u ON o.idUser = u.id " +
+                "WHERE u.id = :id";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("id", id)
+                        .mapToBean(OrderManagement.class)
+                        .list()
+        );
+    }
+
 }

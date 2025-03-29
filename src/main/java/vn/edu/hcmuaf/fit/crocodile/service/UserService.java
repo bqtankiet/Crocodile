@@ -2,6 +2,7 @@ package vn.edu.hcmuaf.fit.crocodile.service;
 
 import vn.edu.hcmuaf.fit.crocodile.dao.user.IUserDaoAdmin;
 import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDaoAdmin;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.OrderManagement;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
 
 import java.util.List;
@@ -20,4 +21,6 @@ public class UserService {
     public List<User> getAllUser() {
         return userDaoAdmin.getAllUser();
     }
+
+    public List<OrderManagement> getAllUserOrder(int id) { return userDaoAdmin.getAllUserOrder(id); }
 }

@@ -6,78 +6,7 @@
 <c:url var="url_product" value="<%=UrlProperties.product()%>"/>
 
 <style>
-  .profile-img {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    background: #f9b3b3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-  }
 
-  .profile-img img {
-    width: 70px;
-  }
-
-  .name {
-    font-size: 20px;
-    font-weight: bold;
-    margin: 10px 0;
-  }
-
-  .role {
-    display: inline-block;
-    background: #fce4e4;
-    color: #ff6b6b;
-    font-size: 14px;
-    padding: 4px 10px;
-    border-radius: 15px;
-    margin-bottom: 15px;
-  }
-
-  .stats {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 15px;
-  }
-
-  .status {
-    display: inline-block;
-    background: #d4f8d4;
-    color: #2a9d2a;
-    padding: 4px 10px;
-    border-radius: 15px;
-    width: fit-content;
-  }
-
-  .buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
-  }
-
-  .btn {
-    flex: 1;
-    padding: 8px 10px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-
-  .btn.edit {
-    background: #6a5acd;
-    color: white;
-    margin-right: 5px;
-  }
-
-  .btn.suspend {
-    background: #ff6b6b;
-    color: white;
-    margin-left: 5px;
-  }
 </style>
 
 
@@ -162,11 +91,74 @@
 
         <%-- RIGHT --%>
         <div class="col-8 ps-0">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="container">
 
+                <div class="float-end mb-3">
+                  <%--Nút xuất dữ liệu--%>
+                  <div class="btn-group">
+                    <button
+                            type="button"
+                            class="btn btn-outline-primary dropdown-toggle"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                    >
+                      <i class="bx bx-export"></i> Xuất dữ liệu
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" data-action="copy"><i class="bx bx-copy"></i> Sao chép</a></li>
+                      <li><a class="dropdown-item" data-action="print"><i class='bx bxs-printer'></i> In</a></li>
+                      <li><a class="dropdown-item" data-action="excel"><i class="bx bx-table"></i> Xuất Excel</a></li>
+                      <li><a class="dropdown-item" data-action="pdf"><i class="bx bx-file-blank"></i> Xuất PDF</a></li>
+                    </ul>
+                  </div>
+
+                </div>
+
+                <table class="my-table my-3 pt-3" id="users-table">
+                  <thead class="table-primary">
+                  <tr>
+                    <th scope="col"><input type="checkbox" id="selectAll" class="form-check-input" aria-label=""></th>
+                    <th scope="col">Mã đơn</th>
+                    <th scope="col">Ngày đặt</th>
+                    <th scope="col">Tổng tiền</th>
+                    <th scope="col">Thanh toán</th>
+                    <th scope="col">Trạng thái</th>
+                    <th scope="col" class="action-column"></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <!-- Hàng 1 -->
+                  <c:forEach items="${requestScope.userOrder}" var="o">
+                    <tr>
+                      <td><input type="checkbox" class="rowCheckbox form-check-input" aria-label=""></td>
+                      <th scope="row">${o.id}</th>
+                      <td><fmt:formatDate value="${o.invoiceUtilDate}" pattern="dd/MM/yyyy HH:mm:ss"/></td>
+                      <td><fmt:formatNumber value="${o.total}" type="currency" currencyCode="VND" maxFractionDigits="0"/></td>
+                      <td>${o.paymentMethod}</td>
+                      <td ><span class="badge bg-gray">${o.status.description}</span></td>
+                      <td>
+                        <div class="dropdown">
+                          <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                  data-bs-toggle="dropdown">
+                            <i class="bx bx-dots-vertical-rounded"></i>
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#"><i
+                                    class="menu-icon tf-icons bx bx-file"></i> Chi tiết</a>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </c:forEach>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-
-
-
     </form>
     <!-- ---------------------end bảng thêm sản phẩm---------------------------- -->
   </div>
@@ -177,3 +169,8 @@
 
 </div>
 
+<!-- Kích hoạt Data table  -->
+<script src="<c:url value="/admin/assets/js/datatable.js"/> "></script>
+<!-- Data table -->
+
+<script src="<c:url value="/admin/assets/js/my-table.js"/>"></script>
