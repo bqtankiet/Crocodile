@@ -46,27 +46,23 @@
 
 .buttons {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     margin-top: 15px;
 }
 
-.btn {
-    flex: 1;
+.btn.edit{
     padding: 8px 10px;
-    border: none;
     border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.btn.edit {
     background: #007b5f;
     color: white;
     margin-right: 5px;
 }
 
-.btn.suspend {
-    background: #ff6b6b;
+.btn.save {
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: #007b5f;
     color: white;
-    margin-left: 5px;
+    margin-right: 5px;
 }
+

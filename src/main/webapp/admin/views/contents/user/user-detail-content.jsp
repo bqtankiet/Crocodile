@@ -35,7 +35,7 @@
                   <div class="stats">
                     <div>
                       <div>69</div>
-                      <small>Đã đặt</small>
+                      <small>Đã nhận</small>
                     </div>
                     <div>
                       <div>4</div>
@@ -49,38 +49,103 @@
               <div class="row px-0">
                 <h5 class="pb-4 border-bottom mb-4">Chi tiết</h5>
                 <div class="col">
-                  <div class="row mb-2">
+                  <div class="row mb-2 d-flex align-items-center full-name d-none">
+                    <label class="col-5 col-form-label px-0">Họ và Tên</label>
+                    <input class="col border-0 border text-secondary bg-transparent fullname" disabled type="text"
+                           value="Minh Khôi">
+                  </div>
+                  <div class="row mb-2 d-flex align-items-center">
                     <label class="col-5 col-form-label px-0">Số điện thoại</label>
-                    <input class="col border-0 text-secondary bg-transparent" disabled type="text"
+                    <input class="col border-0 border text-secondary bg-transparent phone-number" disabled type="text"
                            value="0123456141">
                   </div>
 
-                  <div class="row mb-2">
+                  <div class="row mb-2 d-flex align-items-center">
                     <label class="col-5 col-form-label px-0">Email</label>
-                    <input class="col border-0 text-secondary bg-transparent" disabled type="text"
+                    <input class="col border-0 border text-secondary bg-transparent email" disabled type="email"
                            value="khoidzvclone@gmail.com">
                   </div>
 
-                  <div class="row mb-2">
+                  <div class="row mb-2 d-flex align-items-center">
                     <label class="col-5 col-form-label px-0">Trạng thái</label>
                     <div class="col-2 status">Hoạt động</div>
+
+                    <div class="form-check-radio status-radio col d-flex justify-content-between d-none">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="status" id="active" value="1">
+                        <label class="form-check-label" for="active">
+                          Hoạt động
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="status" id="suspend" value="0">
+                        <label class="form-check-label" for="suspend">
+                          Đình chỉ
+                        </label>
+                      </div>
+
+                    </div>
                   </div>
 
-                  <div class="row mb-2">
+                  <div class="row mb-2 d-flex align-items-center">
                     <label class="col-5 col-form-label px-0">Giới tính</label>
-                    <input class="col border-0 text-secondary bg-transparent" disabled type="text"
-                           value="Nam">
+                    <label class="col gender">Nam</label>
+
+                    <div class="form-check-radio gender-radio col d-flex justify-content-between d-none">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gender" id="male" value="male">
+                        <label class="form-check-label" for="male">
+                          Nam
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gender" id="female" value="female">
+                        <label class="form-check-label" for="female">
+                          Nữ
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gender" id="other" value="other">
+                        <label class="form-check-label" for="other">
+                          Khác
+                        </label>
+                      </div>
+                    </div>
                   </div>
 
-                  <div class="row mb-2">
+                  <div class="row mb-2 d-flex align-items-center">
                     <label class="col-5 col-form-label px-0">Ngày sinh</label>
-                    <input class="col border-0 text-secondary bg-transparent" disabled type="text"
-                           value="10/10/2025">
+                    <input class="col border-0 border text-secondary bg-transparent birthday" disabled type="date"
+                           value="2025-10-10">
                   </div>
 
-                  <div class="buttons">
-                    <button class="btn edit">Chỉnh sửa</button>
-                    <button class="btn suspend">Đình chỉ</button>
+                  <div class="row mb-2 d-flex align-items-center role-radio d-none">
+                    <label class="col-5 col-form-label px-0">Vai trò</label>
+
+                    <div class="form-check-radio  col d-flex justify-content-between ">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="role" id="admin" value="1">
+                        <label class="form-check-label" for="admin">
+                          Admin
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="role" id="user" value="0">
+                        <label class="form-check-label" for="user">
+                          Người dùng
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="buttons edit">
+                    <button type="button" class="btn edit">Chỉnh sửa</button>
+                    <button type="button" class="btn btn-outline-danger suspend">Đình chỉ</button>
+                  </div>
+
+                  <div class="buttons action d-none">
+                    <button type="button" class="btn save">Lưu</button>
+                    <button type="reset" class="btn cancel btn-outline-danger">Hủy</button>
                   </div>
 
                 </div>
@@ -95,26 +160,30 @@
             <div class="card-body">
               <div class="container">
 
-                <div class="float-end mb-3">
-                  <%--Nút xuất dữ liệu--%>
-                  <div class="btn-group">
-                    <button
-                            type="button"
-                            class="btn btn-outline-primary dropdown-toggle"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                    >
-                      <i class="bx bx-export"></i> Xuất dữ liệu
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" data-action="copy"><i class="bx bx-copy"></i> Sao chép</a></li>
-                      <li><a class="dropdown-item" data-action="print"><i class='bx bxs-printer'></i> In</a></li>
-                      <li><a class="dropdown-item" data-action="excel"><i class="bx bx-table"></i> Xuất Excel</a></li>
-                      <li><a class="dropdown-item" data-action="pdf"><i class="bx bx-file-blank"></i> Xuất PDF</a></li>
-                    </ul>
+                <h5 class="px-0 mt-3">
+                  <strong>Lịch sử mua hàng</strong>
+                  <div class="float-end mb-3">
+                    <%--Nút xuất dữ liệu--%>
+                    <div class="btn-group">
+                      <button
+                              type="button"
+                              class="btn btn-outline-primary dropdown-toggle"
+                              data-bs-toggle="dropdown"
+                              aria-expanded="false"
+                      >
+                        <i class="bx bx-export"></i> Xuất dữ liệu
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" data-action="copy"><i class="bx bx-copy"></i> Sao chép</a></li>
+                        <li><a class="dropdown-item" data-action="print"><i class='bx bxs-printer'></i> In</a></li>
+                        <li><a class="dropdown-item" data-action="excel"><i class="bx bx-table"></i> Xuất Excel</a></li>
+                        <li><a class="dropdown-item" data-action="pdf"><i class="bx bx-file-blank"></i> Xuất PDF</a></li>
+                      </ul>
+                    </div>
                   </div>
+                </h5>
 
-                </div>
+
 
                 <table class="my-table my-3 pt-3" id="users-table">
                   <thead class="table-primary">
@@ -165,8 +234,7 @@
   <!-- Content wrapper -->
 
   <!--  bootstrap  -->
-  <%--    <script src="<c:url value="/public/bootstrap/js/bootstrap.bundle.js"/>"></script>--%>
-
+<%--      <script src="<c:url value="/public/bootstrap/js/bootstrap.bundle.js"/>"></script>--%>
 </div>
 
 <!-- Kích hoạt Data table  -->
@@ -174,3 +242,6 @@
 <!-- Data table -->
 
 <script src="<c:url value="/admin/assets/js/my-table.js"/>"></script>
+
+<script src="<c:url value="/admin/assets/js/user-detail.js"/>"></script>
+
