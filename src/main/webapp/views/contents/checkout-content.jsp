@@ -99,16 +99,16 @@
                                 <tr>
                                     <td class="col-3 text-muted"> Tên người nhận</td>
                                     <td class="id-user" id="address-fullName"
-                                        data-id-user="${sessionScope.userId}">${requestScope.defaultAddress.fullname}</td>
+                                        data-id-user="${sessionScope.userId}">${requestScope.address.recipientName}</td>
                                 </tr>
                                 <tr>
                                     <td class="col-3 text-muted">Liên hệ</td>
-                                    <td id="address-phone">${requestScope.defaultAddress.formatedPhoneNumber}</td>
+                                    <td id="address-phone">${requestScope.address.recipientPhone}</td>
                                 </tr>
                                 <tr>
                                     <td class="col-3 text-muted">Địa chỉ</td>
                                     <td class="address" data-id-address="1" id="address-fullAddress">
-                                        ${requestScope.defaultAddress.fullAddress}
+                                        ${requestScope.address.fullAddress}
                                     </td>
                                 </tr>
                                 </tbody>
@@ -259,16 +259,26 @@
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center mt-3">
-                                    <span class="fw-medium text-muted">Tổng đơn hàng: </span>
-                                    <div class="ms-auto">
+                                    <div class="d-flex align-items-center mt-3">
+                                        <span class="fw-medium text-muted">Phí giao hàng: </span>
+                                        <div class="ms-auto">
                                     <span class="fw-bold">
-                                        <fmt:formatNumber value="${requestScope.cartItem.caculatePrice()}" type="number"
-                                                          pattern="#,##0"/>
+                                        <fmt:formatNumber value="${requestScope.shippingFee}" type="number" pattern="#,##0"/>
                                          <sup>₫</sup>
                                     </span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="border-top border-secondary-subtle mt-3 mb-2"></div>
+
+                                    <div class="d-flex align-items-center mt-3">
+                                        <span class="fw-medium text-muted">Tổng đơn hàng: </span>
+                                        <div class="ms-auto">
+                                    <span class="fw-bold">
+                                        <fmt:formatNumber value="${item.caculatePrice()}" type="number" pattern="#,##0"/>
+                                         <sup>₫</sup>
+                                    </span>
+                                        </div>
+                                    </div>
+                                    <div class="border-top border-secondary-subtle mt-3 mb-2"></div>
                                 <c:set var="totalAmount" value="${requestScope.cartItem.caculatePrice()}"/>
                             </c:otherwise>
 
