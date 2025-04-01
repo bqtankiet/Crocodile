@@ -14,6 +14,8 @@ public class Address implements Serializable {
     private String ward;
     private String street;
     private boolean isDefault;
+    private int districtId;
+    private String wardCode;
 
     public String getFullAddress(){
         return String.format("%s, %s, %s, %s", province, district, ward, street);
@@ -97,6 +99,22 @@ public class Address implements Serializable {
 
     public void setStreet(String street) {
         this.street = street;
+    }
+
+    public int getDistrictId() {
+        return districtId;
+    }
+
+    public void setDistrictId(int districtId) {
+        this.districtId = districtId;
+    }
+
+    public String getWardCode() {
+        return wardCode;
+    }
+
+    public void setWardCode(String wardCode) {
+        this.wardCode = wardCode;
     }
 
     public static void main(String[] args) {

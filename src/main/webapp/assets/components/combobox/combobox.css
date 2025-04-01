@@ -1,94 +1,48 @@
-.combo-box {
-    --max-height: 10rem;
-    --width: 177px;
-    --background-color: white;
-    --active-color: lightgray;
-    --border-color: #ccc;
-    --scroll-bar-track-color: #f1f1f1;
-    --scroll-bar-thumb-color: #888;
+.combobox {
+
+    position: relative;
     display: inline-block;
 
-    datalist {
-        border-radius: 5px;
-        min-width: calc(var(--width) - 2px);
-        outline: none;
-        border: 1px solid var(--border-color);
+    .combobox-list {
+        background-color: white;
+        display: none;
         margin-top: 3px;
+        width: 100%;
         position: absolute;
-        max-height: var(--max-height);
+        list-style: none;
+        border: 1px solid #ccc;
+        max-height: 200px;
         overflow-y: auto;
-        background-color: var(--background-color);
+        border-radius: 5px;
     }
 
-    datalist::-webkit-scrollbar {
-        width: 4px;
+    .combobox-list::-webkit-scrollbar {
+        width: 5px;
+        background-color: #eee;
     }
 
-    datalist::-webkit-scrollbar-track {
-        background: var(--scroll-bar-track-color);
+    .combobox-list::-webkit-scrollbar-track {
         border-radius: 10px;
     }
 
-    datalist::-webkit-scrollbar-thumb {
-        background: var(--scroll-bar-thumb-color);
+    .combobox-list::-webkit-scrollbar-thumb {
         border-radius: 10px;
+        background-color: gray;
     }
 
-    option {
+    .combobox-item {
+        overflow-x: hidden;
+        text-overflow: ellipsis;
         line-height: 1.5;
+        padding: 0.25rem 1rem;
         cursor: pointer;
     }
 
-    option:hover, .active {
-        background-color: var(--active-color);
+    .combobox-item:hover {
+        background-color: #ccc;
     }
 
+    .combobox-item.active {
+        background-color: #ccc;
+    }
 }
-
-/*.combo-box {*/
-/*    --max-height: 10rem;*/
-/*    --width: 177px;*/
-/*    --background-color: white;*/
-/*    --active-color: lightgray;*/
-/*    --border-color: black;*/
-/*    --scroll-bar-track-color: #f1f1f1;*/
-/*    --scroll-bar-thumb-color: #888;*/
-
-/*    display: inline-block;*/
-
-/*    datalist {*/
-/*        min-width: calc(var(--width) - 2px);*/
-/*        outline: none;*/
-/*        border: 1px solid var(--border-color);*/
-/*        margin-top: 3px;*/
-/*        position: absolute;*/
-/*        max-height: var(--max-height);*/
-/*        overflow-y: auto;*/
-/*        background-color: var(--background-color);*/
-/*    }*/
-
-/*    datalist::-webkit-scrollbar {*/
-/*        width: 4px;*/
-/*    }*/
-
-/*    datalist::-webkit-scrollbar-track {*/
-/*        background: var(--scroll-bar-track-color);*/
-/*        border-radius: 10px;*/
-/*    }*/
-
-/*    datalist::-webkit-scrollbar-thumb {*/
-/*        background: var(--scroll-bar-thumb-color);*/
-/*        border-radius: 10px;*/
-/*    }*/
-
-/*    option {*/
-/*        !*overflow-x: hidden;*!*/
-/*        !*text-overflow: ellipsis;*!*/
-/*        line-height: 1.5;*/
-/*        cursor: pointer;*/
-/*    }*/
-
-/*    option:hover, .active {*/
-/*        background-color: var(--active-color);*/
-/*    }*/
-/*}*/

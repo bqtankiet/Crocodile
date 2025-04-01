@@ -9,22 +9,24 @@
 <c:url var="urlApiAddress" value="/api/user/profile/address"/>
 
 <%-- Combobox --%>
-<script src="<c:url value="/assets/components/combobox/combobox.js"/>" defer></script>
+<script src="<c:url value="/assets/components/combobox/combobox.js"/>"></script>
 <link rel="stylesheet" href="<c:url value="/assets/components/combobox/combobox.css"/>">
 <%-- open-api.vn location selector --%>
-<script src="<c:url value="/assets/js/OpenApiVNLocationSelector.js"/>" defer></script>
+<%--<script src="<c:url value="/assets/js/OpenApiVNLocationSelector.js"/>" defer></script>--%>
+<script src="<c:url value='/assets/js/fetchProvinceGHN.js'/>"></script>
 
 <style>
     body {
         padding-right: 0 !important
     }
 
-    .combo-box {
-        datalist {
+    .combobox {
+        .combobox-list {
+            z-index: 99;
             min-width: 300px;
         }
 
-        option {
+        .combobox-item {
             padding: 0.25rem 1rem;
         }
     }
@@ -194,21 +196,29 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="d-flex align-items-center mt-3">
-                                        <span class="fw-medium text-muted">Tổng đơn hàng: </span>
-                                        <div class="ms-auto">
-                                    <span class="fw-bold">
-                                        <fmt:formatNumber value="${item.caculatePrice()}" type="number"
-                                                          pattern="#,##0"/>
-                                         <sup>₫</sup>
-                                    </span>
-                                        </div>
-                                    </div>
-
                                     <div class="border-top border-secondary-subtle mt-3 mb-2"></div>
-
                                     <c:set var="totalAmount" value="${totalAmount + item.caculatePrice()}"/>
                                 </c:forEach>
+                                <div class="d-flex align-items-center mt-3">
+                                    <span class="fw-medium text-muted">Phí giao hàng: </span>
+                                    <div class="ms-auto">
+                                    <span class="fw-bold">
+                                        <fmt:formatNumber value="${requestScope.shippingFee}" type="number" pattern="#,##0"/>
+                                         <sup>₫</sup>
+                                    </span>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex align-items-center mt-3">
+                                    <span class="fw-medium text-muted">Tổng đơn hàng: </span>
+                                    <div class="ms-auto">
+                                    <span class="fw-bold">
+                                        <fmt:formatNumber value="${item.caculatePrice()}" type="number" pattern="#,##0"/>
+                                         <sup>₫</sup>
+                                    </span>
+                                    </div>
+                                </div>
+                                <div class="border-top border-secondary-subtle mt-3 mb-2"></div>
                             </c:when>
 
                             <c:otherwise>
@@ -350,22 +360,22 @@
                                        placeholder="Nhập số điện thoại" aria-label="">
                             </div>
                         </div>
-                        <div class="form-group combo-box">
-                            <input class="form-control" id="provinceInput" name="province" autocomplete="off" required
+                        <div class="form-group combobox" id="provinceCombobox">
+                            <input class="form-control combobox-input" id="provinceInput" name="province" autocomplete="off" required
                                    placeholder="Chọn Tỉnh/Thành phố" aria-label="">
-                            <datalist id="provinceList"></datalist>
+                            <ul class="combobox-list" id="provinceList"></ul>
                         </div>
-                        <div class="form-group combo-box">
-                            <input class="form-control" id="districtInput" name="district" required
-                                   autocomplete="off"
+                        <div class="form-group combobox" id="districtCombobox">
+                            <input class="form-control combobox-input" id="districtInput" name="district" required
+                                   autocomplete="off" disabled
                                    placeholder="Chọn Quận/Huyện" aria-label="">
-                            <datalist id="districtList"></datalist>
+                            <ul class="combobox-list" id="districtList"></ul>
                         </div>
-                        <div class="form-group combo-box">
-                            <input type="text" class="form-control" id="wardInput" name="ward" required
-                                   autocomplete="off"
+                        <div class="form-group combobox" id="wardCombobox">
+                            <input type="text" class="form-control combobox-input" id="wardInput" name="ward" required
+                                   autocomplete="off" disabled
                                    placeholder="Chọn Phường/Xã" aria-label="">
-                            <datalist id="wardList"></datalist>
+                            <ul class="combobox-list" id="wardList"></ul>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" id="homeAddressInput" name="soNha"
@@ -487,6 +497,39 @@
         $('#address-fullName').text(fullName);
         $('#address-phone').text(phoneNumber);
         $('#address-fullAddress').text([street, ward, district, province].join(', '));
+    }
+</script>
+
+<%-- Xử lý combobox lấy địa chỉ từ API của GHN --%>
+<script>
+    fetchAndRenderProvinces('#provinceCombobox .combobox-list');
+    new Combobox(document.getElementById('provinceCombobox'), {
+        onItemSelected: function (item) {
+            fetchAndRenderDistricts('#districtCombobox .combobox-list', parseInt(item.dataset.id));
+            clearInput('#wardCombobox .combobox-input', 'disabled');
+            clearInput('#districtCombobox .combobox-input');
+            clearInput('#homeAddressInput', 'disabled');
+        }
+    });
+
+    new Combobox(document.getElementById('districtCombobox'), {
+        onItemSelected: function (item) {
+            fetchAndRenderWards('#wardCombobox .combobox-list', parseInt(item.dataset.id));
+            clearInput('#wardCombobox .combobox-input');
+            clearInput('#homeAddressInput', 'disabled');
+        }
+    });
+
+    new Combobox(document.getElementById('wardCombobox'), {
+        onItemSelected: function (item) {
+            clearInput('#homeAddressInput');
+        }
+    });
+
+    function clearInput(selector, disabled='') {
+        const input = document.querySelector(selector);
+        input.value = '';
+        input.disabled = disabled;
     }
 </script>
 
