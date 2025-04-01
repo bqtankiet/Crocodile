@@ -57,7 +57,7 @@
                   <div class="row mb-2 d-flex align-items-center">
                     <label class="col-5 col-form-label px-0">Số điện thoại</label>
                     <input class="col border-0 border text-secondary bg-transparent phone-number" disabled type="text"
-                           value="0123456141">
+                           value="0323456141">
                   </div>
 
                   <div class="row mb-2 d-flex align-items-center">
@@ -93,19 +93,19 @@
 
                     <div class="form-check-radio gender-radio col d-flex justify-content-between d-none">
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gender" id="male" value="male">
+                        <input class="form-check-input" type="radio" name="gender" id="male" value="NAM">
                         <label class="form-check-label" for="male">
                           Nam
                         </label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gender" id="female" value="female">
+                        <input class="form-check-input" type="radio" name="gender" id="female" value="NỮ">
                         <label class="form-check-label" for="female">
                           Nữ
                         </label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gender" id="other" value="other">
+                        <input class="form-check-input" type="radio" name="gender" id="other" value="KHÁC">
                         <label class="form-check-label" for="other">
                           Khác
                         </label>

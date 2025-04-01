@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.fit.crocodile_admin.controller.CRUD.user;
 
+import com.google.gson.Gson;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -8,8 +9,10 @@ import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDaoImpl;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
 import vn.edu.hcmuaf.fit.crocodile.service.UserService;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @WebServlet(name = "UpdateUserController", value = "/admin/user/update")
 public class UpdateUserController extends HttpServlet {
@@ -26,15 +29,13 @@ public class UpdateUserController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserService userService = new UserService();
+        System.out.println("update");
+        BufferedReader reader = request.getReader();
+        String json = reader.lines().collect(Collectors.joining());
+        System.out.println(json);
 
-        int id = Integer.parseInt(request.getParameter("id"));
-        String action = request.getParameter("action");
-
-        // Ban user
-        if ("ban".equals(action)) userService.banUser(id);
-
-        request.getRequestDispatcher("/admin/views/crud/user/user.jsp").forward(request, response);
+        response.setContentType("application/json");
+        response.getWriter().write("{\"message\": \"Cập nhật thành công!\"}");
    }
 
 }
