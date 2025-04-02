@@ -319,8 +319,8 @@
                 <div class="modal-body">
                     <ul class="d-flex flex-column gap-2" id="listSavedAddresses">
                         <c:forEach var="address" items="${requestScope.savedAddressList}" varStatus="status">
-                            <c:set var="inUse"
-                                   value="${address.id == requestScope.defaultAddress.id ? 'inUse disabled' : ''}"/>
+<%--                            <c:set var="inUse"--%>
+<%--                                   value="${address.id == requestScope.defaultAddress.id ? 'inUse disabled' : ''}"/>--%>
                             <li class="bg-body-secondary p-2 rounded d-flex align-items-center">
                                 <div class="col me-2">
                                     <i class='bx bxs-map'></i>
@@ -330,7 +330,7 @@
                                     </small>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-end">
-                                    <button class="[ btn-apply-address ${inUse} ] btn btn-outline-success"
+                                    <button class="[ btn-apply-address ] btn btn-outline-success"
                                             data-address-id="${address.id}">Áp dụng
                                     </button>
                                 </div>

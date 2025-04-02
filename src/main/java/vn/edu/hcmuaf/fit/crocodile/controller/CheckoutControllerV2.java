@@ -23,6 +23,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @WebServlet("/checkout/v2")
 public class CheckoutControllerV2 extends HttpServlet {
@@ -37,6 +38,16 @@ public class CheckoutControllerV2 extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
+        Object userIdRaw = session.getAttribute("userId");
+        if(userIdRaw == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+        Integer userId = (Integer) userIdRaw;
+
+        // load danh sách địa chỉ đã lưu // Đã kiểm tra, lấy được danh sách address
+        List<Address> savedAddress = userDao.getAddressesByUserId(userId);
+        request.setAttribute("savedAddressList", savedAddress);
 
         request.setAttribute("order", order);
         request.getRequestDispatcher("/views/checkout.jsp").forward(request, response);

@@ -59,7 +59,7 @@ public class CheckoutController extends HttpServlet {
 
         // List saved address
         List<Address> addressList = userDao.getAddressesByUserId(userId);
-        request.setAttribute("savedAddressList", addressList);
+//        request.setAttribute("savedAddressList", addressList);
 
 
 //        ----------------Cho phan mua ngay-------------------
