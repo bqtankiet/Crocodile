@@ -1,76 +1,114 @@
 package vn.edu.hcmuaf.fit.crocodile.controller;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import vn.edu.hcmuaf.fit.crocodile.model.orderv2.OrderJson;
-import vn.edu.hcmuaf.fit.crocodile.model.orderv2.OrderJsonException;
-import vn.edu.hcmuaf.fit.crocodile.model.orderv2.OrderV2;
+import jakarta.servlet.http.HttpSession;
+import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDao;
+import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDaoImpl;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.Address;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.Product;
+import vn.edu.hcmuaf.fit.crocodile.model.order.Order;
+import vn.edu.hcmuaf.fit.crocodile.model.order.OrderItem;
+import vn.edu.hcmuaf.fit.crocodile.model.order.ShippingAddress;
+import vn.edu.hcmuaf.fit.crocodile.service.ProductService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet("/checkout/v2")
 public class CheckoutControllerV2 extends HttpServlet {
+    private UserDao userDao = new UserDaoImpl();
+    private ProductService productService = new ProductService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendRedirect(request.getContextPath() + "/cart");
+        HttpSession session = request.getSession();
+        Order order = (Order) session.getAttribute("order");
+        if (order == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
+        request.setAttribute("order", order);
+        request.getRequestDispatcher("/views/checkout.jsp").forward(request, response);
+
+        System.out.println(order.getAddress().getFullAddress());
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        configureResponse(response);
-
-        String payload = readRequestPayload(request);
-        OrderJson orderJson = new OrderJson();
-
-        try {
-            OrderV2 order = orderJson.fromJson(payload);
-            sendSuccessResponse(response, orderJson, order);
-            forwardSuccess(request, response, order);
-        } catch (OrderJsonException e) {
-            sendErrorResponse(response, e.getMessage());
+        HttpSession session = request.getSession();
+        Object userIdRaw = session.getAttribute("userId");
+        if(userIdRaw == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
         }
-    }
+        Integer userId = (Integer) userIdRaw;
 
-    private void forwardSuccess(HttpServletRequest request, HttpServletResponse response, OrderV2 order) throws ServletException, IOException {
-        request.setAttribute("order", order);
-        request.setAttribute("address", order.getAddress());
-        request.setAttribute("items", order.getItems());
-        request.getRequestDispatcher("/views/checkout.jsp").forward(request, response);
-    }
+        Order order = new Order();
+        // load địa chỉ mặc định
+        Address defaultAddress = userDao.getDefaultAddressByUserId(userId);
+        ShippingAddress address = new ShippingAddress();
+        address.setRecipientName(defaultAddress.getFullname());
+        address.setRecipientPhone(defaultAddress.getPhoneNumber());
+        address.setProvinceName(defaultAddress.getProvince());
+        address.setDistrictName(defaultAddress.getDistrict());
+        address.setWardName(defaultAddress.getWard());
+        address.setStreet(defaultAddress.getStreet());
+        order.setAddress(address);
 
-    private void configureResponse(HttpServletResponse response) {
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-    }
+        // load danh sách item
+        StringBuilder sb = new StringBuilder();
+        BufferedReader reader = request.getReader();
+        String line;
+        while ((line = reader.readLine()) != null) sb.append(line);
+        String requestData = sb.toString();
 
-    private String readRequestPayload(HttpServletRequest request) throws IOException {
-        StringBuilder payload = new StringBuilder();
-        try (BufferedReader reader = request.getReader()) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                payload.append(line);
+        JsonObject jsonObject = JsonParser.parseString(requestData).getAsJsonObject();
+        JsonArray itemsArray = jsonObject.getAsJsonArray("items");
+
+        List<OrderItem> items = new ArrayList<>();
+        for(JsonElement item : itemsArray) {
+            JsonObject itemObject = item.getAsJsonObject();
+            int variantId = itemObject.get("variantId").getAsInt();
+            int quantity = itemObject.get("quantity").getAsInt();
+            Product.ProductVariant pv = productService.getProductVariantById(variantId);
+            OrderItem oi = new OrderItem();
+            oi.setQuantity(quantity);
+            oi.setProductName(pv.getProduct().getName());
+            oi.setUnitPrice(pv.getProduct().getPrice());
+            oi.setVariantId(variantId);
+            String option = "";
+            if(pv.getpOption1() != null){
+                option += pv.getpOption1().getKey() + ": "+pv.getpOption1().getValue();
             }
+            if(pv.getpOption2() != null){
+                option += ", ";
+                option += pv.getpOption2().getKey() + ": "+pv.getpOption2().getValue();
+            }
+            oi.setVariantOption(option);
+            oi.setProductImage(pv.getProduct().getImage());
+            items.add(oi);
         }
-        return payload.toString();
-    }
+        order.setItems(items);
 
-    private void sendSuccessResponse(HttpServletResponse response, OrderJson orderJson, OrderV2 order) throws IOException {
-        response.setStatus(HttpServletResponse.SC_OK);
-        try (PrintWriter out = response.getWriter()) {
-            out.print(orderJson.toStringJson(order));
+        boolean isValidOrder = true;
+        if (isValidOrder) {
+            response.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            response.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
         }
-    }
 
-    private void sendErrorResponse(HttpServletResponse response, String errorMessage) throws IOException {
-        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        try (PrintWriter out = response.getWriter()) {
-            out.printf("{\"errorMessage\": \"%s\"}", errorMessage);
-        }
+        System.out.println("Received items: " + itemsArray);
+        session.setAttribute("order", order);
     }
 }

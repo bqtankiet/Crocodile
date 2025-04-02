@@ -99,16 +99,16 @@
                                 <tr>
                                     <td class="col-3 text-muted"> Tên người nhận</td>
                                     <td class="id-user" id="address-fullName"
-                                        data-id-user="${sessionScope.userId}">${requestScope.address.recipientName}</td>
+                                        data-id-user="${sessionScope.userId}">${requestScope.order.address.recipientName}</td>
                                 </tr>
                                 <tr>
                                     <td class="col-3 text-muted">Liên hệ</td>
-                                    <td id="address-phone">${requestScope.address.recipientPhone}</td>
+                                    <td id="address-phone">${requestScope.order.address.recipientPhone}</td>
                                 </tr>
                                 <tr>
                                     <td class="col-3 text-muted">Địa chỉ</td>
                                     <td class="address" data-id-address="1" id="address-fullAddress">
-                                        ${requestScope.address.fullAddress}
+                                        ${requestScope.order.address.fullAddress}
                                     </td>
                                 </tr>
                                 </tbody>
@@ -156,16 +156,15 @@
 
                         <c:choose>
 
-                            <c:when test="${empty requestScope.cartItem}">
-                                <c:forEach var="item" items="${sessionScope.selectedCartItems}">
-                                    <c:set var="productVariant" value="${item.productVariant}"/>
-                                    <input class="item-buy" type="text" value="${productVariant.id}"
-                                           hidden="hidden" data-action="buySuccess">
+                            <c:when test="${empty requestScope.order.items}">
+                            </c:when>
+                            <c:otherwise>
+                                <c:forEach var="oi" items="${requestScope.order.items}">
                                     <div class="d-flex flex-column">
                                         <div class="row g-0">
                                             <div class="col-2 me-3 position-relative">
                                                 <div class="ratio ratio-1x1">
-                                                    <img src="${productVariant.product.image}"
+                                                    <img src="${oi.productImage}"
                                                          class="img-fluid border rounded-2" alt="">
                                                 </div>
                                             </div>
@@ -175,21 +174,24 @@
                                                         <div class="me-2">
                                                             <p class="fw-semibold mb-0 line-clamp-2"
                                                                style="height: fit-content ;max-height: 2.5rem; line-height: 1.2">
-                                                                    ${productVariant.product.name}
+                                                                    ${oi.productName}
                                                             </p>
-                                                            <c:if test="${productVariant.idOption1 != null}">
-                                                                <p class="fw-normal">${productVariant.pOption1.key}: ${productVariant.pOption1.value}
-                                                                    <c:if test="${productVariant.pOption2 != null}">
-                                                                        , ${productVariant.pOption2.key}: ${productVariant.pOption2.value}
-                                                                    </c:if>
-                                                                </p>
-                                                            </c:if>
+                                                                <%--                                                            <c:if test="${i.idOption1 != null}">--%>
+                                                                <%--                                                                <p class="fw-normal">${i.pOption1.key}: ${i.pOption1.value}--%>
+                                                                <%--                                                                    <c:if test="${i.pOption2 != null}">--%>
+                                                                <%--                                                                        , ${i.pOption2.key}: ${i.pOption2.value}--%>
+                                                                <%--                                                                    </c:if>--%>
+                                                                <%--                                                                </p>--%>
+                                                                <%--                                                            </c:if>--%>
+                                                            <c:if test="${oi.variantOption != null}">
+                                                            <p class="fw-normal">${oi.variantOption}
+                                                                </c:if>
                                                         </div>
                                                         <div class="ms-auto fw-bold fs-6 text-nowrap"
                                                              style="width: max-content">
-                                                            <fmt:formatNumber value="${productVariant.product.price}"
-                                                                              type="number" pattern="#,##0"/>
-                                                            <sup>₫</sup> × ${item.quantity}
+                                                            <fmt:formatNumber value="${oi.unitPrice}" type="number"
+                                                                              pattern="#,##0"/>
+                                                            <sup>₫</sup> × ${oi.quantity}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -197,98 +199,97 @@
                                         </div>
                                     </div>
                                     <div class="border-top border-secondary-subtle mt-3 mb-2"></div>
-                                    <c:set var="totalAmount" value="${totalAmount + item.caculatePrice()}"/>
                                 </c:forEach>
                                 <div class="d-flex align-items-center mt-3">
                                     <span class="fw-medium text-muted">Phí giao hàng: </span>
                                     <div class="ms-auto">
                                     <span class="fw-bold">
-                                        <fmt:formatNumber value="${requestScope.shippingFee}" type="number" pattern="#,##0"/>
+                                        <fmt:formatNumber value="${requestScope.order.shippingFee}" type="number"
+                                                          pattern="#,##0"/>
                                          <sup>₫</sup>
                                     </span>
                                     </div>
                                 </div>
-
                                 <div class="d-flex align-items-center mt-3">
                                     <span class="fw-medium text-muted">Tổng đơn hàng: </span>
                                     <div class="ms-auto">
                                     <span class="fw-bold">
-                                        <fmt:formatNumber value="${item.caculatePrice()}" type="number" pattern="#,##0"/>
+                                        <fmt:formatNumber value="${requestScope.order.itemsTotal}" type="number"
+                                                          pattern="#,##0"/>
                                          <sup>₫</sup>
                                     </span>
                                     </div>
                                 </div>
                                 <div class="border-top border-secondary-subtle mt-3 mb-2"></div>
-                            </c:when>
 
-                            <c:otherwise>
-                                <c:set var="i" value="${requestScope.cartItem.productVariant}"/>
-                                <div class="d-flex flex-column">
-                                    <div class="row g-0">
-                                        <div class="col-2 me-3 position-relative">
-                                            <div class="ratio ratio-1x1">
-                                                <img src="${i.product.image}"
-                                                     class="img-fluid border rounded-2" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="col lh-1 my-auto">
-                                            <div class="w-100">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="me-2">
-                                                        <p class="fw-semibold mb-0 line-clamp-2"
-                                                           style="height: fit-content ;max-height: 2.5rem; line-height: 1.2">
-                                                                ${i.product.name}
-                                                        </p>
-                                                        <c:if test="${i.idOption1 != null}">
-                                                            <p class="fw-normal">${i.pOption1.key}: ${i.pOption1.value}
-                                                                <c:if test="${i.pOption2 != null}">
-                                                                    , ${i.pOption2.key}: ${i.pOption2.value}
-                                                                </c:if>
-                                                            </p>
-                                                        </c:if>
-                                                    </div>
-                                                    <div class="ms-auto fw-bold fs-6 text-nowrap"
-                                                         style="width: max-content">
-                                                        <fmt:formatNumber value="${i.product.price}" type="number"
-                                                                          pattern="#,##0"/>
-                                                        <sup>₫</sup> × ${requestScope.cartItem.quantity}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center mt-3">
-                                    <div class="d-flex align-items-center mt-3">
-                                        <span class="fw-medium text-muted">Phí giao hàng: </span>
-                                        <div class="ms-auto">
-                                    <span class="fw-bold">
-                                        <fmt:formatNumber value="${requestScope.shippingFee}" type="number" pattern="#,##0"/>
-                                         <sup>₫</sup>
-                                    </span>
-                                        </div>
-                                    </div>
 
-                                    <div class="d-flex align-items-center mt-3">
-                                        <span class="fw-medium text-muted">Tổng đơn hàng: </span>
-                                        <div class="ms-auto">
-                                    <span class="fw-bold">
-                                        <fmt:formatNumber value="${item.caculatePrice()}" type="number" pattern="#,##0"/>
-                                         <sup>₫</sup>
-                                    </span>
-                                        </div>
-                                    </div>
-                                    <div class="border-top border-secondary-subtle mt-3 mb-2"></div>
-                                <c:set var="totalAmount" value="${requestScope.cartItem.caculatePrice()}"/>
+                                <%--                                <c:set var="i" value="${requestScope.cartItem.productVariant}"/>--%>
+                                <%--                                <div class="d-flex flex-column">--%>
+                                <%--                                    <div class="row g-0">--%>
+                                <%--                                        <div class="col-2 me-3 position-relative">--%>
+                                <%--                                            <div class="ratio ratio-1x1">--%>
+                                <%--                                                <img src="${i.product.image}"--%>
+                                <%--                                                     class="img-fluid border rounded-2" alt="">--%>
+                                <%--                                            </div>--%>
+                                <%--                                        </div>--%>
+                                <%--                                        <div class="col lh-1 my-auto">--%>
+                                <%--                                            <div class="w-100">--%>
+                                <%--                                                <div class="d-flex align-items-center">--%>
+                                <%--                                                    <div class="me-2">--%>
+                                <%--                                                        <p class="fw-semibold mb-0 line-clamp-2"--%>
+                                <%--                                                           style="height: fit-content ;max-height: 2.5rem; line-height: 1.2">--%>
+                                <%--                                                                ${i.product.name}--%>
+                                <%--                                                        </p>--%>
+                                <%--                                                        <c:if test="${i.idOption1 != null}">--%>
+                                <%--                                                            <p class="fw-normal">${i.pOption1.key}: ${i.pOption1.value}--%>
+                                <%--                                                                <c:if test="${i.pOption2 != null}">--%>
+                                <%--                                                                    , ${i.pOption2.key}: ${i.pOption2.value}--%>
+                                <%--                                                                </c:if>--%>
+                                <%--                                                            </p>--%>
+                                <%--                                                        </c:if>--%>
+                                <%--                                                    </div>--%>
+                                <%--                                                    <div class="ms-auto fw-bold fs-6 text-nowrap"--%>
+                                <%--                                                         style="width: max-content">--%>
+                                <%--                                                        <fmt:formatNumber value="${i.product.price}" type="number"--%>
+                                <%--                                                                          pattern="#,##0"/>--%>
+                                <%--                                                        <sup>₫</sup> × ${requestScope.cartItem.quantity}--%>
+                                <%--                                                    </div>--%>
+                                <%--                                                </div>--%>
+                                <%--                                            </div>--%>
+                                <%--                                        </div>--%>
+                                <%--                                    </div>--%>
+                                <%--                                </div>--%>
+                                <%--                                <div class="d-flex align-items-center mt-3">--%>
+                                <%--                                    <div class="d-flex align-items-center mt-3">--%>
+                                <%--                                        <span class="fw-medium text-muted">Phí giao hàng: </span>--%>
+                                <%--                                        <div class="ms-auto">--%>
+                                <%--                                    <span class="fw-bold">--%>
+                                <%--                                        <fmt:formatNumber value="${requestScope.shippingFee}" type="number" pattern="#,##0"/>--%>
+                                <%--                                         <sup>₫</sup>--%>
+                                <%--                                    </span>--%>
+                                <%--                                        </div>--%>
+                                <%--                                    </div>--%>
+
+                                <%--                                    <div class="d-flex align-items-center mt-3">--%>
+                                <%--                                        <span class="fw-medium text-muted">Tổng đơn hàng: </span>--%>
+                                <%--                                        <div class="ms-auto">--%>
+                                <%--                                    <span class="fw-bold">--%>
+                                <%--                                        <fmt:formatNumber value="${item.caculatePrice()}" type="number" pattern="#,##0"/>--%>
+                                <%--                                         <sup>₫</sup>--%>
+                                <%--                                    </span>--%>
+                                <%--                                        </div>--%>
+                                <%--                                    </div>--%>
+                                <%--                                    <div class="border-top border-secondary-subtle mt-3 mb-2"></div>--%>
+                                <%--                                <c:set var="totalAmount" value="${requestScope.cartItem.caculatePrice()}"/>--%>
                             </c:otherwise>
 
                         </c:choose>
 
                         <div class="d-flex align-items-center mt-3">
-                            <span class="fw-bold fs-5">Tổng cộng: </span>
+                            <span class="fw-bold fs-5">Tổng thanh toán: </span>
                             <div class="ms-auto">
                                 <span class="fs-5 fw-bold total-amount" data-total="${totalAmount}">
-                                    <fmt:formatNumber value="${totalAmount}" type="number" pattern="#,##0"/>
+                                    <fmt:formatNumber value="${requestScope.order.total}" type="number" pattern="#,##0"/>
                                      <sup>₫</sup>
                                 </span>
                             </div>
@@ -371,7 +372,8 @@
                             </div>
                         </div>
                         <div class="form-group combobox" id="provinceCombobox">
-                            <input class="form-control combobox-input" id="provinceInput" name="province" autocomplete="off" required
+                            <input class="form-control combobox-input" id="provinceInput" name="province"
+                                   autocomplete="off" required
                                    placeholder="Chọn Tỉnh/Thành phố" aria-label="">
                             <ul class="combobox-list" id="provinceList"></ul>
                         </div>
@@ -395,7 +397,8 @@
 
                         <%-- Modal footer buttons --%>
                         <div class="modal-footer">
-                            <button type="submit" id="submitAddess" class="btn btn-success" form="newAddressForm" data-bs-dismiss="modal">
+                            <button type="submit" id="submitAddess" class="btn btn-success" form="newAddressForm"
+                                    data-bs-dismiss="modal">
                                 Hoàn thành
                             </button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -413,7 +416,7 @@
 
 
 <script>
-    $('#submitAddess').on('click', function(event) {
+    $('#submitAddess').on('click', function (event) {
         const fullName = $('#nameInput').val();
         const phoneNumber = $('#phoneInput').val();
         const province = $('#provinceInput').val();
@@ -536,7 +539,7 @@
         }
     });
 
-    function clearInput(selector, disabled='') {
+    function clearInput(selector, disabled = '') {
         const input = document.querySelector(selector);
         input.value = '';
         input.disabled = disabled;

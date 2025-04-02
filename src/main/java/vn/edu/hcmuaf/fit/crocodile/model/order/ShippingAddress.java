@@ -1,11 +1,12 @@
-package vn.edu.hcmuaf.fit.crocodile.model.orderv2;
+package vn.edu.hcmuaf.fit.crocodile.model.order;
 
-import java.util.Arrays;
+import java.io.Serializable;
 
-public class ShippingAddress implements java.io.Serializable{
+public class ShippingAddress implements Serializable {
 
     private String recipientName;
     private String recipientPhone;
+
     private int provinceId;
     private String provinceName;
     private int districtId;
@@ -13,10 +14,6 @@ public class ShippingAddress implements java.io.Serializable{
     private String wardCode;
     private String wardName;
     private String street;
-
-    public String getFullAddress(){
-        return String.format("%s, %s, %s, %s", provinceName, districtName, wardName, street);
-    }
 
     public String getRecipientName() {
         return recipientName;
@@ -50,20 +47,20 @@ public class ShippingAddress implements java.io.Serializable{
         this.provinceName = provinceName;
     }
 
-    public String getDistrictName() {
-        return districtName;
-    }
-
-    public void setDistrictName(String districtName) {
-        this.districtName = districtName;
-    }
-
     public int getDistrictId() {
         return districtId;
     }
 
     public void setDistrictId(int districtId) {
         this.districtId = districtId;
+    }
+
+    public String getDistrictName() {
+        return districtName;
+    }
+
+    public void setDistrictName(String districtName) {
+        this.districtName = districtName;
     }
 
     public String getWardCode() {
@@ -88,5 +85,9 @@ public class ShippingAddress implements java.io.Serializable{
 
     public void setStreet(String street) {
         this.street = street;
+    }
+
+    public String getFullAddress() {
+        return String.format("%s, %s, %s, %s", street, wardName, districtName, provinceName);
     }
 }
