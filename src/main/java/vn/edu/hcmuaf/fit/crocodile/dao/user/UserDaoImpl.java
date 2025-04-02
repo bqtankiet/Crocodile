@@ -60,14 +60,11 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void update(User user) {
-        String query = "UPDATE users SET fullname = :fullname, email = :email, phoneNumber = :phoneNumber, " +
-                "gender = :gender, birthdate = :birthdate WHERE id = :id";
+        String query = "UPDATE users SET fullname = :fullname, gender = :gender, birthdate = :birthdate WHERE id = :id";
 
         JdbiConnect.getJdbi().withHandle(handle ->
                 handle.createUpdate(query)
                         .bind("fullname", user.getFullname())
-                        .bind("email", user.getEmail())
-                        .bind("phoneNumber", user.getPhoneNumber())
                         .bind("gender", user.getGender())
                         .bind("birthdate", user.getBirthdate())
                         .bind("id", user.getId())

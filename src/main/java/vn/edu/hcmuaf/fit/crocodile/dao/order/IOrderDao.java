@@ -1,6 +1,8 @@
 package vn.edu.hcmuaf.fit.crocodile.dao.order;
 
 import vn.edu.hcmuaf.fit.crocodile.dao.BasicDao;
+import vn.edu.hcmuaf.fit.crocodile.model.dto.OrderDetailDTO;
+import vn.edu.hcmuaf.fit.crocodile.model.dto.OrderItemDTO;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Order;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.OrderManagement;
 
@@ -22,4 +24,13 @@ public interface IOrderDao extends BasicDao<Integer, Order> {
     int processing(int id);
 
     int cancelled(int id);
+
+    OrderDetailDTO getOrderDetail(int id);
+
+    /**
+     * @param id id của order (không phải id sản phẩm)
+     * @return
+     */
+    List<OrderItemDTO> getOrderItems(int id);
+
 }
