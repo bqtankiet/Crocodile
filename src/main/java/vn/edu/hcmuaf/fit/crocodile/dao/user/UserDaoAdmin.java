@@ -1,9 +1,11 @@
 package vn.edu.hcmuaf.fit.crocodile.dao.user;
 
+import org.jdbi.v3.core.Handle;
 import vn.edu.hcmuaf.fit.crocodile.config.JdbiConnect;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.OrderManagement;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class UserDaoAdmin implements IUserDaoAdmin{
@@ -41,5 +43,27 @@ public class UserDaoAdmin implements IUserDaoAdmin{
                         .list()
         );
     }
+
+    @Override
+    public int updateUser(int id, String fullname, String phone, String email, String gender, LocalDate birthdate, int active, int role) {
+        String sql = "UPDATE users SET fullname = :fullname, phoneNumber = :phoneNumber, email = :email, gender = :gender, birthdate = :birthdate, role = :role , active = :active WHERE id = :id";
+
+        try (Handle handle = JdbiConnect.getJdbi().open()) {
+            return handle.createUpdate(sql)
+                    .bind("fullname", fullname)
+                    .bind("phoneNumber", phone)
+                    .bind("email", email)
+                    .bind("gender", gender)
+                    .bind("birthdate", birthdate)
+                    .bind("role", role)
+                    .bind("active", active)
+                    .bind("id", id)
+                    .execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error executing query", e);
+        }
+    }
+
 
 }

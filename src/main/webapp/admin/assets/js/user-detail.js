@@ -1,20 +1,10 @@
-function User (fullname, phone, email, birthday, active, gender, role) {
-    this.fullname = fullname;
-    this.phone = phone;
-    this.email = email;
-    this.birthday = birthday;
-    this.active = active;
-    this.gender = gender;
-    this.role = role;
-}
-
 function validateFullName(fullname) {
     const regex = /[<>@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?`~!]/;
     return !(fullname.length > 20 || regex.test(fullname));
 }
 
 function validatePhoneNumber(phone) {
-    const phoneRegex = /^(0[3|5|7|8|9])\d{8}$/;
+    const phoneRegex = /^(0[1-9][0-9]{8,9})$/;
     return phoneRegex.test(phone);
 }
 
@@ -23,11 +13,13 @@ function validateEmail(email) {
     return emailRegex.test(email);
 }
 
+
 const handleSubmitForm = () => {
+    const id = document.querySelector(".id").value;
     const fullname = document.querySelector(".fullname").value;
     const phone = document.querySelector(".phone-number").value;
     const email = document.querySelector(".email").value;
-    const birthday = document.querySelector(".birthday").value;
+    const birthdate = document.querySelector(".birthdate").value;
     const active = document.querySelector('input[name="status"]:checked')?.value;
     const gender = document.querySelector('input[name="gender"]:checked')?.value;
     const role = document.querySelector('input[name="role"]:checked')?.value;
@@ -37,26 +29,40 @@ const handleSubmitForm = () => {
     const isValidEmail = validateEmail(email)
 
     if (isValidFullName && isValidPhone && isValidEmail) {
-        let user = new User(fullname, phone, email, birthday, active, gender, role);
-        console.log(user)
-        fetch('http://localhost:8080/crocodile/admin/user/update', {
+        const user_json = {
+            id: id,
+            fullname: fullname,
+            phoneNumber: phone,
+            email: email,
+            birthdate: birthdate,
+            active: active,
+            gender: gender,
+            role: role
+        }
+
+        fetch('/crocodile/admin/user/update', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(user)
+            body: JSON.stringify(user_json)
         })
             .then(response => {
-
                 if (!response.ok) {
                     throw new Error('Lỗi HTTP: ' + response.status);
                 }
-                console.log("Request đã được gửi!");
                 return response.json();
             })
-            .then(data => console.log("Dữ liệu phản hồi:", data))
-            .catch(error => console.error("Lỗi:", error));
-
+            .then(data => {
+                if (data.error) {
+                    console.error("Lỗi từ server:", data.error);
+                } else {
+                    console.log("Dữ liệu phản hồi:", data.message);
+                }
+            })
+            .catch(error => {
+                console.error("Lỗi:", error);
+            });
 
     }
 }

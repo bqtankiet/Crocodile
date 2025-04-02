@@ -14,9 +14,8 @@
 <!-- Content wrapper -->
 <div class="content-wrapper">
   <div class="container-xxl flex-grow-1 container-p-y pb-5">
-    <%--        <h4 class="fw-bold py-3 mb-4">Chi tiết đơn hàng</h4>--%>
 
-    <form method="post" id="form-order">
+    <form action="update" method="post" id="form-update-user">
       <div class="row">
         <%-- LEFT --%>
         <div class="col">
@@ -31,7 +30,7 @@
                   </div>
                   <div class="name">Minh Khôi</div>
                   <div class="role">Super Admin</div>
-
+                  <input type="text" class="id d-none" value="1">
                   <div class="stats">
                     <div>
                       <div>69</div>
@@ -57,7 +56,7 @@
                   <div class="row mb-2 d-flex align-items-center">
                     <label class="col-5 col-form-label px-0">Số điện thoại</label>
                     <input class="col border-0 border text-secondary bg-transparent phone-number" disabled type="text"
-                           value="0323456141">
+                           value="0323456141" name="phone">
                   </div>
 
                   <div class="row mb-2 d-flex align-items-center">
@@ -115,7 +114,7 @@
 
                   <div class="row mb-2 d-flex align-items-center">
                     <label class="col-5 col-form-label px-0">Ngày sinh</label>
-                    <input class="col border-0 border text-secondary bg-transparent birthday" disabled type="date"
+                    <input class="col border-0 border text-secondary bg-transparent birthdate" disabled type="date"
                            value="2025-10-10">
                   </div>
 
