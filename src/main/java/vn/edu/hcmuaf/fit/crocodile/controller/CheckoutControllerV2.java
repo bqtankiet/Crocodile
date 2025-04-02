@@ -61,7 +61,9 @@ public class CheckoutControllerV2 extends HttpServlet {
         address.setRecipientName(defaultAddress.getFullname());
         address.setRecipientPhone(defaultAddress.getPhoneNumber());
         address.setProvinceName(defaultAddress.getProvince());
+        address.setDistrictId(defaultAddress.getDistrictId());
         address.setDistrictName(defaultAddress.getDistrict());
+        address.setWardCode(defaultAddress.getWardCode());
         address.setWardName(defaultAddress.getWard());
         address.setStreet(defaultAddress.getStreet());
         order.setAddress(address);

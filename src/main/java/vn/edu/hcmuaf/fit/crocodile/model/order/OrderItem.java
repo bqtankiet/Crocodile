@@ -70,4 +70,8 @@ public class OrderItem implements Serializable {
     public void setVariantOption(String variantOption) {
         this.variantOption = variantOption;
     }
+
+    public int getTotal() {
+        return quantity * unitPrice;
+    }
 }
