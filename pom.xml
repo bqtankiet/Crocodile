@@ -96,10 +96,18 @@
             <version>2.0.16</version>
         </dependency>
 
+
         <dependency> <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.5.12</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/ch.qos.logback.db/logback-classic-db -->
+        <dependency>
+            <groupId>ch.qos.logback.db</groupId>
+            <artifactId>logback-classic-db</artifactId>
+            <version>1.2.11.1</version>
         </dependency>
 
         <!-- # Jakarta mail (Để làm chức năng gửi email) -->

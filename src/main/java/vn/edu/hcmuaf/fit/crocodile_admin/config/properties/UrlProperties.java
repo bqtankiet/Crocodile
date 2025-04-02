@@ -51,7 +51,9 @@ public class UrlProperties extends ApplicationProperties {
 
     // --------------------- user ------------------------
 
-
+    // --------------------- log -------------------------
+    public static String log() { return getProperty("admin.log"); }
+    // --------------------- log -------------------------
 
 
 

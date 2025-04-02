@@ -140,6 +140,16 @@
                 <div >Quản lý người dùng</div>
             </a>
         </li>
+
+        <!-- Logs -->
+        <c:url var="logUrl" value="<%= UrlProperties.log() %>"/>
+        <li class="menu-item ${param.activePage == 'log' ? 'active' : ''}">
+            <a href="${logUrl}" class="menu-link override">
+                <i class="menu-icon tf-icons bx bx-crown"></i>
+                <div>Lịch sử ghi log</div>
+            </a>
+        </li>
+
     </ul>
 </aside>
 
