@@ -46,25 +46,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
 
-  <!-- Kích hoạt Data table -->
-<%--  <script>--%>
-<%--    $(document).ready(function () {--%>
-<%--      $('#users-table').DataTable({--%>
-<%--        "language": {--%>
-<%--          "search": "Tìm kiếm:",--%>
-<%--          "lengthMenu": "Hiển thị _MENU_ mục",--%>
-<%--          "info": "Hiển thị _START_ đến _END_ trong tổng số _TOTAL_ mục",--%>
-<%--          "paginate": {--%>
-<%--            "first": "Đầu",--%>
-<%--            "last": "Cuối",--%>
-<%--            "next": "Sau",--%>
-<%--            "previous": "Trước"--%>
-<%--          }--%>
-<%--        }--%>
-<%--      });--%>
-<%--    });--%>
-<%--  </script>--%>
-  <!-- Data table -->
 </head>
 <body>
   <div class="layout-wrapper layout-content-navbar">
