@@ -30,4 +30,30 @@ public class LogDAO implements ILogDAO {
                         .list()
         );
     }
+
+    @Override
+    public int getLastLogEventId() {
+        return CrocodileLogs.getJdbiConnect().withHandle(handle -> handle
+                .createQuery("SELECT MAX(event_id) FROM logging_event")
+                .mapTo(Integer.class)
+                .findFirst().orElseThrow()
+        );
+    }
+
+    @Override
+    public void logDetail(int lastEventId, String table, int oldId, int newId, String action) {
+        String query = """
+                INSERT INTO logging_event_detail (event_id, table_name, old_id, new_id, action)
+                VALUES (:eventId, :tableName, :oldId, :newId, :action);
+                """;
+        CrocodileLogs.getJdbiConnect().withHandle(handle -> handle
+                .createUpdate(query)
+                .bind("eventId", lastEventId)
+                .bind("tableName", table)
+                .bind("oldId", oldId)
+                .bind("newId", newId)
+                .bind("action", action)
+                .execute()
+        );
+    }
 }

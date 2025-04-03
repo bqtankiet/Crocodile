@@ -17,4 +17,11 @@ public class LogService {
         return logDAO.reportLogEvents();
     }
 
+    public int getLastLogEventId() {
+        return logDAO.getLastLogEventId();
+    }
+
+    public void logDetail(int lastEventId, String table, int oldId, int newId, String action) {
+        logDAO.logDetail(lastEventId, table, oldId, newId, action);
+    }
 }

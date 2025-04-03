@@ -18,25 +18,29 @@
         </encoder>
     </appender>
 
-    <!-- Root logger -->
-    <root level="trace">
-        <appender-ref ref="CONSOLE"/>
-    </root>
-    <root level="debug">
-        <appender-ref ref="CONSOLE"/>
-    </root>
+    <!-- Root logger, mức log mặc định -->
     <root level="info">
         <appender-ref ref="DB"/>
         <appender-ref ref="CONSOLE"/>
     </root>
-    <root level="warn">
+
+    <logger name="vn.edu.hcmuaf.fit" level="trace">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="vn.edu.hcmuaf.fit.crocodile" level="debug">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="com.example" level="warn">
         <appender-ref ref="DB"/>
         <appender-ref ref="CONSOLE"/>
-    </root>
-    <root level="error">
+    </logger>
+
+    <logger name="com.example" level="error">
         <appender-ref ref="DB"/>
         <appender-ref ref="CONSOLE"/>
-    </root>
+    </logger>
 </configuration>
 
 <!--
