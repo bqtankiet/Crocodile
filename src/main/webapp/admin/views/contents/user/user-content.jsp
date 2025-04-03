@@ -12,8 +12,6 @@
 <!-- Content wrapper -->
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
-<%--        <h4 class="fw-bold py-3 mb-4">Quản lý người dùng</h4>--%>
-    <a href="${userDetailUrl}">test</a>
         <!-- Bordered Table -->
         <div class="card">
             <div class="card-body">
@@ -50,7 +48,7 @@
                             <th scope="col">Số điện thoại</th>
                             <th scope="col">Giới tính</th>
                             <th scope="col">Ngày sinh</th>
-                            <th scope="col">Vai trò</th>
+                            <th scope="col">Trạng thái</th>
                             <th scope="col" class="action-column"></th>
                         </tr>
                         </thead>
@@ -65,7 +63,7 @@
                                     <td>${u.phoneNumber}</td>
                                     <td>${u.gender}</td>
                                     <td>${u.birthdate}</td>
-                                    <td>${u.active == 1 ? 'Cho phép' : 'Cấm'} </td>
+                                    <td>${u.active == 1 ? 'Hoạt động' : 'Đình chỉ'} </td>
                                     <td>
                                         <div class="dropdown">
                                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -73,20 +71,8 @@
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="${userDetailUrl}"><i
+                                                <a class="dropdown-item" href="${userDetailUrl}?id=${u.id}"><i
                                                         class="menu-icon tf-icons bx bx-file"></i> Chi tiết</a>
-                                                <button class="dropdown-item btn-ban" data-id="${u.id}" data-action="ban">
-                                                    <i class="bx bx-block me-1"></i>
-                                                        ${u.active == 1 ? 'Cấm' : 'Bỏ cấm'}
-                                                </button>
-                                                <c:url var="updateUserUrl" value="<%=UrlProperties.updateUser()%>">
-                                                    <c:param name="id" value="${u.id}"/>
-                                                </c:url>
-                                                <a class="dropdown-item" href="${updateUserUrl}"><i
-                                                        class="bx bx-edit-alt me-1"></i> Chỉnh sửa</a>
-                                                <button class="dropdown-item btn-delete" data-id="${u.id}">
-                                                    <i class="bx bx-trash me-1"></i> Xóa
-                                                </button>
                                             </div>
                                         </div>
                                     </td>
@@ -106,38 +92,5 @@
 <!-- Kích hoạt Data table  -->
 <script src="<c:url value="/admin/assets/js/datatable.js"/> "></script>
 <!-- Data table -->
-
-<script>
-    $(document).on('click', '.btn-ban', function (event) {
-        event.preventDefault();
-        const banBtn = $(this);
-        const userId = banBtn.data('id');
-        const action = banBtn.data('action');
-        if(confirm("Bạn có chắc muốn thay đổi quyền truy cập người dùng này?")) {
-            $.ajax({
-                url: "${updateUserUrl}",
-                type: "POST",
-                data: {
-                    id: userId,
-                    action: action
-                },
-                success: function (response){
-                    alert("Thay đổi thành công!");
-                    location.reload();
-                },
-                error: function(xhr, status, error) {
-                    if (xhr.status === 404) {
-                        alert("Không tìm thấy endpoint " + "${updateUserUrl}");
-                    } else {
-                        alert("Đã xảy ra lỗi. Vui lòng thử lại.");
-                    }
-                    console.error("Error:", error);
-                }
-            })
-
-        }
-    })
-
-</script>
 
 <script src="<c:url value="/admin/assets/js/my-table.js"/>"></script>

@@ -29,4 +29,11 @@ public class UserService {
                            LocalDate birthdate, int active, int role) {
         userDaoAdmin.updateUser(id, fullname, phone, email, gender, birthdate, active, role);
     }
+
+    public User getUser(int id) { return userDaoAdmin.getUser(id); }
+
+    public int  orderReceived(int idUser) { return userDaoAdmin.orderReceived(idUser); }
+
+    public int  orderCanceled(int idUser) { return userDaoAdmin.orderCanceled(idUser); }
+
 }

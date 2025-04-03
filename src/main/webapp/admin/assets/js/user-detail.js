@@ -1,5 +1,7 @@
+const url = '/crocodile/admin/user/update';
+
 function validateFullName(fullname) {
-    const regex = /[<>@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?`~!]/;
+    const regex = /[<>@#$%^&*()_+\-=\[\]{};':"\\|,.\/?`~!]/;
     return !(fullname.length > 20 || regex.test(fullname));
 }
 
@@ -13,8 +15,18 @@ function validateEmail(email) {
     return emailRegex.test(email);
 }
 
+const updateUser = async (url, data) => {
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    });
+    return response.json();
+}
 
-const handleSubmitForm = () => {
+const handleSubmitForm = async () => {
     const id = document.querySelector(".id").value;
     const fullname = document.querySelector(".fullname").value;
     const phone = document.querySelector(".phone-number").value;
@@ -29,46 +41,29 @@ const handleSubmitForm = () => {
     const isValidEmail = validateEmail(email)
 
     if (isValidFullName && isValidPhone && isValidEmail) {
-        const user_json = {
-            id: id,
-            fullname: fullname,
-            phoneNumber: phone,
-            email: email,
-            birthdate: birthdate,
-            active: active,
-            gender: gender,
-            role: role
-        }
+        const data =
+            {
+                id: id,
+                fullname: fullname,
+                phoneNumber: phone,
+                email: email,
+                birthdate: birthdate,
+                active: active,
+                gender: gender,
+                role: role,
+                action: 'updateInfo'
+            }
 
-        fetch('/crocodile/admin/user/update', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(user_json)
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Lỗi HTTP: ' + response.status);
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.error) {
-                    console.error("Lỗi từ server:", data.error);
-                } else {
-                    console.log("Dữ liệu phản hồi:", data.message);
-                }
-            })
-            .catch(error => {
-                console.error("Lỗi:", error);
-            });
+        try {
+            const response = await updateUser(url, data);
+            console.log(response)
+            window.location.reload()
+        } catch (error) {
+            console.error("Lỗi khi cập nhật:", error);
+        }
 
     }
 }
-
-
-
 
 const toggleEdit = () => {
     document.querySelector(".full-name").classList.toggle("d-none");
@@ -85,6 +80,8 @@ const toggleRadio = () => {
     document.querySelector(".form-check-radio.gender-radio").classList.toggle("d-none");
     document.querySelector(".form-check-radio.status-radio").classList.toggle("d-none");
     document.querySelector(".role-radio").classList.toggle("d-none");
+
+
 }
 
 const toggleBtn = () => {
@@ -98,9 +95,25 @@ const toggle = () => {
     toggleBtn();
 }
 
-const suspend = () => {
-    // TODO: ban
-    alert("M đã ban nó")
+const suspend = async () => {
+    const id = document.querySelector(".id").value;
+    const active = document.querySelector('input[name="status"]:checked')?.value;
+
+    const data =
+        {
+            id: id,
+            active: active,
+            action: 'toggleBan'
+        };
+
+    try {
+        const response = await updateUser(url, data)
+        window.location.reload()
+        console.log(response)
+    } catch (error) {
+        console.error("Lỗi khi cập nhật:", error);
+    }
+
 }
 
 const init = () => {

@@ -15,6 +15,10 @@ public class UserDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
+
+        request.setAttribute("user", userService.getUser(id));
+        request.setAttribute("orderReceived", userService.orderReceived(id));
+        request.setAttribute("orderCanceled", userService.orderCanceled(id));
         request.setAttribute("userOrder", userService.getAllUserOrder(id));
         request.getRequestDispatcher("/admin/views/crud/user/user-detail.jsp").forward(request, response);
     }

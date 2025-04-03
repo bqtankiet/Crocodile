@@ -28,16 +28,16 @@
                   <div class="profile-img">
                     <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="User">
                   </div>
-                  <div class="name">Minh Khôi</div>
-                  <div class="role">Super Admin</div>
-                  <input type="text" class="id d-none" value="1">
+                  <div class="name">${requestScope.user.fullname}</div>
+                  <div class="role">${requestScope.user.role == 1 ? 'Admin' : 'User'}</div>
+                  <input type="text" class="id d-none" value="${requestScope.user.id}">
                   <div class="stats">
                     <div>
-                      <div>69</div>
+                      <div>${requestScope.orderReceived}</div>
                       <small>Đã nhận</small>
                     </div>
                     <div>
-                      <div>4</div>
+                      <div>${requestScope.orderCanceled}</div>
                       <small>Đã hủy</small>
                     </div>
                   </div>
@@ -49,25 +49,34 @@
                 <h5 class="pb-4 border-bottom mb-4">Chi tiết</h5>
                 <div class="col">
                   <div class="row mb-2 d-flex align-items-center full-name d-none">
-                    <label class="col-5 col-form-label px-0">Họ và Tên</label>
+                    <label class="col-4 col-form-label px-0">Họ và Tên</label>
                     <input class="col border-0 border text-secondary bg-transparent fullname" disabled type="text"
-                           value="Minh Khôi">
+                           value="${requestScope.user.fullname}">
                   </div>
                   <div class="row mb-2 d-flex align-items-center">
-                    <label class="col-5 col-form-label px-0">Số điện thoại</label>
+                    <label class="col-4 col-form-label px-0">Số điện thoại</label>
                     <input class="col border-0 border text-secondary bg-transparent phone-number" disabled type="text"
-                           value="0323456141" name="phone">
+                           value="${requestScope.user.phoneNumber}" name="phone">
                   </div>
 
                   <div class="row mb-2 d-flex align-items-center">
-                    <label class="col-5 col-form-label px-0">Email</label>
+                    <label class="col-4 col-form-label px-0">Email</label>
                     <input class="col border-0 border text-secondary bg-transparent email" disabled type="email"
-                           value="khoidzvclone@gmail.com">
+                           value="${requestScope.user.email}">
                   </div>
 
                   <div class="row mb-2 d-flex align-items-center">
-                    <label class="col-5 col-form-label px-0">Trạng thái</label>
-                    <div class="col-2 status">Hoạt động</div>
+                    <label class="col-4 col-form-label px-0">Trạng thái</label>
+
+                    <c:choose>
+                      <c:when test="${requestScope.user.active == 1}">
+                        <div class="col-2 status status-active">Hoạt động</div>
+                      </c:when>
+                      <c:otherwise>
+                        <div class="col-2 status status-suspend">Đình chỉ</div>
+                      </c:otherwise>
+                    </c:choose>
+
 
                     <div class="form-check-radio status-radio col d-flex justify-content-between d-none">
                       <div class="form-check">
@@ -87,8 +96,8 @@
                   </div>
 
                   <div class="row mb-2 d-flex align-items-center">
-                    <label class="col-5 col-form-label px-0">Giới tính</label>
-                    <label class="col gender">Nam</label>
+                    <label class="col-4 col-form-label px-0">Giới tính</label>
+                    <label class="col gender">${requestScope.user.gender}</label>
 
                     <div class="form-check-radio gender-radio col d-flex justify-content-between d-none">
                       <div class="form-check">
@@ -113,13 +122,13 @@
                   </div>
 
                   <div class="row mb-2 d-flex align-items-center">
-                    <label class="col-5 col-form-label px-0">Ngày sinh</label>
+                    <label class="col-4 col-form-label px-0">Ngày sinh</label>
                     <input class="col border-0 border text-secondary bg-transparent birthdate" disabled type="date"
-                           value="2025-10-10">
+                           value="${requestScope.user.birthdate}">
                   </div>
 
                   <div class="row mb-2 d-flex align-items-center role-radio d-none">
-                    <label class="col-5 col-form-label px-0">Vai trò</label>
+                    <label class="col-4 col-form-label px-0">Vai trò</label>
 
                     <div class="form-check-radio  col d-flex justify-content-between ">
                       <div class="form-check">
@@ -244,3 +253,31 @@
 
 <script src="<c:url value="/admin/assets/js/user-detail.js"/>"></script>
 
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const gender = '${requestScope.user.gender}';
+    const role = '${requestScope.user.role}';
+    const status = '${requestScope.user.active}';
+
+    if (gender === 'NAM') {
+      document.getElementById('male').checked = true;
+    } else if (gender === 'NỮ') {
+      document.getElementById('female').checked = true;
+    } else if (gender === 'KHÁC') {
+      document.getElementById('other').checked = true;
+    }
+
+    if (role === '1') {
+      document.getElementById('admin').checked = true;
+    } else if (role === '0') {
+      document.getElementById('user').checked = true;
+    }
+
+    if (status === '1') {
+      document.getElementById('active').checked = true;
+    } else if (status === '0') {
+      document.getElementById('suspend').checked = true;
+    }
+  });
+
+</script>

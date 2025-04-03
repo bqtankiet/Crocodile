@@ -35,10 +35,19 @@
     margin-bottom: 15px;
 }
 
-.status {
+.status-active {
     display: inline-block;
     background: #d4f8d4;
     color: #2a9d2a;
+    padding: 4px 10px;
+    border-radius: 15px;
+    width: fit-content;
+}
+
+.status-suspend {
+    display: inline-block;
+    background: #f8d4d4;
+    color: #d22a2a;
     padding: 4px 10px;
     border-radius: 15px;
     width: fit-content;

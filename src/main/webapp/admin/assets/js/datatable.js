@@ -45,11 +45,10 @@ var tb = $('table.my-table').DataTable({
 
 $(document).ready(function () {
     $('.dropdown-menu').on('click', '.dropdown-item', function (e) {
-        e.preventDefault();
 
         var action = $(this).data('action');
         if (action) {
-
+            e.preventDefault();
             if (action === 'copy') {
                 tb.button(0).trigger();
             } else if (action === 'print') {

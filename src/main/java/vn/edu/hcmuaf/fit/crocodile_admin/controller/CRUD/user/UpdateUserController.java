@@ -46,24 +46,32 @@ public class UpdateUserController extends HttpServlet {
 
         JSONObject jsonObject = new JSONObject(jsonInput);
 
+
+
         try {
-            int id = jsonObject.getInt("id");
-            String fullname = jsonObject.getString("fullname");
-            String email = jsonObject.getString("email");
-            String phoneNumber = jsonObject.getString("phoneNumber");
-            String gender = jsonObject.getString("gender");
-            LocalDate birthdate = LocalDate.parse(jsonObject.getString("birthdate"));
-            int active = jsonObject.getInt("active");
-            int role = jsonObject.getInt("role");
+            String action = jsonObject.getString("action");
 
-            // Gọi service để cập nhật người dùng
-            userService.updateUser(id, fullname, phoneNumber, email, gender, birthdate, active, role);
+            if (action.equals("updateInfo")) {
+                int id = jsonObject.getInt("id");
+                String fullname = jsonObject.getString("fullname");
+                String email = jsonObject.getString("email");
+                String phoneNumber = jsonObject.getString("phoneNumber");
+                String gender = jsonObject.getString("gender");
+                LocalDate birthdate = LocalDate.parse(jsonObject.getString("birthdate"));
+                int active = jsonObject.getInt("active");
+                int role = jsonObject.getInt("role");
 
-            // Trả về phản hồi thành công
+                userService.updateUser(id, fullname, phoneNumber, email, gender, birthdate, active, role);
+            }
+
+            if (action.equals("toggleBan")) {
+                int id = jsonObject.getInt("id");
+                userService.banUser(id);
+            }
+
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().write("{\"message\": \"User updated successfully\"}");
         } catch (Exception e) {
-            // Trả về phản hồi lỗi nếu có
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().write("{\"error\": \"Invalid input data\"}");
         }

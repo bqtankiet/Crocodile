@@ -21,6 +21,18 @@ public class UserDaoAdmin implements IUserDaoAdmin{
     }
 
     @Override
+    public User getUser(int id) {
+        String sql = "SELECT * FROM users WHERE id = :id";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("id", id)
+                        .mapToBean(User.class)
+                        .findOnly()
+        );
+    }
+
+
+    @Override
     public List<User> getAllUser() {
         String sql = "SELECT * FROM users";
         return JdbiConnect.getJdbi().withHandle(handle ->
@@ -63,6 +75,32 @@ public class UserDaoAdmin implements IUserDaoAdmin{
             e.printStackTrace();
             throw new RuntimeException("Error executing query", e);
         }
+    }
+
+    @Override
+    public int orderReceived(int idUser) {
+        String sql = "SELECT COUNT(*) AS total_completed_orders " +
+                "FROM orders " +
+                "WHERE status = 'COMPLETED' AND idUser = :idUser";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("idUser", idUser)
+                        .mapTo(Integer.class)
+                        .one()
+        );
+    }
+
+    @Override
+    public int orderCanceled(int idUser) {
+        String sql = "SELECT COUNT(*) AS total_completed_orders " +
+                "FROM orders " +
+                "WHERE status = 'CANCELLED' AND idUser = :idUser";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("idUser", idUser)
+                        .mapTo(Integer.class)
+                        .one()
+        );
     }
 
 
