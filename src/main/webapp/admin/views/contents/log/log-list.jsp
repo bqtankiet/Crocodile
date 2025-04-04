@@ -97,22 +97,26 @@
                                         <c:set var="rowClass" value="bg-secondary"/>
                                     </c:otherwise>
                                 </c:choose>
-                                <td><input type="checkbox" class="rowCheckbox form-check-input" aria-label=""></td>
-                                <th scope="row"><span class="badge ${rowClass} text-white small">${log.level}</span></th>
+                                <td><input type="checkbox" class="rowCheckbox form-check-input" data-id="${log.eventId}"
+                                           aria-label=""></td>
+                                <th scope="row"><span class="badge ${rowClass} text-white small">${log.level}</span>
+                                </th>
                                 <td><fmt:formatDate value="${log.timestampDate}" pattern="dd/MM/yyyy HH:mm:ss"/></td>
                                 <td>${log.category}</td>
                                 <td>${log.message}</td>
                                 <td>${log.userId}</td>
                                 <td>${log.username}</td>
                                 <td>${log.ip}</td>
-                                <td>
+                                <td style="overflow: unset">
                                     <div class="dropdown">
                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                                                 data-bs-toggle="dropdown">
                                             <i class="bx bx-dots-vertical-rounded"></i>
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="${""}">
+                                            <!-- Button trigger modal -->
+                                            <a class="dropdown-item btn-log-detail" data-id="${log.eventId}"
+                                               data-bs-toggle="modal" data-bs-target="#exampleModal" type="button">
                                                 <i class="bx bx-edit-alt me-1"></i>Chi tiet
                                             </a>
                                             <button class="dropdown-item btn-delete" data-id="${log.eventId}">
@@ -129,6 +133,25 @@
 
             </div>
             <!--/ Bordered Table -->
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Chi tiết </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Tính năng đang phát triển
+                </div>
+                <%--                <div class="modal-footer">--%>
+                <%--                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>--%>
+                <%--                    <button type="button" class="btn btn-primary">Save changes</button>--%>
+                <%--                </div>--%>
+            </div>
         </div>
     </div>
 </div>
@@ -185,5 +208,27 @@
                 exportOptions: {columns: ':not(.action-column)'}
             }
         ]
+    });
+</script>
+
+<script>
+    // Lấy phần tử modal
+    const myModalEl = document.getElementById('exampleModal');
+    const modelBody = myModalEl.querySelector(".modal-body");
+
+    // onClick btn-log-detail
+    document.querySelectorAll(".btn-log-detail").forEach(btn => {
+        btn.addEventListener("click", function () {
+            console.log("Log id = " + btn.getAttribute("data-id"));
+            modelBody.innerHTML = "";
+            modelBody.innerText = "Log id = " + btn.dataset.id;
+        });
+    });
+
+    // onClick btn delete
+    document.querySelectorAll(".btn-delete").forEach(btn => {
+       btn.addEventListener("click", function() {
+          alert("Chức năng đang phát triển");
+       });
     });
 </script>
