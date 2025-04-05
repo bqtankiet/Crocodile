@@ -52,7 +52,9 @@ public class UrlProperties extends ApplicationProperties {
     public static String userDetail() { return getProperty("admin.user.detail"); }
     // --------------------- user ------------------------
 
-
+    // --------------------- log -------------------------
+    public static String log() { return getProperty("admin.log"); }
+    // --------------------- log -------------------------
 
 
 
