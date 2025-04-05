@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.crocodile_admin.controller;
+package vn.edu.hcmuaf.fit.crocodile_admin.controller.CRUD.log;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
