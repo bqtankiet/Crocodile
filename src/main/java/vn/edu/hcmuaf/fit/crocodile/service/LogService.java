@@ -37,4 +37,8 @@ public class LogService {
         if (logEventDetail == null) return null;
         return logDAO.findOldAndNew(logEventDetail.getTableName(), logEventDetail.getOldId(), logEventDetail.getNewId());
     }
+
+    public LogEventDetail getLogDetailByEventId(int eventId) {
+        return logDAO.getLogDetailByEventId(eventId);
+    }
 }

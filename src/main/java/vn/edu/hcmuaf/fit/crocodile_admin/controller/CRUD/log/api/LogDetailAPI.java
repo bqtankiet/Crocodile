@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import vn.edu.hcmuaf.fit.crocodile.dao.log.LogDAO;
+import vn.edu.hcmuaf.fit.crocodile.dao.log.LogEventDetail;
 import vn.edu.hcmuaf.fit.crocodile.service.LogService;
 
 import java.io.IOException;
@@ -31,7 +32,16 @@ public class LogDetailAPI extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         resp.setLocale(req.getLocale());
 
-        List<Map<String, Object>> resultSet = logService.getLogDetailWithOldNewDataByEventId(eventId);
+        LogEventDetail detail = logService.getLogDetailByEventId(eventId);
+        if(detail == null) {
+            JsonObject errorResponse = new JsonObject();
+            errorResponse.addProperty("id", eventId);
+            errorResponse.addProperty("message", "Không tìm thấy chi tiết cho eventId: " + eventId);
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            resp.getWriter().write(new Gson().toJson(errorResponse));
+            return;
+        }
+        List<Map<String, Object>> resultSet = logService.findOldAndNew(detail.getTableName(), detail.getOldId(), detail.getNewId());
         if(resultSet.isEmpty()) {
             resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
             resp.getWriter().write("{\"error\": \"Không tìm thấy dữ liệu cho eventId: " + eventId + "\"}");
@@ -40,6 +50,8 @@ public class LogDetailAPI extends HttpServlet {
 
         JsonObject jsonResponse = new JsonObject();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+        jsonResponse.add("metadata", gson.toJsonTree(detail));
 
         // Thêm keys
         ArrayList<String> keys = new ArrayList<>(resultSet.get(0).keySet());

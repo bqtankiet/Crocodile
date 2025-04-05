@@ -20,4 +20,10 @@ public class LogDetailTest {
         LogEventDetail detail = logDAO.getLogDetailByEventId(35);
         System.out.println(detail);
     }
+
+    @Test
+    void test123() {
+        LogService service = new LogService(new LogDAO());
+        service.getLogDetailWithOldNewDataByEventId(35).forEach(System.out::println);
+    }
 }

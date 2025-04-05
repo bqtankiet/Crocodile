@@ -73,7 +73,7 @@
                             <th scope="col">User ID</th>
                             <th scope="col">Username</th>
                             <th scope="col">IP</th>
-                            <th scope="col" class="action-column"></th>
+                            <th scope="col" class="action-column">Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -109,7 +109,7 @@
                                 <td>${log.ip}</td>
                                 <td style="overflow: unset">
                                     <div class="dropdown">
-                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                        <button type="button" class="btn btn-secondary p-0 dropdown-toggle hide-arrow"
                                                 data-bs-toggle="dropdown">
                                             <i class="bx bx-dots-vertical-rounded"></i>
                                         </button>
@@ -138,7 +138,7 @@
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 90%">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Chi tiết </h1>
@@ -214,14 +214,20 @@
 <script>
     // Lấy phần tử modal
     const myModalEl = document.getElementById('exampleModal');
-    const modelBody = myModalEl.querySelector(".modal-body");
+    const modalBody = myModalEl.querySelector(".modal-body");
 
     // onClick btn-log-detail
     document.querySelectorAll(".btn-log-detail").forEach(btn => {
         btn.addEventListener("click", function () {
-            console.log("Log id = " + btn.getAttribute("data-id"));
-            modelBody.innerHTML = "";
-            modelBody.innerText = "Log id = " + btn.dataset.id;
+            const eventId = parseInt(btn.dataset.id);
+            console.log("Log id = " + eventId);
+            modalBody.innerHTML = "";
+            modalBody.innerText = "Log id = " + eventId;
+            $('#exampleModal').find('.modal-body').load('views/contents/log/log-detail.jsp', function(resp, status) {
+                if(status === 'success') {
+                    fetchLogDetailData(eventId);
+                }
+            });
         });
     });
 
