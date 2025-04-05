@@ -150,6 +150,15 @@
             </a>
         </li>
 
+        <!-- Inventory -->
+        <c:url var="inventoryUrl" value="<%= UrlProperties.inventory() %>"/>
+        <li class="menu-item ${param.activePage == 'inventory' ? 'active' : ''}">
+            <a href="${inventoryUrl}" class="menu-link override">
+                <i class="menu-icon tf-icons bx bx-box"></i>
+                <div>Quản lý kho hàng</div>
+            </a>
+        </li>
+
     </ul>
 </aside>
 

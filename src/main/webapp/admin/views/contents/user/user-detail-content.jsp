@@ -148,7 +148,10 @@
 
                   <div class="buttons edit">
                     <button type="button" class="btn edit">Chỉnh sửa</button>
-                    <button type="button" class="btn btn-outline-danger suspend">Đình chỉ</button>
+                    <button type="button"
+                            class="btn ${requestScope.user.active == 1 ? 'btn-outline-danger' : 'btn-outline-success'} suspend">
+                      ${requestScope.user.active == 1 ? 'Đình chỉ' : 'Hoạt động'}
+                    </button>
                   </div>
 
                   <div class="buttons action d-none">
