@@ -47,7 +47,15 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
 
-
+  <style>
+    .btn.save {
+      padding: 8px 10px;
+      border-radius: 8px;
+      background: #007b5f;
+      color: white;
+      margin-right: 5px;
+    }
+  </style>
 </head>
 <body>
 <div class="layout-wrapper layout-content-navbar">
@@ -55,7 +63,7 @@
 
     <!-- Sidebar -->
     <jsp:include page="/admin/views/includes/sidebar.jsp">
-      <jsp:param name="activePage" value="inventory"/>
+      <jsp:param name="activePage" value="warehouse"/>
     </jsp:include>
     <!-- / Sidebar -->
     <div class="layout-page">
@@ -67,7 +75,7 @@
       <!-- / Header -->
 
       <!-- Content -->
-      <jsp:include page="/admin/views/contents/inventory.jsp"/>
+      <jsp:include page="/admin/views/contents/warehouse-management-content.jsp"/>
       <!-- / Content -->
     </div>
 
