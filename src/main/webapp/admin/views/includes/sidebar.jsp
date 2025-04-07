@@ -9,6 +9,8 @@
 <c:url var="orderUrl" value="<%= UrlProperties.order() %>"/>
 <c:url var="userUrl" value="<%= UrlProperties.user() %>"/>
 <c:url var="contactUrl" value="<%= UrlProperties.contact()%>" />
+<c:url var="inventoryUrl" value="<%= UrlProperties.inventory() %>"/>
+<c:url var="warehouseUrl" value="<%= UrlProperties.warehouse() %>"/>
 
 <style>
     #layout-menu.bg-menu-theme {
@@ -148,6 +150,28 @@
                 <i class="menu-icon tf-icons bx bx-crown"></i>
                 <div>Lịch sử ghi log</div>
             </a>
+        </li>
+
+        <!-- Inventory -->
+        <li class="menu-item
+            ${param.activePage == 'inventory' || param.activePage == 'warehouse' ? 'active open' : ''}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle menu-drop">
+                <i class="menu-icon tf-icons bx bx-table"></i>
+                <div>Quản lý kho hàng</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item ${param.activePage == 'warehouse' ? 'active' : ''}">
+                    <a href="${warehouseUrl}" class="menu-link">
+                        <div>Quản lý nhập kho</div>
+                    </a>
+                </li>
+                <li class="menu-item ${param.activePage == 'inventory' ? 'active' : ''}">
+                    <a href="${inventoryUrl}" class="menu-link">
+                        <div>Quản lý tồn kho</div>
+                    </a>
+                </li>
+
+            </ul>
         </li>
 
     </ul>
