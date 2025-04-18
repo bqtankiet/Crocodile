@@ -5,12 +5,6 @@
 <fmt:setLocale value="vi_VN"/>
 <c:url var="url_product" value="<%=UrlProperties.product()%>"/>
 
-<style>
-
-</style>
-
-
-
 <!-- Content wrapper -->
 <div class="content-wrapper">
   <div class="container-xxl flex-grow-1 container-p-y pb-5">
