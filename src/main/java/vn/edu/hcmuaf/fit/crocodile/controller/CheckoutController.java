@@ -83,12 +83,11 @@ public class CheckoutController extends HttpServlet {
         int total = Integer.parseInt(request.getParameter("total"));
 
 
-        int order = orderService.insertOrder(idUser, idAddress, total, currentDateTime,
-                convertPaymentMethod(paymentMethod), Order.Status.PENDING);
-
+        int idOrder = orderService.insertOrder(idUser, idAddress, total, currentDateTime,
+                        convertPaymentMethod(paymentMethod), Order.Status.PENDING);
         String action = request.getParameter("action");
-        System.out.println(action);
-        if (order > 0 && "buySuccess".equals(action)) {
+
+        if (idOrder > 0 && "buySuccess".equals(action)) {
             String idBuys = request.getParameter("idBuys");
 
             String[] idVariants = idBuys.split(",");

@@ -259,18 +259,21 @@
 
 
 <script>
-    $(document).on('click', '.payBtn', function () {
+    $(document).on('click', '.payBtn', ()=> {
         const idUser = $('.id-user').data('id-user');
         const idAddress = $('.address').data('id-address');
 
         const selectedPaymentMethod = $('input[name="payment-method"]:checked').val();
         const totalAmount = $('.total-amount').data('total')
 
-        const idBuys = $('.item-buy').map(function () {
+        const $itemBuy = $('.item-buy');
+
+        const idBuys = $itemBuy.map(function() {
             return $(this).val();
         }).get();
 
-        const action = $('.item-buy').data('action')
+        const action = $itemBuy.data('action')
+        console.log(action)
 
         $.ajax({
             url: "${urlCheckout}",

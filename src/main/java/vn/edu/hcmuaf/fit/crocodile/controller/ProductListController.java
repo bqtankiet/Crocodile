@@ -79,7 +79,7 @@ public class ProductListController extends HttpServlet {
         }
         //      ---------------  Search ---------------
 
-        request.getRequestDispatcher("/views/product-log-list.jsp").forward(request, response);
+        request.getRequestDispatcher("/views/product-list.jsp").forward(request, response);
     }
 
     @Override
