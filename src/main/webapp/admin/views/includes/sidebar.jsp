@@ -12,6 +12,7 @@
 <c:url var="contactUrl" value="<%= UrlProperties.contact()%>" />
 <c:url var="inventoryUrl" value="<%= UrlProperties.inventory() %>"/>
 <c:url var="warehouseUrl" value="<%= UrlProperties.warehouse() %>"/>
+<c:url var="rolePermissionUrl" value="<%= UrlProperties.rolePermission() %>"/>
 
 <c:set var="permissions" value="${sessionScope.permissions}" />
 <style>
@@ -102,28 +103,29 @@
         </c:if>
 
         <!-- Extended components -->
-        <li class="menu-item
+        <c:if test="${fn:contains(permissions, 'content_read')}">
+            <li class="menu-item
             ${param.activePage == 'contact' || param.activePage == 'about' ? 'active open' : ''}">
-            <a href="javascript:void(0)" class="menu-link override menu-toggle menu-drop">
-                <i class="menu-icon tf-icons bx bx-detail"></i>
-                <div>Quản lý giao diện</div>
-            </a>
-            <ul class="menu-sub">
-                <li class="menu-item ${param.activePage == 'contact' ? 'active' : ''}">
-                    <a href="${contactUrl}" class="menu-link override">
-                        <div>Liên hệ</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link override">
-                        <div>Giới thiệu</div>
-                    </a>
-                </li>
+                <a href="javascript:void(0)" class="menu-link override menu-toggle menu-drop">
+                    <i class="menu-icon tf-icons bx bx-detail"></i>
+                    <div>Quản lý giao diện</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item ${param.activePage == 'contact' ? 'active' : ''}">
+                        <a href="${contactUrl}" class="menu-link override">
+                            <div>Liên hệ</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#" class="menu-link override">
+                            <div>Giới thiệu</div>
+                        </a>
+                    </li>
 
 
-            </ul>
-        </li>
-
+                </ul>
+            </li>
+        </c:if>
 
         <!-- Information Manager -->
         <c:if test="${fn:contains(permissions, 'order_read')}">
@@ -189,6 +191,17 @@
                         </li>
                     </c:if>
                 </ul>
+            </li>
+        </c:if>
+
+        <!-- Role & Permission -->
+        <c:if test="${fn:contains(permissions, 'role_read')}">
+            <c:url var="logUrl" value="<%= UrlProperties.log() %>"/>
+            <li class="menu-item ${param.activePage == 'role' ? 'active' : ''}">
+                <a href="${rolePermissionUrl}" class="menu-link override">
+                    <i class="menu-icon tf-icons bx bx-crown"></i>
+                    <div>Role & Permission</div>
+                </a>
             </li>
         </c:if>
 

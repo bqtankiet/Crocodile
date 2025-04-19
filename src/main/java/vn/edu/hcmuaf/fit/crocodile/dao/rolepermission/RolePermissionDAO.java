@@ -3,8 +3,11 @@ package vn.edu.hcmuaf.fit.crocodile.dao.rolepermission;
 import vn.edu.hcmuaf.fit.crocodile.config.JdbiConnect;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Role;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 public class RolePermissionDAO implements IRolePermissionDAO {
     @Override
@@ -96,6 +99,146 @@ public class RolePermissionDAO implements IRolePermissionDAO {
                 .bind("userId", userId)
                 .mapTo(String.class)
                 .set()
+        );
+    }
+
+    @Override
+    public String getRoleName(int roleId) {
+        String query = "SELECT name FROM roles WHERE id=:roleId";
+        return JdbiConnect.getJdbi().withHandle(handle -> handle
+                .createQuery(query)
+                .bind("roleId", roleId)
+                .mapTo(String.class)
+                .findFirst()
+                .orElse(null)
+        );
+    }
+
+    @Override
+    public TreeMap<String, List<String>> getAllPermissionMap() {
+        String query = """
+                SELECT
+                  scope,
+                  GROUP_CONCAT(DISTINCT action ORDER BY action ASC) AS actions
+                FROM permissions
+                GROUP BY scope
+                ORDER BY scope
+                """;
+
+        return JdbiConnect.getJdbi().withHandle(handle -> handle
+                .createQuery(query)
+                .mapToMap()
+                .list()
+                .stream()
+                .collect(Collectors.toMap(
+                        row -> (String) row.get("scope"),
+                        row -> Arrays.asList(((String) row.get("actions")).split(",")),
+                        (existing, replacement) -> existing,
+                        TreeMap::new // Dùng TreeMap để giữ thứ tự
+                ))
+        );
+    }
+
+    @Override
+    public TreeMap<String, List<String>> getAllCheckedPermissionMap(int roleId) {
+        String query = """
+                SELECT
+                  p.scope,
+                  GROUP_CONCAT(DISTINCT p.action ORDER BY p.action ASC) AS actions
+                FROM permissions p
+                JOIN roles_permissions rp ON p.id = rp.idPermission
+                WHERE rp.idRole = :roleId
+                GROUP BY p.scope
+                ORDER BY p.scope
+                """;
+
+        return JdbiConnect.getJdbi().withHandle(handle -> handle
+                .createQuery(query)
+                .bind("roleId", roleId)
+                .reduceRows(new TreeMap<>(), (map, rowView) -> {
+                    String scope = rowView.getColumn("scope", String.class);
+                    String actionsStr = rowView.getColumn("actions", String.class);
+                    List<String> actions = Arrays.asList(actionsStr.split(","));
+                    map.put(scope, actions);
+                    return map;
+                })
+        );
+    }
+
+    @Override
+    public TreeMap<String, List<Permission>> getCheckedPermissionsMap(int roleId) {
+        String query = """
+                SELECT
+                  p.id AS id,
+                  p.name as name,
+                  p.scope AS scope,
+                  p.action AS action
+                FROM permissions p
+                JOIN roles_permissions rp ON p.id = rp.idPermission
+                WHERE rp.idRole = :roleId
+                ORDER BY p.scope, p.action
+                """;
+
+        return JdbiConnect.getJdbi().withHandle(handle -> handle
+                .createQuery(query)
+                .bind("roleId", roleId)
+                .mapToBean(Permission.class)
+                .stream()
+                .collect(Collectors.groupingBy(
+                        Permission::getScope,
+                        TreeMap::new,
+                        Collectors.toList()
+                ))
+        );
+    }
+
+    @Override
+    public TreeMap<String, List<Permission>> getAllPermissionsMap() {
+        String query = """
+                    SELECT id, name, scope, action
+                    FROM permissions
+                    ORDER BY scope ASC, action ASC
+                """;
+
+        return JdbiConnect.getJdbi().withHandle(handle -> handle
+                .createQuery(query)
+                .mapToBean(Permission.class)
+                .stream()
+                .collect(Collectors.groupingBy(
+                        Permission::getScope,
+                        TreeMap::new, // preserve order by scope
+                        Collectors.toList()
+                ))
+        );
+    }
+
+    @Override
+    public List<Role> getAllRoles() {
+        String query = """
+                SELECT id, name, description
+                FROM roles
+                ORDER BY name
+                """;
+        return JdbiConnect.getJdbi().withHandle(handle -> handle
+                .createQuery(query)
+                .mapToBean(Role.class)
+                .list()
+        );
+    }
+
+    @Override
+    public List<RoleTotalUsersDTO> getAllRoleTotalUsers() {
+        String query = """
+                SELECT r.id, r.`name`, COUNT(u.id) AS totalUsers
+                FROM roles r
+                LEFT JOIN users u ON r.id = u.role
+                GROUP BY r.id
+                ORDER BY r.`name`
+                """;
+        return JdbiConnect.getJdbi().withHandle(handle -> handle
+                .createQuery(query)
+                .mapToBean(RoleTotalUsersDTO.class)
+                .list()
         );
     }
 }

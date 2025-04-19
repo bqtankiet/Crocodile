@@ -1,10 +1,12 @@
 import org.junit.jupiter.api.Test;
+import vn.edu.hcmuaf.fit.crocodile.dao.rolepermission.Permission;
 import vn.edu.hcmuaf.fit.crocodile.dao.rolepermission.RolePermissionConst;
 import vn.edu.hcmuaf.fit.crocodile.dao.rolepermission.RolePermissionService;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Role;
 
 import java.util.List;
 import java.util.Set;
+import java.util.TreeMap;
 
 import static vn.edu.hcmuaf.fit.crocodile.dao.rolepermission.RolePermissionConst.READ;
 
@@ -38,5 +40,22 @@ public class PermissionTest {
         for (String permission : permissions) {
             System.out.println(permission);
         }
+    }
+
+    @Test
+    public void test5() {
+        RolePermissionService service = new RolePermissionService();
+        TreeMap<String, List<Permission>> result = service.getAllPermissionsMap();
+        result.forEach((scope, actions) -> {
+            System.out.println("Scope: " + scope);
+            System.out.println("Actions: " + actions);
+        });
+    }
+
+    @Test
+    public void test6() {
+        RolePermissionService service = new RolePermissionService();
+        List<Role> result = service.getAllRoles();
+        result.forEach(System.out::println);
     }
 }
