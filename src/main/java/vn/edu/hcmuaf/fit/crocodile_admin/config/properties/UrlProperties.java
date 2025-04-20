@@ -61,5 +61,8 @@ public class UrlProperties extends ApplicationProperties {
     public static String warehouse() { return getProperty("admin.warehouse"); }
     // --------------------- inventory -------------------------
 
+    // --------------------- role & permission -------------------------
+    public static String rolePermission() { return getProperty("admin.role_permission"); }
+    // --------------------- role & permission -------------------------
 
 }

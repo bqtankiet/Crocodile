@@ -1,0 +1,25 @@
+package vn.edu.hcmuaf.fit.crocodile_admin.filter;
+
+import jakarta.servlet.*;
+import jakarta.servlet.annotation.WebFilter;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import vn.edu.hcmuaf.fit.crocodile.dao.rolepermission.RolePermissionConst;
+import vn.edu.hcmuaf.fit.crocodile_admin.utils.PermissionHelper;
+
+import java.io.IOException;
+
+@WebFilter(urlPatterns = "/admin/category")
+public class CategoryAccessFilter implements Filter {
+    @Override
+    public void doFilter(ServletRequest req, ServletResponse res, FilterChain filterChain) throws IOException, ServletException {
+        HttpServletRequest request = (HttpServletRequest) req;
+        HttpServletResponse response = (HttpServletResponse) res;
+        boolean haveAccess = PermissionHelper.checkPermission(request, RolePermissionConst.CATEGORY_MANAGEMENT, RolePermissionConst.READ);
+        if (haveAccess) {
+            filterChain.doFilter(req, res);
+        } else {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        }
+    }
+}
