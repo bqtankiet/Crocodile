@@ -3,8 +3,10 @@ package vn.edu.hcmuaf.fit.crocodile.controller;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import vn.edu.hcmuaf.fit.crocodile.config.JdbiConnect;
 import vn.edu.hcmuaf.fit.crocodile.model.cart.Cart;
 import vn.edu.hcmuaf.fit.crocodile.model.cart.CartItem;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.EnumType;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Order;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Product;
 import vn.edu.hcmuaf.fit.crocodile.service.OrderService;
@@ -32,7 +34,6 @@ public class CheckoutController extends HttpServlet {
 
             if (idVariant != 0) {
                 int quantity = Integer.parseInt(request.getParameter("quantity"));
-                System.out.println(quantity);
 
                 Product.ProductVariant pv = productService.getProductVariantById(idVariant);
                 CartItem cartItem = new CartItem(pv, quantity);
@@ -81,27 +82,54 @@ public class CheckoutController extends HttpServlet {
         int idAddress = Integer.parseInt(request.getParameter("idAddress"));
         String paymentMethod = request.getParameter("paymentMethod");
         int total = Integer.parseInt(request.getParameter("total"));
-
-
-        int idOrder = orderService.insertOrder(idUser, idAddress, total, currentDateTime,
-                        convertPaymentMethod(paymentMethod), Order.Status.PENDING);
         String action = request.getParameter("action");
 
-        if (idOrder > 0 && "buySuccess".equals(action)) {
-            String idBuys = request.getParameter("idBuys");
+        try {
+            JdbiConnect.getJdbi().useTransaction(handle -> {
+                // insert bang order va tra ve idOrder
+                int idOrder = orderService.insertOrder(idUser, idAddress, total, currentDateTime,
+                        convertPaymentMethod(paymentMethod), Order.Status.PENDING);
 
-            String[] idVariants = idBuys.split(",");
-            HttpSession session = request.getSession();
+                if ("buySuccess".equals(action)) {
+                    String[] idVariants = request.getParameter("idBuys").split(",");
 
-            Cart cart = (Cart) session.getAttribute("cart");
+                    String quantities = request.getParameter("quantities");
 
-            for(String idV : idVariants) {
-                int id = Integer.parseInt(idV);
+                    HttpSession session = request.getSession();
 
-                if(cart.containItem(id)) cart.removeItem(id);
-            }
-            session.setAttribute("cart", cart);
+                    Cart cart = (Cart) session.getAttribute("cart");
+
+                    for (int i = 0; i < idVariants.length; i++) {
+                        int idV = Integer.parseInt(idVariants[i]);
+                        Product.ProductVariant pv = productService.getProductVariantById(idV);
+
+                        int quantity = Integer.parseInt(quantities.split(",")[i]);
+
+                        // insert vao bang order_details
+                        orderService.insertOrderDetail(idOrder, idV, quantity);
+
+                        // insert vao bang inventory_histories
+                        orderService.insertInventoryHistory(idV, idOrder, quantity, EnumType.SALE, 1);
+
+                        // update so luong trong product_variants
+                        int rowAffected = orderService.updateStock(idV, quantity);
+                        if (rowAffected == 0) {
+                            throw new RuntimeException("Đặt hàng thất bại: Không đủ hàng trong kho cho sản phẩm!");
+                        }
+                        // xoa san pham khoi gio hang
+                        if(cart.containItem(idV)) cart.removeItem(idV);
+                    }
+
+                    session.setAttribute("cart", cart);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.setContentType("text/plain; charset=UTF-8");
+            response.getWriter().write(e.getMessage());
         }
+
     }
 
     private Order.PaymentMethod convertPaymentMethod(String paymentMethod) {

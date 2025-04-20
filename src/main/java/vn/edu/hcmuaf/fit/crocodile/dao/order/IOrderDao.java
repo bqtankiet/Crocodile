@@ -22,7 +22,7 @@ public interface IOrderDao extends BasicDao<Integer, Order> {
 
     int updateStock(int idVariant, int quantity);
 
-    int insertOrderDetail(int idOrder, int idVariant, int quantity, double unitPrice);
+    int insertOrderDetail(int idOrder, int idVariant, int quantity);
 
     int insertInventoryHistory(int idVariant, int idOrder, int quantity, EnumType type, int idSupplier);
 

@@ -20,7 +20,7 @@ public class InventoryDao implements IInventoryDao{
                         v.stock * p.price AS totalAmount,
                         s.name AS supplierName,
                         (SELECT h.changeDate
-                         FROM inventory_history h
+                         FROM inventory_histories h
                          WHERE h.idVariant = v.id AND h.changeType = 'IMPORT'\s
                          ORDER BY h.changeDate DESC
                          LIMIT 1) AS lastImportDate

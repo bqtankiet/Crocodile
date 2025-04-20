@@ -131,8 +131,11 @@
                             <c:when test="${empty requestScope.cartItem}">
                                 <c:forEach var="item" items="${sessionScope.selectedCartItems}">
                                     <c:set var="productVariant" value="${item.productVariant}"/>
-                                    <input class="item-buy" type="text" value="${productVariant.id}"
+                                    <input class="idVariant" type="text" value="${productVariant.id}"
                                            hidden="hidden" data-action="buySuccess">
+
+                                    <input class="quantity" type="text" value="${item.quantity}"
+                                           hidden="hidden">
                                     <div class="d-flex flex-column">
                                         <div class="row g-0">
                                             <div class="col-2 me-3 position-relative">
@@ -266,14 +269,18 @@
         const selectedPaymentMethod = $('input[name="payment-method"]:checked').val();
         const totalAmount = $('.total-amount').data('total')
 
-        const $itemBuy = $('.item-buy');
+        const idVariant = $('.idVariant');
 
-        const idBuys = $itemBuy.map(function() {
+        const idBuys = idVariant.map(function() {
             return $(this).val();
         }).get();
+        console.log(idBuys)
 
-        const action = $itemBuy.data('action')
-        console.log(action)
+        const quantities = $('.quantity').map(function() {
+            return $(this).val();
+        }).get();
+        console.log(quantities)
+        const action = idVariant.data('action')
 
         $.ajax({
             url: "${urlCheckout}",
@@ -284,7 +291,8 @@
                 paymentMethod: selectedPaymentMethod,
                 total: totalAmount,
                 action: action,
-                idBuys: idBuys.join(',')
+                idBuys: idBuys.join(','),
+                quantities: quantities.join(',')
             },
             success: function(response) {
                 sessionStorage.setItem('liveMessage', 'Đặt hàng thành công!');
@@ -292,7 +300,8 @@
                 window.location.reload();
             },
             error: function (xhr, status, error) {
-                sessionStorage.setItem('liveMessage', 'Đặt hàng thất bại, vui lòng thử lại!');
+                const errorMessage = xhr.responseText || 'Đặt hàng thất bại, vui lòng thử lại!';
+                sessionStorage.setItem('liveMessage', errorMessage);
                 sessionStorage.setItem('liveMessageType', 'danger');
                 window.location.reload();
             }

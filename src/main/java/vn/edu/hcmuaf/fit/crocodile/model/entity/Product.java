@@ -311,6 +311,7 @@ public class Product implements Serializable {
         private int idOption1;
         private int idOption2;
         private int stock;
+        private int idSupplier;
 //<<<<<<< HEAD
 //        private ProductOption option1;
 //        private ProductOption option2;
@@ -331,6 +332,8 @@ public class Product implements Serializable {
                     ", stock=" + stock +
                     '}';
         }
+
+
 
         // getter, setter
 
@@ -420,6 +423,10 @@ public class Product implements Serializable {
         public void setStock(int stock) {
             this.stock = stock;
         }
+
+        public int getIdSupplier() { return idSupplier; }
+
+        public void setIdSupplier(int idSupplier) { this.idSupplier = idSupplier; }
     }
 
     public static class ProductAttribute implements Serializable{

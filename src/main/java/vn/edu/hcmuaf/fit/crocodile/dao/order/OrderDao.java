@@ -55,33 +55,33 @@ public class OrderDao implements IOrderDao{
     }
 
     @Override
-    public int insertOrderDetail(int idOrder, int idVariant, int quantity, double unitPrice) {
+    public int insertOrderDetail(int idOrder, int idVariant, int quantity) {
         String sql = """
-                insert into order_details (idOrder, idVariant, quantity, unitPrice)
-                 values (:idOrder, :idVariant, :quantity, :unitPrice)
+                insert into order_details (idOrder, idVariant, quantity)
+                 values (:idOrder, :idVariant, :quantity)
                 """;
         return JdbiConnect.getJdbi().withHandle(handle ->
                 handle.createUpdate(sql)
                         .bind("idOrder", idOrder)
                         .bind("idVariant", idVariant)
                         .bind("quantity", quantity)
-                        .bind("unitPrice", unitPrice)
                         .execute()
 
         );
     }
 
     @Override
-    public int insertInventoryHistory(int idVariant, int idOrder, int quantity, EnumType type, int idSupplier) {
+    public int insertInventoryHistory(int idVariant, int idOrder, int quantityChange, EnumType changeType, int idSupplier) {
         String sql = """
-                insert into inventory_histories (idVariant, idOrder, quantity, type, date, idSupplier)
-                    value (:idVariant, :idOrder, :quantity, :type, :date, :idSupplier)
+                insert into inventory_histories (idVariant, idOrder, quantityChange, changeType, idSupplier)
+                    value (:idVariant, :idOrder, :quantityChange, :changeType, :idSupplier)
                 """;
         return JdbiConnect.getJdbi().withHandle(handle ->
                 handle.createUpdate(sql)
                         .bind("idVariant", idVariant)
                         .bind("idOrder", idOrder)
-                        .bind("type", type)
+                        .bind("quantityChange", -quantityChange)
+                        .bind("changeType", changeType)
                         .bind("idSupplier", idSupplier)
                         .execute()
         );
@@ -89,15 +89,15 @@ public class OrderDao implements IOrderDao{
 
     @Override
     public int updateStock(int id, int quantity) {
-        String sql = "update product_variants set stock = stock - quantity where id = :id";
+        String sql = "update product_variants set stock = stock - :quantity where id = :id and stock >= :quantity";
 
         return JdbiConnect.getJdbi().withHandle(handle ->
-                handle.createUpdate(sql))
-                .bind("id", id)
-                .execute();
+                handle.createUpdate(sql)
+                        .bind("id", id)
+                        .bind("quantity", quantity)
+                        .execute()
+        );
     }
-
-
 
     @Override
     public List<OrderManagement> finAllOrder() {
