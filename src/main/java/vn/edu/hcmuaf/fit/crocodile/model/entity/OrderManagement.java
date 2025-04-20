@@ -2,6 +2,8 @@ package vn.edu.hcmuaf.fit.crocodile.model.entity;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 
 public class OrderManagement implements Serializable {
     private int id;
@@ -62,6 +64,10 @@ public class OrderManagement implements Serializable {
 
     public LocalDateTime getInvoiceDate() {
         return invoiceDate;
+    }
+
+    public Date getInvoiceUtilDate(){
+        return Date.from(invoiceDate.atZone(ZoneId.systemDefault()).toInstant());
     }
 
     public void setInvoiceDate(LocalDateTime invoiceDate) {

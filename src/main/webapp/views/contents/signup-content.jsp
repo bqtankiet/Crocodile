@@ -1,222 +1,397 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <style>
-    .card {
-        min-height: 40rem; /* Đảm bảo chiều cao tối thiểu của card */
-        display: flex;
-        flex-direction: column;
+    #page {
+        --color-primary: #004c45;
     }
 
-    .error {
-        color: #dc3545;
-        font-size: 14px;
-        margin-top: 10px;
-        display: block; /* Hiển thị khi có lỗi */
+    .btn-primary {
+        background-color: var(--color-primary) !important; /* Override mạnh mẽ */
+        border-color: var(--color-primary) !important;
+        color: white !important;
     }
 
-    .form-control {
-        padding-right: 35px; /* Dự trữ không gian cho biểu tượng mắt */
+    .img-background {
+        background-image: url(<c:url value="/uploads/images/background/crocodile-background.jpg"/>);
+        background-repeat: no-repeat;
+        background-size: cover;
     }
 
-    /* Khi không có lỗi, ẩn phần tử .error */
-    #error-message {
-        display: none;
+    .translucent-background {
+        /*background: rgba(0, 0, 0, 0.8);*/
+        /*color: white;*/
+
+        background-color: white;
     }
 
-    .eye-icon {
-        width: 24px;
-        height: 24px;
-        cursor: pointer;
+    #feedback-tooltips, .password-criteria-holder {
         position: absolute;
-        top: 50%;
-        right: 10px; /* Khoảng cách từ bên phải */
-        transform: translateY(-50%); /* Căn giữa dọc */
+        border: 1px solid lightgray;
+        border-radius: 5px;
+        padding: 5px 10px;
+        background-color: white;
+        transform: translate(0%, 5%);
+    }
+
+    .password-criteria-holder ul {
+        margin-bottom: 0 !important;
     }
 </style>
 <div id="page">
-    <div class="container-fluid d-flex flex-wrap justify-content-center align-items-center gap-5 "
-         style="padding-top: 4rem; padding-bottom: 5rem">
-        <!-- phần logo -->
-        <div class="mb-4">
-            <img src="https://www.crocodileinternational.com/img/crocodile-logo-1609222037.jpg"
-                 class="img-fluid"
-                 style="max-width: 100%; height: auto;"
-                 alt="Logo">
-        </div>
-        <form action="<c:url value='/signup'/>" method="post" name="signupForm">
-            <div class="card shadow p-4" style="width: 28rem">
-                <h3 class="text-center mb-4">Đăng Ký</h3>
-                <!-- Thông tin cá nhân -->
-                <div class="d-grid gap-3 mb-3">
-                    <div class="d-flex gap-4">
-                        <input class="form-control" type="text" name="firstname" id="firstname" placeholder="Họ"
-                               required>
-                        <input class="form-control" type="text" name="lastname" id="lastname" placeholder="Tên"
-                               required>
-                    </div>
-                    <label for="birthdate">Ngày Sinh:</label>
-                    <div id="birthdate" class="d-flex gap-4 mb-1">
-                        <select class="form-select-sm flex-grow-1" id="day" name="day" required>
-                            <!-- Thêm các giá trị của ngày -->
-                        </select>
-                        <select class="form-select-sm flex-grow-1" id="month" name="month" required>
-                            <!-- Thêm các giá trị của tháng -->
-                        </select>
-                        <select class="form-select-sm flex-grow-1" id="year" name="year" required>
-                            <!-- Thêm các giá trị của năm -->
-                        </select>
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="gender">Giới Tính:</label>
-                    <div id="gender" class="d-flex gap-4 align-items-center justify-content-around">
-                        <label for="Male" class="d-flex flex-grow-1 border p-2"
-                               style="border-radius: 7px; cursor: pointer;">
-                            <input class="form-check-input me-2" type="radio" id="Male" name="gender" value="NAM">
-                            <span class="text-black ps-1">Nam</span>
-                        </label>
-                        <label for="Female" class="d-flex flex-grow-1 border p-2"
-                               style="border-radius: 7px; cursor: pointer;">
-                            <input class="form-check-input me-2" type="radio" id="Female" name="gender" value="NỮ">
-                            <span class="text-black ps-1">Nữ</span>
-                        </label>
-                        <label for="Other" class="d-flex flex-grow-1 border p-2"
-                               style="border-radius: 7px; cursor: pointer;">
-                            <input class="form-check-input me-2" type="radio" id="Other" name="gender" value="KHÁC">
-                            <span class="text-black ps-1">Khác</span>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Thông tin đăng nhập -->
-                <div class="d-grid gap-2 mb-3">
-                    <input class="form-control p-2 pb-2" type="text" id="username" name="username"
-                           placeholder="Tên Đăng Nhập" required>
-                    <input class="form-control p-2 mt-2" type="text" id="email" name="email"
-                           placeholder="Nhập Email hoặc số điện thoại" required>
-                    <div class="error" id="accountError"></div>
-
-                    <div class="position-relative">
-                        <input class="form-control" type="password" id="password" name="password"
-                               placeholder="Nhập Mật khẩu" required>
-                        <span class="position-absolute top-50 end-0 translate-middle-y pe-3 eye-icon-container"
-                              id="toggle-password" onclick="togglePassword()">
-                    <svg id="eye-icon" class="eye-icon" viewBox="0 0 122.88 96.32">
-                        <path d="M104.54,23.28c6.82,6.28,12.8,14.02,17.67,22.87l0.67,1.22l-0.67,1.21c-6.88,12.49-15.96,22.77-26.48,29.86 c-8.84,5.95-18.69,9.67-29.15,10.59l6.73-11.66c5.25-1.42,10.24-3.76,14.89-6.9c8.18-5.51,15.29-13.45,20.79-23.1 c-2.98-5.22-6.43-9.94-10.26-14.05L104.54,23.28L104.54,23.28z M88.02,0l17.84,10.3L56.2,96.32l-17.83-10.3l0.69-1.2 c-4.13-1.69-8.11-3.83-11.9-6.38C16.62,71.35,7.55,61.07,0.67,48.59L0,47.37l0.67-1.22C7.55,33.67,16.62,23.39,27.15,16.3 C37.42,9.38,49.08,5.48,61.44,5.48c7.35,0,14.44,1.38,21.14,3.94L88.02,0L88.02,0L88.02,0z M44.36,75.63l5-8.67 c-5.94-3.78-9.89-10.42-9.89-17.99c0-11.77,9.54-21.31,21.31-21.31c3.56,0,6.92,0.87,9.87,2.42l6.61-11.44 c-5.04-1.85-10.35-2.85-15.83-2.85c-9.61,0-18.71,3.06-26.76,8.48c-8.18,5.51-15.29,13.45-20.8,23.11 c5.5,9.66,12.62,17.6,20.8,23.1C37.76,72.55,41,74.28,44.36,75.63L44.36,75.63z M63.93,41.74l6.73-11.66 c-1.82-0.95-3.77-1.64-5.79-2.03c-1.45,2.18-2.31,4.82-2.31,7.67C62.56,37.88,63.06,39.93,63.93,41.74L63.93,41.74L63.93,41.74z"></path>
-                    </svg>
-                </span>
-                    </div>
-                    <div id="password-requirements" class="text-danger mt-2" style="display: none;"></div>
-                </div>
-
-                <!-- Dòng phân cách -->
-                <div class="d-flex align-items-center">
-                    <div style="height: 1px; background-color: #dbdbdb; width: 100%"></div>
-                    <div class="px-2" style="color: #ccc">HOẶC</div>
-                    <div style="height: 1px; background-color: #dbdbdb; width: 100%"></div>
-                </div>
-
-                <!-- Nút mạng xã hội -->
-                <div class="d-flex gap-3 justify-content-between mt-1">
-                    <a href="#"
-                       class="d-flex flex-grow-1 align-items-center justify-content-center text-decoration-none border p-2"
-                       style="border-radius: 7px;">
-                        <div class="custom-icon" style="width: 24px; height: 24px;">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24px" height="24px">
-                                <path fill="#039be5" d="M24 5A19 19 0 1 0 24 43A19 19 0 1 0 24 5Z"></path>
-                                <path fill="#fff"
-                                      d="M26.572,29.036h4.917l0.772-4.995h-5.69v-2.73c0-2.075,0.678-3.915,2.619-3.915h3.119v-4.359c-0.548-0.074-1.707-0.236-3.897-0.236c-4.573,0-7.254,2.415-7.254,7.917v3.323h-4.701v4.995h4.701v13.729C22.089,42.905,23.032,43,24,43c0.875,0,1.729-0.08,2.572-0.194V29.036z"></path>
-                            </svg>
+    <div class="img-background py-5 d-flex justify-content-center" style="overflow-x: hidden; height: 60em">
+        <div class="row">
+            <div class="p-5 col translucent-background shadow-lg" style="width: 60ch; height: fit-content">
+                <form novalidate method="post" id="signupForm" action="<c:url value="/signup"/>" class="needs-validation w-100">
+                    <h3 class="text-center mb-4" style="color: var(--color-primary);">Đăng ký</h3>
+                    <!-- Thông tin cá nhân -->
+                    <div class="d-grid gap-3 mb-3">
+                        <!-- Họ tên -->
+                        <div class="d-flex gap-4">
+                            <div class="col">
+                                <input class="form-control" type="text" name="fullName" id="fullName"
+                                       placeholder="Họ và tên"
+                                       aria-label="" required="">
+                                <div class="invalid-feedback">Họ và tên không được để trống.</div>
+                            </div>
                         </div>
-                        <span class="text-black ps-1">Facebook</span>
-                    </a>
-                    <a href="#"
-                       class="d-flex flex-grow-1 align-items-center justify-content-center text-decoration-none border p-2"
-                       style="border-radius: 7px;">
-                        <div class="custom-icon" style="width: 24px; height: 24px;">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24px" height="24px">
-                                <path fill="#fbc02d"
-                                      d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12s5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24s8.955,20,20,20s20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path>
-                                <path fill="#e53935"
-                                      d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"></path>
-                                <path fill="#4caf50"
-                                      d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"></path>
-                                <path fill="#1565c0"
-                                      d="M43.611,20.083L43.595,20L42,20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path>
-                            </svg>
+
+                        <!-- Giới tính -->
+                        <div>
+                            <div id="gender" class="d-flex gap-4 align-items-center justify-content-around">
+                                <!-- Nam -->
+                                <input type="radio" class="btn-check" name="gender" id="male" autocomplete="off"
+                                       value="male"
+                                       required>
+                                <label class="btn btn-outline-secondary col" for="male" style="border-color: #dbdbdb">Nam</label>
+                                <!-- Nữ -->
+                                <input type="radio" class="btn-check" name="gender" id="female" autocomplete="off"
+                                       value="female"
+                                       required>
+                                <label class="btn btn-outline-secondary col" for="female" style="border-color: #dbdbdb">Nữ</label>
+                            </div>
+                            <div class="invalid-feedback">
+                                Vui lòng chọn giới tính.
+                            </div>
                         </div>
-                        <span class="text-black ps-1">Google</span>
-                    </a>
-                </div>
 
-                <!-- Chính sách -->
-                <div class="text-center mb-1 mt-3">
-                    <p>Bằng việc đăng ký, bạn đã đồng ý với Crocodile về
-                        <a href="#" class="custom-text-primary">Điều khoản</a>,
-                        <a href="#" class="custom-text-primary">Chính sách bảo mật</a>, và
-                        <a href="#" class="custom-text-primary">Chính sách Cookie</a>.
-                    </p>
-                </div>
+                        <!-- Contact: Email / Phone -->
+                        <div>
+                            <input class="form-control p-2" type="text" id="contact" name="contact"
+                                   placeholder="Email hoặc số điện thoại" required="" aria-label="">
+                            <div class="invalid-feedback">Hãy nhập email hoặc số điện thoại của bạn.</div>
+                        </div>
 
-                <!-- Nút đăng ký -->
-                <div class="text-center">
-                    <button type="submit" class="btn custom-btn-primary w-100">Đăng Ký</button>
-                </div>
+                        <!-- password -->
+                        <div>
+                            <input class="form-control" type="password" id="password" name="password"
+                                   placeholder="Mật khẩu"
+                                   required="" aria-label="">
+                            <div class="password-criteria-holder d-none shadow-sm"></div>
+                            <div class="invalid-feedback">Mật khẩu không hợp lệ</div>
+                        </div>
+                        <!-- Confirm password -->
+                        <div>
+                            <input class="form-control" type="password" id="confirmPassword" name="confirmPassword"
+                                   placeholder="Nhập lại mật khẩu" required="" aria-label="">
+                            <div class="invalid-feedback">Mật khẩu không khớp.</div>
+                        </div>
+                    </div>
 
-                <!-- Điều hướng -->
-                <div class="text-center mt-3">
-                    <p>Bạn đã có tài khoản?
-                        <a href="login-content.jsp" class="custom-text-primary">Đăng nhập</a> ngay.
-                    </p>
+                    <!-- captcha -->
+                    <div class="g-recaptcha"
+                         data-sitekey="6Le5eOsqAAAAAP1g0oVT2AQyKqXMnbibrG4SgAzL"
+                         data-callback="enableSubmit"></div>
+                    <!-- Nút đăng ký -->
+                    <div class="text-center my-2">
+                        <button type="submit" id="submitBtn" class="btn btn-primary w-100" disabled>Đăng ký</button>
+                    </div>
+
+                </form>
+                <div class="w-100">
+                    <!-- Dòng phân cách -->
+                    <div class="d-flex align-items-center mt-3">
+                        <div class="flex-grow-1" style="height: 1px; background-color: #dbdbdb;"></div>
+                        <span class="px-2 mb-2" style="color: #7e7e7e;">Hoặc đăng ký với</span>
+                        <div class="flex-grow-1" style="height: 1px; background-color: #dbdbdb;"></div>
+                    </div>
+
+                    <!-- Nút mạng xã hội -->
+                    <div class="d-flex gap-3 justify-content-between mt-1">
+                        <a href="#"
+                           class="col d-flex align-items-center justify-content-center text-decoration-none border p-2"
+                           style="border-radius: 7px;">
+                            <div class="d-flex align-items-center justify-content-center"
+                                 style="width: 24px; height: 24px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24px" height="24px">
+                                    <path fill="#039be5" d="M24 5A19 19 0 1 0 24 43A19 19 0 1 0 24 5Z"></path>
+                                    <path fill="#fff"
+                                          d="M26.572,29.036h4.917l0.772-4.995h-5.69v-2.73c0-2.075,0.678-3.915,2.619-3.915h3.119v-4.359c-0.548-0.074-1.707-0.236-3.897-0.236c-4.573,0-7.254,2.415-7.254,7.917v3.323h-4.701v4.995h4.701v13.729C22.089,42.905,23.032,43,24,43c0.875,0,1.729-0.08,2.572-0.194V29.036z"></path>
+                                </svg>
+                            </div>
+                            <span class="ps-1">Facebook</span>
+                        </a>
+                        <a href="#"
+                           class="col d-flex align-items-center justify-content-center text-decoration-none border p-2"
+                           style="border-radius: 7px;">
+                            <div class="d-flex align-items-center justify-content-center"
+                                 style="width: 24px; height: 24px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24px" height="24px">
+                                    <path fill="#fbc02d"
+                                          d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12s5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24s8.955,20,20,20s20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path>
+                                    <path fill="#e53935"
+                                          d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"></path>
+                                    <path fill="#4caf50"
+                                          d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"></path>
+                                    <path fill="#1565c0"
+                                          d="M43.611,20.083L43.595,20L42,20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path>
+                                </svg>
+                            </div>
+                            <span class=" ps-1">Google</span>
+                        </a>
+                    </div>
+
+                    <!-- Điều hướng -->
+                    <div class="text-center mt-3">
+                        <hr>
+                        <p>Bạn đã có tài khoản?
+                            <a href="<c:url value="/login"/>">Đăng nhập</a> ngay.
+                        </p>
+                        <div class=""><a href=#>Quay lại trang chủ</a></div>
+                    </div>
                 </div>
             </div>
-        </form>
-
+        </div>
     </div>
 </div>
+
 <script>
-    // Tạo tùy chọn ngày
-    const daySelect = document.getElementById('day');
-    for (let day = 1; day <= 31; day++) {
-        const option = document.createElement('option');
-        option.value = day;
-        option.textContent = day.toString().padStart(2, '0');
-        daySelect.appendChild(option);
+    class RegisterFormValidator {
+        constructor(formSelector) {
+            this.$form = $(formSelector);
+
+            this.errors = {};
+
+            this.$nameInput = this.$form.find('#fullName');
+            this.$genderInput = this.$form.find('#gender');
+            this.$contactInput = this.$form.find('#contact');
+            this.$passwordInput = this.$form.find('#password');
+            this.$confirmPasswordInput = this.$form.find('#confirmPassword');
+
+            this.passwordCriteria = new PasswordCriteria([
+                'Ít nhất 8 ký tự',
+                'Ít nhất 1 chữ số (0..9)',
+                'Ít nhất 1 chữ hoa (A..Z)',
+                'Ít nhất 1 ký tự đặc biệt'
+            ]).bind('#password');
+
+            // Chặn copy, cut, paste, space
+            this.$passwordInput.on('keydown paste', function (e) {
+                if (e.key === ' ' || (e.ctrlKey && ['c', 'v', 'x'].includes(e.key))) {
+                    e.preventDefault();
+                }
+            });
+
+            this.$confirmPasswordInput.on('keydown paste', function (e) {
+                if (e.key === ' ' || (e.ctrlKey && ['c', 'v', 'x'].includes(e.key))) {
+                    e.preventDefault();
+                }
+            });
+
+            this.registerCallbacks();
+        }
+
+        /**
+         * Đăng ký các callbacks để xử lý validate cho từng input
+         */
+        registerCallbacks() {
+            this.$nameInput.on('input', () => this.validateName());
+            this.$genderInput.on('input', () => this.validateGender());
+            this.$contactInput.on('input', () => this.validateEmailAndPhone());
+            this.$passwordInput.on('input', () => this.validatePassword());
+            this.$confirmPasswordInput.on('input', () => this.validateConfirmPassword());
+        }
+
+        validateEmailAndPhone() {
+            let input = this.$contactInput.val().trim(); // Lấy giá trị từ input
+
+            // Regex kiểm tra email
+            let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+            // Regex kiểm tra số điện thoại (Việt Nam, 10-11 số, bắt đầu bằng 0)
+            let phoneRegex = /^(0[1-9][0-9]{8,9})$/;
+
+            let isValid = emailRegex.test(input) || phoneRegex.test(input);
+
+            // Cập nhật trạng thái validation
+            this.setValidationState(this.$contactInput, isValid, 'Email hoặc số điện thoại không hợp lệ');
+
+            return isValid;
+        }
+
+        /**
+         * Validate password sử dụng passwordCriteria, cập nhật feedback thời gian thực
+         * @returns {boolean}
+         */
+        validatePassword() {
+            let pass = this.$passwordInput.val();
+            // check validations
+            let isLongEnough = pass.length >= 8;
+            let hasNumber = /\d/.test(pass);
+            let hasUppercase = /[A-Z]/.test(pass);
+            let hasSymbol = /[^a-zA-Z0-9]/.test(pass);
+
+            // update feedback
+            isLongEnough ? this.passwordCriteria.success(0) : this.passwordCriteria.danger(0)
+            hasNumber ? this.passwordCriteria.success(1) : this.passwordCriteria.danger(1);
+            hasUppercase ? this.passwordCriteria.success(2) : this.passwordCriteria.danger(2);
+            hasSymbol ? this.passwordCriteria.success(3) : this.passwordCriteria.danger(3);
+
+            this.validateConfirmPassword();
+
+            let isValid = isLongEnough && hasSymbol && hasUppercase && hasSymbol;
+            this.setValidationState(this.$passwordInput, isValid, 'Mật khẩu không hợp lệ');
+            return isValid;
+        }
+
+        /**
+         * Validate mật khẩu nhập lại không rỗng và khớp với mật khẩu đã nhập
+         * @returns {boolean}
+         */
+        validateConfirmPassword() {
+            let isNotEmpty = !(this.$confirmPasswordInput.val().trim().length === 0);
+            let isMatch = this.$passwordInput.val() === this.$confirmPasswordInput.val();
+            let isValid = isMatch && isNotEmpty;
+            this.setValidationState(this.$confirmPasswordInput, isValid, 'Mật khẩu không khớp');
+            return isValid;
+        }
+
+        /**
+         * Validate name ít nhất 5 ký tự, và xử lý các khoảng trắng
+         * @returns {boolean}
+         */
+        validateName() {
+            let name = this.$nameInput.val().replace(/^\s+/, "").replace(/\s+/g, " "); // Xóa khoảng trắng đầu + thừa
+            this.$nameInput.val(name); // Cập nhật lại giá trị đã chuẩn hóa
+            let isValid = name.length >= 5;
+            this.setValidationState(this.$nameInput, isValid, 'Họ và tên không hợp lệ');
+            return isValid;
+        }
+
+        validateGender() {
+            let genderInputs = $('input[name=gender], #gender');
+            let isChecked = [...genderInputs].some(input => input.checked);
+            this.setValidationState(this.$genderInput, isChecked, 'Vui lòng chọn giới tính');
+            return isChecked;
+        }
+
+        /**
+         * Hiển thị feedback
+         * @param $input
+         * @param isValid
+         * @param message
+         */
+        setValidationState($input, isValid, message) {
+            let $feedback = $input.siblings('.invalid-feedback');
+            if (!$feedback.length) {
+                $feedback = $('<div class="invalid-feedback"></div>').insertAfter($input);
+            }
+            if (isValid) {
+                $input.removeClass('is-invalid').addClass('is-valid');
+                $feedback.text('');
+            } else {
+                $input.removeClass('is-valid').addClass('is-invalid');
+                $feedback.text(message);
+            }
+        }
+
+        /**
+         * Kiểm tra xem form có hợp lệ hay không?
+         * @returns {boolean}
+         */
+        checkValidity() {
+            let isValidName = this.validateName();
+            let isValidGender = this.validateGender();
+            let isValidContact = this.validateEmailAndPhone();
+            let isValidPassword = this.validatePassword();
+            let isValidConfirmPassword = this.validateConfirmPassword();
+            return isValidName && isValidGender && isValidContact && isValidPassword && isValidConfirmPassword;
+        }
     }
 
-    // Tạo tùy chọn tháng
-    const monthSelect = document.getElementById('month');
-    for (let month = 1; month <= 12; month++) {
-        const option = document.createElement('option');
-        option.value = month;
-        option.textContent = month.toString().padStart(2, '0');
-        monthSelect.appendChild(option);
+    class PasswordCriteria {
+        constructor(criteriaMessages) {
+            this.criteriaMessages = criteriaMessages;
+            this.$criteriaHolder = null;
+            this.$passwordInput = null;
+        }
+
+        success(i) {
+            this.$criteriaHolder.find('li').eq(i).removeClass('text-danger').addClass('text-success');
+        }
+
+        danger(i) {
+            this.$criteriaHolder.find('li').eq(i).removeClass('text-success').addClass('text-danger');
+        }
+
+        bind(inputSelector) {
+            this.$passwordInput = $(inputSelector);
+            this.$criteriaHolder = this.$passwordInput.siblings('.password-criteria-holder');
+            let $ul = $('<ul></ul>')
+            this.criteriaMessages.forEach(function (m) {
+                $ul.append($('<li class="text-danger">' + m + '</li>'));
+            });
+            this.$criteriaHolder.html($ul);
+
+            this.$passwordInput.on('focus', () => {
+                this.$criteriaHolder.removeClass('d-none')
+            });
+            this.$passwordInput.on('blur', () => {
+                this.$criteriaHolder.addClass('d-none')
+            });
+
+            return this;
+        }
     }
 
-    // Tạo tùy chọn năm
-    const yearSelect = document.getElementById('year');
-    const currentYear = new Date().getFullYear();
-    for (let year = 1950; year <= currentYear; year++) {
-        const option = document.createElement('option');
-        option.value = year;
-        option.textContent = year;
-        yearSelect.appendChild(option);
+</script>
+
+<script>
+
+    const formValidator = new RegisterFormValidator('#signupForm');
+
+    // Copy from bootstrap 5.3 document
+    (() => {
+        'use strict'
+
+        const form = document.querySelector('#signupForm');
+
+        form.addEventListener('submit', event => {
+            if (!formValidator.checkValidity()) {
+                // Nếu ko hợp lệ -> chặn gửi form và hiện feedback
+                event.preventDefault()
+                event.stopPropagation()
+            } else {
+                // Nếu hợp lệ -> gửi form bằng ajax
+                event.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: '<c:url value="/signup"/>',
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        alert("Success");
+                    },
+                    error: function () {
+                        alert("Failed");
+                    },
+                });
+            }
+        }, false);
+    })()
+</script>
+<script>
+    // Hàm được gọi khi captcha hoàn thành
+    function enableSubmit() {
+        document.getElementById("submitBtn").disabled = false;
     }
-
-    let isPasswordVisible = false;
-
-    function togglePassword() {
-        const passwordInput = document.getElementById("password");
-        const eyeIcon = document.getElementById("eye-icon");
-        // Toggle password visibility
-        isPasswordVisible = !isPasswordVisible;
-        passwordInput.type = isPasswordVisible ? "text" : "password";
-        // Toggle icon between open and closed eye
-        eyeIcon.innerHTML = isPasswordVisible
-            ? `<path d="M95.73,10.81c10.53,7.09,19.6,17.37,26.48,29.86l0.67,1.22l-0.67,1.21c-6.88,12.49-15.96,22.77-26.48,29.86 C85.46,79.88,73.8,83.78,61.44,83.78c-12.36,0-24.02-3.9-34.28-10.81C16.62,65.87,7.55,55.59,0.67,43.1L0,41.89l0.67-1.22 c6.88-12.49,15.95-22.77,26.48-29.86C37.42,3.9,49.08,0,61.44,0C73.8,0,85.45,3.9,95.73,10.81L95.73,10.81z M60.79,22.17l4.08,0.39 c-1.45,2.18-2.31,4.82-2.31,7.67c0,7.48,5.86,13.54,13.1,13.54c2.32,0,4.5-0.62,6.39-1.72c0.03,0.47,0.05,0.94,0.05,1.42 c0,11.77-9.54,21.31-21.31,21.31c-11.77,0-21.31-9.54-21.31-21.31C39.48,31.71,49.02,22.17,60.79,22.17L60.79,22.17L60.79,22.17z M109,41.89c-5.5-9.66-12.61-17.6-20.79-23.11c-8.05-5.42-17.15-8.48-26.77-8.48c-9.61,0-18.71,3.06-26.76,8.48 c-8.18,5.51-15.29,13.45-20.8,23.11c5.5,9.66,12.62,17.6,20.8,23.1c8.05,5.42,17.15,8.48,26.76,8.48c9.62,0,18.71-3.06,26.77-8.48 C96.39,59.49,103.5,51.55,109,41.89L109,41.89z"/>`
-            : `<path d="M104.54,23.28c6.82,6.28,12.8,14.02,17.67,22.87l0.67,1.22l-0.67,1.21c-6.88,12.49-15.96,22.77-26.48,29.86 c-8.84,5.95-18.69,9.67-29.15,10.59l6.73-11.66c5.25-1.42,10.24-3.76,14.89-6.9c8.18-5.51,15.29-13.45,20.79-23.1 c-2.98-5.22-6.43-9.94-10.26-14.05L104.54,23.28L104.54,23.28z M88.02,0l17.84,10.3L56.2,96.32l-17.83-10.3l0.69-1.2 c-4.13-1.69-8.11-3.83-11.9-6.38C16.62,71.35,7.55,61.07,0.67,48.59L0,47.37l0.67-1.22C7.55,33.67,16.62,23.39,27.15,16.3 C37.42,9.38,49.08,5.48,61.44,5.48c7.35,0,14.44,1.38,21.14,3.94L88.02,0L88.02,0L88.02,0z M44.36,75.63l5-8.67 c-5.94-3.78-9.89-10.42-9.89-17.99c0-11.77,9.54-21.31,21.31-21.31c3.56,0,6.92,0.87,9.87,2.42l6.61-11.44 c-5.04-1.85-10.35-2.85-15.83-2.85c-9.61,0-18.71,3.06-26.76,8.48c-8.18,5.51-15.29,13.45-20.8,23.11 c5.5,9.66,12.62,17.6,20.8,23.1C37.76,72.55,41,74.28,44.36,75.63L44.36,75.63z M63.93,41.74l6.73-11.66 c-1.82-0.95-3.77-1.64-5.79-2.03c-1.45,2.18-2.31,4.82-2.31,7.67C62.56,37.88,63.06,39.93,63.93,41.74L63.93,41.74L63.93,41.74z"/>`;
-    }
-
-
 </script>

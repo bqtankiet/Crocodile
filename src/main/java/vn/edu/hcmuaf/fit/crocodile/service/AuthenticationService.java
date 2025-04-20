@@ -5,6 +5,7 @@ import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDaoImpl;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
 import vn.edu.hcmuaf.fit.crocodile.util.HashUtil;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class AuthenticationService {

@@ -1,6 +1,10 @@
 package vn.edu.hcmuaf.fit.crocodile.dao.order;
 
+import org.jdbi.v3.core.mapper.reflect.ConstructorMapper;
 import vn.edu.hcmuaf.fit.crocodile.config.JdbiConnect;
+import vn.edu.hcmuaf.fit.crocodile.model.dto.OrderDetailDTO;
+import vn.edu.hcmuaf.fit.crocodile.model.dto.OrderItemDTO;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.EnumType;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Order;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.OrderManagement;
 
@@ -44,6 +48,53 @@ public class OrderDao implements IOrderDao{
                         .bind("invoiceDate", invoiceDate)
                         .bind("paymentMethod", paymentMethod)
                         .bind("status", status)
+                        .executeAndReturnGeneratedKeys("id")
+                        .mapTo(Integer.class)
+                        .one()
+        );
+    }
+
+    @Override
+    public int insertOrderDetail(int idOrder, int idVariant, int quantity) {
+        String sql = """
+                insert into order_details (idOrder, idVariant, quantity)
+                 values (:idOrder, :idVariant, :quantity)
+                """;
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createUpdate(sql)
+                        .bind("idOrder", idOrder)
+                        .bind("idVariant", idVariant)
+                        .bind("quantity", quantity)
+                        .execute()
+
+        );
+    }
+
+    @Override
+    public int insertInventoryHistory(int idVariant, int idOrder, int quantityChange, EnumType changeType, int idSupplier) {
+        String sql = """
+                insert into inventory_histories (idVariant, idOrder, quantityChange, changeType, idSupplier)
+                    value (:idVariant, :idOrder, :quantityChange, :changeType, :idSupplier)
+                """;
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createUpdate(sql)
+                        .bind("idVariant", idVariant)
+                        .bind("idOrder", idOrder)
+                        .bind("quantityChange", -quantityChange)
+                        .bind("changeType", changeType)
+                        .bind("idSupplier", idSupplier)
+                        .execute()
+        );
+    }
+
+    @Override
+    public int updateStock(int id, int quantity) {
+        String sql = "update product_variants set stock = stock - :quantity where id = :id and stock >= :quantity";
+
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createUpdate(sql)
+                        .bind("id", id)
+                        .bind("quantity", quantity)
                         .execute()
         );
     }
@@ -79,6 +130,59 @@ public class OrderDao implements IOrderDao{
                         .bind("id", id)
                         .bind("status", Order.Status.CANCELLED)
                         .execute()
+        );
+    }
+
+    @Override
+    public OrderDetailDTO getOrderDetail(int id) {
+        String query = """
+                SELECT
+                  o.id,
+                  `code`, idUser,
+                  orderDate, u.fullname,
+                  paymentMethod, u.phoneNumber,
+                  total, u.email,
+                  recipientName, shippingCompany,
+                  recipientPhone, shippingCode,
+                  shippingAddress, isDelete
+                FROM orders_v2 o
+                JOIN users u
+                  ON o.idUser = u.id
+                WHERE o.id = :id;
+                """;
+        return JdbiConnect.getJdbi().withHandle(handle ->
+            handle.createQuery(query)
+                    .bind("id", id)
+                    .registerRowMapper(ConstructorMapper.factory(OrderDetailDTO.class))
+                    .mapTo(OrderDetailDTO.class)
+                    .findFirst()
+                    .orElse(null)
+        );
+    }
+
+    @Override
+    public List<OrderItemDTO> getOrderItems(int id) {
+        String query = """
+                SELECT
+                  pv.id,
+                  p.`name`,
+                  oi.unitPrice,
+                  oi.amount,
+                  oi.amount * oi.unitPrice AS total,
+                  oi.o1Key, oi.o1Value,
+                  oi.o2Key, oi.o2Value
+                FROM product_variants pv
+                JOIN products p ON pv.idProduct = p.id
+                JOIN order_items oi ON oi.idProductVariant = pv.id
+                WHERE oi.idOrder = :id
+                
+                """;
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(query)
+                        .bind("id", id)
+                        .registerRowMapper(ConstructorMapper.factory(OrderItemDTO.class))
+                        .mapTo(OrderItemDTO.class)
+                        .list()
         );
     }
 }

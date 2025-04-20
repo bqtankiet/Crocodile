@@ -1,0 +1,81 @@
+<configuration>
+    <!-- Appender ghi log vào database -->
+    <appender name="DB" class="ch.qos.logback.classic.db.DBAppender">
+        <connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">
+            <driverClass>com.mysql.cj.jdbc.Driver</driverClass>
+            <url>jdbc:mysql://localhost:3306/crocodile_logs</url>
+            <user>root</user>
+            <password></password>
+        </connectionSource>
+    </appender>
+
+    <!-- Appender ghi log vào console (tùy chọn, để debug) -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %X{category}: %X{key1}=%X{value1},
+                %X{key2}=%X{value2}, %X{key3}=%X{value3} %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- Root logger, mức log mặc định -->
+    <root level="info">
+        <appender-ref ref="DB"/>
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+    <logger name="vn.edu.hcmuaf.fit" level="trace">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="vn.edu.hcmuaf.fit.crocodile" level="debug">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="com.example" level="warn">
+        <appender-ref ref="DB"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="com.example" level="error">
+        <appender-ref ref="DB"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+</configuration>
+
+<!--
+Tham khao: https://logback.qos.ch/manual/appenders.html
+CREATE TABLE logging_event (
+    timestmp BIGINT NOT NULL,
+    formatted_message TEXT NOT NULL,
+    logger_name VARCHAR(254) NOT NULL,
+    level_string VARCHAR(254) NOT NULL,
+    thread_name VARCHAR(254),
+    reference_flag SMALLINT,
+    arg0 VARCHAR(254),
+    arg1 VARCHAR(254),
+    arg2 VARCHAR(254),
+    arg3 VARCHAR(254),
+    caller_filename VARCHAR(254),
+    caller_class VARCHAR(254),
+    caller_method VARCHAR(254),
+    caller_line CHAR(4),
+    event_id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY
+);
+
+CREATE TABLE logging_event_property (
+    event_id BIGINT NOT NULL,
+    mapped_key VARCHAR(254) NOT NULL,
+    mapped_value TEXT,
+    PRIMARY KEY (event_id, mapped_key),
+    FOREIGN KEY (event_id) REFERENCES logging_event(event_id)
+);
+
+CREATE TABLE logging_event_exception (
+    event_id BIGINT NOT NULL,
+    i SMALLINT NOT NULL,
+    trace_line VARCHAR(254) NOT NULL,
+    PRIMARY KEY (event_id, i),
+    FOREIGN KEY (event_id) REFERENCES logging_event(event_id)
+);
+-->

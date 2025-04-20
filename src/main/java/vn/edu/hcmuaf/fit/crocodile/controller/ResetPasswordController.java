@@ -53,7 +53,7 @@ public class ResetPasswordController extends HttpServlet {
         System.out.println(tokenParam);
         if (tokenParam == null || tokenParam.isEmpty()) {
             request.setAttribute("error", "Phiên làm việc đã hết hạn, vui lòng thử lại.");
-            response.sendRedirect("/views/forget-password.jsp");
+            request.getRequestDispatcher("/views/forget-password.jsp");
             return;
         }
 

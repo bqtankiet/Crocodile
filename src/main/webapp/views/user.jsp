@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="<c:url value="/assets/css/main.css"/>">
     <!--  js  -->
     <script src="<c:url value="/assets/js/loadVNAddress.js"/>"></script>
+    <script src="<c:url value="/assets/js/user/user.js"/>"></script>
 </head>
 <body>
 <jsp:include page="includes/header.jsp">
