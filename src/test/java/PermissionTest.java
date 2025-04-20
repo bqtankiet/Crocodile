@@ -2,8 +2,10 @@ import org.junit.jupiter.api.Test;
 import vn.edu.hcmuaf.fit.crocodile.dao.rolepermission.Permission;
 import vn.edu.hcmuaf.fit.crocodile.dao.rolepermission.RolePermissionConst;
 import vn.edu.hcmuaf.fit.crocodile.dao.rolepermission.RolePermissionService;
+import vn.edu.hcmuaf.fit.crocodile.dao.rolepermission.UserRoleDTO;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Role;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
@@ -21,7 +23,7 @@ public class PermissionTest {
     @Test
     public void test2() {
         RolePermissionService service = new RolePermissionService();
-        List< Role> roles = service.getRolesByUserId(15);
+        List<Role> roles = service.getRolesByUserId(15);
         for (Role role : roles) {
             System.out.println(role);
         }
@@ -57,5 +59,29 @@ public class PermissionTest {
         RolePermissionService service = new RolePermissionService();
         List<Role> result = service.getAllRoles();
         result.forEach(System.out::println);
+    }
+
+    @Test
+    public void testReportTop3UserByRole() {
+        RolePermissionService service = new RolePermissionService();
+        TreeMap<Integer, List<UserRoleDTO>> report = service.reportTop3UserByRole();
+
+        report.forEach((roleName, users) -> {
+            System.out.println("Role: " + roleName);
+            users.forEach(user -> System.out.println("\t- " + user.getId() + ": " + user.getFullName()));
+        });
+    }
+
+    public void testUpdate1() {
+        RolePermissionService service = new RolePermissionService();
+        int roleId = 3;
+        List<Integer> permissions = Arrays.asList(5, 6, 7);
+        service.updatePermission(roleId, permissions);
+    }
+
+    public void testUpdate2() {
+        RolePermissionService service = new RolePermissionService();
+        int roleId = 3;
+        service.updateRoleName(roleId, "Test");
     }
 }

@@ -18,15 +18,23 @@ public class RolePermissionModalController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int roleId = Integer.parseInt(req.getParameter("roleId"));
-        String roleName = roleService.getRoleName(roleId);
+        String action = req.getParameter("action");
+        if(action != null && action.equals("newRole")) {
+            TreeMap<String, List<Permission>> allPermsMap = roleService.getAllPermissionsMap();
+            req.setAttribute("action", "newRole");
+            req.setAttribute("allPermsMap", allPermsMap);
+        } else {
+            int roleId = Integer.parseInt(req.getParameter("roleId"));
+            String roleName = roleService.getRoleName(roleId);
 
-        TreeMap<String, List<Permission>> allPermsMap = roleService.getAllPermissionsMap();
-        TreeMap<String, List<Permission>> checkedPermsMap = roleId == 1 ? allPermsMap : roleService.getCheckedPermissionsMap(roleId);;
+            TreeMap<String, List<Permission>> allPermsMap = roleService.getAllPermissionsMap();
+            TreeMap<String, List<Permission>> checkedPermsMap = roleId == 1 ? allPermsMap : roleService.getCheckedPermissionsMap(roleId);;
 
-        req.setAttribute("roleName", roleName);
-        req.setAttribute("allPermsMap", allPermsMap);
-        req.setAttribute("checkedPermsMap", checkedPermsMap);
+            req.setAttribute("roleId", roleId);
+            req.setAttribute("roleName", roleName);
+            req.setAttribute("allPermsMap", allPermsMap);
+            req.setAttribute("checkedPermsMap", checkedPermsMap);
+        }
         req.getRequestDispatcher("/admin/views/contents/role-permission-modal.jsp").forward(req, resp);
     }
 }

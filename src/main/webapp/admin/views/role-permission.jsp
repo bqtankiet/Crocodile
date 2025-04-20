@@ -74,6 +74,21 @@
     </div>
 
 </div>
+
+<!-- Toast Container (Top Center) -->
+<div class="position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 9999">
+    <div id="roleToast" class="toast align-items-center text-white bg-success border-0 shadow"
+         role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body" id="toastMessage">
+                <!-- Message from JS -->
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                    data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
 <script src="<c:url value="/admin/assets/vendor/js/bootstrap.js"/>"></script>
 <script src="<c:url value="/admin/assets/vendor/js/menu.js"/>"></script>
 <script src="<c:url value="/admin/assets/js/main.js"/>"></script>

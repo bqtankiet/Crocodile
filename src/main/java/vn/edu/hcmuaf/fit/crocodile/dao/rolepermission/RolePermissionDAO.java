@@ -241,4 +241,64 @@ public class RolePermissionDAO implements IRolePermissionDAO {
                 .list()
         );
     }
+
+    @Override
+    public TreeMap<Integer, List<UserRoleDTO>> reportTop3UserByRole() {
+        String sql = """
+                    SELECT *
+                    FROM (
+                        SELECT
+                            u.id,
+                            u.fullname,
+                            u.role,
+                            r.name AS roleName,
+                            ROW_NUMBER() OVER (PARTITION BY u.role ORDER BY u.id DESC) AS rn
+                        FROM users u
+                        JOIN roles r ON u.role = r.id
+                    ) AS ranked
+                    WHERE rn <= 3
+                    ORDER BY roleName
+                """;
+        return JdbiConnect.getJdbi().withHandle(handle -> handle
+                .createQuery(sql)
+                .mapToBean(UserRoleDTO.class)
+                .stream()
+                .collect(Collectors.groupingBy(
+                        UserRoleDTO::getRole,
+                        TreeMap::new,
+                        Collectors.toList()
+                ))
+        );
+    }
+
+    @Override
+    public void updatePermissions(int roleId, List<Integer> permissions) {
+        JdbiConnect.getJdbi().useTransaction(handle -> {
+            // Xóa hết permission cũ
+            handle.createUpdate("DELETE FROM roles_permissions WHERE idRole = :roleId")
+                    .bind("roleId", roleId)
+                    .execute();
+
+            // Insert lại ds permissions
+            if (permissions != null && !permissions.isEmpty()) {
+                var batch = handle.prepareBatch("INSERT INTO roles_permissions (idRole, idPermission) VALUES (:roleId, :permissionId)");
+                for (Integer permissionId : permissions) {
+                    batch.bind("roleId", roleId)
+                            .bind("permissionId", permissionId)
+                            .add();
+                }
+                batch.execute();
+            }
+        });
+    }
+
+    @Override
+    public void updateRoleName(int roleId, String roleName) {
+        JdbiConnect.getJdbi().withHandle(handle -> handle
+                .createUpdate("UPDATE roles SET name = :roleName WHERE id = :roleId")
+                .bind("roleName", roleName)
+                .bind("roleId", roleId)
+                .execute()
+        );
+    }
 }

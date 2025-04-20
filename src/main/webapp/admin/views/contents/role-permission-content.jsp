@@ -10,28 +10,30 @@
         <!-- Button trigger modal -->
         <div class="row g-4">
         <c:set var="totalUsersByRole" value="${requestScope.totalUsersByRole}"/>
+        <c:set var="top3UserByRole" value="${requestScope.top3UsersByRole}"/>
         <c:forEach var="role" items="${requestScope.roles}" varStatus="status">
+            <c:set var="totalUser" value="${totalUsersByRole.get(status.index).totalUsers}"/>
+            <c:set var="top3Users" value="${top3UserByRole.get(role.id)}"/>
             <div class="col-xl-4 col-lg-6 col-md-6">
-                <div class="card">
+                <div class="card h-100">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <!-- total -->
-                            <p class="mb-0">Total ${totalUsersByRole.get(status.index).totalUsers} users</p>
+                            <p class="mb-0">Total ${totalUser} users</p>
                             <!-- avatars -->
-<%--                            <ul class="list-unstyled d-flex align-items-center avatar-group mb-0">--%>
-<%--                                <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar pull-up" aria-label="Vinnie Mostowy" data-bs-original-title="Vinnie Mostowy">--%>
-<%--                                    <img class="rounded-circle" src="../../assets/img/avatars/5.png" alt="Avatar">--%>
-<%--                                </li>--%>
-<%--                                <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar pull-up" aria-label="Allen Rieske" data-bs-original-title="Allen Rieske">--%>
-<%--                                    <img class="rounded-circle" src="../../assets/img/avatars/12.png" alt="Avatar">--%>
-<%--                                </li>--%>
-<%--                                <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar pull-up" aria-label="Julee Rossignol" data-bs-original-title="Julee Rossignol">--%>
-<%--                                    <img class="rounded-circle" src="../../assets/img/avatars/6.png" alt="Avatar">--%>
-<%--                                </li>--%>
-<%--                                <li class="avatar">--%>
-<%--                                    <span class="avatar-initial rounded-circle pull-up text-body" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="3 more">+3</span>--%>
-<%--                                </li>--%>
-<%--                            </ul>--%>
+                            <ul class="list-unstyled d-flex align-items-center avatar-group mb-0">
+                                <c:forEach var="userRole" items="${top3Users}">
+                                    <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar pull-up" aria-label="" data-bs-original-title="${userRole.fullName}">
+                                        <img class="rounded-circle" src="https://ui-avatars.com/api/?name=${userRole.fullName}&background=random" alt="Avatar">
+                                    </li>
+                                </c:forEach>
+                                <c:if test="${totalUser > 3}">
+                                    <li class="avatar">
+                                        <c:set var="moreCount" value="${(totalUser - top3UserByRole.size()) > 99 ? 99 : (totalUser - top3UserByRole.size())}" />
+                                        <span class="avatar-initial rounded-circle pull-up text-body" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="+${moreCount}">+${moreCount}</span>
+                                    </li>
+                                </c:if>
+                            </ul>
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="role-heading">
@@ -48,7 +50,24 @@
 <%--            <button type="button" class="btn btn-primary btn-permission" data-id="${role.id}" data-bs-toggle="modal" data-bs-target="#editRoleModal">--%>
 <%--                ${role.name}--%>
 <%--            </button>--%>
-        </c:forEach>
+        </c:forEach><div class="col-xl-4 col-lg-6 col-md-6">
+            <div class="card h-100">
+                <div class="row h-100">
+                    <div class="col-5">
+                        <div class="d-flex align-items-end h-100 justify-content-center">
+<%--                            <img src="../../assets/img/illustrations/illustration-3.png" class="img-fluid" alt="Image" width="80">--%>
+                        </div>
+                    </div>
+                    <div class="col-7">
+                        <div class="card-body text-sm-end text-center ps-sm-0">
+                            <button id="btnAddRole" data-bs-target="#editRoleModal" data-bs-toggle="modal" class="btn btn-sm btn-primary mb-4 text-nowrap add-new-role waves-effect waves-light">Add New Role</button>
+                            <p class="mb-0">Add role, if it does not exist</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         </div>
 
         <!-- Modal -->
@@ -62,6 +81,10 @@
     $(document).on("click", ".btn-edit-role", function () {
         const roleId = $(this).data("id");
         loadPermissionModalContent(roleId);
+    });
+
+    $('#btnAddRole').on("click", function() {
+        loadPermissionModalContentNewRole();
     });
 
     function loadPermissionModalContent(roleId) {
@@ -79,6 +102,29 @@
             url: 'http://localhost:8080/crocodile/admin/role-permission-modal',
             method: 'GET',
             data: {roleId: roleId},
+            success: function(html) {
+                $('#permissionModalDialog').html(html);
+            },
+            error: function() {
+                alert("Error when load permission modal content");
+            }
+        });
+    }
+
+    function loadPermissionModalContentNewRole() {
+        $('#permissionModalDialog').html(`
+            <div class="d-flex align-items-center justify-content-center w-100">
+                <div class="text-center my-4">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        `);
+        $.ajax({
+            url: 'http://localhost:8080/crocodile/admin/role-permission-modal',
+            method: 'GET',
+            data: {action: "newRole"},
             success: function(html) {
                 $('#permissionModalDialog').html(html);
             },

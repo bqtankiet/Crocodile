@@ -30,4 +30,10 @@ public interface IRolePermissionDAO {
     List<Role> getAllRoles();
 
     List<RoleTotalUsersDTO> getAllRoleTotalUsers();
+
+    TreeMap<Integer, List<UserRoleDTO>> reportTop3UserByRole();
+
+    void updatePermissions(int roleId, List<Integer> permissions);
+
+    void updateRoleName(int roleId, String roleName);
 }
