@@ -20,7 +20,8 @@
                         </div>
                         <h5 class="text-muted fw-normal mt-0" title="Average Revenue">Doanh thu
                             <span>
-                                <i class='bx bx-info-circle' data-bs-toggle="tooltip" data-bs-title="Tổng doanh thu trong tháng"></i>
+                                <i class='bx bx-info-circle' data-bs-toggle="tooltip"
+                                   data-bs-title="Tổng doanh thu trong tháng"></i>
                             </span>
                         </h5>
                         <!-- TODO: Lấy dữ liệu doanh số tháng -->
@@ -41,7 +42,8 @@
                         </div>
                         <h5 class="text-muted fw-normal mt-0" title="Number of Customers">Khách hàng
                             <span>
-                                <i class='bx bx-info-circle' data-bs-toggle="tooltip" data-bs-title="Số lượng khách hàng hoạt động trong tháng"></i>
+                                <i class='bx bx-info-circle' data-bs-toggle="tooltip"
+                                   data-bs-title="Số lượng khách hàng hoạt động trong tháng"></i>
                             </span>
                         </h5>
                         <!-- TODO: Lấy số liệu khách hàng hoạt động -->
@@ -62,7 +64,8 @@
                         </div>
                         <h5 class="text-muted fw-normal mt-0" title="Number of Orders">Đơn hàng
                             <span>
-                                <i class='bx bx-info-circle' data-bs-toggle="tooltip" data-bs-title="Số lượng đơn hàng trong tháng"></i>
+                                <i class='bx bx-info-circle' data-bs-toggle="tooltip"
+                                   data-bs-title="Số lượng đơn hàng trong tháng"></i>
                             </span>
                         </h5>
                         <!-- TODO: Lấy số liệu đơn hàng -->
@@ -83,7 +86,8 @@
                     <div class="d-flex card-header justify-content-between align-items-center">
                         <h4 class="header-title">Doanh thu các tháng trong năm</h4>
                         <div class="dropdown">
-                            <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown"
+                               aria-expanded="false">
                                 <i class="mdi mdi-dots-vertical"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
@@ -119,9 +123,12 @@
                                 <tbody>
                                 <tr class="border-bottom border-200">
                                     <td>
-                                        <div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="assets/img/products/12.png" width="60" alt="">
+                                        <div class="d-flex align-items-center position-relative"><img
+                                                class="rounded-1 border border-200" src="assets/img/products/12.png"
+                                                width="60" alt="">
                                             <div class="flex-1 ms-3">
-                                                <h6 class="mb-1 fw-semi-bold"><a class="text-1100 stretched-link" href="#!">Raven Pro</a></h6>
+                                                <h6 class="mb-1 fw-semi-bold"><a class="text-1100 stretched-link"
+                                                                                 href="#!">Raven Pro</a></h6>
                                                 <p class="fw-semi-bold mb-0 text-500">Landing</p>
                                             </div>
                                         </div>
@@ -129,7 +136,9 @@
                                     <td class="align-middle text-end fw-semi-bold">$1311</td>
                                     <td class="align-middle pe-x1">
                                         <div class="d-flex align-items-center">
-                                            <div class="progress me-3 rounded-3 bg-200" style="height: 5px; width:80px;" role="progressbar" aria-valuenow="39" aria-valuemin="0" aria-valuemax="100">
+                                            <div class="progress me-3 rounded-3 bg-200" style="height: 5px; width:80px;"
+                                                 role="progressbar" aria-valuenow="39" aria-valuemin="0"
+                                                 aria-valuemax="100">
                                                 <div class="progress-bar rounded-pill" style="width: 39%;"></div>
                                             </div>
                                             <div class="fw-semi-bold ms-2">39%</div>
@@ -138,9 +147,12 @@
                                 </tr>
                                 <tr class="border-bottom border-200">
                                     <td>
-                                        <div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="assets/img/products/10.png" width="60" alt="">
+                                        <div class="d-flex align-items-center position-relative"><img
+                                                class="rounded-1 border border-200" src="assets/img/products/10.png"
+                                                width="60" alt="">
                                             <div class="flex-1 ms-3">
-                                                <h6 class="mb-1 fw-semi-bold"><a class="text-1100 stretched-link" href="#!">Boots4</a></h6>
+                                                <h6 class="mb-1 fw-semi-bold"><a class="text-1100 stretched-link"
+                                                                                 href="#!">Boots4</a></h6>
                                                 <p class="fw-semi-bold mb-0 text-500">Portfolio</p>
                                             </div>
                                         </div>
@@ -148,7 +160,9 @@
                                     <td class="align-middle text-end fw-semi-bold">$860</td>
                                     <td class="align-middle pe-x1">
                                         <div class="d-flex align-items-center">
-                                            <div class="progress me-3 rounded-3 bg-200" style="height: 5px; width:80px;" role="progressbar" aria-valuenow="26" aria-valuemin="0" aria-valuemax="100">
+                                            <div class="progress me-3 rounded-3 bg-200" style="height: 5px; width:80px;"
+                                                 role="progressbar" aria-valuenow="26" aria-valuemin="0"
+                                                 aria-valuemax="100">
                                                 <div class="progress-bar rounded-pill" style="width: 26%;"></div>
                                             </div>
                                             <div class="fw-semi-bold ms-2">26%</div>
@@ -157,9 +171,12 @@
                                 </tr>
                                 <tr class="border-bottom border-200">
                                     <td>
-                                        <div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="assets/img/products/11.png" width="60" alt="">
+                                        <div class="d-flex align-items-center position-relative"><img
+                                                class="rounded-1 border border-200" src="assets/img/products/11.png"
+                                                width="60" alt="">
                                             <div class="flex-1 ms-3">
-                                                <h6 class="mb-1 fw-semi-bold"><a class="text-1100 stretched-link" href="#!">Falcon</a></h6>
+                                                <h6 class="mb-1 fw-semi-bold"><a class="text-1100 stretched-link"
+                                                                                 href="#!">Falcon</a></h6>
                                                 <p class="fw-semi-bold mb-0 text-500">Admin</p>
                                             </div>
                                         </div>
@@ -167,7 +184,9 @@
                                     <td class="align-middle text-end fw-semi-bold">$539</td>
                                     <td class="align-middle pe-x1">
                                         <div class="d-flex align-items-center">
-                                            <div class="progress me-3 rounded-3 bg-200" style="height: 5px; width:80px;" role="progressbar" aria-valuenow="16" aria-valuemin="0" aria-valuemax="100">
+                                            <div class="progress me-3 rounded-3 bg-200" style="height: 5px; width:80px;"
+                                                 role="progressbar" aria-valuenow="16" aria-valuemin="0"
+                                                 aria-valuemax="100">
                                                 <div class="progress-bar rounded-pill" style="width: 16%;"></div>
                                             </div>
                                             <div class="fw-semi-bold ms-2">16%</div>
@@ -176,9 +195,12 @@
                                 </tr>
                                 <tr class="border-bottom border-200">
                                     <td>
-                                        <div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="assets/img/products/14.png" width="60" alt="">
+                                        <div class="d-flex align-items-center position-relative"><img
+                                                class="rounded-1 border border-200" src="assets/img/products/14.png"
+                                                width="60" alt="">
                                             <div class="flex-1 ms-3">
-                                                <h6 class="mb-1 fw-semi-bold"><a class="text-1100 stretched-link" href="#!">Slick</a></h6>
+                                                <h6 class="mb-1 fw-semi-bold"><a class="text-1100 stretched-link"
+                                                                                 href="#!">Slick</a></h6>
                                                 <p class="fw-semi-bold mb-0 text-500">Builder</p>
                                             </div>
                                         </div>
@@ -186,7 +208,9 @@
                                     <td class="align-middle text-end fw-semi-bold">$343</td>
                                     <td class="align-middle pe-x1">
                                         <div class="d-flex align-items-center">
-                                            <div class="progress me-3 rounded-3 bg-200" style="height: 5px; width:80px;" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+                                            <div class="progress me-3 rounded-3 bg-200" style="height: 5px; width:80px;"
+                                                 role="progressbar" aria-valuenow="10" aria-valuemin="0"
+                                                 aria-valuemax="100">
                                                 <div class="progress-bar rounded-pill" style="width: 10%;"></div>
                                             </div>
                                             <div class="fw-semi-bold ms-2">10%</div>
@@ -195,9 +219,12 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="assets/img/products/13.png" width="60" alt="">
+                                        <div class="d-flex align-items-center position-relative"><img
+                                                class="rounded-1 border border-200" src="assets/img/products/13.png"
+                                                width="60" alt="">
                                             <div class="flex-1 ms-3">
-                                                <h6 class="mb-1 fw-semi-bold"><a class="text-1100 stretched-link" href="#!">Reign Pro</a></h6>
+                                                <h6 class="mb-1 fw-semi-bold"><a class="text-1100 stretched-link"
+                                                                                 href="#!">Reign Pro</a></h6>
                                                 <p class="fw-semi-bold mb-0 text-500">Agency</p>
                                             </div>
                                         </div>
@@ -205,7 +232,9 @@
                                     <td class="align-middle text-end fw-semi-bold">$280</td>
                                     <td class="align-middle pe-x1">
                                         <div class="d-flex align-items-center">
-                                            <div class="progress me-3 rounded-3 bg-200" style="height: 5px; width:80px;" role="progressbar" aria-valuenow="8" aria-valuemin="0" aria-valuemax="100">
+                                            <div class="progress me-3 rounded-3 bg-200" style="height: 5px; width:80px;"
+                                                 role="progressbar" aria-valuenow="8" aria-valuemin="0"
+                                                 aria-valuemax="100">
                                                 <div class="progress-bar rounded-pill" style="width: 8%;"></div>
                                             </div>
                                             <div class="fw-semi-bold ms-2">8%</div>
@@ -230,27 +259,33 @@
             </div>
             <div class="col-lg-5 col-xl-4 mb-3">
                 <div class="card h-100">
-                    <div class="table-responsive scrollbar">
-                        <table class="table table-dashboard mb-0 table-borderless fs-small border-200">
-                            <thead class="bg-light">
-                            <tr>
-                                <th class="text-900">Sản phẩm mới</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr class="border-bottom border-200">
-                                <td>
-                                    <div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="assets/img/products/12.png" width="60" alt="">
-                                        <div class="flex-1 ms-3">
-                                            <h6 class="mb-1 fw-semi-bold"><a class="text-1100 stretched-link" href="#!">Raven Pro</a></h6>
-                                            <p class="fw-semi-bold mb-0 text-500">Landing</p>
+                    <div class="card-body p-0">
+                        <div class="table-responsive scrollbar rounded-lg">
+                            <table class="table table-dashboard mb-0 table-borderless fs-small border-200">
+                                <thead class="bg-light">
+                                <tr>add
+                                    <th class="text-900">Sản phẩm mới</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="border-bottom border-200">
+                                    <td>
+                                        <div class="d-flex align-items-center position-relative"><img
+                                                class="rounded-1 border border-200" src="assets/img/products/12.png"
+                                                width="60" alt="">
+                                            <div class="flex-1 ms-3">
+                                                <h6 class="mb-1 fw-semi-bold"><a class="text-1100 stretched-link" href="#!">Raven
+                                                    Pro</a></h6>
+                                                <p class="fw-semi-bold mb-0 text-500">Landing</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+                </div>
             </div>
         </div>
     </div>
@@ -328,7 +363,7 @@
         chart: {
             type: 'line',
             height: 250,
-            zoom: { enabled: false }
+            zoom: {enabled: false}
         },
         stroke: {
             curve: 'smooth',
@@ -336,7 +371,7 @@
         },
         markers: {
             size: 5,
-            hover: { sizeOffset: 3 }
+            hover: {sizeOffset: 3}
         },
         plotOptions: {} // Xóa plotOptions của bar
     };
@@ -346,7 +381,7 @@
         chart: {
             type: 'bar',
             height: 250,
-            zoom: { enabled: false }
+            zoom: {enabled: false}
         },
         plotOptions: {
             bar: {
