@@ -15,6 +15,7 @@ public class Inventory implements Serializable {
     private double totalAmount;
     private String supplierName;
     private String lastImportDate;
+    private String note;
 
     @Override
     public String toString() {
@@ -102,4 +103,8 @@ public class Inventory implements Serializable {
     public void setLastImportDate(String lastImportDate) {
         this.lastImportDate = lastImportDate;
     }
+
+    public String getNote() { return note; }
+
+    public void setNote(String note) { this.note = note; }
 }

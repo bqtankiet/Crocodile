@@ -7,4 +7,10 @@ import java.util.List;
 public interface IInventoryDao {
 
     List<Inventory> getAllInventory();
+
+    boolean variantIsExists(int idVariant);
+
+    boolean supplierIsExists(Integer idSupplier);
+
+
 }

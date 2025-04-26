@@ -40,7 +40,7 @@ public class CheckoutController extends HttpServlet {
                 request.setAttribute("cartItem", cartItem);
                 request.getRequestDispatcher("/views/checkout.jsp").forward(request, response);
 
-                return;
+//                return;
             }
         }
 //        ----------------Cho phan mua ngay-------------------

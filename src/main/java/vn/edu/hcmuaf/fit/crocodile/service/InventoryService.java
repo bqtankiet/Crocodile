@@ -15,4 +15,8 @@ public class InventoryService {
     public List<Inventory> getAllInventory() {
         return inventoryDao.getAllInventory();
     }
+
+    public boolean variantIsExists(int idVariant) { return inventoryDao.variantIsExists(idVariant); }
+
+    public boolean supplierIsExists(Integer idSupplier) { return inventoryDao.supplierIsExists(idSupplier); }
 }
