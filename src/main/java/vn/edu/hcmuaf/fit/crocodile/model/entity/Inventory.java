@@ -31,80 +31,76 @@ public class Inventory implements Serializable {
                 ", id=" + id +
                 '}';
     }
-
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
-
     public String getProductName() {
         return productName;
     }
-
     public void setProductName(String productName) {
         this.productName = productName;
     }
-
     public String getSku() {
         return sku;
     }
-
     public void setSku(String sku) {
         this.sku = sku;
     }
-
     public String getCategoryName() {
         return categoryName;
     }
-
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
-
     public int getStock() {
         return stock;
     }
-
     public void setStock(int stock) {
         this.stock = stock;
     }
-
     public double getPrice() {
         return price;
     }
-
     public void setPrice(double price) {
         this.price = price;
     }
-
     public double getTotalAmount() {
         return totalAmount;
     }
-
     public void setTotalAmount(double totalAmount) {
         this.totalAmount = totalAmount;
     }
-
     public String getSupplierName() {
         return supplierName;
     }
-
     public void setSupplierName(String supplierName) {
         this.supplierName = supplierName;
     }
-
     public String getLastImportDate() {
         return lastImportDate;
     }
-
     public void setLastImportDate(String lastImportDate) {
         this.lastImportDate = lastImportDate;
     }
-
     public String getNote() { return note; }
-
     public void setNote(String note) { this.note = note; }
+
+    public static class ImportItem {
+        private int idVariant;
+        private int quantity;
+        private Integer idSupplier; // Có thể null
+        private String note;
+
+        public int getIdVariant() { return idVariant; }
+        public void setIdVariant(int idVariant) { this.idVariant = idVariant; }
+        public int getQuantity() { return quantity; }
+        public void setQuantity(int quantity) { this.quantity = quantity; }
+        public Integer getIdSupplier() { return idSupplier; }
+        public void setIdSupplier(Integer idSupplier) { this.idSupplier = idSupplier; }
+        public String getNote() { return note; }
+        public void setNote(String note) { this.note = note; }
+    }
 }
