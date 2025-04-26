@@ -1,14 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<fmt:setLocale value="vi_VN"/>
 <style>
     .fs-small {
         font-size: 0.8333333333rem !important;
     }
 </style>
-<script>
-    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-</script>
+
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
@@ -18,17 +17,24 @@
                         <div class="float-end">
                             <i class="mdi mdi-currency-usd widget-icon"></i>
                         </div>
-                        <h5 class="text-muted fw-normal mt-0" title="Average Revenue">Doanh thu
+                        <h5 class="text-muted fw-normal mt-0">Doanh thu
                             <span>
                                 <i class='bx bx-info-circle' data-bs-toggle="tooltip"
                                    data-bs-title="Tổng doanh thu trong tháng"></i>
                             </span>
                         </h5>
                         <!-- TODO: Lấy dữ liệu doanh số tháng -->
-                        <h3 class="mt-3 mb-3">120.123.422 vnd</h3>
+                        <h3 class="mt-3 mb-3">
+                            <fmt:formatNumber value="${requestScope.revenueThisMonth}" type="currency"
+                                              currencyCode="VND" maxFractionDigits="0" groupingUsed="true"/>
+                        </h3>
                         <p class="mb-0 text-muted">
                             <!-- TODO: Lấy dữ liệu tỉ lệ tăng giảm -->
-                            <span class="text-danger me-2"><i class="bx bxs-down-arrow"></i> 7.00%</span>
+                            <span class="me-2 ${requestScope.revenueChangePercent > 0 ? "text-success" : "text-danger"} ">
+                                <i class="bx ${requestScope.revenueChangePercent > 0 ? "bxs-up-arrow" : "bxs-down-arrow"}"></i>
+                                <fmt:formatNumber value="${requestScope.revenueChangePercent}" type="number"
+                                                  minFractionDigits="2"/>%
+                            </span>
                             <span class="text-nowrap">So với tháng trước</span>
                         </p>
                     </div> <!-- end card-body-->
@@ -40,17 +46,24 @@
                         <div class="float-end">
                             <i class="mdi mdi-account-multiple widget-icon"></i>
                         </div>
-                        <h5 class="text-muted fw-normal mt-0" title="Number of Customers">Khách hàng
+                        <h5 class="text-muted fw-normal mt-0">Khách hàng
                             <span>
                                 <i class='bx bx-info-circle' data-bs-toggle="tooltip"
                                    data-bs-title="Số lượng khách hàng hoạt động trong tháng"></i>
                             </span>
                         </h5>
                         <!-- TODO: Lấy số liệu khách hàng hoạt động -->
-                        <h3 class="mt-3 mb-3">36,254</h3>
+                        <h3 class="mt-3 mb-3">
+                            <fmt:formatNumber value="${requestScope.activeCustomersThisMonth}" type="number"
+                                              groupingUsed="true"/>
+                        </h3>
                         <p class="mb-0 text-muted">
                             <!-- TODO: Lấy tỉ lệ tăng giảm -->
-                            <span class="text-success me-2"><i class="bx bxs-up-arrow"></i> 5.27%</span>
+                            <span class="me-2 ${requestScope.activeCustomersChangePercent > 0 ? "text-success" : "text-danger"} ">
+                                <i class="bx ${requestScope.activeCustomersChangePercent > 0 ? "bxs-up-arrow" : "bxs-down-arrow"}"></i>
+                                <fmt:formatNumber value="${requestScope.activeCustomersChangePercent}" type="number"
+                                                  minFractionDigits="2"/>%
+                            </span>
                             <span class="text-nowrap">So với tháng trước</span>
                         </p>
                     </div> <!-- end card-body-->
@@ -62,17 +75,24 @@
                         <div class="float-end">
                             <i class="mdi mdi-cart-plus widget-icon"></i>
                         </div>
-                        <h5 class="text-muted fw-normal mt-0" title="Number of Orders">Đơn hàng
+                        <h5 class="text-muted fw-normal mt-0">Đơn hàng
                             <span>
                                 <i class='bx bx-info-circle' data-bs-toggle="tooltip"
                                    data-bs-title="Số lượng đơn hàng trong tháng"></i>
                             </span>
                         </h5>
                         <!-- TODO: Lấy số liệu đơn hàng -->
-                        <h3 class="mt-3 mb-3">5,543</h3>
+                        <h3 class="mt-3 mb-3">
+                            <fmt:formatNumber value="${requestScope.ordersThisMonth}" type="number"
+                                              groupingUsed="true"/>
+                        </h3>
                         <p class="mb-0 text-muted">
                             <!-- TODO: Lấy tỉ lệ tăng giảm -->
-                            <span class="text-danger me-2"><i class="bx bxs-down-arrow"></i> 1.08%</span>
+                            <span class="me-2 ${requestScope.ordersChangePercent > 0 ? "text-success" : "text-danger"} ">
+                                <i class="bx ${requestScope.ordersChangePercent > 0 ? "bxs-up-arrow" : "bxs-down-arrow"}"></i>
+                                <fmt:formatNumber value="${requestScope.ordersChangePercent}" type="number"
+                                                  minFractionDigits="2"/>%
+                            </span>
                             <span class="text-nowrap">So với tháng trước</span>
                         </p>
                     </div> <!-- end card-body-->
@@ -274,7 +294,8 @@
                                                 class="rounded-1 border border-200" src="assets/img/products/12.png"
                                                 width="60" alt="">
                                             <div class="flex-1 ms-3">
-                                                <h6 class="mb-1 fw-semi-bold"><a class="text-1100 stretched-link" href="#!">Raven
+                                                <h6 class="mb-1 fw-semi-bold"><a class="text-1100 stretched-link"
+                                                                                 href="#!">Raven
                                                     Pro</a></h6>
                                                 <p class="fw-semi-bold mb-0 text-500">Landing</p>
                                             </div>
@@ -290,7 +311,10 @@
         </div>
     </div>
 </div>
-
+<script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+</script>
 <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.45.2/dist/apexcharts.min.js"></script>
 <script>
     // TODO: Viết API lấy dữ liệu cho chart
