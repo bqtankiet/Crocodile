@@ -5,8 +5,8 @@
         <thead class="bg-light">
         <tr>
             <th class="text-900">Sản phẩm mua nhiều</th>
-            <th class="text-900 text-end">Số đơn hàng</th>
-            <th class="text-900 pe-x1 text-end" style="width: 8rem">% Đơn hàng</th>
+            <th class="text-900 text-end">Đã bán</th>
+            <th class="text-900 pe-x1 text-end" style="width: 8rem">Chiếm tỷ lệ (%)</th>
         </tr>
         </thead>
         <tbody>
@@ -14,7 +14,7 @@
             <tr class="border-bottom border-200">
                 <td>
                     <div class="d-flex align-items-center position-relative"><img
-                            class="rounded-1 border border-200" src="assets/img/products/12.png"
+                            class="rounded-1 border border-200" src="${product.image}"
                             width="60" alt="">
                         <div class="flex-1 ms-3">
                             <h6 class="mb-1 fw-semi-bold">

@@ -22,7 +22,14 @@ const options = {
     yaxis: {
         labels: {
             formatter: function (val) {
-                return (val / 1000) + 'k';
+                if (val >= 1e9) {
+                    return (val / 1e9).toFixed(1) + 'b'; // Tỉ (Billion)
+                } else if (val >= 1e6) {
+                    return (val / 1e6).toFixed(1) + 'm'; // Triệu (Million)
+                } else if (val >= 1e3) {
+                    return (val / 1e3).toFixed(1) + 'k'; // Nghìn (Thousand)
+                }
+                return val; // Nếu giá trị nhỏ hơn 1000, trả về giá trị nguyên
             },
             style: {
                 fontSize: '11px',
@@ -33,7 +40,19 @@ const options = {
     tooltip: {
         y: {
             formatter: function (val) {
-                return val ? (val / 1000) + "k" : "No data";
+                if (val === null || val === undefined) {
+                    return "No data"; // Trường hợp không có dữ liệu
+                }
+
+                if (val >= 1e9) {
+                    return (val / 1e9).toFixed(1) + "b";  // Tỉ (Billion)
+                } else if (val >= 1e6) {
+                    return (val / 1e6).toFixed(1) + "m";  // Triệu (Million)
+                } else if (val >= 1e3) {
+                    return (val / 1e3).toFixed(1) + "k";  // Nghìn (Thousand)
+                }
+
+                return val;  // Nếu giá trị nhỏ hơn 1000, trả về giá trị nguyên
             }
         }
     },

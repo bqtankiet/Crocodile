@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import vn.edu.hcmuaf.fit.crocodile.service.DashboardService;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -13,6 +14,8 @@ import java.util.List;
 
 @WebServlet(urlPatterns = "/admin/dashboard/top-sale/*")
 public class DashboardTopSaleProducts extends HttpServlet {
+    private final DashboardService service = new DashboardService();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String pathInfo = req.getPathInfo();
@@ -34,27 +37,15 @@ public class DashboardTopSaleProducts extends HttpServlet {
     }
 
     private List<TopSaleProductDTO> getLastYearSale() {
-        List<TopSaleProductDTO> topSaleProducts = new ArrayList<>();
-        topSaleProducts.add(new TopSaleProductDTO(3, "123", 1000, 23, null));
-        topSaleProducts.add(new TopSaleProductDTO(1, "ABC", 1000, 23, null));
-        topSaleProducts.add(new TopSaleProductDTO(2, "DEF", 1000, 23, null));
-        return topSaleProducts;
+        return service.getTop10BestSaleProducts("year");
     }
 
     private List<TopSaleProductDTO> getLastMonthSale() {
-        List<TopSaleProductDTO> topSaleProducts = new ArrayList<>();
-        topSaleProducts.add(new TopSaleProductDTO(2, "DEF", 1000, 23, null));
-        topSaleProducts.add(new TopSaleProductDTO(3, "123", 1000, 23, null));
-        topSaleProducts.add(new TopSaleProductDTO(3, "123", 1000, 23, null));
-        return topSaleProducts;
+        return service.getTop10BestSaleProducts("month");
     }
 
     private List<TopSaleProductDTO> getLastWeekSale() {
-        List<TopSaleProductDTO> topSaleProducts = new ArrayList<>();
-        topSaleProducts.add(new TopSaleProductDTO(1, "ABC", 1000, 23, null));
-        topSaleProducts.add(new TopSaleProductDTO(2, "DEF", 1000, 23, null));
-        topSaleProducts.add(new TopSaleProductDTO(3, "123", 1000, 23, null));
-        return topSaleProducts;
+        return service.getTop10BestSaleProducts("week");
     }
 
     public static class TopSaleProductDTO implements Serializable {
@@ -73,6 +64,17 @@ public class DashboardTopSaleProducts extends HttpServlet {
             this.saleAmount = saleAmount;
             this.salePercent = salePercent;
             this.image = image;
+        }
+
+        @Override
+        public String toString() {
+            return "TopSaleProductDTO{" +
+                    "id=" + id +
+                    ", name='" + name + '\'' +
+                    ", saleAmount=" + saleAmount +
+                    ", salePercent=" + salePercent +
+                    ", image='" + image + '\'' +
+                    '}';
         }
 
         public String getImage() {
