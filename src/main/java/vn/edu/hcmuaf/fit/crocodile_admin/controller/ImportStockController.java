@@ -21,8 +21,7 @@ public class ImportStockController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        try{
+        try {
             Part filePart = request.getPart("excelFile");
             if (filePart == null || filePart.getSize() == 0) {
                 request.setAttribute("error", "Please upload a valid Excel file.");
@@ -33,8 +32,7 @@ public class ImportStockController extends HttpServlet {
             List<Inventory.ImportItem> importItems = new ArrayList<>();
 
             try (InputStream fileStream = filePart.getInputStream();
-                 Workbook workbook = new XSSFWorkbook(fileStream))
-            {
+                 Workbook workbook = new XSSFWorkbook(fileStream)) {
                 Sheet sheet = workbook.getSheetAt(0);
                 Iterator<Row> rowIterator = sheet.iterator();
 
@@ -66,7 +64,7 @@ public class ImportStockController extends HttpServlet {
                     }
                     item.setQuantity((int) quantityCell.getNumericCellValue());
 
-                    // idSupplier (co the null)
+                    // idSupplier (co thể null)
                     Cell idSupplierCell = getCellByColumnName(row, columnMap, "idSupplier");
                     if (idSupplierCell != null && idSupplierCell.getCellType() == CellType.NUMERIC) {
                         item.setIdSupplier((int) idSupplierCell.getNumericCellValue());
@@ -74,7 +72,7 @@ public class ImportStockController extends HttpServlet {
                         item.setIdSupplier(null);
                     }
 
-                    // note (co the null)
+                    // note (co thể null)
                     Cell noteCell = getCellByColumnName(row, columnMap, "note");
                     if (noteCell != null && noteCell.getCellType() == CellType.STRING) {
                         item.setNote(noteCell.getStringCellValue());
@@ -87,26 +85,40 @@ public class ImportStockController extends HttpServlet {
 
                 for (Inventory.ImportItem item : importItems) {
                     inventoryService.importStock(item);
-                    System.out.println("nhap thanh cong");
+                    System.out.println("nhập thành công");
                 }
 
                 request.setAttribute("success", "Successfully imported " + importItems.size() + " items into stock.");
                 request.getRequestDispatcher("/admin/views/warehouse-management.jsp").forward(request, response);
-            }
-            catch (IllegalArgumentException e) {
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                response.setContentType("text/plain; charset=UTF-8");
-                response.getWriter().write(e.getMessage());
+            } catch (IllegalArgumentException e) {
+                request.setAttribute("error", e.getMessage());
                 request.getRequestDispatcher("/admin/views/warehouse-management.jsp").forward(request, response);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("error", "Error processing the Excel file: " + e.getMessage());
+            String errorMessage = e.getMessage();
+            String idVariantInError = null;
+
+            if (errorMessage != null && errorMessage.contains("idVariant:")) {
+                int startIndex = errorMessage.indexOf("idVariant:") + "idVariant:".length();
+                int endIndex = errorMessage.indexOf(",", startIndex);
+                if (endIndex == -1) {
+                    endIndex = errorMessage.length();
+                }
+                idVariantInError = errorMessage.substring(startIndex, endIndex).trim();
+            }
+
+            if (idVariantInError != null) {
+                request.setAttribute("error", "Lỗi khi nhập sản phẩm với ID: " + idVariantInError);
+            } else {
+                request.setAttribute("error", "Có lỗi xảy ra khi xử lý file Excel.");
+            }
+
             request.getRequestDispatcher("/admin/views/warehouse-management.jsp").forward(request, response);
         }
-
     }
+
 
     private Cell getCellByColumnName(Row row, Map<String, Integer> columnMap, String columnName) {
         Integer index = columnMap.get(columnName);

@@ -8,9 +8,5 @@ public interface IInventoryDao {
 
     List<Inventory> getAllInventory();
 
-    boolean variantIsExists(int idVariant);
-
-    boolean supplierIsExists(Integer idSupplier);
-
     void importStock(Inventory.ImportItem item);
 }

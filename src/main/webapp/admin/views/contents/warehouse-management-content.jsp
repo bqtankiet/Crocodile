@@ -218,7 +218,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="submit" form="form-excel" class="btn save">Tải lên</button>
+                <button type="submit" form="form-excel" class="btn save">Nhập kho</button>
             </div>
         </div>
     </div>

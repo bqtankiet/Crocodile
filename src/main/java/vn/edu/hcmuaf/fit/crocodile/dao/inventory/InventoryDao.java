@@ -39,30 +39,6 @@ public class InventoryDao implements IInventoryDao{
     }
 
     @Override
-    public boolean variantIsExists(int idVariant) {
-        String sql = "SELECT COUNT(*) FROM product_variants WHERE id = :idVariant";
-
-        return JdbiConnect.getJdbi().withHandle(handle ->
-                handle.createQuery(sql)
-                        .bind("idVariant", idVariant)
-                        .mapTo(Integer.class)
-                        .one() > 0
-        );
-    }
-
-    @Override
-    public boolean supplierIsExists(Integer idSupplier) {
-        if (idSupplier == null) return true; // Không bắt buộc
-        String sql = "SELECT COUNT(*) FROM suppliers WHERE id = :idSupplier";
-        return JdbiConnect.getJdbi().withHandle(handle ->
-                handle.createQuery(sql)
-                        .bind("idSupplier", idSupplier)
-                        .mapTo(Integer.class)
-                        .one() > 0
-        );
-    }
-
-    @Override
     public void importStock(Inventory.ImportItem item) {
         JdbiConnect.getJdbi().useTransaction(handle -> {
             String historySql = """

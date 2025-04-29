@@ -16,9 +16,5 @@ public class InventoryService {
         return inventoryDao.getAllInventory();
     }
 
-    public boolean variantIsExists(int idVariant) { return inventoryDao.variantIsExists(idVariant); }
-
-    public boolean supplierIsExists(Integer idSupplier) { return inventoryDao.supplierIsExists(idSupplier); }
-
     public void importStock(Inventory.ImportItem item) { this.inventoryDao.importStock(item); }
 }
