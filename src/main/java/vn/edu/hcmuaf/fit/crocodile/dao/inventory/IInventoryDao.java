@@ -12,5 +12,5 @@ public interface IInventoryDao {
 
     boolean supplierIsExists(Integer idSupplier);
 
-
+    void importStock(Inventory.ImportItem item);
 }

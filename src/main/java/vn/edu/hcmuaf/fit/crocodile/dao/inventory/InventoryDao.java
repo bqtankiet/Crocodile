@@ -1,6 +1,7 @@
 package vn.edu.hcmuaf.fit.crocodile.dao.inventory;
 
 import vn.edu.hcmuaf.fit.crocodile.config.JdbiConnect;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.EnumType;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Inventory;
 
 import java.util.List;
@@ -59,5 +60,32 @@ public class InventoryDao implements IInventoryDao{
                         .mapTo(Integer.class)
                         .one() > 0
         );
+    }
+
+    @Override
+    public void importStock(Inventory.ImportItem item) {
+        JdbiConnect.getJdbi().useTransaction(handle -> {
+            String historySql = """
+                    INSERT INTO inventory_histories (idVariant, quantityChange, changeType, idSupplier, note)
+                    VALUES (:idVariant, :quantityChange, :changeType, :idSupplier, :note)
+                """;
+            handle.createUpdate(historySql)
+                    .bind("idVariant", item.getIdVariant())
+                    .bind("quantityChange", item.getQuantity()) // Dương vì nhập kho
+                    .bind("changeType", EnumType.IMPORT)
+                    .bind("idSupplier", item.getIdSupplier())
+                    .bind("note", item.getNote() != null ? item.getNote() : "Nhập qua Excel")
+                    .execute();
+
+            // update stock
+            String stockSql = "UPDATE product_variants SET stock = stock + :quantity WHERE id = :idVariant";
+            int updatedRows = handle.createUpdate(stockSql)
+                    .bind("quantity", item.getQuantity())
+                    .bind("idVariant", item.getIdVariant())
+                    .execute();
+            if (updatedRows == 0) {
+                throw new RuntimeException("Failed to update stock for variant: " + item.getIdVariant());
+            }
+        });
     }
 }

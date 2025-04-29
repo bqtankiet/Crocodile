@@ -7,7 +7,12 @@
 <!-- Content wrapper -->
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
-
+        <c:if test="${not empty requestScope.error}">
+            <p class="error">${requestScope.error}</p>
+        </c:if>
+        <c:if test="${not empty requestScope.success}">
+            <p class="success">${requestScope.success}</p>
+        </c:if>
         <!-- Bordered Table -->
         <div class="card">
             <div class="card-body">
