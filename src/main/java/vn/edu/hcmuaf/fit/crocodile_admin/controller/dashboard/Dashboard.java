@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.crocodile_admin.controller;
+package vn.edu.hcmuaf.fit.crocodile_admin.controller.dashboard;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,10 +9,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(name = "DashboardController", value = "/admin/")
-public class DashboardController extends HttpServlet {
+public class Dashboard extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/admin/views/dashboard.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/views/dashboard/dashboard.jsp").forward(request, response);
     }
 
     @Override
