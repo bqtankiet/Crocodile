@@ -1,0 +1,11 @@
+/* ApexCharts CSS */
+@import url('https://cdn.jsdelivr.net/npm/apexcharts@3.45.2/dist/apexcharts.css');
+@import url('../../../assets/css/default.css');
+/* Custom */
+.fs-small {
+    font-size: 0.8333333333rem !important;
+}
+
+.loading {
+    color: #888;
+}
