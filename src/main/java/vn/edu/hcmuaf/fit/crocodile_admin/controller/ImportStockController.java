@@ -21,11 +21,13 @@ public class ImportStockController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+
         try {
             Part filePart = request.getPart("excelFile");
             if (filePart == null || filePart.getSize() == 0) {
-                request.setAttribute("error", "Please upload a valid Excel file.");
-                request.getRequestDispatcher("/admin/views/inventory-management.jsp").forward(request, response);
+                session.setAttribute("error", "Vui lòng tải lên một tệp Excel hợp lệ.");
+                response.sendRedirect(request.getContextPath() + "/admin/warehouse-management");
                 return;
             }
 
@@ -37,7 +39,7 @@ public class ImportStockController extends HttpServlet {
                 Iterator<Row> rowIterator = sheet.iterator();
 
                 if (!rowIterator.hasNext()) {
-                    throw new IllegalArgumentException("Excel file is empty.");
+                    throw new IllegalArgumentException("Tệp Excel rỗng.");
                 }
 
                 Row headerRow = rowIterator.next();
@@ -53,18 +55,18 @@ public class ImportStockController extends HttpServlet {
                     // idVariant
                     Cell idVariantCell = getCellByColumnName(row, columnMap, "idVariant");
                     if (idVariantCell == null || idVariantCell.getCellType() != CellType.NUMERIC) {
-                        throw new IllegalArgumentException("Invalid idVariant at row " + (row.getRowNum() + 1));
+                        throw new IllegalArgumentException("idVariant không hợp lệ ở dòng " + (row.getRowNum() + 1));
                     }
                     item.setIdVariant((int) idVariantCell.getNumericCellValue());
 
                     // quantity
                     Cell quantityCell = getCellByColumnName(row, columnMap, "quantity");
                     if (quantityCell == null || quantityCell.getCellType() != CellType.NUMERIC || quantityCell.getNumericCellValue() <= 0) {
-                        throw new IllegalArgumentException("Invalid quantity at row " + (row.getRowNum() + 1));
+                        throw new IllegalArgumentException("quantity không hợp lệ ở dòng " + (row.getRowNum() + 1));
                     }
                     item.setQuantity((int) quantityCell.getNumericCellValue());
 
-                    // idSupplier (co thể null)
+                    // idSupplier (có thể null)
                     Cell idSupplierCell = getCellByColumnName(row, columnMap, "idSupplier");
                     if (idSupplierCell != null && idSupplierCell.getCellType() == CellType.NUMERIC) {
                         item.setIdSupplier((int) idSupplierCell.getNumericCellValue());
@@ -72,7 +74,7 @@ public class ImportStockController extends HttpServlet {
                         item.setIdSupplier(null);
                     }
 
-                    // note (co thể null)
+                    // note (có thể null)
                     Cell noteCell = getCellByColumnName(row, columnMap, "note");
                     if (noteCell != null && noteCell.getCellType() == CellType.STRING) {
                         item.setNote(noteCell.getStringCellValue());
@@ -85,39 +87,22 @@ public class ImportStockController extends HttpServlet {
 
                 for (Inventory.ImportItem item : importItems) {
                     inventoryService.importStock(item);
-                    System.out.println("nhập thành công");
                 }
 
-                request.setAttribute("success", "Successfully imported " + importItems.size() + " items into stock.");
-                request.getRequestDispatcher("/admin/views/warehouse-management.jsp").forward(request, response);
+                session.setAttribute("success", "Nhập kho thành công " + importItems.size() + " sản phẩm.");
+                response.sendRedirect(request.getContextPath() + "/admin/warehouse-management");
             } catch (IllegalArgumentException e) {
-                request.setAttribute("error", e.getMessage());
-                request.getRequestDispatcher("/admin/views/warehouse-management.jsp").forward(request, response);
+                session.setAttribute("error", e.getMessage());
+                response.sendRedirect(request.getContextPath() + "/admin/warehouse-management");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            String errorMessage = e.getMessage();
-            String idVariantInError = null;
-
-            if (errorMessage != null && errorMessage.contains("idVariant:")) {
-                int startIndex = errorMessage.indexOf("idVariant:") + "idVariant:".length();
-                int endIndex = errorMessage.indexOf(",", startIndex);
-                if (endIndex == -1) {
-                    endIndex = errorMessage.length();
-                }
-                idVariantInError = errorMessage.substring(startIndex, endIndex).trim();
-            }
-
-            if (idVariantInError != null) {
-                request.setAttribute("error", "Lỗi khi nhập sản phẩm với ID: " + idVariantInError);
-            } else {
-                request.setAttribute("error", "Có lỗi xảy ra khi xử lý file Excel.");
-            }
-
-            request.getRequestDispatcher("/admin/views/warehouse-management.jsp").forward(request, response);
+            session.setAttribute("error", "Có lỗi xảy ra khi xử lý file Excel.");
+            response.sendRedirect(request.getContextPath() + "/admin/warehouse-management");
         }
     }
+
 
 
     private Cell getCellByColumnName(Row row, Map<String, Integer> columnMap, String columnName) {

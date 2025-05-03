@@ -103,4 +103,26 @@ public class Inventory implements Serializable {
         public String getNote() { return note; }
         public void setNote(String note) { this.note = note; }
     }
+
+    public static class InventoryHistoryItem {
+        private int id;
+        private String productName;
+        private int quantityChange;
+        private LocalDateTime changeDate;
+        private String supplierName;
+        private EnumType changeType;
+
+        public int getId() { return id; }
+        public void setId(int id) { this.id = id; }
+        public String getProductName() { return productName; }
+        public void setProductName(String productName) { this.productName = productName; }
+        public int getQuantityChange() { return quantityChange; }
+        public void setQuantityChange(int quantityChange) { this.quantityChange = quantityChange; }
+        public LocalDateTime getChangeDate() { return changeDate; }
+        public void setChangeDate(LocalDateTime changeDate) { this.changeDate = changeDate; }
+        public String getSupplierName() { return supplierName; }
+        public void setSupplierName(String supplierName) { this.supplierName = supplierName; }
+        public EnumType getChangeType() { return changeType; }
+        public void setChangeType(EnumType changeType) { this.changeType = changeType; }
+    }
 }

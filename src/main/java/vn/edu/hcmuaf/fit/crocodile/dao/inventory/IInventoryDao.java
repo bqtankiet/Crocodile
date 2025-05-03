@@ -8,5 +8,7 @@ public interface IInventoryDao {
 
     List<Inventory> getAllInventory();
 
+    List<Inventory.InventoryHistoryItem> getInventoryHistory();
+
     void importStock(Inventory.ImportItem item);
 }

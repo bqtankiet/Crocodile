@@ -39,6 +39,31 @@ public class InventoryDao implements IInventoryDao{
     }
 
     @Override
+    public List<Inventory.InventoryHistoryItem> getInventoryHistory() {
+        String sql = """
+            SELECT 
+                h.id,
+                p.name AS productName,
+                h.quantityChange,
+                h.changeDate,
+                s.name AS supplierName,
+                h.changeType
+            FROM inventory_histories h
+            JOIN product_variants v ON h.idVariant = v.id
+            JOIN products p ON v.idProduct = p.id
+            LEFT JOIN suppliers s ON h.idSupplier = s.id
+            WHERE p.active = 1
+            ORDER BY h.changeDate DESC
+            """;
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(sql)
+                        .mapToBean(Inventory.InventoryHistoryItem.class)
+                        .list()
+        );
+    }
+
+
+    @Override
     public void importStock(Inventory.ImportItem item) {
         JdbiConnect.getJdbi().useTransaction(handle -> {
             String historySql = """
