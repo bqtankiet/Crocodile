@@ -70,7 +70,7 @@
 
       <!-- Header -->
       <jsp:include page="/admin/views/includes/header-breadcrumb.jsp">
-        <jsp:param name="breadcrumbs" value="Quản lý nhập kho"/>
+        <jsp:param name="breadcrumbs" value="Quản lý nhập xuất"/>
       </jsp:include>
       <!-- / Header -->
 

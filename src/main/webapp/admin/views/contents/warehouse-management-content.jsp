@@ -88,7 +88,7 @@
                                                    aria-label=""></th>
                             <th scope="col">ID</th>
                             <th scope="col">Tên sản phẩm</th>
-                            <th scope="col">Số lượng nhập</th>
+                            <th scope="col">Số lượng</th>
                             <th scope="col">Ngày nhập</th>
                             <th scope="col">Nhà cung cấp</th>
                             <th scope="col">Loại</th>
@@ -106,7 +106,7 @@
                                     <td>${i.quantityChange}</td>
                                     <td>${i.changeDate}</td>
                                     <td>${i.supplierName}</td>
-                                    <td>${i.changeType}</td>
+                                    <td>${i.changeType.description}</td>
                                     <td>
                                         <div class="dropdown">
                                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
