@@ -7,7 +7,7 @@
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-  <title>Quản lý nhập kho</title>
+  <title>Quản lý nhập xuất</title>
 
   <meta name="description" content="" />
 
@@ -70,7 +70,7 @@
 
       <!-- Header -->
       <jsp:include page="/admin/views/includes/header-breadcrumb.jsp">
-        <jsp:param name="breadcrumbs" value="Quản lý nhập kho"/>
+        <jsp:param name="breadcrumbs" value="Quản lý nhập xuất"/>
       </jsp:include>
       <!-- / Header -->
 

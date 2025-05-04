@@ -7,6 +7,21 @@
 <!-- Content wrapper -->
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
+        <c:if test="${not empty sessionScope.error}">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    ${sessionScope.error}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <c:remove var="error" scope="session"/>
+        </c:if>
+
+        <c:if test="${not empty sessionScope.success}">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    ${sessionScope.success}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <c:remove var="success" scope="session"/>
+        </c:if>
 
         <!-- Bordered Table -->
         <div class="card">
@@ -60,12 +75,8 @@
                                         Nhập bằng Excel
                                     </a>
                                 </li>
-
                             </ul>
                         </div>
-
-
-
                     </div>
 
                     <table class="my-table mb-3 pt-3"
@@ -76,66 +87,37 @@
                                                    aria-label=""></th>
                             <th scope="col">ID</th>
                             <th scope="col">Tên sản phẩm</th>
-                            <th scope="col">Số lượng nhập</th>
+                            <th scope="col">Số lượng</th>
                             <th scope="col">Ngày nhập</th>
                             <th scope="col">Nhà cung cấp</th>
+                            <th scope="col">Loại</th>
                             <th scope="col" class="action-column"></th>
                         </tr>
                         </thead>
                         <tbody>
 
-                        <!-- Inventory -->
-                        <%--                        <c:forEach items="${requestScope.categories}" var="c">--%>
-                        <%--                            <tr>--%>
-                        <%--                                <td><input type="checkbox" class="rowCheckbox form-check-input" aria-label=""></td>--%>
-                        <%--                                <th scope="row">${c.id}</th>--%>
-                        <%--                                <td>${c.name}</td>--%>
-                        <%--                                <td>--%>
-                        <%--                                    <img style="max-height: 40px;" class="img-fluid"  src="<c:url value ="${c.image}" />" alt="">--%>
-                        <%--                                </td>--%>
-                        <%--                                <td>${c.active == 0 ? 'Ẩn' : 'Hiển thị'}</td>--%>
-                        <%--                                <td>--%>
-                        <%--                                    <div class="dropdown">--%>
-                        <%--                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"--%>
-                        <%--                                                data-bs-toggle="dropdown">--%>
-                        <%--                                            <i class="bx bx-dots-vertical-rounded"></i>--%>
-                        <%--                                        </button>--%>
-                        <%--                                        <div class="dropdown-menu">--%>
-                        <%--                                            <a class="dropdown-item" href="${updateCateUrl}?id=${c.id}"><i--%>
-                        <%--                                                    class="bx bx-edit-alt me-1"></i> Chỉnh sửa</a>--%>
-                        <%--                                            <button class="dropdown-item btn-delete" data-id="${c.id}">--%>
-                        <%--                                                <i class="bx bx-trash me-1"></i> Xóa--%>
-                        <%--                                            </button>--%>
-                        <%--                                        </div>--%>
-                        <%--                                    </div>--%>
-                        <%--                                </td>--%>
-                        <%--                            </tr>--%>
-                        <%--                        </c:forEach>--%>
-
-                        <%---------------TEST---------------%>
-                        <tr>
-                            <td><input type="checkbox" class="rowCheckbox form-check-input" aria-label=""></td>
-                            <th scope="row">1</th>
-                            <td>Ví da cá sấu</td>
-                            <td>10</td>
-                            <td>14/01/2025</td>
-                            <td>GUCCI</td>
-                            <td>
-                                <div class="dropdown">
-                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                            data-bs-toggle="dropdown">
-                                        <i class="bx bx-dots-vertical-rounded"></i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#"><i
-                                                class="bx bx-edit-alt me-1"></i> Chỉnh sửa</a>
-                                        <button class="dropdown-item btn-delete" data-id="1">
-                                            <i class="bx bx-trash me-1"></i> Xóa
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
+                            <!-- Lich su nhap xuat kho -->
+                            <c:forEach items="${requestScope.inventoryHistory}" var="i">
+                                <tr>
+                                    <td><input type="checkbox" class="rowCheckbox form-check-input" aria-label=""></td>
+                                    <th scope="row">${i.id}</th>
+                                    <td>${i.productName}</td>
+                                    <td>${i.quantityChange}</td>
+                                    <td>${i.changeDate}</td>
+                                    <td>${i.supplierName}</td>
+                                    <td>${i.changeType.description}</td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                    data-bs-toggle="dropdown">
+                                                <i class="bx bx-dots-vertical-rounded"></i>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </c:forEach>
 
                         </tbody>
                     </table>
@@ -204,7 +186,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="" id="form-excel" method="post" enctype="multipart/form-data">
+                <form action="/crocodile/admin/warehouse-management/import" id="form-excel" method="post" enctype="multipart/form-data">
 
                     <div class="mb-3">
                         <label for="formFile" class="form-label">Vui lòng chọn file excel</label>
@@ -213,8 +195,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="submit" form="form-excel" class="btn save">Tải lên</button>
-
+                <button type="submit" form="form-excel" class="btn save">Nhập kho</button>
             </div>
         </div>
     </div>

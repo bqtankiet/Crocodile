@@ -176,13 +176,6 @@
                     <div>Quản lý kho hàng</div>
                 </a>
                 <ul class="menu-sub">
-                    <c:if test="${fn:contains(permissions, 'warehouse_read')}">
-                        <li class="menu-item ${param.activePage == 'warehouse' ? 'active' : ''}">
-                            <a href="${warehouseUrl}" class="menu-link">
-                                <div>Quản lý nhập kho</div>
-                            </a>
-                        </li>
-                    </c:if>
                     <c:if test="${fn:contains(permissions, 'inventory_read')}">
                         <li class="menu-item ${param.activePage == 'inventory' ? 'active' : ''}">
                             <a href="${inventoryUrl}" class="menu-link">
@@ -190,6 +183,14 @@
                             </a>
                         </li>
                     </c:if>
+                    <c:if test="${fn:contains(permissions, 'warehouse_read')}">
+                        <li class="menu-item ${param.activePage == 'warehouse' ? 'active' : ''}">
+                            <a href="${warehouseUrl}" class="menu-link">
+                                <div>Quản lý nhập xuất</div>
+                            </a>
+                        </li>
+                    </c:if>
+
                 </ul>
             </li>
         </c:if>
