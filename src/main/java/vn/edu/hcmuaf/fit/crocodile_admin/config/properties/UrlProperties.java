@@ -49,11 +49,20 @@ public class UrlProperties extends ApplicationProperties {
 
     public static String updateUser() { return getProperty("admin.user.update"); }
 
+    public static String userDetail() { return getProperty("admin.user.detail"); }
     // --------------------- user ------------------------
 
+    // --------------------- log -------------------------
+    public static String log() { return getProperty("admin.log"); }
+    // --------------------- log -------------------------
 
+    // --------------------- inventory -------------------------
+    public static String inventory() { return getProperty("admin.inventory"); }
+    public static String warehouse() { return getProperty("admin.warehouse"); }
+    // --------------------- inventory -------------------------
 
-
-
+    // --------------------- role & permission -------------------------
+    public static String rolePermission() { return getProperty("admin.role_permission"); }
+    // --------------------- role & permission -------------------------
 
 }

@@ -1,0 +1,77 @@
+.profile-img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: #f9b3b3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.profile-img img {
+    width: 70px;
+}
+
+.name {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.role {
+    display: inline-block;
+    background: #fce4e4;
+    color: #ff6b6b;
+    font-size: 14px;
+    padding: 4px 10px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 15px;
+}
+
+.status-active {
+    display: inline-block;
+    background: #d4f8d4;
+    color: #2a9d2a;
+    padding: 4px 10px;
+    border-radius: 15px;
+    width: fit-content;
+}
+
+.status-suspend {
+    display: inline-block;
+    background: #f8d4d4;
+    color: #d22a2a;
+    padding: 4px 10px;
+    border-radius: 15px;
+    width: fit-content;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.btn.edit{
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: #007b5f;
+    color: white;
+    margin-right: 5px;
+}
+
+.btn.save {
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: #007b5f;
+    color: white;
+    margin-right: 5px;
+}
+

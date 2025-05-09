@@ -6,6 +6,7 @@ import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDao;
 import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDaoImpl;
 import vn.edu.hcmuaf.fit.crocodile.model.dto.OrderDetailDTO;
 import vn.edu.hcmuaf.fit.crocodile.model.dto.OrderItemDTO;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.EnumType;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Order;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.OrderManagement;
 
@@ -34,6 +35,18 @@ public class OrderService {
                            Order.PaymentMethod paymentMethod, Order.Status status) {
 
         return orderDao.insertOrder(idUser, idAddress, total, invoiceDate, paymentMethod, status);
+    }
+
+    public int insertOrderDetail(int idOrder, int idVariant, int quantity) {
+        return orderDao.insertOrderDetail(idOrder, idVariant, quantity);
+    }
+
+    public int insertInventoryHistory(int idVariant, int idOrder, int quantity, EnumType type, int idSupplier){
+        return orderDao.insertInventoryHistory(idVariant, idOrder, quantity, type, idSupplier);
+    }
+
+    public int updateStock(int id, int quantity) {
+        return orderDao.updateStock(id, quantity);
     }
 
     public List<OrderManagement> findAllOrder() { return orderDao.finAllOrder(); }

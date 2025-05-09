@@ -3,6 +3,7 @@ package vn.edu.hcmuaf.fit.crocodile.controller;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import vn.edu.hcmuaf.fit.crocodile.dao.rolepermission.RolePermissionService;
 import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDao;
 import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDaoImpl;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
@@ -14,6 +15,7 @@ import java.util.Optional;
 @WebServlet(name = "LoginController", urlPatterns = {"/login"})
 public class LoginController extends HttpServlet {
     private final AuthenticationService auth = new AuthenticationService();
+    private final RolePermissionService permissionService = new RolePermissionService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -50,8 +52,8 @@ public class LoginController extends HttpServlet {
                 session.setAttribute("phone", user.getPhoneNumber() != null ? user.getPhoneNumber() : "");
                 session.setAttribute("birthDate", user.getBirthdate());
                 session.setAttribute("role", user.getRole());
-
-                System.out.println(("role "+user.getRole()));
+                session.setAttribute("permissions", permissionService.getAllPermissionNamesByUserId(userId));
+//                System.out.println(("role "+user.getRole()));
                 user.setPassword(null);
                 session.setAttribute("user", user);
 

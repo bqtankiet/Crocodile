@@ -1,8 +1,11 @@
 package vn.edu.hcmuaf.fit.crocodile.dao.user;
 
+import org.jdbi.v3.core.Handle;
 import vn.edu.hcmuaf.fit.crocodile.config.JdbiConnect;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.OrderManagement;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class UserDaoAdmin implements IUserDaoAdmin{
@@ -18,6 +21,18 @@ public class UserDaoAdmin implements IUserDaoAdmin{
     }
 
     @Override
+    public User getUser(int id) {
+        String sql = "SELECT * FROM users WHERE id = :id";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("id", id)
+                        .mapToBean(User.class)
+                        .findOnly()
+        );
+    }
+
+
+    @Override
     public List<User> getAllUser() {
         String sql = "SELECT * FROM users";
         return JdbiConnect.getJdbi().withHandle(handle ->
@@ -26,4 +41,67 @@ public class UserDaoAdmin implements IUserDaoAdmin{
                     .list()
         );
     }
+
+    @Override
+    public List<OrderManagement> getAllUserOrder(int id) {
+        String sql = "SELECT o.id, o.total, o.paymentMethod, o.status, o.invoiceDate " +
+                "FROM orders o " +
+                "JOIN users u ON o.idUser = u.id " +
+                "WHERE u.id = :id";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("id", id)
+                        .mapToBean(OrderManagement.class)
+                        .list()
+        );
+    }
+
+    @Override
+    public int updateUser(int id, String fullname, String phone, String email, String gender, LocalDate birthdate, int active, int role) {
+        String sql = "UPDATE users SET fullname = :fullname, phoneNumber = :phoneNumber, email = :email, gender = :gender, birthdate = :birthdate, role = :role , active = :active WHERE id = :id";
+
+        try (Handle handle = JdbiConnect.getJdbi().open()) {
+            return handle.createUpdate(sql)
+                    .bind("fullname", fullname)
+                    .bind("phoneNumber", phone)
+                    .bind("email", email)
+                    .bind("gender", gender)
+                    .bind("birthdate", birthdate)
+                    .bind("role", role)
+                    .bind("active", active)
+                    .bind("id", id)
+                    .execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error executing query", e);
+        }
+    }
+
+    @Override
+    public int orderReceived(int idUser) {
+        String sql = "SELECT COUNT(*) AS total_completed_orders " +
+                "FROM orders " +
+                "WHERE status = 'COMPLETED' AND idUser = :idUser";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("idUser", idUser)
+                        .mapTo(Integer.class)
+                        .one()
+        );
+    }
+
+    @Override
+    public int orderCanceled(int idUser) {
+        String sql = "SELECT COUNT(*) AS total_completed_orders " +
+                "FROM orders " +
+                "WHERE status = 'CANCELLED' AND idUser = :idUser";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("idUser", idUser)
+                        .mapTo(Integer.class)
+                        .one()
+        );
+    }
+
+
 }

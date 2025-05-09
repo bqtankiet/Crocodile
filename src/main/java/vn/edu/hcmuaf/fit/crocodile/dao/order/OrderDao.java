@@ -4,6 +4,7 @@ import org.jdbi.v3.core.mapper.reflect.ConstructorMapper;
 import vn.edu.hcmuaf.fit.crocodile.config.JdbiConnect;
 import vn.edu.hcmuaf.fit.crocodile.model.dto.OrderDetailDTO;
 import vn.edu.hcmuaf.fit.crocodile.model.dto.OrderItemDTO;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.EnumType;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Order;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.OrderManagement;
 
@@ -47,6 +48,53 @@ public class OrderDao implements IOrderDao{
                         .bind("invoiceDate", invoiceDate)
                         .bind("paymentMethod", paymentMethod)
                         .bind("status", status)
+                        .executeAndReturnGeneratedKeys("id")
+                        .mapTo(Integer.class)
+                        .one()
+        );
+    }
+
+    @Override
+    public int insertOrderDetail(int idOrder, int idVariant, int quantity) {
+        String sql = """
+                insert into order_details (idOrder, idVariant, quantity)
+                 values (:idOrder, :idVariant, :quantity)
+                """;
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createUpdate(sql)
+                        .bind("idOrder", idOrder)
+                        .bind("idVariant", idVariant)
+                        .bind("quantity", quantity)
+                        .execute()
+
+        );
+    }
+
+    @Override
+    public int insertInventoryHistory(int idVariant, int idOrder, int quantityChange, EnumType changeType, int idSupplier) {
+        String sql = """
+                insert into inventory_histories (idVariant, idOrder, quantityChange, changeType, idSupplier)
+                    value (:idVariant, :idOrder, :quantityChange, :changeType, :idSupplier)
+                """;
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createUpdate(sql)
+                        .bind("idVariant", idVariant)
+                        .bind("idOrder", idOrder)
+                        .bind("quantityChange", -quantityChange)
+                        .bind("changeType", changeType)
+                        .bind("idSupplier", idSupplier)
+                        .execute()
+        );
+    }
+
+    @Override
+    public int updateStock(int id, int quantity) {
+        String sql = "update product_variants set stock = stock - :quantity where id = :id and stock >= :quantity";
+
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createUpdate(sql)
+                        .bind("id", id)
+                        .bind("quantity", quantity)
                         .execute()
         );
     }

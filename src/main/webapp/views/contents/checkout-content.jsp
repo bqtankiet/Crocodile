@@ -35,36 +35,7 @@
 <div id="page" class="layout-default ">
     <div id="CONTENT" class="h-100" style="margin-bottom: 10rem;">
         <!-------------------- Breadcrumb -------------------->
-        <div id="liveAlertPlaceholder" class="fixed-top"></div>
-        <script>
-            const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
 
-            // Hàm để thêm alert
-            const appendAlert = (message, type) => {
-                const wrapper = document.createElement('div')
-                wrapper.innerHTML = [
-                    `<div class="alert alert-` + type + ` alert-dismissible" role="alert">`,
-                    `   <div class="text-center fw-semibold">` + message + `</div>`,
-                    '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-                    '</div>'
-                ].join('')
-
-                alertPlaceholder.append(wrapper)
-
-                // Tự động ẩn alert sau 5 giây
-                setTimeout(() => {
-                    wrapper.remove()  // Loại bỏ alert sau 5 giây
-                }, 5000)  // 5000ms = 5s
-            }
-
-            const liveMessage = sessionStorage.getItem('liveMessage');
-            const messageType = sessionStorage.getItem('liveMessageType');
-            if (liveMessage) {
-                appendAlert(liveMessage, messageType);
-                sessionStorage.removeItem('liveMessage');
-                sessionStorage.removeItem('liveMessageType');
-            }
-        </script>
         <div class="container">
             <nav style="--bs-breadcrumb-divider: '>'">
                 <ol class="breadcrumb">
@@ -156,10 +127,21 @@
 
                         <c:choose>
 
+<%--<<<<<<< HEAD--%>
                             <c:when test="${empty requestScope.order.items}">
                             </c:when>
                             <c:otherwise>
                                 <c:forEach var="oi" items="${requestScope.order.items}">
+<%--=======--%>
+<%--                            <c:when test="${empty requestScope.cartItem}">--%>
+<%--                                <c:forEach var="item" items="${sessionScope.selectedCartItems}">--%>
+<%--                                    <c:set var="productVariant" value="${item.productVariant}"/>--%>
+<%--                                    <input class="idVariant" type="text" value="${productVariant.id}"--%>
+<%--                                           hidden="hidden" data-action="buySuccess">--%>
+
+<%--                                    <input class="quantity" type="text" value="${item.quantity}"--%>
+<%--                                           hidden="hidden">--%>
+<%-->>>>>>> develop--%>
                                     <div class="d-flex flex-column">
                                         <div class="row g-0">
                                             <div class="col-2 me-3 position-relative">
@@ -431,18 +413,25 @@
 </script>
 
 <script>
-    $(document).on('click', '.payBtn', function () {
+    $(document).on('click', '.payBtn', ()=> {
         const idUser = $('.id-user').data('id-user');
         const idAddress = $('.address').data('id-address');
 
         const selectedPaymentMethod = $('input[name="payment-method"]:checked').val();
         const totalAmount = $('.total-amount').data('total')
 
-        const idBuys = $('.item-buy').map(function () {
+        const idVariant = $('.idVariant');
+
+        const idBuys = idVariant.map(function() {
             return $(this).val();
         }).get();
+        console.log(idBuys)
 
-        const action = $('.item-buy').data('action')
+        const quantities = $('.quantity').map(function() {
+            return $(this).val();
+        }).get();
+        console.log(quantities)
+        const action = idVariant.data('action')
 
         $.ajax({
             url: "${urlCheckout}",
@@ -453,7 +442,8 @@
                 paymentMethod: selectedPaymentMethod,
                 total: totalAmount,
                 action: action,
-                idBuys: idBuys.join(',')
+                idBuys: idBuys.join(','),
+                quantities: quantities.join(',')
             },
             success: function (response) {
                 sessionStorage.setItem('liveMessage', 'Đặt hàng thành công!');
@@ -461,7 +451,8 @@
                 window.location.reload();
             },
             error: function (xhr, status, error) {
-                sessionStorage.setItem('liveMessage', 'Đặt hàng thất bại, vui lòng thử lại!');
+                const errorMessage = xhr.responseText || 'Đặt hàng thất bại, vui lòng thử lại!';
+                sessionStorage.setItem('liveMessage', errorMessage);
                 sessionStorage.setItem('liveMessageType', 'danger');
                 window.location.reload();
             }

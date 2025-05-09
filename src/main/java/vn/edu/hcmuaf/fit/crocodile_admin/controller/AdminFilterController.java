@@ -1,16 +1,21 @@
 package vn.edu.hcmuaf.fit.crocodile_admin.controller;
 
 import jakarta.servlet.*;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
+import jakarta.servlet.annotation.WebFilter;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import vn.edu.hcmuaf.fit.crocodile.dao.rolepermission.RolePermissionService;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
 
 import java.io.IOException;
-import java.util.Objects;
 
-@WebFilter(filterName = "AdminFilter", urlPatterns = "/admin/*")
+import static vn.edu.hcmuaf.fit.crocodile.dao.rolepermission.RolePermissionConst.ACCESS;
+import static vn.edu.hcmuaf.fit.crocodile.dao.rolepermission.RolePermissionConst.ADMIN_PAGE;
+
+//@WebFilter(filterName = "AdminFilter", urlPatterns = "/admin/*")
 public class AdminFilterController implements Filter {
-
+    private final RolePermissionService rolePermissionService = new RolePermissionService();
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
@@ -19,12 +24,11 @@ public class AdminFilterController implements Filter {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
-        if (user == null || user.getRole() != 1) {
+        if(user != null && rolePermissionService.userHasPermission(user.getId(), ADMIN_PAGE, ACCESS)) {
+            filterChain.doFilter(request, response);
+        } else {
             request.getRequestDispatcher("/views/login.jsp").forward(request, response);
-            return;
         }
-
-        filterChain.doFilter(request, response);
     }
 
     @Override
