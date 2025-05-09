@@ -89,4 +89,17 @@ public class InventoryDao implements IInventoryDao{
             }
         });
     }
+
+    @Override
+    public boolean checkAvailableInventory(int variantId, int quantity) {
+        String query = "SELECT stock FROM product_variants WHERE id = :idVariant";
+        int stock = JdbiConnect.getJdbi().withHandle(handle -> handle
+                .createQuery(query)
+                .bind("idVariant", variantId)
+                .mapTo(Integer.class)
+                .findFirst()
+                .orElse(0)
+        );
+        return stock >= quantity;
+    }
 }

@@ -8,6 +8,7 @@
 <c:url var="urlCheckout" value="<%=UrlProperties.checkout()%>"/>
 
 <fmt:setLocale value="vi_VN"/>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <div id="page" class="layout-default ">
     <div id="CONTENT" class="h-100">
@@ -415,7 +416,12 @@
                 error: function (xhr, status, error) {
                     console.error('Request failed:', status, error);
                     if (xhr.status === 406) {
-                        window.location.href = 'http://localhost:8080/crocodile/login';
+                        Swal.fire({
+                            icon: 'error',
+                            title: "Thất bại",
+                            text: "Có một số vấn đề với giỏ hàng của bạn. Vui lòng kiểm tra và thử lại sau.",
+                            confirmButtonText: 'OK'
+                        });
                     }
                 }
             });

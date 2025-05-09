@@ -35,7 +35,7 @@ public class CheckoutControllerV2 extends HttpServlet {
         HttpSession session = request.getSession();
         Order order = (Order) session.getAttribute("order");
         if (order == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
         Object userIdRaw = session.getAttribute("userId");
@@ -52,7 +52,7 @@ public class CheckoutControllerV2 extends HttpServlet {
         request.setAttribute("order", order);
         request.getRequestDispatcher("/views/checkout.jsp").forward(request, response);
 
-        System.out.println(order.getAddress().getFullAddress());
+//        System.out.println(order.getAddress().getFullAddress());
     }
 
     @Override
@@ -114,14 +114,11 @@ public class CheckoutControllerV2 extends HttpServlet {
         }
         order.setItems(items);
 
-        boolean isValidOrder = true;
-        if (isValidOrder) {
+        if (order.isValid()) {
             response.setStatus(HttpServletResponse.SC_OK);
+            session.setAttribute("order", order);
         } else {
             response.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
         }
-
-        System.out.println("Received items: " + itemsArray);
-        session.setAttribute("order", order);
     }
 }

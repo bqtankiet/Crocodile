@@ -7,6 +7,7 @@
 <c:url var="urlCart" value="<%=UrlProperties.cart()%>"/>
 <c:url var="urlCheckout" value="<%=UrlProperties.checkout()%>"/>
 <c:url var="urlApiAddress" value="/api/user/profile/address"/>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <%-- Combobox --%>
 <script src="<c:url value="/assets/components/combobox/combobox.js"/>"></script>
@@ -127,21 +128,21 @@
 
                         <c:choose>
 
-<%--<<<<<<< HEAD--%>
+                            <%--<<<<<<< HEAD--%>
                             <c:when test="${empty requestScope.order.items}">
                             </c:when>
                             <c:otherwise>
                                 <c:forEach var="oi" items="${requestScope.order.items}">
-<%--=======--%>
-<%--                            <c:when test="${empty requestScope.cartItem}">--%>
-<%--                                <c:forEach var="item" items="${sessionScope.selectedCartItems}">--%>
-<%--                                    <c:set var="productVariant" value="${item.productVariant}"/>--%>
-<%--                                    <input class="idVariant" type="text" value="${productVariant.id}"--%>
-<%--                                           hidden="hidden" data-action="buySuccess">--%>
+                                    <%--=======--%>
+                                    <%--                            <c:when test="${empty requestScope.cartItem}">--%>
+                                    <%--                                <c:forEach var="item" items="${sessionScope.selectedCartItems}">--%>
+                                    <%--                                    <c:set var="productVariant" value="${item.productVariant}"/>--%>
+                                    <%--                                    <input class="idVariant" type="text" value="${productVariant.id}"--%>
+                                    <%--                                           hidden="hidden" data-action="buySuccess">--%>
 
-<%--                                    <input class="quantity" type="text" value="${item.quantity}"--%>
-<%--                                           hidden="hidden">--%>
-<%-->>>>>>> develop--%>
+                                    <%--                                    <input class="quantity" type="text" value="${item.quantity}"--%>
+                                    <%--                                           hidden="hidden">--%>
+                                    <%-->>>>>>> develop--%>
                                     <div class="d-flex flex-column">
                                         <div class="row g-0">
                                             <div class="col-2 me-3 position-relative">
@@ -271,7 +272,8 @@
                             <span class="fw-bold fs-5">Tổng thanh toán: </span>
                             <div class="ms-auto">
                                 <span class="fs-5 fw-bold total-amount" data-total="${totalAmount}">
-                                    <fmt:formatNumber value="${requestScope.order.total}" type="number" pattern="#,##0"/>
+                                    <fmt:formatNumber value="${requestScope.order.total}" type="number"
+                                                      pattern="#,##0"/>
                                      <sup>₫</sup>
                                 </span>
                             </div>
@@ -301,8 +303,8 @@
                 <div class="modal-body">
                     <ul class="d-flex flex-column gap-2" id="listSavedAddresses">
                         <c:forEach var="address" items="${requestScope.savedAddressList}" varStatus="status">
-<%--                            <c:set var="inUse"--%>
-<%--                                   value="${address.id == requestScope.defaultAddress.id ? 'inUse disabled' : ''}"/>--%>
+                            <%--                            <c:set var="inUse"--%>
+                            <%--                                   value="${address.id == requestScope.defaultAddress.id ? 'inUse disabled' : ''}"/>--%>
                             <li class="bg-body-secondary p-2 rounded d-flex align-items-center">
                                 <div class="col me-2">
                                     <i class='bx bxs-map'></i>
@@ -412,53 +414,90 @@
     });
 </script>
 
+
+<%--Xử lý khi nhấn đặt hàng --%>
 <script>
-    $(document).on('click', '.payBtn', ()=> {
-        const idUser = $('.id-user').data('id-user');
-        const idAddress = $('.address').data('id-address');
-
+    const URL = '<c:url value="/checkout/confirm"/>';
+    $(document).on('click', '.payBtn', () => {
         const selectedPaymentMethod = $('input[name="payment-method"]:checked').val();
-        const totalAmount = $('.total-amount').data('total')
-
-        const idVariant = $('.idVariant');
-
-        const idBuys = idVariant.map(function() {
-            return $(this).val();
-        }).get();
-        console.log(idBuys)
-
-        const quantities = $('.quantity').map(function() {
-            return $(this).val();
-        }).get();
-        console.log(quantities)
-        const action = idVariant.data('action')
-
         $.ajax({
-            url: "${urlCheckout}",
+            url: URL,
             type: "POST",
             data: {
-                idUser: idUser,
-                idAddress: idAddress,
-                paymentMethod: selectedPaymentMethod,
-                total: totalAmount,
-                action: action,
-                idBuys: idBuys.join(','),
-                quantities: quantities.join(',')
+                paymentMethod: selectedPaymentMethod
             },
             success: function (response) {
-                sessionStorage.setItem('liveMessage', 'Đặt hàng thành công!');
-                sessionStorage.setItem('liveMessageType', 'success');
-                window.location.reload();
+                Swal.fire({
+                    icon: 'success',
+                    title: "Đặt hàng thành công",
+                    text: "Cảm ơn bạn đã đặt hàng tại Crocodile Shop! Chúng tôi sẽ sớm gửi xác nhận đơn hàng qua email hoặc số điện thoại của bạn.",
+                    confirmButtonText: 'OK',
+                }).then((result) => {
+                    if ((result.isConfirmed || result.dismiss)) {
+                        window.location.href = '<c:url value="/"/>';
+                    }
+                });
             },
             error: function (xhr, status, error) {
                 const errorMessage = xhr.responseText || 'Đặt hàng thất bại, vui lòng thử lại!';
-                sessionStorage.setItem('liveMessage', errorMessage);
-                sessionStorage.setItem('liveMessageType', 'danger');
-                window.location.reload();
+                Swal.fire({
+                    icon: 'error',
+                    title: "Thất bại",
+                    text: "Đã có lỗi xảy ra, đặt hàng không thành công. Vui lòng thử lại sau.",
+                    confirmButtonText: 'OK'
+                });
             }
         })
     });
 </script>
+
+<%--<script>--%>
+<%--    $(document).on('click', '.payBtn', ()=> {--%>
+<%--        const idUser = $('.id-user').data('id-user');--%>
+<%--        const idAddress = $('.address').data('id-address');--%>
+
+<%--        const selectedPaymentMethod = $('input[name="payment-method"]:checked').val();--%>
+<%--        const totalAmount = $('.total-amount').data('total')--%>
+
+<%--        const idVariant = $('.idVariant');--%>
+
+<%--        const idBuys = idVariant.map(function() {--%>
+<%--            return $(this).val();--%>
+<%--        }).get();--%>
+<%--        console.log(idBuys)--%>
+
+<%--        const quantities = $('.quantity').map(function() {--%>
+<%--            return $(this).val();--%>
+<%--        }).get();--%>
+<%--        console.log(quantities)--%>
+<%--        const action = idVariant.data('action')--%>
+
+<%--        $.ajax({--%>
+<%--            url: "${urlCheckout}",--%>
+<%--            type: "POST",--%>
+<%--            data: {--%>
+<%--                idUser: idUser,--%>
+<%--                idAddress: idAddress,--%>
+<%--                paymentMethod: selectedPaymentMethod,--%>
+<%--                total: totalAmount,--%>
+<%--                action: action,--%>
+<%--                idBuys: idBuys.join(','),--%>
+<%--                quantities: quantities.join(',')--%>
+<%--            },--%>
+<%--            success: function (response) {--%>
+<%--                sessionStorage.setItem('liveMessage', 'Đặt hàng thành công!');--%>
+<%--                sessionStorage.setItem('liveMessageType', 'success');--%>
+<%--                window.location.reload();--%>
+<%--            },--%>
+<%--            error: function (xhr, status, error) {--%>
+<%--                const errorMessage = xhr.responseText || 'Đặt hàng thất bại, vui lòng thử lại!';--%>
+<%--                sessionStorage.setItem('liveMessage', errorMessage);--%>
+<%--                sessionStorage.setItem('liveMessageType', 'danger');--%>
+<%--                window.location.reload();--%>
+<%--            }--%>
+<%--        })--%>
+<%--    });--%>
+<%--</script>--%>
 
 <%-- Xử lý thay đổi địa chỉ nhận hàng --%>
 <script>
