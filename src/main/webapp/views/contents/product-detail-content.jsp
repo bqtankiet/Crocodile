@@ -209,6 +209,60 @@
         </div>
     </div>
 
+    <div class="container mt-5">
+        <h4 class="mb-3">ĐÁNH GIÁ SẢN PHẨM</h4>
+
+        <!-- Tổng điểm và bộ lọc -->
+        <div class="border rounded p-3 mb-4">
+            <div class="d-flex align-items-center">
+                <h1 class="text-danger mb-0 me-2">4.9</h1>
+                <div>
+                    <div class="text-warning fs-4">★★★★★</div>
+                    <div>trên 5</div>
+                </div>
+            </div>
+            <div class="mt-3 d-flex flex-wrap gap-2">
+                <button class="btn btn-outline-secondary btn-sm">Tất Cả</button>
+                <button class="btn btn-outline-secondary btn-sm">5 Sao (1,200)</button>
+                <button class="btn btn-outline-secondary btn-sm">4 Sao (61)</button>
+                <button class="btn btn-outline-secondary btn-sm">3 Sao (17)</button>
+                <button class="btn btn-outline-secondary btn-sm">2 Sao (5)</button>
+                <button class="btn btn-outline-secondary btn-sm">1 Sao (9)</button>
+                <button class="btn btn-outline-secondary btn-sm">Có Bình Luận (387)</button>
+                <button class="btn btn-outline-secondary btn-sm">Có Hình Ảnh / Video (209)</button>
+            </div>
+        </div>
+
+        <!-- Một đánh giá -->
+        <div class="border-bottom pb-4 mb-4">
+            <div class="d-flex align-items-center mb-2">
+                <img src="https://via.placeholder.com/40" class="rounded-circle me-2" alt="avatar">
+                <strong>Người dùng </strong>
+            </div>
+            <div class="text-warning mb-2">★★★★★</div>
+            <div class="text-muted small">2024-11-14 12:04 | Phân loại hàng: Da lưng</div>
+            <p class="mb-1"><strong>Chất lượng sản phẩm:</strong> <span class="text-success">tốt</span></p>
+            <p class="mb-1"><strong>Đúng với mô tả:</strong> <span class="text-success">đúng, đẹp</span></p>
+            <p>Sản phẩm siu đẹp, mọi người nên mua...</p>
+
+            <!-- Hình ảnh -->
+            <div class="d-flex gap-2 mb-2">
+                <img src="https://via.placeholder.com/60" class="img-thumbnail" width="60" height="60">
+                <img src="https://via.placeholder.com/60" class="img-thumbnail" width="60" height="60">
+                <img src="https://via.placeholder.com/60" class="img-thumbnail" width="60" height="60">
+            </div>
+
+            <!-- Phản hồi của người bán -->
+            <div class="bg-light p-3 rounded">
+                <strong>Phản Hồi Của Người Bán</strong>
+                <p class="mb-0">Cảm ơn bạn đã đánh giá sản phẩm. Shop hy vọng được phục vụ bạn trong lần mua tiếp theo!</p>
+            </div>
+
+            <!-- Like -->
+            <div class="mt-2 text-muted small">👍 5</div>
+        </div>
+    </div>
+
     <!-------------------- San pham tuong tu -------------------->
     <div class="container my-5">
         <div class="section-title py-2 mb-2 row">
