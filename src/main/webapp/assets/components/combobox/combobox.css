@@ -1,0 +1,48 @@
+.combobox {
+
+    position: relative;
+    display: inline-block;
+
+    .combobox-list {
+        background-color: white;
+        display: none;
+        margin-top: 3px;
+        width: 100%;
+        position: absolute;
+        list-style: none;
+        border: 1px solid #ccc;
+        max-height: 200px;
+        overflow-y: auto;
+        border-radius: 5px;
+    }
+
+    .combobox-list::-webkit-scrollbar {
+        width: 5px;
+        background-color: #eee;
+    }
+
+    .combobox-list::-webkit-scrollbar-track {
+        border-radius: 10px;
+    }
+
+    .combobox-list::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: gray;
+    }
+
+    .combobox-item {
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.5;
+        padding: 0.25rem 1rem;
+        cursor: pointer;
+    }
+
+    .combobox-item:hover {
+        background-color: #ccc;
+    }
+
+    .combobox-item.active {
+        background-color: #ccc;
+    }
+}

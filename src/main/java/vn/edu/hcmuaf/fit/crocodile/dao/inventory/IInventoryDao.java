@@ -11,4 +11,6 @@ public interface IInventoryDao {
     List<Inventory.InventoryHistoryItem> getInventoryHistory();
 
     void importStock(Inventory.ImportItem item);
+
+    boolean checkAvailableInventory(int variantId, int quantity);
 }
