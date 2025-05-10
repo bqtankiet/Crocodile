@@ -159,7 +159,7 @@
                                 <input id="submit-quantity" type="number" name="quantity" value="0" hidden="hidden">
                                 <input id="submit-acition" type="text" name="action" value="buyNow" hidden="hidden">
                                 <button class="btn custom-btn-primary flex-grow-1 text-uppercase text-center custom-bg-primary p-3 fw-semibold"
-                                        role="button" type="submit" onclick="handleSubmitBuyNow()">
+                                        role="button" type="button" onclick="handleSubmitBuyNowV2()">
                                         Đặt mua ngay
                                 </button>
                                 <button class="btn custom-btn-primary custom-icon px-4 btn-add-to-cart"
@@ -346,6 +346,32 @@
             $form.attr('method', 'GET');
             $form.attr('action', '<c:url value="<%=UrlProperties.checkout()%>"/>');
             $form.submit();
+        }
+
+        function handleSubmitBuyNowV2() {
+            handleOnSubmitProductForm()
+            const idVariant = $('#submit-idVariant').val();
+            const quantity = $('#submit-quantity').val();
+            let items = [
+                { variantId: idVariant, quantity: quantity },
+            ];
+
+            $.ajax({
+                url: 'http://localhost:8080/crocodile/checkout/v2',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ items }),
+                success: function(response) {
+                    console.log('Request successful:', response);
+                    window.location.href = 'http://localhost:8080/crocodile/checkout/v2';
+                },
+                error: function(xhr, status, error) {
+                    console.error('Request failed:', status, error);
+                    if(xhr.status === 406){
+                        window.location.href = 'http://localhost:8080/crocodile/login';
+                    }
+                }
+            });
         }
 
         // Xử lý gửi đến link add to cart

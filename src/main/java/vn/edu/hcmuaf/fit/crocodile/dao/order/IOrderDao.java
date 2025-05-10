@@ -40,4 +40,5 @@ public interface IOrderDao extends BasicDao<Integer, Order> {
      */
     List<OrderItemDTO> getOrderItems(int id);
 
+    List<OrderManagement> findAllByStatus(Order.Status status);
 }
