@@ -58,6 +58,10 @@ public class OrderService {
     public OrderDetailDTO getOrderDetail(int id) { return orderDao.getOrderDetail(id); }
 
     public List<OrderItemDTO> getOrderItems(int id) { return orderDao.getOrderItems(id); }
+
+    public List<OrderManagement> findAllOrderByStatus(Order.Status status) {
+        return orderDao.findAllByStatus(status);
+    }
 }
 
 

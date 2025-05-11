@@ -7,4 +7,10 @@ import java.util.List;
 public interface IInventoryDao {
 
     List<Inventory> getAllInventory();
+
+    List<Inventory.InventoryHistoryItem> getInventoryHistory();
+
+    void importStock(Inventory.ImportItem item);
+
+    boolean checkAvailableInventory(int variantId, int quantity);
 }

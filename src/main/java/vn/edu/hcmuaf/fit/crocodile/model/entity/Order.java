@@ -24,13 +24,13 @@ public class Order implements Serializable {
 
     // Các enum cho PaymentMethod và Status
     public enum PaymentMethod {
-        CASH, MOMO, ZALOPAY
+        CASH, MOMO, ZALOPAY, COD
     }
 
     public enum Status {
-        PENDING("Chờ phê duyệt"),
-        PROCESSING("Đã duyệt"),
-        AWAITING("Đang giao hàng"),
+        PENDING("Chờ xử lý"),
+        PROCESSING("Đang giao hàng"),
+        AWAITING("Chờ lấy hàng"),
         COMPLETED("Hoàn thành"),
         CANCELLED("Hủy bỏ");
 

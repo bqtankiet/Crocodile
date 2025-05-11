@@ -3,30 +3,74 @@ package vn.edu.hcmuaf.fit.crocodile.controller;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import vn.edu.hcmuaf.fit.crocodile.config.JdbiConnect;
+//<<<<<<< HEAD
+import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDao;
+import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDaoImpl;
 import vn.edu.hcmuaf.fit.crocodile.model.cart.Cart;
 import vn.edu.hcmuaf.fit.crocodile.model.cart.CartItem;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.Address;
+//=======
+import vn.edu.hcmuaf.fit.crocodile.config.JdbiConnect;
+//import vn.edu.hcmuaf.fit.crocodile.model.cart.Cart;
+//import vn.edu.hcmuaf.fit.crocodile.model.cart.CartItem;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.EnumType;
+//>>>>>>> develop
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Order;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Product;
 import vn.edu.hcmuaf.fit.crocodile.service.OrderService;
 import vn.edu.hcmuaf.fit.crocodile.service.ProductService;
+import vn.edu.hcmuaf.fit.crocodile.service.shipping.ShippingService;
+import vn.edu.hcmuaf.fit.crocodile.service.shipping.ShippingStrategyGHN;
+import vn.edu.hcmuaf.fit.crocodile.service.shipping.ShippingStrategyGHNLight;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "CheckoutController", value = "/checkout")
 public class CheckoutController extends HttpServlet {
-    ProductService productService = new ProductService();
-    private OrderService orderService = new OrderService();
+    private ProductService productService;
+    private OrderService orderService;
+    private ShippingService shippingService;
+
+    @Override
+    public void init() throws ServletException {
+        productService = new ProductService();
+        orderService = new OrderService();
+        shippingService = new ShippingService(new ShippingStrategyGHNLight());
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+
+        UserDao userDao = new UserDaoImpl();
+        Integer userId = (Integer) session.getAttribute("userId");
+        // Default address
+        Address address = userDao.getDefaultAddressByUserId(userId);
+        request.setAttribute("defaultAddress", address);
+        System.out.println("isDefault" + address.isDefault());
+
+        // Shipping Fee
+        int districtId = address.getDistrictId();
+        String wardCode = address.getWardCode();
+        int length = 20;
+        int height = 20;
+        int width = 20;
+        int weight = 1000;
+        int shippingFee = getShippingFee(districtId, wardCode, length, height, width, weight);
+        request.setAttribute("shippingFee", shippingFee);
+
+        // List saved address
+        List<Address> addressList = userDao.getAddressesByUserId(userId);
+//        request.setAttribute("savedAddressList", addressList);
+
+
 //        ----------------Cho phan mua ngay-------------------
         String action = request.getParameter("action");
-        HttpSession session = request.getSession();
 
         if ("buyNow".equals(action)) {
             session.removeAttribute("selectedCartItems");
@@ -40,7 +84,7 @@ public class CheckoutController extends HttpServlet {
                 request.setAttribute("cartItem", cartItem);
                 request.getRequestDispatcher("/views/checkout.jsp").forward(request, response);
 
-                return;
+//                return;
             }
         }
 //        ----------------Cho phan mua ngay-------------------
@@ -136,5 +180,16 @@ public class CheckoutController extends HttpServlet {
         if (paymentMethod.equals("1")) return Order.PaymentMethod.CASH;
         if (paymentMethod.equals("2")) return Order.PaymentMethod.MOMO;
         return Order.PaymentMethod.ZALOPAY;
+    }
+
+    private int getShippingFee(int districtId, String wardCode, int width, int height, int length, int weight){
+        Map<String, Object> params = new HashMap<>();
+        params.put(ShippingStrategyGHN.KEY_TO_DISTRICT_ID, districtId);
+        params.put(ShippingStrategyGHN.KEY_TO_WARD_CODE, wardCode);
+        params.put(ShippingStrategyGHN.KEY_WIDTH, width);
+        params.put(ShippingStrategyGHN.KEY_HEIGHT, height);
+        params.put(ShippingStrategyGHN.KEY_LENGTH, length);
+        params.put(ShippingStrategyGHN.KEY_WEIGHT, weight);
+        return shippingService.getShippingFee(params);
     }
 }

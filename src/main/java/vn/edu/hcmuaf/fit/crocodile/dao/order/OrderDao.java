@@ -99,15 +99,37 @@ public class OrderDao implements IOrderDao{
         );
     }
 
+//    @Override
+//    public List<OrderManagement> finAllOrder() {
+//        String sql = "select o.id, u.fullname, u.phoneNumber, o.total, o.paymentMethod, o.status, o.invoiceDate " +
+//                "from orders o " +
+//                "join users u on o.idUser = u.id";
+//        return JdbiConnect.getJdbi().withHandle(handle ->
+//                handle.createQuery(sql)
+//                        .mapToBean(OrderManagement.class)
+//                        .list()
+//        );
+//    }
+
+
     @Override
     public List<OrderManagement> finAllOrder() {
-        String sql = "select o.id, u.fullname, u.phoneNumber, o.total, o.paymentMethod, o.status, o.invoiceDate " +
-                "from orders o " +
-                "join users u on o.idUser = u.id";
-        return JdbiConnect.getJdbi().withHandle(handle ->
-                handle.createQuery(sql)
-                        .mapToBean(OrderManagement.class)
-                        .list()
+        String sql = """
+                select
+                  o.id,
+                  u.fullname,
+                  u.phoneNumber,
+                  o.total,
+                  o.paymentMethod,
+                  o.status,
+                  o.orderDate as invoiceDate
+                from orders_v2 o join users u on o.idUser = u.id
+                order by o.orderDate desc
+                """;
+        return JdbiConnect.getJdbi().withHandle(handle -> handle
+                .createQuery(sql)
+                .mapToBean(OrderManagement.class)
+                .list()
         );
     }
 
@@ -183,6 +205,29 @@ public class OrderDao implements IOrderDao{
                         .registerRowMapper(ConstructorMapper.factory(OrderItemDTO.class))
                         .mapTo(OrderItemDTO.class)
                         .list()
+        );
+    }
+
+    @Override
+    public List<OrderManagement> findAllByStatus(Order.Status status) {
+        String sql = """
+                select
+                  o.id,
+                  u.fullname,
+                  u.phoneNumber,
+                  o.total,
+                  o.paymentMethod,
+                  o.status,
+                  o.orderDate as invoiceDate
+                from orders_v2 o join users u on o.idUser = u.id
+                where o.status = :status
+                order by o.orderDate desc
+                """;
+        return JdbiConnect.getJdbi().withHandle(handle -> handle
+                .createQuery(sql)
+                .bind("status", status)
+                .mapToBean(OrderManagement.class)
+                .list()
         );
     }
 }

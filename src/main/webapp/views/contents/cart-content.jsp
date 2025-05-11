@@ -8,6 +8,7 @@
 <c:url var="urlCheckout" value="<%=UrlProperties.checkout()%>"/>
 
 <fmt:setLocale value="vi_VN"/>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <div id="page" class="layout-default ">
     <div id="CONTENT" class="h-100">
@@ -55,14 +56,15 @@
         <c:choose>
             <c:when test="${empty sessionScope.cart}">
                 <div class="d-flex justify-content-center align-items-center">
-                    <div class="alert alert-warning text-center shadow-lg p-5" role="alert" style="max-width: 600px; width: 100%;">
+                    <div class="alert alert-warning text-center shadow-lg p-5" role="alert"
+                         style="max-width: 600px; width: 100%;">
                         <h3 class="mb-4">Giỏ hàng trống!</h3>
                         <p class="mb-4">Chưa có sản phẩm nào trong giỏ hàng. Hãy mua sắm ngay nào!</p>
                         <a href="${homeURL}" class="btn custom-btn-primary btn-lg">Về trang chủ</a>
                     </div>
                 </div>
             </c:when>
-        <c:otherwise>
+            <c:otherwise>
                 <div class="container d-flex justify-content-center align-items-center">
                     <div class="col">
                         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -94,13 +96,14 @@
                                                 <div class="form-check float-start mx-3">
                                                     <input type="checkbox" class="product-check form-check-input"
                                                            name="selectedIds" value="${productVariant.id}"
-                                                           aria-label="" >
+                                                           aria-label="">
                                                 </div>
                                                 <div class="ratio ratio-1x1" style="width: 6rem">
                                                     <img src="${productVariant.product.image}" class="rounded-1" alt="">
                                                 </div>
                                                 <div class="ms-4 col-6">
-                                                    <p class="mb-2 line-clamp-2" style="height: fit-content">${productVariant.product.name}</p>
+                                                    <p class="mb-2 line-clamp-2"
+                                                       style="height: fit-content">${productVariant.product.name}</p>
                                                     <c:if test="${productVariant.pOption1 != null}">
                                                         <p class="fw-normal">${productVariant.pOption1.key}: ${productVariant.pOption1.value}
 
@@ -114,18 +117,22 @@
                                         </th>
                                         <td class="align-middle">
                                             <p class="mb-0 fw-semibold product-price">
-                                                <fmt:formatNumber value="${productVariant.product.price}" type="currency" currencySymbol="₫" groupingUsed="true"/>
+                                                <fmt:formatNumber value="${productVariant.product.price}"
+                                                                  type="currency" currencySymbol="₫"
+                                                                  groupingUsed="true"/>
                                                     <%--                                        <fmt:formatNumber value="${productVariant.product.price}" type="number" pattern="#,##0" />--%>
                                                     <%--                                        <sup>₫</sup>--%>
                                             </p>
                                         </td>
                                         <td class="align-middle">
 
-                                            <div class="quantity-control input-group justify-content-center" data-min="1"
+                                            <div class="quantity-control input-group justify-content-center"
+                                                 data-min="1"
                                                  data-max="200">
                                                 <button type="button" class="decrement btn btn-secondary">-</button>
                                                 <input type="number" name="quantity"
-                                                       class="quantity-input form-control text-center" aria-label="quantity"
+                                                       class="quantity-input form-control text-center"
+                                                       aria-label="quantity"
                                                        style="max-width: 6ch;" value="${item.quantity}"
                                                        data-id="${productVariant.id}"
                                                        data-action="update">
@@ -134,13 +141,14 @@
                                         </td>
                                         <td class="align-middle">
                                             <p class="mb-0 fw-semibold product-total-price">
-                                                <fmt:formatNumber value="${item.caculatePrice()}" type="currency" currencySymbol="₫" groupingUsed="true"/>
+                                                <fmt:formatNumber value="${item.caculatePrice()}" type="currency"
+                                                                  currencySymbol="₫" groupingUsed="true"/>
                                                     <%--                                        <fmt:formatNumber value="${item.caculatePrice()}" type="number" pattern="#,##0" /> <sup>₫</sup>--%>
                                             </p>
                                         </td>
                                         <td class="align-middle">
                                             <button class="removeBtn btn btn-outline-danger px-2 custom-icon mx-auto"
-                                            data-id="${productVariant.id}" data-action="remove">
+                                                    data-id="${productVariant.id}" data-action="remove">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                      fill="currentColor"
                                                      class="bi bi-trash3-fill" viewBox="0 0 16 16">
@@ -160,19 +168,20 @@
                         <div>
                             <h5>Tổng thanh toán
                                 <c:if test="${sessionScope.cart.totalQuantity > 0}">
-                                    <span class="[ count-products ]" id="myProductCount">(${sessionScope.cart.totalQuantity} sản phẩm)</span>
+                                    <span class="[ count-products ]"
+                                          id="myProductCount">(${sessionScope.cart.totalQuantity} sản phẩm)</span>
                                 </c:if>
                             </h5>
                             <div class="text-danger fw-medium">
                     <span id="totalPayment" class="fs-5 fw-bold">
-                        <fmt:formatNumber value="${sessionScope.cart.totalPrice}" type="number" pattern="#,##0" />
+                        <fmt:formatNumber value="${sessionScope.cart.totalPrice}" type="number" pattern="#,##0"/>
                             <sup>₫</sup>
                     </span>
 
                             </div>
                         </div>
                         <a class="btn custom-btn-primary ms-auto px-5 py-2 fw-medium orderBtn"
-                           type="button" href="${urlCheckout}">Đặt Mua</a>
+                           type="button">Đặt Mua</a>
                     </div>
                 </div>
                 <div style="height: 150px"></div>
@@ -230,8 +239,8 @@
 </script>
 
 <script>
-    $(document).ready(function() {
-        $('.quantity-input').on('input', function() {
+    $(document).ready(function () {
+        $('.quantity-input').on('input', function () {
 
             const idVariant = $(this).data('id');
             const action = $(this).data('action');
@@ -251,7 +260,7 @@
             let totalAmountCart = 0;
             $('.product-total-price').each(function () {
                 const productPrice = $(this).text().replace(/[₫,\.]/g, '').trim();
-                 totalAmountCart += parseFloat(productPrice) ;
+                totalAmountCart += parseFloat(productPrice);
             });
 
             const formattedPriceCart = new Intl.NumberFormat('vi-VN', {
@@ -269,11 +278,11 @@
                     idVariant: idVariant,
                     quantity: quantity
                 },
-                success: function(response) {
+                success: function (response) {
                     console.log('Đã cập nhật số lượng ');
                     updateTotal();
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.error('Lỗi khi gửi dữ liệu: ', error);
                 }
             });
@@ -286,12 +295,12 @@
         let productCount = 0;
 
         // Duyệt qua từng hàng sản phẩm trong bảng
-        $('#cartTable tbody tr').each(function() {
+        $('#cartTable tbody tr').each(function () {
             const $checkbox = $(this).find('.product-check'); // Lấy checkbox
             const isChecked = $checkbox.prop('checked'); // Kiểm tra xem checkbox có được chọn không
 
             if (isChecked) {
-                productCount ++;
+                productCount++;
                 // Lấy giá sản phẩm
                 const productPrice = parseFloat($(this).find('.product-price').text().replace(/[₫,\.]/g, '').trim());
 
@@ -311,7 +320,7 @@
         $('#totalPayment').text(totalAmount.toLocaleString('vi-VN') + '₫');
 
         // Cập nhật tổng số sản phẩm cần thanh toán
-        $('#myProductCount').text('('+productCount+' sản phẩm)');
+        $('#myProductCount').text('(' + productCount + ' sản phẩm)');
     }
 </script>
 
@@ -319,7 +328,7 @@
     $(document).on('click', '.removeBtn', function (event) {
         event.preventDefault();
         const idVariant = $(this).data('id');
-        const action =$(this).data('action');
+        const action = $(this).data('action');
 
         $.ajax({
             url: "${cartURL}",
@@ -353,24 +362,70 @@
 <script>
     $(document).on('click', '.orderBtn', function (event) {
         const selectedIds = [];
-        $("input[name='selectedIds']:checked").each(function() {
+        $("input[name='selectedIds']:checked").each(function () {
             selectedIds.push($(this).val());
         });
 
+        <%--if (selectedIds.length > 0) {--%>
+        <%--    $.ajax({--%>
+        <%--        url: "${urlCheckout}",--%>
+        <%--        type: "GET",--%>
+        <%--        data: {--%>
+        <%--            selectedIds: selectedIds.join(','),--%>
+        <%--        },--%>
+        <%--        success: function(response) {--%>
+
+        <%--        },--%>
+        <%--        error: function(xhr, status, error) {--%>
+
+        <%--        }--%>
+        <%--    });--%>
+        <%--} else {--%>
+        <%--    window.location.reload();--%>
+        <%--    sessionStorage.setItem('liveMessage', 'Vui lòng chọn ít nhất 1 sản phẩm!');--%>
+        <%--    sessionStorage.setItem('liveMessageType', 'danger');--%>
+        <%--    event.preventDefault();--%>
+        <%--}--%>
+
         if (selectedIds.length > 0) {
-            $.ajax({
-                url: "${urlCheckout}",
-                type: "GET",
-                data: {
-                    selectedIds: selectedIds.join(','),
-                },
-                success: function(response) {
+            let items = [];
+            $('#cartTable tbody tr').each(function () {
+                const $checkbox = $(this).find('.product-check'); // Lấy checkbox
+                const isChecked = $checkbox.prop('checked'); // Kiểm tra xem checkbox có được chọn không
 
-                },
-                error: function(xhr, status, error) {
-
+                if (isChecked) {
+                    // Lấy id variant
+                    const variantId = parseInt($(this).find("input[name='selectedIds']:checked").val());
+                    // Lấy số lượng sản phẩm
+                    const quantity = parseInt($(this).find('.quantity-input').val());
+                    items.push({
+                        variantId: variantId,
+                        quantity: quantity
+                    });
                 }
             });
+            console.log(items);
+            $.ajax({
+                url: "http://localhost:8080/crocodile/checkout/v2",
+                type: "POST",
+                data: JSON.stringify({ items }),
+                success: function (response) {
+                    console.log('Request successful:', response);
+                    window.location.href = 'http://localhost:8080/crocodile/checkout/v2';
+                },
+                error: function (xhr, status, error) {
+                    console.error('Request failed:', status, error);
+                    if (xhr.status === 406) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: "Thất bại",
+                            text: "Có một số vấn đề với giỏ hàng của bạn. Vui lòng kiểm tra và thử lại sau.",
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                }
+            });
+
         } else {
             window.location.reload();
             sessionStorage.setItem('liveMessage', 'Vui lòng chọn ít nhất 1 sản phẩm!');
@@ -382,20 +437,20 @@
 </script>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         // Hàm tính lại tổng tiền
 
         // Lắng nghe sự kiện thay đổi trên checkbox
-        $('.product-check').on('change', function() {
+        $('.product-check').on('change', function () {
             updateTotal(); // Cập nhật tổng tiền khi checkbox thay đổi
         });
 
-        $('.selectAll').on('change', function() {
+        $('.selectAll').on('change', function () {
             updateTotal(); // Cập nhật tổng tiền khi checkbox thay đổi
         });
 
         // Lắng nghe sự kiện thay đổi trên ô nhập số lượng (nếu có)
-        $('.quantity-input').on('change', function() {
+        $('.quantity-input').on('change', function () {
             updateTotal(); // Cập nhật tổng tiền khi số lượng thay đổi
         });
 

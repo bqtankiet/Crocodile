@@ -15,4 +15,12 @@ public class InventoryService {
     public List<Inventory> getAllInventory() {
         return inventoryDao.getAllInventory();
     }
+
+    public List<Inventory.InventoryHistoryItem> getInventoryHistory() { return inventoryDao.getInventoryHistory(); }
+
+    public void importStock(Inventory.ImportItem item) { this.inventoryDao.importStock(item); }
+
+    public boolean checkAvailableInventory(int idVariant, int quantity){
+        return inventoryDao.checkAvailableInventory(idVariant, quantity);
+    }
 }

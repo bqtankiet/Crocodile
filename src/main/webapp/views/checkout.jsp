@@ -4,6 +4,8 @@ f<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
     <meta charset="UTF-8">
     <title>Crocodile - Thanh toán</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
     <!--  jquery  -->
     <script src="<c:url value="/public/jquery-3.7.1.min.js"/>"></script>
     <!--  bootstrap  -->
