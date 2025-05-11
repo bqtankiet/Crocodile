@@ -417,38 +417,76 @@
 
 <%--Xử lý khi nhấn đặt hàng --%>
 <script>
-    const URL = '<c:url value="/checkout/confirm"/>';
+    const confirmUrl = '<c:url value="/checkout/confirm"/>';
+
     $(document).on('click', '.payBtn', () => {
         const selectedPaymentMethod = $('input[name="payment-method"]:checked').val();
+
+        if (!selectedPaymentMethod) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Chọn phương thức thanh toán',
+                text: 'Vui lòng chọn một phương thức thanh toán trước khi tiếp tục.'
+            });
+            return;
+        }
+
         $.ajax({
-            url: URL,
+            url: confirmUrl,
             type: "POST",
-            data: {
-                paymentMethod: selectedPaymentMethod
-            },
+            data: { paymentMethod: selectedPaymentMethod },
             success: function (response) {
-                Swal.fire({
-                    icon: 'success',
-                    title: "Đặt hàng thành công",
-                    text: "Cảm ơn bạn đã đặt hàng tại Crocodile Shop! Chúng tôi sẽ sớm gửi xác nhận đơn hàng qua email hoặc số điện thoại của bạn.",
-                    confirmButtonText: 'OK',
-                }).then((result) => {
-                    if ((result.isConfirmed || result.dismiss)) {
-                        window.location.href = '<c:url value="/"/>';
-                    }
-                });
+                handlePaymentResponse(response);
             },
-            error: function (xhr, status, error) {
+            error: function (xhr) {
                 const errorMessage = xhr.responseText || 'Đặt hàng thất bại, vui lòng thử lại!';
                 Swal.fire({
                     icon: 'error',
-                    title: "Thất bại",
-                    text: "Đã có lỗi xảy ra, đặt hàng không thành công. Vui lòng thử lại sau.",
+                    title: "Lỗi",
+                    text: errorMessage,
                     confirmButtonText: 'OK'
                 });
             }
-        })
+        });
     });
+
+    function handlePaymentResponse(response) {
+        const { paymentMethod, redirectUrl } = response;
+
+        const messages = {
+            COD: {
+                icon: 'success',
+                title: 'Đặt hàng thành công',
+                text: 'Cảm ơn bạn đã đặt hàng tại Crocodile Shop! Chúng tôi sẽ sớm gửi xác nhận đơn hàng.'
+            },
+            MOMO: {
+                icon: 'info',
+                title: 'Chuyển hướng đến MoMo',
+                text: 'Bạn sẽ được chuyển đến trang thanh toán của MoMo để hoàn tất đơn hàng.'
+            }
+        };
+
+        const msg = messages[paymentMethod] || {
+            icon: 'warning',
+            title: 'Thông báo',
+            text: 'Phương thức thanh toán không xác định.'
+        };
+
+        Swal.fire({
+            icon: msg.icon,
+            title: msg.title,
+            text: msg.text,
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed || result.dismiss) {
+                if (paymentMethod === "COD") {
+                    window.location.href = '<c:url value="/"/>';
+                } else if (paymentMethod === "MOMO" && redirectUrl) {
+                    window.location.href = redirectUrl;
+                }
+            }
+        });
+    }
 </script>
 
 <%--<script>--%>

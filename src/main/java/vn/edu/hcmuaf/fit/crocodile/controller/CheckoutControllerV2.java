@@ -33,17 +33,19 @@ public class CheckoutControllerV2 extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Order order = (Order) session.getAttribute("order");
-        if (order == null) {
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            return;
-        }
+
         Object userIdRaw = session.getAttribute("userId");
         if(userIdRaw == null) {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
         Integer userId = (Integer) userIdRaw;
+
+        Order order = (Order) session.getAttribute("order");
+        if (order == null) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
 
         // load danh sách địa chỉ đã lưu // Đã kiểm tra, lấy được danh sách address
         List<Address> savedAddress = userDao.getAddressesByUserId(userId);
