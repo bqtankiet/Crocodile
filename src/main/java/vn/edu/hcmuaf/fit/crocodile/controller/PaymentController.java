@@ -10,15 +10,18 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.json.JSONObject;
 import vn.edu.hcmuaf.fit.crocodile.model.cart.Cart;
 import vn.edu.hcmuaf.fit.crocodile.model.order.Order;
 import vn.edu.hcmuaf.fit.crocodile.service.OrderV2Service;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Map;
 
 @WebServlet(urlPatterns = "/checkout/payment/*")
 public class PaymentController extends HttpServlet {
+    private Order order;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -32,38 +35,41 @@ public class PaymentController extends HttpServlet {
     }
 
     private void processMoMoNotify(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        // TODO: Tạm thời chưa hoạt động được, cần phải đưa lên production thì momo mới gọi được url này.
         System.out.println("---- MoMo Notify Received ----");
-        Map<String, String[]> parameterMap = req.getParameterMap();
 
-        // In ra thử
-        parameterMap.forEach((key, values) -> {
-            System.out.println(key + " = " + String.join(", ", values));
-        });
-
-        // Kiểm tra
-        String resultCode = req.getParameter("resultCode");
-        String message = req.getParameter("message");
-
-        if ("0".equals(resultCode)) {
-            // Thanh toán thành công
-            String orderId = req.getParameter("orderId");
-            long amount = Long.parseLong(req.getParameter("amount"));
-            placeOrder(req, resp);
-
-        } else {
-            // Thanh toán thất bại
-            String errorMessage = message != null ? message : "Thanh toán thất bại";
-            System.out.println("Thanh toán thất bại. Mã lỗi: " + resultCode + ", Thông báo: " + errorMessage);
+        // Đọc JSON từ body
+        StringBuilder jsonBuffer = new StringBuilder();
+        BufferedReader reader = req.getReader();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            jsonBuffer.append(line);
         }
-        // response
+
+        String requestBody = jsonBuffer.toString();
+        System.out.println("Body JSON: " + requestBody);
+
+        // Parse JSON
+        JSONObject json = new JSONObject(requestBody);
+
+        int resultCode = json.getInt("resultCode");
+        String message = json.getString("message");
+        String orderId = json.getString("orderId");
+        long amount = json.getLong("amount");
+
+        if (resultCode == 0) {
+            System.out.println("Thanh toán thành công");
+            placeOrder(req, resp);
+        } else {
+            System.out.println("Thanh toán thất bại");
+        }
+
         resp.setContentType("text/plain;charset=UTF-8");
         resp.getWriter().write("notify_success");
     }
 
     private void processMoMoPayment(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         LogUtils.init();
-        Order order = (Order) req.getSession().getAttribute("order");
+        this.order = (Order) req.getSession().getAttribute("order");
 
         // Khởi tạo order
         String requestId = String.valueOf(System.currentTimeMillis());
@@ -72,8 +78,8 @@ public class PaymentController extends HttpServlet {
         long amount = 1000;
         String orderInfo = "Thanh toán đơn hàng QR";
         // TODO: Thay đổi đường dẫn trên production
-        String returnURL = "http://localhost:8080/crocodile/";
-        String notifyURL = "http://localhost:8080/crocodile/checkout/payment/momo-notify";
+        String returnURL = "http://crocodile.nludemo.id.vn/";
+        String notifyURL = "http://crocodile.nludemo.id.vn/checkout/payment/momo-notify";
 
         Environment environment = Environment.selectEnv("dev");
 
@@ -98,12 +104,12 @@ public class PaymentController extends HttpServlet {
     }
 
     private void processCodPayment(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        this.order = (Order) req.getSession().getAttribute("order");
         placeOrder(req, resp);
     }
 
     private void placeOrder(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
-            Order order = (Order) req.getSession().getAttribute("order");
             // thêm đơn hàng vào db
             OrderV2Service orderV2Service = new OrderV2Service();
             orderV2Service.placeOrder(order);
@@ -119,7 +125,7 @@ public class PaymentController extends HttpServlet {
             resp.setContentType("application/json");
             resp.setCharacterEncoding("UTF-8");
             // TODO: Thay đổi đường dẫn trên production
-            resp.getWriter().write("{\"redirectUrl\": \"" + "http://localhost:8080/crocodile/" + "\", \"paymentMethod\": \"COD\"}");
+            resp.getWriter().write("{\"redirectUrl\": \"" + "http://crocodile.nludemo.id.vn/" + "\", \"paymentMethod\": \"COD\"}");
             resp.setStatus(HttpServletResponse.SC_OK);
         } catch (Exception e) {
             e.printStackTrace();

@@ -303,18 +303,18 @@
             ];
 
             $.ajax({
-                url: 'http://localhost:8080/crocodile/checkout/v2',
+                url: 'http://crocodile.nludemo.id.vn/checkout/v2',
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify({ items }),
                 success: function(response) {
                     console.log('Request successful:', response);
-                    window.location.href = 'http://localhost:8080/crocodile/checkout/v2';
+                    window.location.href = 'http://crocodile.nludemo.id.vn/checkout/v2';
                 },
                 error: function(xhr, status, error) {
                     console.error('Request failed:', status, error);
                     if(xhr.status === 406){
-                        window.location.href = 'http://localhost:8080/crocodile/login';
+                        window.location.href = 'http://crocodile.nludemo.id.vn/login';
                     }
                 }
             });
