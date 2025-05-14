@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface IProductReviewDao {
     List<ProductReview> getReviewsByProductId(int idVariant);
+
+    List<ProductReview.ReviewImage> getImagesByReviewId(int idReview);
 }

@@ -8,19 +8,27 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Product;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Product.*;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.ProductReview;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
+import vn.edu.hcmuaf.fit.crocodile.service.ProductReviewService;
 import vn.edu.hcmuaf.fit.crocodile.service.ProductService;
+import vn.edu.hcmuaf.fit.crocodile.service.UserService;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @WebServlet(name = "ProductDetailController", value = "/product-detail")
 public class ProductDetailController extends HttpServlet {
     private ProductService productService;
+    private ProductReviewService productReviewService;
+    private UserService userService;
 
     @Override
     public void init() throws ServletException {
         this.productService = new ProductService();
+        this.productReviewService = new ProductReviewService();
     }
 
     @Override
@@ -63,6 +71,16 @@ public class ProductDetailController extends HttpServlet {
         // List similar products
         List<Product> similarProducts = productService.findRandomNSimilarProducts(10, productId);
         request.setAttribute("similarProducts", similarProducts);
+
+        // List product review
+        List<ProductReview> productReviews = productReviewService.getReviewsByProductId(productId);
+        System.out.println(productReviews);
+        request.setAttribute("productReviews", productReviews);
+
+        for (ProductReview review : productReviews) {
+            List<ProductReview.ReviewImage> images = productReviewService.getImagesByReviewId(review.getId());
+            review.setImages(images);
+        }
 
         // forward
         request.getRequestDispatcher("/views/product-detail.jsp").forward(request, response);

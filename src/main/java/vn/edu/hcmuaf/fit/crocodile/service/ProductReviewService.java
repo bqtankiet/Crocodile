@@ -15,4 +15,8 @@ public class ProductReviewService {
     public List<ProductReview> getReviewsByProductId(int idVariant) {
         return productReviewDao.getReviewsByProductId(idVariant);
     }
+
+    public List<ProductReview.ReviewImage> getImagesByReviewId(int idReview) {
+        return productReviewDao.getImagesByReviewId(idReview);
+    }
 }

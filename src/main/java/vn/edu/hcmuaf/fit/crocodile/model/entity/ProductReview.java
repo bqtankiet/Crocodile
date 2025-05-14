@@ -18,6 +18,9 @@ public class ProductReview implements Serializable {
     private Timestamp replyTime;
     private int likeCount;
     private List<ReviewImage> images;
+    private String username;
+    private String option1Value;
+    private String option2Value;
 
     public ProductReview() { }
 
@@ -40,113 +43,85 @@ public class ProductReview implements Serializable {
                 '}';
     }
 
-    public int getId() {
-        return id;
-    }
+    public int getId() { return id; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public void setId(int id) { this.id = id; }
 
-    public int getProductId() {
-        return productId;
-    }
+    public int getProductId() { return productId; }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
-    }
+    public void setProductId(int productId) { this.productId = productId; }
 
-    public int getUserId() {
-        return userId;
-    }
+    public int getUserId() { return userId; }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
+    public void setUserId(int userId) { this.userId = userId; }
 
-    public int getRating() {
-        return rating;
-    }
+    public int getRating() { return rating; }
 
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
+    public void setRating(int rating) { this.rating = rating; }
 
-    public String getReviewText() {
-        return reviewText;
-    }
+    public String getReviewText() { return reviewText; }
 
-    public void setReviewText(String reviewText) {
-        this.reviewText = reviewText;
-    }
+    public void setReviewText(String reviewText) { this.reviewText = reviewText; }
 
-    public String getProductQuality() {
-        return productQuality;
-    }
+    public String getProductQuality() { return productQuality; }
 
-    public void setProductQuality(String productQuality) {
-        this.productQuality = productQuality;
-    }
+    public void setProductQuality(String productQuality) { this.productQuality = productQuality; }
 
-    public String getMatchDescription() {
-        return matchDescription;
-    }
+    public String getMatchDescription() { return matchDescription; }
 
-    public void setMatchDescription(String matchDescription) {
-        this.matchDescription = matchDescription;
-    }
+    public void setMatchDescription(String matchDescription) { this.matchDescription = matchDescription; }
 
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
+    public Timestamp getCreatedAt() { return createdAt; }
 
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
-    }
+    public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt;  }
 
-    public int getIsShowUsername() {
-        return isShowUsername;
-    }
+    public int getIsShowUsername() { return isShowUsername; }
 
-    public void setIsShowUsername(int isShowUsername) {
-        this.isShowUsername = isShowUsername;
-    }
+    public void setIsShowUsername(int isShowUsername) { this.isShowUsername = isShowUsername; }
 
-    public String getSellerReply() {
-        return sellerReply;
-    }
+    public String getSellerReply() { return sellerReply; }
 
-    public void setSellerReply(String sellerReply) {
-        this.sellerReply = sellerReply;
-    }
+    public void setSellerReply(String sellerReply) { this.sellerReply = sellerReply; }
 
-    public Timestamp getReplyTime() {
-        return replyTime;
-    }
+    public Timestamp getReplyTime() { return replyTime; }
 
-    public void setReplyTime(Timestamp replyTime) {
-        this.replyTime = replyTime;
-    }
+    public void setReplyTime(Timestamp replyTime) { this.replyTime = replyTime; }
 
-    public int getLikeCount() {
-        return likeCount;
-    }
+    public int getLikeCount() { return likeCount; }
 
-    public void setLikeCount(int likeCount) {
-        this.likeCount = likeCount;
-    }
+    public void setLikeCount(int likeCount) { this.likeCount = likeCount; }
 
-    public List<ReviewImage> getImages() {
-        return images;
-    }
+    public List<ReviewImage> getImages() { return images; }
 
-    public void setImages(List<ReviewImage> images) {
-        this.images = images;
-    }
+    public void setImages(List<ReviewImage> images) { this.images = images; }
+
+    public String getUsername() { return username; }
+
+    public void setUsername(String username) { this.username = username; }
+
+    public String getOption1Value() { return option1Value; }
+
+    public void setOption1Value(String option1Value) { this.option1Value = option1Value; }
+
+    public String getOption2Value() { return option2Value; }
+
+    public void setOption2Value(String option2Value) { this.option2Value = option2Value; }
 
     public static class ReviewImage implements Serializable {
         private int id;
         private int reviewId;
         private String imageUrl;
+
+        public int getId() { return id; }
+
+        public void setId(int id) { this.id = id; }
+
+        public int getReviewId() { return reviewId; }
+
+        public void setReviewId(int reviewId) { this.reviewId = reviewId; }
+
+        public String getImageUrl() { return imageUrl; }
+
+        public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
     }
 }

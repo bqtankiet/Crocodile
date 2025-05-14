@@ -229,38 +229,86 @@
                 <button class="btn btn-outline-secondary btn-sm">2 Sao (5)</button>
                 <button class="btn btn-outline-secondary btn-sm">1 Sao (9)</button>
                 <button class="btn btn-outline-secondary btn-sm">Có Bình Luận (387)</button>
-                <button class="btn btn-outline-secondary btn-sm">Có Hình Ảnh / Video (209)</button>
+                <button class="btn btn-outline-secondary btn-sm">Có Hình Ảnh</button>
             </div>
         </div>
 
         <!-- Một đánh giá -->
-        <div class="border-bottom pb-4 mb-4">
-            <div class="d-flex align-items-center mb-2">
-                <img src="https://via.placeholder.com/40" class="rounded-circle me-2" alt="avatar">
-                <strong>Người dùng </strong>
-            </div>
-            <div class="text-warning mb-2">★★★★★</div>
-            <div class="text-muted small">2024-11-14 12:04 | Phân loại hàng: Da lưng</div>
-            <p class="mb-1"><strong>Chất lượng sản phẩm:</strong> <span class="text-success">tốt</span></p>
-            <p class="mb-1"><strong>Đúng với mô tả:</strong> <span class="text-success">đúng, đẹp</span></p>
-            <p>Sản phẩm siu đẹp, mọi người nên mua...</p>
+        <c:forEach var="review" items="${productReviews}">
+            <div class="border-bottom pb-4 mb-4">
+                <div class="d-flex align-items-center mb-2">
+                    <img src="https://i1.sndcdn.com/artworks-ozhbsDOfLNl8quTs-ayDhHA-t240x240.jpg"
+                         class="rounded-circle me-2" alt="avatar" style="width: 70px">
+                    <div class="user-info">
+                        <strong>
+                            <c:choose>
+                                <c:when test="${review.isShowUsername == 1}">
+                                    <strong>${review.username}</strong>
+                                </c:when>
+                                <c:otherwise>
+                                    Người dùng
+                                </c:otherwise>
+                            </c:choose>
+                        </strong>
 
-            <!-- Hình ảnh -->
-            <div class="d-flex gap-2 mb-2">
-                <img src="https://via.placeholder.com/60" class="img-thumbnail" width="60" height="60">
-                <img src="https://via.placeholder.com/60" class="img-thumbnail" width="60" height="60">
-                <img src="https://via.placeholder.com/60" class="img-thumbnail" width="60" height="60">
-            </div>
+                        <div class="text-warning mb-2">
+                            <c:forEach begin="1" end="5" var="i">
+                                <c:choose>
+                                    <c:when test="${i <= review.rating}">
+                                        ★
+                                    </c:when>
+                                    <c:otherwise>
+                                        ☆
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                        </div>
+                        <div class="text-muted small">${review.createdAt}
+                            <c:choose>
+                                <c:when test="${not empty review.option1Value}">
+                                    | Phân loại hàng: ${review.option1Value}
+                                    <c:choose>
+                                        <c:when test="${not empty review.option2Value}">
+                                            , ${review.option2Value}
+                                        </c:when>
+                                    </c:choose>
+                                </c:when>
+                            </c:choose>
+                        </div>
+                    </div>
+                </div>
 
-            <!-- Phản hồi của người bán -->
-            <div class="bg-light p-3 rounded">
-                <strong>Phản Hồi Của Người Bán</strong>
-                <p class="mb-0">Cảm ơn bạn đã đánh giá sản phẩm. Shop hy vọng được phục vụ bạn trong lần mua tiếp theo!</p>
-            </div>
+                <p class="mb-1"><strong>Chất lượng sản phẩm:</strong> <span class="text-success">${review.productQuality}</span></p>
+                <p class="mb-1"><strong>Đúng với mô tả:</strong> <span class="text-success">${review.matchDescription}</span></p>
+                <p>${review.reviewText}</p>
 
-            <!-- Like -->
-            <div class="mt-2 text-muted small">👍 5</div>
-        </div>
+                <!-- Hình ảnh -->
+                <div class="d-flex gap-2 mb-2">
+                    <c:if test="${not empty review.images}">
+                        <c:forEach var="img" items="${review.images}">
+                            <img src="${img.imageUrl}" class="img-thumbnail" width="60" height="60">
+                        </c:forEach>
+                    </c:if>
+
+                </div>
+
+
+                <!-- Phản hồi của người bán -->
+                <div class="bg-light p-3 rounded">
+                    <strong>Phản Hồi Của Người Bán</strong>
+                    <p class="mb-0">Cảm ơn bạn đã đánh giá sản phẩm. Shop hy vọng được phục vụ bạn trong lần mua tiếp theo!</p>
+                </div>
+
+                <c:if test="${review.sellerReply != null}">
+                    <div class="reply">
+                        <strong>Phản hồi từ người bán:</strong> ${review.sellerReply}
+                    </div>
+                </c:if>
+
+                <!-- Like -->
+                <div class="mt-2 text-muted small">👍 ${review.likeCount}</div>
+            </div>
+        </c:forEach>
     </div>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
