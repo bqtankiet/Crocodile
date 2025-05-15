@@ -303,7 +303,12 @@
                     </c:if>
 
                     <!-- Like -->
-                    <div class="mt-2 text-muted small">👍 ${review.likeCount}</div>
+                    <div class="mt-2 text-muted small">
+                        <button class="btn btn-sm btn-outline-success like-btn" data-review-id="${review.id}">
+                            👍
+                        </button>
+                        <span class="like-count">${review.likeCount}</span>
+                    </div>
                 </div>
             </c:forEach>
         </div>

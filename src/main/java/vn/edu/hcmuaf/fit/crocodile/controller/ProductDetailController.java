@@ -74,7 +74,7 @@ public class ProductDetailController extends HttpServlet {
         request.setAttribute("similarProducts", similarProducts);
 
         // List product review
-        List<ProductReview> productReviews = productReviewService.getReviewsByProductId(productId);
+        List<ProductReview> productReviews = productReviewService.getReviewsByProductId(productId, 0, 999);
 
         for (ProductReview review : productReviews) {
             List<ProductReview.ReviewImage> images = productReviewService.getImagesByReviewId(review.getId());

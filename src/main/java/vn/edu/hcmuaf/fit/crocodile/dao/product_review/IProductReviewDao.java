@@ -5,8 +5,9 @@ import vn.edu.hcmuaf.fit.crocodile.model.entity.ProductReview;
 import java.util.List;
 
 public interface IProductReviewDao {
-    List<ProductReview> getReviewsByProductId(int idProduct);
     List<ProductReview> getReviewsByProductId(int idProduct, int offset, int limit);
 
     List<ProductReview.ReviewImage> getImagesByReviewId(int idReview);
+
+    boolean incrementLike(int idReview);
 }

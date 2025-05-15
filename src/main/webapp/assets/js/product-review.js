@@ -17,3 +17,29 @@ loadMoreBtn.addEventListener("click", function () {
             }
         });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".like-btn").forEach(button => {
+        button.addEventListener("click", function () {
+            const reviewId = this.dataset.reviewId;
+            const likeCountSpan = this.nextElementSibling;
+
+            fetch('/crocodile/like-review', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: `reviewId=${reviewId}`
+            })
+                .then(response => response.text())
+                .then(data => {
+                    if (data === "success") {
+                        let currentLikes = parseInt(likeCountSpan.textContent.trim());
+                        likeCountSpan.textContent = currentLikes + 1;
+                    } else {
+                        alert("Lỗi khi Like. Vui lòng thử lại!");
+                    }
+                });
+        });
+    });
+});
