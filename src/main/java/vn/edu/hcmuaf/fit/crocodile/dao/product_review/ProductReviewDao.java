@@ -8,7 +8,7 @@ import java.util.List;
 public class ProductReviewDao implements IProductReviewDao {
 
     @Override
-    public List<ProductReview> getReviewsByProductId(int idVariant) {
+    public List<ProductReview> getReviewsByProductId(int idProduct) {
         String sql = """
             SELECT
                 pr.*,
@@ -20,14 +20,43 @@ public class ProductReviewDao implements IProductReviewDao {
             JOIN product_variants pv ON pr.idVariant = pv.id
             LEFT JOIN product_options po1 ON pv.idOption1 = po1.id
             LEFT JOIN product_options po2 ON pv.idOption2 = po2.id
-            WHERE pr.idVariant = :idVariant;
+            WHERE pr.idProduct = :idProduct
+            ORDER BY pr.createdAt DESC;
         """;
 
         return JdbiConnect.getJdbi().withHandle(handle ->
             handle.createQuery(sql)
-                    .bind("idVariant", idVariant)
+                    .bind("idProduct", idProduct)
                     .mapToBean(ProductReview.class)
                     .list()
+        );
+    }
+
+    @Override
+    public List<ProductReview> getReviewsByProductId(int idProduct, int offset, int limit) {
+        String sql = """
+                SELECT
+                    pr.*,
+                    u.username AS username,
+                    po1.value AS option1Value,
+                    po2.value AS option2Value
+                FROM product_reviews pr
+                JOIN users u ON pr.idUser = u.id
+                JOIN product_variants pv ON pr.idVariant = pv.id
+                LEFT JOIN product_options po1 ON pv.idOption1 = po1.id
+                LEFT JOIN product_options po2 ON pv.idOption2 = po2.id
+                WHERE pr.idProduct = :idProduct
+                ORDER BY pr.createdAt DESC
+                LIMIT :limit OFFSET :offset
+            """;
+
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("idProduct", idProduct)
+                        .bind("limit", limit)
+                        .bind("offset", offset)
+                        .mapToBean(ProductReview.class)
+                        .list()
         );
     }
 

@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @WebServlet(name = "ProductDetailController", value = "/product-detail")
 public class ProductDetailController extends HttpServlet {
@@ -74,13 +75,19 @@ public class ProductDetailController extends HttpServlet {
 
         // List product review
         List<ProductReview> productReviews = productReviewService.getReviewsByProductId(productId);
-        System.out.println(productReviews);
-        request.setAttribute("productReviews", productReviews);
 
         for (ProductReview review : productReviews) {
             List<ProductReview.ReviewImage> images = productReviewService.getImagesByReviewId(review.getId());
             review.setImages(images);
         }
+
+        List<ProductReview> firstFive = productReviews
+                .stream()
+                .limit(5)
+                .collect(Collectors.toList());
+
+        request.setAttribute("productReviews", firstFive);
+        request.setAttribute("hasMore", productReviews.size() > 5);
 
         // forward
         request.getRequestDispatcher("/views/product-detail.jsp").forward(request, response);

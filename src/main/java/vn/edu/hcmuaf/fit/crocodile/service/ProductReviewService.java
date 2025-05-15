@@ -12,8 +12,12 @@ public class ProductReviewService {
         productReviewDao = new ProductReviewDao();
     }
 
-    public List<ProductReview> getReviewsByProductId(int idVariant) {
-        return productReviewDao.getReviewsByProductId(idVariant);
+    public List<ProductReview> getReviewsByProductId(int idProduct) {
+        return productReviewDao.getReviewsByProductId(idProduct);
+    }
+
+    public List<ProductReview> getReviewsByProductId(int idProduct, int offset, int limit) {
+        return productReviewDao.getReviewsByProductId(idProduct, offset, limit);
     }
 
     public List<ProductReview.ReviewImage> getImagesByReviewId(int idReview) {
