@@ -89,6 +89,9 @@ public class ProductDetailController extends HttpServlet {
         request.setAttribute("productReviews", firstFive);
         request.setAttribute("hasMore", productReviews.size() > 5);
 
+        double avgRating = productReviewService.getAverageRatingForProduct(productId);
+        request.setAttribute("avgRating", avgRating);
+
         // forward
         request.getRequestDispatcher("/views/product-detail.jsp").forward(request, response);
     }

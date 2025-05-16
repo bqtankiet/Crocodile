@@ -215,21 +215,34 @@
         <!-- Tổng điểm và bộ lọc -->
         <div class="border rounded p-3 mb-4">
             <div class="d-flex align-items-center">
-                <h1 class="text-danger mb-0 me-2">4.9</h1>
+                <h1 class="text-success mb-0 me-2">${String.format("%.1f", avgRating)} / 5</h1>
                 <div>
-                    <div class="text-warning fs-4">★★★★★</div>
-                    <div>trên 5</div>
+                    <div class="text-warning fs-4">
+                        <c:forEach var="i" begin="1" end="5">
+                            <c:choose>
+                                <c:when test="${i <= avgRating}">
+                                    <i class="fas fa-star"></i>
+                                </c:when>
+                                <c:when test="${i - avgRating < 1}">
+                                    <i class="fas fa-star-half-alt" style="color: rgb(255 193 39)"></i>
+                                </c:when>
+                                <c:otherwise>
+                                    <i class="far fa-star"></i>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                    </div>
                 </div>
             </div>
             <div class="mt-3 d-flex flex-wrap gap-2">
-                <button class="btn btn-outline-secondary btn-sm">Tất Cả</button>
-                <button class="btn btn-outline-secondary btn-sm">5 Sao (1,200)</button>
-                <button class="btn btn-outline-secondary btn-sm">4 Sao (61)</button>
-                <button class="btn btn-outline-secondary btn-sm">3 Sao (17)</button>
-                <button class="btn btn-outline-secondary btn-sm">2 Sao (5)</button>
-                <button class="btn btn-outline-secondary btn-sm">1 Sao (9)</button>
-                <button class="btn btn-outline-secondary btn-sm">Có Bình Luận (387)</button>
-                <button class="btn btn-outline-secondary btn-sm">Có Hình Ảnh</button>
+                <button class="btn btn-outline-success btn-sm">Tất Cả</button>
+                <button class="btn btn-outline-success btn-sm">5 Sao (1,200)</button>
+                <button class="btn btn-outline-success btn-sm">4 Sao (61)</button>
+                <button class="btn btn-outline-success btn-sm">3 Sao (17)</button>
+                <button class="btn btn-outline-success btn-sm">2 Sao (5)</button>
+                <button class="btn btn-outline-success btn-sm">1 Sao (9)</button>
+                <button class="btn btn-outline-success btn-sm">Có Bình Luận (387)</button>
+                <button class="btn btn-outline-success btn-sm">Có Hình Ảnh</button>
             </div>
         </div>
 

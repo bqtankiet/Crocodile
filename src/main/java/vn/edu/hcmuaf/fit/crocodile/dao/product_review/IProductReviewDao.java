@@ -10,4 +10,6 @@ public interface IProductReviewDao {
     List<ProductReview.ReviewImage> getImagesByReviewId(int idReview);
 
     boolean incrementLike(int idReview);
+
+    double getAverageRatingForProduct(int idProduct);
 }

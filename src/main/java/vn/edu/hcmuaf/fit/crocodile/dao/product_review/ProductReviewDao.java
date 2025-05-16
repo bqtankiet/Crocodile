@@ -56,4 +56,17 @@ public class ProductReviewDao implements IProductReviewDao {
                             .execute() > 0
         );
     }
+
+    @Override
+    public double getAverageRatingForProduct(int idProduct) {
+        String sql = "SELECT AVG(rating) FROM product_reviews WHERE idProduct = :idProduct";
+
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                  handle.createQuery(sql)
+                          .bind("idProduct", idProduct)
+                          .mapTo(Double.class)
+                          .findOne()
+                          .orElse(0.0)
+                );
+    }
 }

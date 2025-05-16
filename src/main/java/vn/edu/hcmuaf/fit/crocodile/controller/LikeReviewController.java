@@ -24,7 +24,7 @@ public class LikeReviewController extends HttpServlet {
         int reviewId = Integer.parseInt(request.getParameter("reviewId"));
 
         boolean success = productReviewService.incrementLike(reviewId);
-        System.out.println(success);
+        // TODO: xử lý like 1 lần, unlike
 
         response.setContentType("text/plain");
         response.getWriter().write(success ? "success" : "error");

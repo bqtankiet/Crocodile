@@ -23,4 +23,6 @@ public class ProductReviewService {
     public boolean incrementLike(int idReview) {
         return productReviewDao.incrementLike(idReview);
     }
+
+    public double getAverageRatingForProduct(int idProduct) { return productReviewDao.getAverageRatingForProduct(idProduct); }
 }
