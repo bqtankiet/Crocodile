@@ -43,4 +43,28 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
         });
     });
+
+    document.querySelectorAll(".rating").forEach(button => {
+        button.addEventListener("click", function () {
+            const rating = this.dataset.rating;
+            const idProduct = this.dataset.idproduct
+            document.querySelectorAll('.rating').forEach(btn => btn.classList.remove('active'));
+
+            button.classList.add('active');
+
+            fetch(`/crocodile/rating-filter?idProduct=${idProduct}&rating=${rating}`)
+                .then(response => response.text())
+                .then(html => {
+                    const content = html.trim();
+                    document.getElementById("reviewList").innerHTML = content;
+                    // if (content === "") {
+                    //     loadMoreBtn.style.display = "none";
+                    // } else {
+                    //     document.getElementById("reviewList").insertAdjacentHTML("beforeend", content);
+                    //     offset += 5;
+                    // }
+                    console.log(content)
+                });
+        });
+    });
 });

@@ -235,14 +235,12 @@
                 </div>
             </div>
             <div class="mt-3 d-flex flex-wrap gap-2">
-                <button class="btn btn-outline-success btn-sm">Tất Cả</button>
-                <button class="btn btn-outline-success btn-sm">5 Sao (1,200)</button>
-                <button class="btn btn-outline-success btn-sm">4 Sao (61)</button>
-                <button class="btn btn-outline-success btn-sm">3 Sao (17)</button>
-                <button class="btn btn-outline-success btn-sm">2 Sao (5)</button>
-                <button class="btn btn-outline-success btn-sm">1 Sao (9)</button>
-                <button class="btn btn-outline-success btn-sm">Có Bình Luận (387)</button>
-                <button class="btn btn-outline-success btn-sm">Có Hình Ảnh</button>
+                <button class="btn btn-outline-success btn-sm rating active" data-idProduct="${requestScope.product.id}" data-rating="0">Tất Cả</button>
+                <button class="btn btn-outline-success btn-sm rating" data-idProduct="${requestScope.product.id}" data-rating="5">5 Sao (1,200)</button>
+                <button class="btn btn-outline-success btn-sm rating" data-idProduct="${requestScope.product.id}" data-rating="4">4 Sao (61)</button>
+                <button class="btn btn-outline-success btn-sm rating" data-idProduct="${requestScope.product.id}" data-rating="3">3 Sao (17)</button>
+                <button class="btn btn-outline-success btn-sm rating" data-idProduct="${requestScope.product.id}" data-rating="2">2 Sao (5)</button>
+                <button class="btn btn-outline-success btn-sm rating" data-idProduct="${requestScope.product.id}" data-rating="1">1 Sao (9)</button>
             </div>
         </div>
 
@@ -341,77 +339,7 @@
     <script src="<c:url value="/assets/js/product-review.js"/>"></script>
 
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
-    <div class="container mt-5 mb-5">
-        <h4>Đánh Giá Sản Phẩm</h4>
-
-        <!-- Thông tin sản phẩm -->
-        <div class="d-flex align-items-center border rounded p-3 mb-3">
-            <img src="https://www.gento.vn/wp-content/uploads/2024/07/vi-nam-da-ca-sau8.jpg" class="me-3 rounded" alt="sản phẩm"
-                 style="width: 50px">
-            <div>
-                <strong>Ví gấp nam da cá sấu V7068</strong><br>
-                <span class="text-muted small">Phân loại hàng: Da lưng</span>
-            </div>
-        </div>
-
-        <!-- Chất lượng sản phẩm -->
-        <div class="mb-3">
-            <label class="form-label"><strong>Chất lượng sản phẩm</strong></label><br>
-            <div id="product-rating" class="text-warning fs-4">
-                <i class="fa-regular fa-star" data-value="1"></i>
-                <i class="fa-regular fa-star" data-value="2"></i>
-                <i class="fa-regular fa-star" data-value="3"></i>
-                <i class="fa-regular fa-star" data-value="4"></i>
-                <i class="fa-regular fa-star" data-value="5"></i>
-                <span class="ms-2" id="rating-label">Chưa đánh giá</span>
-            </div>
-        </div>
-
-        <!-- Nội dung đánh giá -->
-        <div class="mb-3">
-            <label class="form-label"><strong>Chất lượng sản phẩm:</strong></label>
-            <textarea class="form-control" rows="4" placeholder="Hãy chia sẻ những điều bạn thích về sản phẩm này với những người mua khác nhé."></textarea>
-        </div>
-
-        <!-- Upload -->
-        <div class="mb-3 d-flex gap-2">
-            <button class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-camera"></i> Thêm Hình ảnh</button>
-        </div>
-
-        <!-- Tùy chọn -->
-        <div class="form-check mb-3">
-            <input class="form-check-input" type="checkbox" id="showName" checked>
-            <label class="form-check-label" for="showName">
-                Hiển thị tên đăng nhập trên đánh giá này
-                <div class="text-muted small">Tên tài khoản sẽ hiển thị như <strong>TEST USER</strong></div>
-            </label>
-        </div>
-
-        <!-- Nút -->
-        <div class="d-flex justify-content-end gap-2">
-            <button class="btn btn-danger">TRỞ LẠI</button>
-            <button class="btn" style="background-color: #007b5f !important; color: white">HOÀN THÀNH</button>
-        </div>
-    </div>
-
-    <!-- JS xử lý chọn sao -->
-    <script>
-        const stars = document.querySelectorAll('#product-rating i');
-        const ratingLabel = document.getElementById('rating-label');
-        const ratingText = ['Tệ', 'Không hài lòng', 'Bình thường', 'Hài lòng', 'Tuyệt vời'];
-
-        stars.forEach((star, index) => {
-            star.addEventListener('click', () => {
-                stars.forEach((s, i) => {
-                    s.classList.toggle('fa-solid', i <= index);
-                    s.classList.toggle('fa-regular', i > index);
-                });
-                ratingLabel.textContent = ratingText[index];
-            });
-        });
-    </script>
 
     <!-------------------- San pham tuong tu -------------------->
     <div class="container my-5">

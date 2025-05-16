@@ -97,6 +97,12 @@
         .rating_box .rating_average {
             border-right: 1px solid gray;
         }
+
+        .rating.active {
+            background-color: #198754
+            color: white;
+            border-color: #28a745;
+        }
     </style>
 
     <!--  Xử lý sự kiện các button trong phần mô tả sản phẩm  -->

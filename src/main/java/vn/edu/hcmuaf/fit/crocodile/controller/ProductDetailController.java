@@ -73,6 +73,7 @@ public class ProductDetailController extends HttpServlet {
         List<Product> similarProducts = productService.findRandomNSimilarProducts(10, productId);
         request.setAttribute("similarProducts", similarProducts);
 
+        // ------------------------------cho phần đánh giá sản phẩm------------------------------
         // List product review
         List<ProductReview> productReviews = productReviewService.getReviewsByProductId(productId, 0, 999);
 
@@ -91,6 +92,7 @@ public class ProductDetailController extends HttpServlet {
 
         double avgRating = productReviewService.getAverageRatingForProduct(productId);
         request.setAttribute("avgRating", avgRating);
+        // ------------------------------cho phần đánh giá sản phẩm------------------------------
 
         // forward
         request.getRequestDispatcher("/views/product-detail.jsp").forward(request, response);

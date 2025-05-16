@@ -12,4 +12,6 @@ public interface IProductReviewDao {
     boolean incrementLike(int idReview);
 
     double getAverageRatingForProduct(int idProduct);
+
+    List<ProductReview> getReviewsByRating(int idProduct, int rating);
 }

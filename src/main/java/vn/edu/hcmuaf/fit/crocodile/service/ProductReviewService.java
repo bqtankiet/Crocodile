@@ -25,4 +25,8 @@ public class ProductReviewService {
     }
 
     public double getAverageRatingForProduct(int idProduct) { return productReviewDao.getAverageRatingForProduct(idProduct); }
+
+    public List<ProductReview> getReviewsByRating(int idProduct, int rating) {
+        return productReviewDao.getReviewsByRating(idProduct, rating);
+    }
 }
