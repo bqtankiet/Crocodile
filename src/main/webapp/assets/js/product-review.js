@@ -57,13 +57,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 .then(html => {
                     const content = html.trim();
                     document.getElementById("reviewList").innerHTML = content;
-                    // if (content === "") {
-                    //     loadMoreBtn.style.display = "none";
-                    // } else {
-                    //     document.getElementById("reviewList").insertAdjacentHTML("beforeend", content);
-                    //     offset += 5;
-                    // }
-                    console.log(content)
                 });
         });
     });

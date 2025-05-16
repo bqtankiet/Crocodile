@@ -235,12 +235,24 @@
                 </div>
             </div>
             <div class="mt-3 d-flex flex-wrap gap-2">
-                <button class="btn btn-outline-success btn-sm rating active" data-idProduct="${requestScope.product.id}" data-rating="0">Tất Cả</button>
-                <button class="btn btn-outline-success btn-sm rating" data-idProduct="${requestScope.product.id}" data-rating="5">5 Sao (1,200)</button>
-                <button class="btn btn-outline-success btn-sm rating" data-idProduct="${requestScope.product.id}" data-rating="4">4 Sao (61)</button>
-                <button class="btn btn-outline-success btn-sm rating" data-idProduct="${requestScope.product.id}" data-rating="3">3 Sao (17)</button>
-                <button class="btn btn-outline-success btn-sm rating" data-idProduct="${requestScope.product.id}" data-rating="2">2 Sao (5)</button>
-                <button class="btn btn-outline-success btn-sm rating" data-idProduct="${requestScope.product.id}" data-rating="1">1 Sao (9)</button>
+                <button class="btn btn-outline-success btn-sm rating active" data-idProduct="${requestScope.product.id}" data-rating="0">
+                    Tất Cả
+                </button>
+                <button class="btn btn-outline-success btn-sm rating" data-idProduct="${requestScope.product.id}" data-rating="5">
+                    5 Sao (${requestScope.rating5Star})
+                </button>
+                <button class="btn btn-outline-success btn-sm rating" data-idProduct="${requestScope.product.id}" data-rating="4">
+                    4 Sao (${requestScope.rating4Star})
+                </button>
+                <button class="btn btn-outline-success btn-sm rating" data-idProduct="${requestScope.product.id}" data-rating="3">
+                    3 Sao (${requestScope.rating3Star})
+                </button>
+                <button class="btn btn-outline-success btn-sm rating" data-idProduct="${requestScope.product.id}" data-rating="2">
+                    2 Sao (${requestScope.rating2Star})
+                </button>
+                <button class="btn btn-outline-success btn-sm rating" data-idProduct="${requestScope.product.id}" data-rating="1">
+                    1 Sao (${requestScope.rating1Star})
+                </button>
             </div>
         </div>
 
@@ -322,23 +334,17 @@
                     </div>
                 </div>
             </c:forEach>
+            <c:if test="${hasMore}">
+                <div class="text-center">
+                    <button id="loadMoreBtn" data-idProduct="${requestScope.product.id}"
+                            class="btn btn-outline-success mt-3">
+                        Xem thêm đánh giá
+                    </button>
+                </div>
+            </c:if>
         </div>
 
-
-        <c:if test="${hasMore}">
-            <div class="text-center">
-                <button id="loadMoreBtn" data-idProduct="${requestScope.product.id}"
-                        class="btn btn-outline-success mt-3">
-                    Xem thêm đánh giá
-                </button>
-            </div>
-        </c:if>
-
     </div>
-
-    <script src="<c:url value="/assets/js/product-review.js"/>"></script>
-
-
 
 
     <!-------------------- San pham tuong tu -------------------->

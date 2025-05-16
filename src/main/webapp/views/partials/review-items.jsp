@@ -61,11 +61,6 @@
 
 
         <!-- Phản hồi của người bán -->
-        <div class="bg-light p-3 rounded">
-            <strong>Phản Hồi Của Người Bán</strong>
-            <p class="mb-0">Cảm ơn bạn đã đánh giá sản phẩm. Shop hy vọng được phục vụ bạn trong lần mua tiếp theo!</p>
-        </div>
-
         <c:if test="${review.sellerReply != null}">
             <div class="bg-light p-3 rounded">
                 <strong>Phản Hồi Của Người Bán</strong>
@@ -82,3 +77,4 @@
         </div>
     </div>
 </c:forEach>
+

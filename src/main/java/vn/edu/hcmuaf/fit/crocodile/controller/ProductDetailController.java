@@ -89,10 +89,13 @@ public class ProductDetailController extends HttpServlet {
 
         request.setAttribute("productReviews", firstFive);
         request.setAttribute("hasMore", productReviews.size() > 5);
-
-        double avgRating = productReviewService.getAverageRatingForProduct(productId);
-        request.setAttribute("avgRating", avgRating);
-        // ------------------------------cho phần đánh giá sản phẩm------------------------------
+        request.setAttribute("avgRating", productReviewService.getAverageRatingForProduct(productId));
+        request.setAttribute("rating1Star", productReviewService.getReviewsByRating(productId, 1).size());
+        request.setAttribute("rating2Star", productReviewService.getReviewsByRating(productId, 2).size());
+        request.setAttribute("rating3Star", productReviewService.getReviewsByRating(productId, 3).size());
+        request.setAttribute("rating4Star", productReviewService.getReviewsByRating(productId, 4).size());
+        request.setAttribute("rating5Star", productReviewService.getReviewsByRating(productId, 5).size());
+        // ------------------------------end phần đánh giá sản phẩm------------------------------
 
         // forward
         request.getRequestDispatcher("/views/product-detail.jsp").forward(request, response);

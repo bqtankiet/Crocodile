@@ -122,6 +122,9 @@
         });
     </script>
 
+    <script src="<c:url value="/assets/js/product-review.js"/>"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
     <!--  Khai báo Bootstrap tooltip  -->
     <script>
         $(document).ready(function () {

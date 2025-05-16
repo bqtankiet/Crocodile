@@ -14,6 +14,7 @@ public class LikeReviewController extends HttpServlet {
     public LikeReviewController() {
         productReviewService = new ProductReviewService();
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

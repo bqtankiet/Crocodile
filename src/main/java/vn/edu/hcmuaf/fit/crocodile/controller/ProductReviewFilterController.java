@@ -22,17 +22,22 @@ public class ProductReviewFilterController extends HttpServlet {
         int idProduct = Integer.parseInt(request.getParameter("idProduct"));
         int rating = Integer.parseInt(request.getParameter("rating"));
 
-        List<ProductReview> reviews = productReviewService.getReviewsByRating(idProduct, rating);
+        List<ProductReview> reviews;
+        if (rating == 0) {
+            reviews = productReviewService.getReviewsByProductId(idProduct, 0, 999);
+        } else {
+            reviews = productReviewService.getReviewsByRating(idProduct, rating);
+        }
 
         for (ProductReview review : reviews) {
             List<ProductReview.ReviewImage> images = productReviewService.getImagesByReviewId(review.getId());
             review.setImages(images);
         }
-        System.out.println(reviews);
-        request.setAttribute("productReviews", reviews);
+        // TODO: chưa xử lý hiển hiển thị đánh giá rút gọn -> vd: hiển thị 5 đánh giá
 
-        response.setContentType("text/html; charset=UTF-8");
+        request.setAttribute("productReviews", reviews);
         request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
         request.getRequestDispatcher("/views/partials/review-items.jsp").forward(request, response);
     }
 
