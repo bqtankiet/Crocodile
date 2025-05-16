@@ -8,6 +8,8 @@ import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDao;
 import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDaoImpl;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
 import vn.edu.hcmuaf.fit.crocodile.service.AuthenticationService;
+import vn.edu.hcmuaf.fit.crocodile.util.log.LogAuthentication;
+import vn.edu.hcmuaf.fit.crocodile.util.log.LogUtil;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -59,6 +61,10 @@ public class LoginController extends HttpServlet {
 
                 String gender = user.getGender();
                 String genderDisplay = "";
+
+                // log
+                LogAuthentication logAuthentication = new LogAuthentication();
+                logAuthentication.logSuccess(String.valueOf(user.getId()), user.getUsername(), LogUtil.getClientIp(request), new RolePermissionService().getRoleName(user.getRole()));
 
                 if ("NAM".equals(gender)) {
                     genderDisplay = "Nam";

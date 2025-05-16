@@ -41,6 +41,7 @@ public class LogDetailAPI extends HttpServlet {
             resp.getWriter().write(new Gson().toJson(errorResponse));
             return;
         }
+        System.out.printf("%s, %s, %s",detail.getTableName(), detail.getOldId(), detail.getNewId());
         List<Map<String, Object>> resultSet = logService.findOldAndNew(detail.getTableName(), detail.getOldId(), detail.getNewId());
         if(resultSet.isEmpty()) {
             resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
