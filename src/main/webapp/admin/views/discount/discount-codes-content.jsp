@@ -296,7 +296,7 @@
     </script>
 
     <script>
-        $('btnEditDiscount').on('click', function() {
+        $('.btnEditDiscount').on('click', function() {
            alert("Tính năng đang phát triển");
         });
     </script>

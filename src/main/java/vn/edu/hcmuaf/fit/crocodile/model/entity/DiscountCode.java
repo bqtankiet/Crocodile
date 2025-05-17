@@ -1,9 +1,27 @@
 package vn.edu.hcmuaf.fit.crocodile.model.entity;
 
+import vn.edu.hcmuaf.fit.crocodile.model.order.Order;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class DiscountCode implements java.io.Serializable {
+
+    public boolean isApplicable(Order order) {
+        BigDecimal orderValue = new BigDecimal(order.getTotalBeforeDiscount());
+        return orderValue.compareTo(minOrderValue) >= 0;
+    }
+
+    public int calculateTotalAmount(Order order) {
+        int originalTotal = order.getTotalBeforeDiscount();
+
+        int discountAmount = switch (this.type) {
+            case FIXED -> value.intValue();
+            case PERCENTAGE -> originalTotal * value.intValue() / 100;
+        };
+
+        return Math.max(0, originalTotal - discountAmount);
+    }
 
     public enum DiscountType {PERCENTAGE, FIXED}
     public enum DiscountStatus {ACTIVE, EXPIRED, USED_UP}

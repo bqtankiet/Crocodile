@@ -17,4 +17,6 @@ public interface IDiscountCodeDAO {
     DiscountCode findById(int id);
 
     List<DiscountCode> findAll();
+
+    boolean checkUserUsage(int id, int userId);
 }

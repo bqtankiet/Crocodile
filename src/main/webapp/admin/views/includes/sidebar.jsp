@@ -207,14 +207,14 @@
             </li>
         </c:if>
 
-<%--        <c:if test="${fn:contains(permissions, 'role_read')}">--%>
+        <c:if test="${fn:contains(permissions, 'discount_read')}">
             <li class="menu-item ${param.activePage == 'discount' ? 'active' : ''}">
                 <a href="${discountCodeUrl}" class="menu-link override">
                     <i class="menu-icon tf-icons bx bx-crown"></i>
                     <div>Mã giảm giá</div>
                 </a>
             </li>
-<%--        </c:if>--%>
+        </c:if>
 
 
     </ul>

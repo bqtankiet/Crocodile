@@ -53,4 +53,10 @@ public class DiscountCodeTest {
         List<DiscountCode> discountCodes = dao.findAll();
         discountCodes.forEach(System.out::println);
     }
+
+    @Test
+    public void test5() {
+        DiscountCodeDAO dao = new DiscountCodeDAO();
+        System.out.println(dao.checkUserUsage(1, 3));
+    }
 }

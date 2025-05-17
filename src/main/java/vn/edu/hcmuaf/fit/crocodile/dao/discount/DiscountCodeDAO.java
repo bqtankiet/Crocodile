@@ -67,4 +67,16 @@ public class DiscountCodeDAO implements IDiscountCodeDAO {
         );
     }
 
+    @Override
+    public boolean checkUserUsage(int discountId, int userId) {
+        String sql = "SELECT 1 FROM discount_usage WHERE discountCodeId = :discountId AND userId = :userId LIMIT 1";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("discountId", discountId)
+                        .bind("userId", userId)
+                        .mapTo(Integer.class)
+                        .findOne()
+                        .isPresent()
+        );
+    }
 }
