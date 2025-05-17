@@ -1,13 +1,12 @@
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded",  ()=> {
     const loadMoreBtn = document.getElementById("loadMoreBtn")
     let offset = 5;
     let idProduct = loadMoreBtn.dataset.idproduct;
 
-    loadMoreBtn.addEventListener("click", function () {
-        const url = `/crocodile/more-review?idProduct=${idProduct}&offset=${offset}`;
-
-        fetch(url)
+    // ajax xem thêm đánh giá
+    loadMoreBtn.addEventListener("click", ()=> {
+        fetch(`/crocodile/more-review?idProduct=${idProduct}&offset=${offset}`)
             .then(response => response.text())
             .then(html => {
                 const content = html.trim();
@@ -20,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     });
 
+    // ajax like đánh giá
     document.querySelectorAll(".like-btn").forEach(button => {
         button.addEventListener("click", function () {
             const reviewId = this.dataset.reviewId;
@@ -44,6 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+    // ajax lọc đánh giá theo sao
     document.querySelectorAll(".rating").forEach(button => {
         button.addEventListener("click", function () {
             const rating = this.dataset.rating;
@@ -55,8 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
             fetch(`/crocodile/rating-filter?idProduct=${idProduct}&rating=${rating}`)
                 .then(response => response.text())
                 .then(html => {
-                    const content = html.trim();
-                    document.getElementById("reviewList").innerHTML = content;
+                    document.getElementById("reviewList").innerHTML = html.trim();
                 });
         });
     });

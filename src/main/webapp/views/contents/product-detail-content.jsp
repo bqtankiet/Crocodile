@@ -334,18 +334,17 @@
                     </div>
                 </div>
             </c:forEach>
-            <c:if test="${hasMore}">
-                <div class="text-center">
-                    <button id="loadMoreBtn" data-idProduct="${requestScope.product.id}"
-                            class="btn btn-outline-success mt-3">
-                        Xem thêm đánh giá
-                    </button>
-                </div>
-            </c:if>
+
         </div>
-
+        <c:if test="${hasMore}">
+            <div class="text-center">
+                <button id="loadMoreBtn" data-idProduct="${requestScope.product.id}"
+                        class="btn btn-outline-success mt-3">
+                    Xem thêm đánh giá
+                </button>
+            </div>
+        </c:if>
     </div>
-
 
     <!-------------------- San pham tuong tu -------------------->
     <div class="container my-5">
