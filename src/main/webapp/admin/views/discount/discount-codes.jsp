@@ -20,6 +20,9 @@
     <link rel="stylesheet" href="<c:url value="/admin/assets/vendor/fonts/boxicons.css"/>"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
+    <!--  jquery  -->
+    <script src="<c:url value="/public/jquery-3.7.1.min.js"/> "></script>
+
     <!-- Core CSS -->
     <link rel="stylesheet" href="<c:url value="/admin/assets/vendor/css/core.css"/>"
           class="template-customizer-core-css"/>

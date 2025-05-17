@@ -51,6 +51,7 @@ public class DiscountCodeManagementController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
+        System.out.println(action);
         if ("create".equals(action)) {
             try {
                 String code = req.getParameter("code");
@@ -62,10 +63,19 @@ public class DiscountCodeManagementController extends HttpServlet {
                 int maxUses = Integer.parseInt(req.getParameter("maxUses"));
                 BigDecimal minOrderValue = new BigDecimal(req.getParameter("minOrderValue"));
 
+                System.out.println(code);
+                System.out.println(type);
+                System.out.println(value);
+                System.out.println(maxUses);
+                System.out.println(maxDiscount);
+                System.out.println(startDate);
+                System.out.println(endDate);
+                System.out.println(minOrderValue);
+
                 // Validate input
                 if (discountCodeDAO.findByCode(code) != null) {
-                    req.setAttribute("error", "Mã giảm giá đã tồn tại");
-                    req.getRequestDispatcher(JSP_FORM).forward(req, resp);
+                    resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    resp.getWriter().write("{\"success\": false, \"message\": \"" + "Mã giảm giá đã tồn tại" + "\"}");
                     return;
                 }
 
@@ -81,10 +91,12 @@ public class DiscountCodeManagementController extends HttpServlet {
                 discountCode.setStatus(DiscountCode.DiscountStatus.ACTIVE);
 
                 discountCodeDAO.createDiscountCode(discountCode);
-                resp.sendRedirect(req.getContextPath() + "/admin/discount-codes");
+                resp.setContentType("application/json");
+                resp.getWriter().write("{\"success\": true}");
             } catch (Exception e) {
-                req.setAttribute("error", "Lỗi khi tạo mã giảm giá: " + e.getMessage());
-                req.getRequestDispatcher(JSP_FORM).forward(req, resp);
+                resp.setContentType("application/json");
+                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                resp.getWriter().write("{\"success\": false, \"message\": \"" + "Thêm thất bại, vui lòng kiểm tra lại các thông tin" + "\"}");
             }
         }
     }

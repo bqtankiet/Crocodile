@@ -34,7 +34,8 @@
 
                     <div class="float-end mb-3">
 
-                        <button class="btn btn-primary me-2" id="btnNewDiscount" data-bs-toggle="modal" data-bs-target="#discountModal">
+                        <button class="btn btn-primary me-2" id="btnNewDiscount" data-bs-toggle="modal"
+                                data-bs-target="#discountModal">
                             Thêm mã mới
                         </button>
 
@@ -133,8 +134,8 @@
                                         </button>
                                         <div class="dropdown-menu">
                                             <!-- Button trigger modal -->
-                                            <a href="${pageContext.request.contextPath}/admin/discount-codes?action=edit&code=${discountCode.code}"
-                                               class="dropdown-item btn btn-sm btn-warning">Sửa</a>
+                                            <a data-url="${pageContext.request.contextPath}/admin/discount-codes?action=edit&code=${discountCode.code}"
+                                               class="btnEditDiscount dropdown-item btn btn-sm btn-warning">Sửa</a>
                                             <a href="${pageContext.request.contextPath}/admin/discount-codes?action=delete&code=${discountCode.code}"
                                                class="dropdown-item btn btn-sm btn-danger"
                                                onclick="return confirm('Bạn có chắc muốn xóa mã này?')">Xóa</a>
@@ -160,39 +161,87 @@
     <div class="modal fade " id="discountModal" tabindex="-1" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" style="min-width: 50em" id="discountDialog"></div>
+<%--        <script>--%>
+<%--            document.getElementById('discountDialog').addEventListener('click', function (e) {--%>
+<%--                if (e.target && e.target.id === 'submitForm') {--%>
+<%--                    console.log("Submit button clicked via delegation");--%>
+
+<%--                    const formData = new FormData(form);--%>
+<%--                    fetch('${pageContext.request.contextPath}/admin/discount-codes', {--%>
+<%--                        method: 'POST',--%>
+<%--                        body: formData--%>
+<%--                    })--%>
+<%--                        .then(response => response.json())--%>
+<%--                        .then(data => {--%>
+<%--                            if (data.success) {--%>
+<%--                                messagesDiv.innerHTML = `--%>
+<%--                <div class="alert alert-success alert-dismissible fade show" role="alert">--%>
+<%--                    Tạo mã giảm giá thành công!--%>
+<%--                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>--%>
+<%--                </div>`;--%>
+<%--                                form.reset();--%>
+<%--                                updateForm();--%>
+<%--                                document.getElementById('startDate').value = new Date().toISOString().slice(0, 16);--%>
+<%--                            } else {--%>
+<%--                                messagesDiv.innerHTML = `--%>
+<%--                <div class="alert alert-danger alert-dismissible fade show" role="alert">--%>
+<%--                    ${data.error || 'Lỗi khi tạo mã giảm giá.'}--%>
+<%--                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>--%>
+<%--                </div>`;--%>
+<%--                            }--%>
+<%--                        })--%>
+<%--                        .catch(error => {--%>
+<%--                            messagesDiv.innerHTML = `--%>
+<%--            <div class="alert alert-danger alert-dismissible fade show" role="alert">--%>
+<%--                Lỗi hệ thống: ${error.message}--%>
+<%--                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>--%>
+<%--            </div>`;--%>
+<%--                        });--%>
+<%--                }--%>
+<%--            });--%>
+<%--        </script>--%>
     </div>
 
+<%--    <script>--%>
+<%--        <c:url var="discountCodeUrl" value="<%= UrlProperties.discountCode() %>"/>--%>
+<%--        document.querySelector("#btnNewDiscount").addEventListener("click", function () {--%>
+<%--            if (document.querySelector("#discountDialog").innerHTML !== "") return;--%>
+<%--            fetch("${discountCodeUrl}?action=add")--%>
+<%--                .then(function (response) {--%>
+<%--                    if (!response.ok) throw new Error("Lỗi khi tải nội dung modal");--%>
+<%--                    return response.text();--%>
+<%--                })--%>
+<%--                .then(function (html) {--%>
+<%--                    document.querySelector("#discountDialog").innerHTML = html;--%>
+<%--                })--%>
+<%--                .catch(function (err) {--%>
+<%--                    console.error("Lỗi:", err);--%>
+<%--                });--%>
+<%--        });--%>
+<%--    </script>--%>
+
+    <c:url var="discountCodeUrl" value="<%= UrlProperties.discountCode() %>" />
     <script>
-        <c:url var="discountCodeUrl" value="<%= UrlProperties.discountCode() %>"/>
-        document.querySelector("#btnNewDiscount").addEventListener("click", function () {
-            fetch("${discountCodeUrl}?action=add")
-                .then(function (response) {
-                    if (!response.ok) throw new Error("Lỗi khi tải nội dung modal");
-                    return response.text();
-                })
-                .then(function (html) {
-                    document.querySelector("#discountDialog").innerHTML = html;
-                })
-                .catch(function (err) {
-                    console.error("Lỗi:", err);
+        $(document).ready(function () {
+            $('#btnNewDiscount').on('click', function () {
+                if ($('#discountDialog').html().trim() !== '') return;
+
+                $.ajax({
+                    url: '${discountCodeUrl}?action=add',
+                    method: 'GET',
+                    success: function (html) {
+                        $('#discountDialog').html(html);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Lỗi:', error);
+                    }
                 });
+            });
         });
-        <%--$('#btnNewDiscount').on('click', function () {--%>
-        <%--    $.ajax({--%>
-        <%--        <c:url var="discountCodeUrl" value="<%= UrlProperties.getProperty("admin.discount_code") %>"/>--%>
-        <%--        url: "${discountCodeUrl}?action=add",--%>
-        <%--        method: "GET",--%>
-        <%--        success: function (html) {--%>
-        <%--            $('modalContainer').html(html);--%>
-        <%--        },--%>
-        <%--        error: function (xhr, error) {--%>
-        <%--            $('modalContainer').html(error);--%>
-        <%--        }--%>
-        <%--    })--%>
-        <%--});--%>
     </script>
 
-    <%--    Chọn tất cả checkbox khi click vào checkbox ở header--%>
+
+<%--    Chọn tất cả checkbox khi click vào checkbox ở header--%>
     <script>
         document.getElementById('selectAll').addEventListener('change', function () {
             let checkboxes = document.getElementsByClassName('rowCheckbox');
@@ -245,4 +294,11 @@
             ]
         });
     </script>
+
+    <script>
+        $('btnEditDiscount').on('click', function() {
+           alert("Tính năng đang phát triển");
+        });
+    </script>
+
 </div>
