@@ -356,6 +356,10 @@
                                                         <c:otherwise>Không xác định</c:otherwise>
                                                     </c:choose>
                                                 </p>
+                                                <button type="button" class="btn custom-btn-primary btn-block p-2 mb-3"
+                                                        data-bs-toggle="modal" data-bs-target="#feedback-form">
+                                                   Đánh giá
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -501,7 +505,106 @@
             </div>
         </div>
     </div>
+
+<%--    model đánh giá--%>
+    <div class="modal fade" tabindex="-1" id="feedback-form" >
+        <div class="modal-dialog modal-dialog-centered" style="min-width: 60%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Đánh giá sản phẩm</h4>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="#" id="form-feedback" method="post">
+                        <div class="container mb-5">
+                            <!-- Thông tin sản phẩm -->
+                            <div class="d-flex align-items-center border rounded p-3 mb-3">
+                                <img src="https://www.gento.vn/wp-content/uploads/2024/07/vi-nam-da-ca-sau8.jpg" class="me-3 rounded" alt="sản phẩm"
+                                     style="width: 50px">
+                                <div>
+                                    <strong>Ví gấp nam da cá sấu V7068</strong><br>
+                                    <span class="text-muted small">Phân loại hàng: Da lưng</span>
+                                </div>
+                            </div>
+
+                            <!-- Chất lượng sản phẩm -->
+                            <div class="mb-3">
+                                <label class="form-label"><strong>Chất lượng sản phẩm</strong></label><br>
+                                <div id="product-rating" class="text-warning fs-4">
+                                    <i class="fa-regular fa-star" data-value="1"></i>
+                                    <i class="fa-regular fa-star" data-value="2"></i>
+                                    <i class="fa-regular fa-star" data-value="3"></i>
+                                    <i class="fa-regular fa-star" data-value="4"></i>
+                                    <i class="fa-regular fa-star" data-value="5"></i>
+                                    <span class="ms-2" id="rating-label">Chưa đánh giá</span>
+                                </div>
+                            </div>
+
+
+                            <!-- Chất lượng sản phẩm -->
+                            <div class="mb-3">
+                                <label class="product-quality mb-2"><strong>Chất lượng sản phẩm:</strong></label>
+                                <input type="text" class="form-control" id="product-quality" name="product-quality"
+                                       placeholder="Hãy để lại đánh giá.">
+                            </div>
+
+                            <!-- Đúng với mô tả -->
+                            <div class="mb-3">
+                                <label class="match-description mb-2"><strong>Đúng với mô tả:</strong></label>
+                                <input type="text" class="form-control" id="match-description" name="match-description"
+                                       placeholder="Hãy để lại đánh giá.">
+                            </div>
+
+                            <!-- Nội dung đánh giá -->
+                            <div class="mb-3">
+                                <label class="form-label"><strong>Chất lượng sản phẩm:</strong></label>
+                                <textarea class="form-control" rows="4" placeholder="Hãy chia sẻ những điều bạn thích về sản phẩm này với những người mua khác nhé."></textarea>
+                            </div>
+
+                            <!-- Upload -->
+                            <div class="mb-3 d-flex gap-2">
+                                <button class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-camera"></i> Thêm Hình ảnh</button>
+                            </div>
+
+                            <!-- Tùy chọn -->
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" id="showName" checked>
+                                <label class="form-check-label" for="showName">
+                                    Hiển thị tên đăng nhập trên đánh giá này
+                                    <div class="text-muted small">Tên tài khoản sẽ hiển thị như <strong>TEST USER</strong></div>
+                                </label>
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+                <!-- Nút -->
+                <div class="modal-footer d-flex justify-content-end gap-2">
+                    <button class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">TRỞ LẠI</button>
+                    <button type="submit" form="form-feedback" class="btn" style="background-color: #007b5f !important; color: white">HOÀN THÀNH</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
+<!-- JS xử lý chọn sao -->
+<script>
+    const stars = document.querySelectorAll('#product-rating i');
+    const ratingLabel = document.getElementById('rating-label');
+    const ratingText = ['Tệ', 'Không hài lòng', 'Bình thường', 'Hài lòng', 'Tuyệt vời'];
+
+    stars.forEach((star, index) => {
+        star.addEventListener('click', () => {
+            stars.forEach((s, i) => {
+                s.classList.toggle('fa-solid', i <= index);
+                s.classList.toggle('fa-regular', i > index);
+            });
+            ratingLabel.textContent = ratingText[index];
+        });
+    });
+</script>
 
 
