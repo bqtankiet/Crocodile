@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 public class Token implements Serializable {
     public enum TokenType {
         RESET_PASSWORD,
-        VERIFY_EMAIL,
+        VERIFY_ACCOUNT,
         PAYMENT
     }
 
