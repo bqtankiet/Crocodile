@@ -20,28 +20,31 @@ public class AuthenticationService {
      *
      * @return ID của user nếu thành công
      */
-    public int login(String username, String password) {
-        Optional<User> optionalUser = userDao.findByUsername(username);
+    public int login(String input, String password) {
+        // Tìm user bằng email hoặc số điện thoại
+        Optional<User> optionalUser = userDao.findByEmailOrPhone(input);
 
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            String hashedPassword = HashUtil.hashMD5(password);
-
-            if (hashedPassword.equals(user.getPassword())) {
-                if (!userDao.checkActive(user.getId())) {
-                    System.out.println("Tài khoản của bạn đã bị vô hiệu hóa.");
-                    return -2;
-                }
-
-                return user.getId();
-            } else {
-                System.out.println("Mật khẩu không khớp.");
-            }
-        } else {
-            System.out.println("Không tìm thấy người dùng với username: " + username);
+        if (optionalUser.isEmpty()) {
+            System.out.println("Không tìm thấy tài khoản với email/sđt: " + input);
+            return -1;
         }
 
-        return -1;
+        User user = optionalUser.get();
+        String hashedPassword = HashUtil.hashMD5(password);
+
+        // Kiểm tra mật khẩu
+        if (!hashedPassword.equals(user.getPassword())) {
+            System.out.println("Mật khẩu không khớp cho tài khoản: " + input);
+            return -1;
+        }
+
+        // Kiểm tra trạng thái active
+        if (!userDao.checkActive(user.getId())) {
+            System.out.println("Tài khoản đã bị vô hiệu hóa: " + input);
+            return -2;
+        }
+
+        return user.getId();
     }
 
 

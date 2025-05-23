@@ -360,33 +360,39 @@
 
     const formValidator = new RegisterFormValidator('#signupForm');
 
-    // Copy from bootstrap 5.3 document
     (() => {
         'use strict'
 
         const form = document.querySelector('#signupForm');
 
-        form.addEventListener('submit', event => {
+        $('#signupForm').submit(function(e) {
+            e.preventDefault();
+
             if (!formValidator.checkValidity()) {
-                // Nếu ko hợp lệ -> chặn gửi form và hiện feedback
-                event.preventDefault()
-                event.stopPropagation()
-            } else {
-                // Nếu hợp lệ -> gửi form bằng ajax
-                event.preventDefault();
-                $.ajax({
-                    type: 'POST',
-                    url: '<c:url value="/signup"/>',
-                    data: $(this).serialize(),
-                    success: function (response) {
-                        alert("Success");
-                    },
-                    error: function () {
-                        alert("Failed");
-                    },
-                });
+                return;
             }
-        }, false);
+
+            $.ajax({
+                type: 'POST',
+                url: '<c:url value="/signup"/>',
+                data: $(this).serialize(),
+                success: function(response) {
+                    if (response.status === "success") {
+                        window.location.href = '<c:url value="/login?registered=true"/>';
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function(xhr) {
+                    try {
+                        const errorResponse = JSON.parse(xhr.responseText);
+                        alert(errorResponse.message);
+                    } catch {
+                        alert("Lỗi hệ thống!");
+                    }
+                }
+            });
+        });
     })()
 </script>
 <script>
