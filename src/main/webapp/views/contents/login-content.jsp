@@ -19,7 +19,7 @@
                 <input class="form-control d-none" type="text" id="forwardUrl" name="forwardUrl"
                        value="${requestScope.forwardUrl}">
                 <%--                <h1>${requestScope.forwardUrl}</h1>--%>
-                <input class="form-control" type="text" id="username" name="username" placeholder="Nhập tài khoản"
+                <input class="form-control" type="text" id="username" name="username" placeholder="Nhập Email hoặc số điện thoại"
                        required>
                 <input class="form-control" type="password" id="password" name="password" placeholder="Nhập mật khẩu"
                        required>
@@ -83,18 +83,6 @@
                 </div>
             </form>
         </div>
-    </div>
-    <div>
-        <h1>User GG Profile</h1>
-        <p id="nameUser"></p>
-        <p id="emailUser"></p>
-        <img id="userProfilePicture" alt="">
-    </div>
-    <div>
-        <h1>User FB Profile</h1>
-        <p id="nameUserFB"></p>
-        <p id="emailUserFB"></p>
-        <img id="userProfilePictureFB" alt="">
     </div>
 
 </div>
@@ -173,66 +161,4 @@
 
     });
 </script>
-<script type="module">
-    // Import các hàm cần thiết từ Firebase SDK
-    import {initializeApp} from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-    import {
-        getAuth,
-        FacebookAuthProvider,
-        signInWithPopup,
-        onAuthStateChanged
-    } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
-
-    // Initialize Firebase
-    const firebaseConfig = {
-        apiKey: "AIzaSyAN1bs13AN-4mMYf3pzTDH99643kZe41uM",
-        authDomain: "crocodile-bd209.firebaseapp.com",
-        projectId: "crocodile-bd209",
-        storageBucket: "crocodile-bd209.firebasestorage.app",
-        messagingSenderId: "653977599527",
-        appId: "1:653977599527:web:cc4f29e1675f32fcf75802"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    auth.languageCode = 'en';
-    const provider = new FacebookAuthProvider();
-
-    const facebookLogin = document.getElementById("facebook-login-btn");
-    facebookLogin.addEventListener("click", function () {
-        signInWithPopup(auth, provider)
-            .then((result) => {
-                const user = result.user;
-                const credential = FacebookAuthProvider.credentialFromResult(result);
-                const accessToken = credential.accessToken;
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                const email = error.customData.email;
-                const credential = FacebookAuthProvider.credentialFromError(error);
-            });
-    });
-
-    function updateUserProfile(user) {
-        const name = user.displayName;
-        const email = user.email;
-        const profilePicture = user.photoURL;
-
-
-        console.log("User email:", email);
-        document.getElementById("nameUserFB").textContent = name;
-        document.getElementById("emailUserFB").textContent = email;
-        document.getElementById("userProfilePictureFB").src = profilePicture;
-
-    }
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            updateUserProfile(user)
-            const uid = user.uid;
-            return uid;
-        }
-    });
-</script>
-
-
+<

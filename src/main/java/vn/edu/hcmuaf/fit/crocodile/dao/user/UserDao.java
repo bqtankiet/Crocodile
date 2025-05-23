@@ -26,6 +26,8 @@ public interface UserDao {
 
     Optional<User> findByEmail(String email);
 
+    Optional<User> findByPhone(String phone);
+
     void updatePassword(int userId, String newPassword);
 
     void addAddress(Address address);
@@ -34,4 +36,8 @@ public interface UserDao {
 
     Address getDefaultAddressByUserId(int userId);
 
+    Optional<User> findByEmailOrPhone(String input);
+
+
+    void activateUser(int userId);
 }
