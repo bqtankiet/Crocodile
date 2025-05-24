@@ -334,39 +334,90 @@
                             </div>
                             <h6 class="mb-4 mt-3">Danh sách đơn hàng</h6>
                             <div id="ordersList" class="row">
-                                <!-- Hiển thị danh sách đơn hàng -->
-                                <c:forEach var="order" items="${ordersList}">
-                                    <div class="col-md-6 col-lg-4 mb-4">
-                                        <div class="card card-custom border shadow-sm h-100">
-                                            <!-- Thêm class card-custom -->
-                                            <div class="card-body">
-                                                <h6 class="fw-bold">Mã đơn hàng: ${order.id}</h6>
-                                                <p class="mb-1"><strong>Ngày tạo:</strong> ${order.invoiceDate}</p>
-                                                <p class="mb-1"><strong>Phương thức thanh
-                                                    toán:</strong> ${order.paymentMethod}</p>
-                                                <p class="mb-1"><strong>Tổng tiền:</strong> ${order.total} VNĐ</p>
-                                                <p class="mb-1">
-                                                    <strong>Trạng thái:</strong>
-                                                    <c:choose>
-                                                        <c:when test="${order.status == 'PENDING'}">Chờ xử lý</c:when>
-                                                        <c:when test="${order.status == 'PROCESSING'}">Đang xử lý</c:when>
-                                                        <c:when test="${order.status == 'COMPLETED'}">Hoàn thành</c:when>
-                                                        <c:when test="${order.status == 'CANCELLED'}">Đã hủy</c:when>
-                                                        <c:when test="${order.status == 'AWAITING'}">Đang chờ</c:when>
-                                                        <c:otherwise>Không xác định</c:otherwise>
-                                                    </c:choose>
-                                                </p>
-                                            </div>
+                                <c:choose>
+                                    <c:when test="${empty ordersList}">
+                                        <div class="col-12">
+                                            <div class="alert alert-info">Không có đơn hàng nào.</div>
                                         </div>
-                                    </div>
-                                </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:forEach var="order" items="${ordersList}">
+                                            <div class="col-12 mb-4">
+                                                <div class="card card-custom border shadow-sm">
+                                                    <div class="card-body">
+                                                        <!-- Shop Info -->
+                                                        <div class="d-flex align-items-center mb-3">
+                                                            <span class="badge bg-danger text-white me-2">Mall</span>
+<%--                                                            <h6 class="fw-bold mb-0">${order.shopName}</h6>--%>
+                                                            <h6 class="fw-bold mb-0">Hehe boy</h6>
+                                                            <a href="#" class="ms-2 btn btn-outline-secondary btn-sm">
+                                                                <i class="bi bi-chat"></i> Chat
+                                                            </a>
+                                                            <a href="#" class="ms-2 btn btn-outline-secondary btn-sm">
+                                                                <i class="bi bi-shop"></i> Xem Shop
+                                                            </a>
+                                                            <span class="ms-auto text-success">
+                                                                <c:choose>
+                                                                    <c:when test="${order.status == 'PENDING'}">Chờ xử lý</c:when>
+                                                                    <c:when test="${order.status == 'PROCESSING'}">Đang xử lý</c:when>
+                                                                    <c:when test="${order.status == 'COMPLETED'}">Hoàn thành</c:when>
+                                                                    <c:when test="${order.status == 'CANCELLED'}">Đã hủy</c:when>
+                                                                    <c:when test="${order.status == 'AWAITING'}">Đang chờ</c:when>
+                                                                    <c:otherwise>Không xác định</c:otherwise>
+                                                                </c:choose>
+                                                            </span>
+                                                        </div>
+                                                        <!-- Product Info -->
+                                                        <div class="d-flex align-items-center mb-3">
+<%--                                                            <img src="${order.productImage}" alt="Product Image" style="width: 60px; height: 60px; object-fit: cover; margin-right: 15px;">--%>
+                                                            <img src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg" alt="Product Image" style="width: 60px; height: 60px; object-fit: cover; margin-right: 15px;">
+                                                            <div class="flex-grow-1">
+<%--                                                                <p class="mb-1">${order.productName}</p>--%>
+                                                                <p class="mb-1">Ví gấp nam da cá sấu V7068</p>
+<%--                                                                <small class="text-muted">Phân loại: ${order.productType}</small><br>--%>
+                                                                <small class="text-muted">Phân loại: Da bụng</small><br>
 
-                                <!-- Nếu không có đơn hàng -->
-                                <c:if test="${empty ordersList}">
-                                    <div class="col-12">
-                                        <div class="alert alert-info">Không có đơn hàng nào.</div>
-                                    </div>
-                                </c:if>
+<%--                                                                <small class="text-muted">x${order.quantity}</small>--%>
+                                                                <small class="text-muted">x 1</small>
+
+                                                            </div>
+                                                            <div class="text-end">
+<%--                                                                <span class="text-muted text-decoration-line-through">${order.originalPrice} VNĐ</span><br>--%>
+<%--                                                                <span class="fw-bold">${order.discountedPrice} VNĐ</span>--%>
+                                                                <span class="text-muted text-decoration-line-through">100.000 VNĐ</span><br>
+                                                                <span class="fw-bold">85.000 VNĐ</span>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Order Details -->
+                                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                                            <small class="text-muted">Ngày đặt hàng: ${order.invoiceDate}</small>
+                                                            <small class="text-muted">Mã đơn hàng: ${order.id}</small>
+                                                        </div>
+                                                        <!-- Total and Actions -->
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <div>
+                                                                <strong>Thành tiền:</strong>
+                                                                <span class="text-danger fw-bold fs-5">${order.total} VNĐ</span>
+                                                            </div>
+                                                            <div>
+                                                                <c:if test="${order.status == 'COMPLETED'}">
+                                                                    <button class="btn btn-danger">Đánh Giá</button>
+                                                                </c:if>
+                                                                <c:if test="${order.status == 'CANCELLED'}">
+                                                                    <button class="btn btn-danger">Mua Lại</button>
+                                                                </c:if>
+                                                                <button class="btn btn-outline-secondary ms-2">Liên Hệ Người Bán</button>
+                                                                <c:if test="${order.status == 'AWAITING'}">
+                                                                    <button class="btn btn-outline-secondary ms-2">Xem Chi Tiết Đơn</button>
+                                                                </c:if>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </c:forEach>
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
                     </div>
