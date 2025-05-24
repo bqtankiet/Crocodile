@@ -516,7 +516,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="#" id="form-feedback" method="post">
+                    <form action="/crocodile/product-review" id="form-feedback" method="post">
                         <div class="container mb-5">
                             <!-- Thông tin sản phẩm -->
                             <div class="d-flex align-items-center border rounded p-3 mb-3">
@@ -540,7 +540,6 @@
                                     <span class="ms-2" id="rating-label">Chưa đánh giá</span>
                                 </div>
                             </div>
-
 
                             <!-- Chất lượng sản phẩm -->
                             <div class="mb-3">
@@ -576,8 +575,6 @@
                                 </label>
                             </div>
                         </div>
-
-
                     </form>
                 </div>
                 <!-- Nút -->
