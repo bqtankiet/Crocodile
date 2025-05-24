@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<fmt:setLocale value="vi_VN"/>
 
 <style>
     .hidden {
@@ -327,12 +329,20 @@
                     <div class="tab-pane fade" id="account-purchase-order">
                         <div class="card-body pb-2">
                             <div class="form-group">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h4 class="fw-semibold">Đơn Hàng</h4>
+                                <!-- Filter Section -->
+                                <div class="mb-4 mt-3">
+                                    <div class="btn-group" role="group" style="width: 100%">
+                                        <button type="button" class="btn btn-outline-success status-filter active" data-filter="all">Tất cả</button>
+                                        <button type="button" class="btn btn-outline-success status-filter" data-filter="pending">Chờ xử lý</button>
+                                        <button type="button" class="btn btn-outline-success status-filter" data-filter="pendingPickup">Chờ lấy hàng</button>
+                                        <button type="button" class="btn btn-outline-success status-filter" data-filter="processing">Đang giao</button>
+                                        <button type="button" class="btn btn-outline-success status-filter" data-filter="completed">Đã giao</button>
+                                        <button type="button" class="btn btn-outline-success status-filter" data-filter="cancelled">Đã hủy</button>
+                                    </div>
                                 </div>
                                 <div style="height: 1px; background-color: #dbdbdb; width: 100%"></div>
                             </div>
-                            <h6 class="mb-4 mt-3">Danh sách đơn hàng</h6>
+
                             <div id="ordersList" class="row">
                                 <c:choose>
                                     <c:when test="${empty ordersList}">
@@ -348,14 +358,8 @@
                                                         <!-- Shop Info -->
                                                         <div class="d-flex align-items-center mb-3">
                                                             <span class="badge bg-danger text-white me-2">Mall</span>
-<%--                                                            <h6 class="fw-bold mb-0">${order.shopName}</h6>--%>
-                                                            <h6 class="fw-bold mb-0">Hehe boy</h6>
-                                                            <a href="#" class="ms-2 btn btn-outline-secondary btn-sm">
-                                                                <i class="bi bi-chat"></i> Chat
-                                                            </a>
-                                                            <a href="#" class="ms-2 btn btn-outline-secondary btn-sm">
-                                                                <i class="bi bi-shop"></i> Xem Shop
-                                                            </a>
+                                                            <h6 class="fw-bold mb-0">Crocodile</h6>
+
                                                             <span class="ms-auto text-success">
                                                                 <c:choose>
                                                                     <c:when test="${order.status == 'PENDING'}">Chờ xử lý</c:when>
@@ -369,23 +373,27 @@
                                                         </div>
                                                         <!-- Product Info -->
                                                         <div class="d-flex align-items-center mb-3">
-<%--                                                            <img src="${order.productImage}" alt="Product Image" style="width: 60px; height: 60px; object-fit: cover; margin-right: 15px;">--%>
-                                                            <img src="https://www.gento.vn/wp-content/uploads/2024/05/vi-da-ca-sau-nam-3.jpg" alt="Product Image" style="width: 60px; height: 60px; object-fit: cover; margin-right: 15px;">
+                                                            <img src="${order.productImage}" alt="Product Image" style="width: 60px; height: 60px; object-fit: cover; margin-right: 15px;">
                                                             <div class="flex-grow-1">
-<%--                                                                <p class="mb-1">${order.productName}</p>--%>
-                                                                <p class="mb-1">Ví gấp nam da cá sấu V7068</p>
-<%--                                                                <small class="text-muted">Phân loại: ${order.productType}</small><br>--%>
-                                                                <small class="text-muted">Phân loại: Da bụng</small><br>
+                                                                <p class="mb-1">${order.productName}</p>
+                                                                <c:choose>
+                                                                    <c:when test="${not empty order.option1Value}">
+                                                                        <small class="text-muted">Phân loại: ${order.option1Value}
+                                                                            <c:choose>
+                                                                                <c:when test="${not empty order.option2Value}">
+                                                                                    , ${order.option2Value}
+                                                                                </c:when>
+                                                                            </c:choose>
+                                                                        </small><br>
 
-<%--                                                                <small class="text-muted">x${order.quantity}</small>--%>
-                                                                <small class="text-muted">x 1</small>
+                                                                    </c:when>
+                                                                </c:choose>
+                                                                <small class="text-muted">x${order.quantity}</small>
 
                                                             </div>
                                                             <div class="text-end">
-<%--                                                                <span class="text-muted text-decoration-line-through">${order.originalPrice} VNĐ</span><br>--%>
-<%--                                                                <span class="fw-bold">${order.discountedPrice} VNĐ</span>--%>
-                                                                <span class="text-muted text-decoration-line-through">100.000 VNĐ</span><br>
-                                                                <span class="fw-bold">85.000 VNĐ</span>
+                                                                <fmt:formatNumber var="fmtProductPrice" value="${order.productPrice}" type="currency" currencySymbol="₫" groupingUsed="true"/>
+                                                                <span class="fw-bold">${fmtProductPrice}</span>
                                                             </div>
                                                         </div>
                                                         <!-- Order Details -->
@@ -397,11 +405,14 @@
                                                         <div class="d-flex justify-content-between align-items-center">
                                                             <div>
                                                                 <strong>Thành tiền:</strong>
-                                                                <span class="text-danger fw-bold fs-5">${order.total} VNĐ</span>
+                                                                <fmt:formatNumber var="fmtTotal" value="${order.total}" type="currency" currencySymbol="₫" groupingUsed="true"/>
+                                                                <span class="text-danger fw-bold fs-5">${fmtTotal}</span>
                                                             </div>
                                                             <div>
                                                                 <c:if test="${order.status == 'COMPLETED'}">
-                                                                    <button class="btn btn-danger">Đánh Giá</button>
+                                                                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-add-excel">
+                                                                        Đánh Giá
+                                                                    </button>
                                                                 </c:if>
                                                                 <c:if test="${order.status == 'CANCELLED'}">
                                                                     <button class="btn btn-danger">Mua Lại</button>
@@ -554,5 +565,14 @@
     </div>
 </div>
 
+<script>
+    document.querySelectorAll(".status-filter").forEach(button => {
+        button.addEventListener("click", function () {
+            document.querySelectorAll('.status-filter').forEach(btn => btn.classList.remove('active'));
+            console.log(document.querySelectorAll(".status-filter"))
+            button.classList.add('active');
 
+        });
+    });
+</script>
 

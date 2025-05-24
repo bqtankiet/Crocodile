@@ -3,6 +3,7 @@ package vn.edu.hcmuaf.fit.crocodile.controller;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDao;
 import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDaoImpl;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Address;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Order;
@@ -15,7 +16,7 @@ import java.util.List;
 @WebServlet(name = "UserController", urlPatterns = {"/user"})
 public class UserController extends HttpServlet {
     private final OrderService orderService = new OrderService();
-
+    private final UserDao userDao = new UserDaoImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,7 +35,7 @@ public class UserController extends HttpServlet {
             List<Order> ordersList = userDao.getOrdersByUserId(userId);
 
             request.setAttribute("addressList", addressList);
-            request.setAttribute("ordersList", ordersList);
+            request.setAttribute("ordersList", userDao.getAllOrderInfoByUserId(userId));
 
             if (addressList == null || addressList.isEmpty()) {
                 request.setAttribute("message", "Bạn chưa có địa chỉ nào.");
