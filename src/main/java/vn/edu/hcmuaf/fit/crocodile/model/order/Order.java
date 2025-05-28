@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.fit.crocodile.model.order;
 
+import vn.edu.hcmuaf.fit.crocodile.model.entity.DiscountCode;
 import vn.edu.hcmuaf.fit.crocodile.service.InventoryService;
 import vn.edu.hcmuaf.fit.crocodile.service.shipping.ShippingService;
 import vn.edu.hcmuaf.fit.crocodile.service.shipping.ShippingStrategyGHN;
@@ -18,9 +19,22 @@ public class Order implements Serializable {
     private List<OrderItem> items;
     private PaymentMethod paymentMethod;
     private int idUser;
+    private DiscountCode discountCode;
 
     public int getTotal() {
+        if(discountCode != null && discountCode.isApplicable(this)) {
+            return getTotalWithDiscount();
+        }
+        return getTotalBeforeDiscount();
+    }
+
+    public int getTotalBeforeDiscount() {
         return getItemsTotal() + getShippingFee();
+    }
+
+
+    private int getTotalWithDiscount() {
+        return discountCode.calculateTotalAmount(this);
     }
 
     public int getShippingFee() {
@@ -95,6 +109,22 @@ public class Order implements Serializable {
 
     public void setIdUser(int idUser) {
         this.idUser = idUser;
+    }
+
+    public InventoryService getService() {
+        return service;
+    }
+
+    public void setService(InventoryService service) {
+        this.service = service;
+    }
+
+    public DiscountCode getDiscountCode() {
+        return discountCode;
+    }
+
+    public void setDiscountCode(DiscountCode discountCode) {
+        this.discountCode = discountCode;
     }
 
     @Override
