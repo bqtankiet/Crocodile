@@ -41,5 +41,5 @@ public class UserService {
 
     public int  orderCanceled(int idUser) { return userDaoAdmin.orderCanceled(idUser); }
 
-    public List<OrderInfo> getAllOrderInfoByUserId(int idUser) { return userDao.getAllOrderInfoByUserId(idUser); }
+    public List<OrderInfo> getAllOrderInfoByUserId(int idUser, String status) { return userDao.getAllOrderInfoByUserId(idUser, status); }
 }

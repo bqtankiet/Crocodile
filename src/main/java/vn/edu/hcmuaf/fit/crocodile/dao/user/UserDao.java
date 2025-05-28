@@ -35,5 +35,5 @@ public interface UserDao {
 
     Address getDefaultAddressByUserId(int userId);
 
-    List<OrderInfo> getAllOrderInfoByUserId(int idUser);
+    List<OrderInfo> getAllOrderInfoByUserId(int idUser, String status);
 }

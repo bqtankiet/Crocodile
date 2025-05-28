@@ -7,6 +7,7 @@ import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDao;
 import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDaoImpl;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Address;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Order;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.OrderInfo;
 import vn.edu.hcmuaf.fit.crocodile.service.OrderService;
 
 import java.io.IOException;
@@ -32,10 +33,10 @@ public class UserController extends HttpServlet {
         try {
             UserDaoImpl userDao = new UserDaoImpl();
             List<Address> addressList = userDao.getAddressesByUserId(userId);
-            List<Order> ordersList = userDao.getOrdersByUserId(userId);
+            List<OrderInfo> ordersList = userDao.getAllOrderInfoByUserId(userId, "all");
 
             request.setAttribute("addressList", addressList);
-            request.setAttribute("ordersList", userDao.getAllOrderInfoByUserId(userId));
+            request.setAttribute("ordersList", ordersList);
 
             if (addressList == null || addressList.isEmpty()) {
                 request.setAttribute("message", "Bạn chưa có địa chỉ nào.");
