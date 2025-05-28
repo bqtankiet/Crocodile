@@ -87,6 +87,20 @@
                             </table>
                         </div>
                     </div>
+                    <%--mã giảm giá--%>
+                    <div class="mt-5">
+                        <div class="d-flex align-items-center mb-2">
+                            <p class="h5 flex-grow-1">Mã giảm giá</p>
+                            <a class="" id="btnChooseVoucher" role="button" data-bs-toggle="modal"
+                               data-bs-target="#chooseVoucherModal">Chọn voucher</a>
+                        </div>
+                        <div class="input-group">
+                            <input class="form-control" type="text" placeholder="Nhập mã giảm giá" id="discountCode"
+                                   value="${sessionScope.order.discountCode.code}">
+                            <button class="btn custom-btn-primary" id="btnApplyDiscount" disabled>Áp dụng</button>
+                        </div>
+                    </div>
+
                     <div class="mt-5">
                         <div class="d-flex align-items-center mb-2">
                             <p class="h5">Phương thức thanh toán</p>
@@ -203,6 +217,28 @@
                                     </span>
                                     </div>
                                 </div>
+                                <div class="d-flex align-items-center mt-3">
+                                    <span class="fw-medium text-muted">Giảm giá: </span>
+                                    <div class="ms-auto">
+                                    <span class="fw-bold">
+                                        <c:set var="discountType" value="${sessionScope.order.discountCode.type}"/>
+                                        <c:set var="discountValue" value="${sessionScope.order.discountCode.value}"/>
+                                        <c:choose>
+                                            <c:when test="${discountType == 'FIXED'}">
+                                                <fmt:formatNumber value="${discountValue}" type="number" pattern="#,##0" />
+                                                <sup>₫</sup>
+                                            </c:when>
+                                            <c:when test="${discountType == 'PERCENTAGE'}">
+                                                ${discountValue}%
+                                            </c:when>
+                                            <c:otherwise>
+                                                Không có
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </span>
+                                    </div>
+                                </div>
+
                                 <div class="border-top border-secondary-subtle mt-3 mb-2"></div>
 
 
@@ -395,6 +431,24 @@
         </div>
     </div>
     <!-- Close Modal New Address -->
+
+    <!-- Modal Voucher -->
+    <div class="modal fade" tabindex="-1" id="chooseVoucherModal"
+         data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-2">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Chọn voucher</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <%--TODO: Triển khai chức năng sử dụng voucher --%>
+                    <p>Tính năng voucher đang phát triển, vui lòng sử dụng mã giảm giá</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Close Modal Voucher -->
 
 </div>
 
@@ -614,5 +668,58 @@
     }
 </script>
 
+<%-- Xử lý nhấn áp dụng voucher --%>
+<script>
+    // Cho phép nhấn nút áp dụng chỉ khi input mã giảm giá có dữ liệu
+    $('#discountCode').on('input', function () {
+        if ($(this).val()) {
+            $('#btnApplyDiscount').prop('disabled', false);
+        } else {
+            $('#btnApplyDiscount').prop('disabled', true);
+        }
+    });
+
+    // xử lý khi nhấn vào nút apply discount bằng ajax
+    $('#btnApplyDiscount').on('click', function () {
+        const discountCode = $('#discountCode').val();
+        const baseUrl = "${pageContext.request.contextPath}";
+        const endpoint = "/checkout/apply-discount";
+        $.ajax(
+            {
+                url: baseUrl + endpoint,
+                method: "POST",
+                data: {discountCode: discountCode},
+                success: function (response) {
+                    // Cập nhật giao diện hiển thị giá tiền thanh toán
+                    Swal.fire({
+                        icon: 'success',
+                        title: "Thành công",
+                        text: "Áp dụng thành công mã giảm giá " + discountCode.toUpperCase(),
+                        timer: 1500,              // tự đóng sau 1.5 giây
+                        timerProgressBar: true,   // thanh tiến trình thời gian
+                        showConfirmButton: true,  // vẫn hiện nút OK để người dùng có thể đóng sớm
+                    }).then((result) => {
+                        // Reload khi popup đóng (bấm OK hoặc timeout)
+                        location.reload();
+                    });
+                },
+                error: function (xhr, error) {
+                    // Thông báo lỗi cho người dùng
+                    try {
+                        const res = JSON.parse(xhr.responseText);
+                        Swal.fire({
+                            icon: 'error',
+                            title: "Thất bại",
+                            text: res.message,
+                            confirmButtonText: 'OK'
+                        });
+                    } catch (e) {
+                        alert("Có lỗi xảy ra. Vui lòng thử lại.");
+                    }
+                }
+            }
+        );
+    });
+</script>
 
 

@@ -63,6 +63,10 @@ public class UrlProperties extends ApplicationProperties {
 
     // --------------------- role & permission -------------------------
     public static String rolePermission() { return getProperty("admin.role_permission"); }
+
+    public static String discountCode() {
+        return getProperty("admin.discount_code");
+    }
     // --------------------- role & permission -------------------------
 
 }
