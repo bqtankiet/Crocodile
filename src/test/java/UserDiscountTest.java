@@ -14,4 +14,11 @@ public class UserDiscountTest {
         userDiscounts.forEach(System.out::println);
     }
 
+    @Test
+    public void test2() {
+        IUserDiscountDAO dao = new UserDiscountDAO();
+        List<UserDiscount> userDiscounts = dao.findAllVoucherByUserId(1);
+        userDiscounts.forEach(ud -> System.out.println(ud.getDiscountCode()));
+    }
+
 }

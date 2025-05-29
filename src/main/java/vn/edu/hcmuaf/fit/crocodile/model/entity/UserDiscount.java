@@ -13,6 +13,7 @@ public class UserDiscount implements Serializable {
     private int idDiscount;
     private LocalDateTime savedDate;
     private boolean isUsed;
+    private DiscountCode discountCode;
 
     @Override
     public String toString() {
@@ -67,5 +68,13 @@ public class UserDiscount implements Serializable {
 
     public void setUsed(boolean used) {
         isUsed = used;
+    }
+
+    public DiscountCode getDiscountCode() {
+        return discountCode;
+    }
+
+    public void setDiscountCode(DiscountCode discountCode) {
+        this.discountCode = discountCode;
     }
 }
