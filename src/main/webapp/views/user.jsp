@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="<c:url value="/public/bootstrap/css/bootstrap.css"/>">
     <script src="<c:url value="/public/bootstrap/js/bootstrap.bundle.js"/>"></script>
     <!--  css  -->
-    <link rel="stylesheet" href="<c:url value="/layouts/layout.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/main.css"/>">
     <!--  js  -->
     <script src="<c:url value="/assets/js/loadVNAddress.js"/>"></script>
