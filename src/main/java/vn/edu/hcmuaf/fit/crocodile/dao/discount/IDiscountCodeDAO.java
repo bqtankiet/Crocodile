@@ -19,4 +19,6 @@ public interface IDiscountCodeDAO {
     List<DiscountCode> findAll();
 
     boolean checkUserUsage(int id, int userId);
+
+    List<DiscountCode> findAllByCategory(DiscountCode.DiscountCategory category, int limit);
 }

@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="vi_VN"/>
 
 <div id="home-content">
@@ -424,6 +424,50 @@
         </div>
 
     </div>
+
+    <%--  VOUCHER SECTION  --%>
+    <c:if test="${requestScope.vouchers.size()>0}">
+    <div class="container">
+        <div class="section-title pb-3">
+            <h1 class="best-sale-title fw-bold ">Voucher Dành Cho Bạn</h1>
+            <p class="text-center">Nhanh tay lưu lại ngay những voucher ưu đãi vô cùng hấp dẫn</p>
+            <hr>
+        </div>
+        <div class="row row-gap-2 px-3 mb-3">
+            <c:forEach var="v" items="${requestScope.vouchers}">
+                <div class="col-12 col-lg-6 d-flex justify-content-center">
+                    <div class="voucher-card d-inline-flex" style="height: 125px; --color:#dc3545">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16" class="flex-none" style="height: 125px;">
+                            <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
+                                  stroke-width="1.2" transform="" style="stroke: var(--color); fill: var(--color)"></path>
+                        </svg>
+                        <div class="bg-danger" style="width: 25px">
+                        </div>
+                        <div class="border border-1 d-inline-flex">
+                            <div class="d-flex flex-column p-3 justify-content-center ">
+                                <h5 class="m-0">Giảm ${v.value}${v.type.name().equals("PERCENTAGE")?"%":"đ"}</h5>
+<%--                                <c:if test="${v.maxDiscount!=null}">--%>
+<%--                                <span class="m-0 d-inline">Giảm tối đa ${v.maxDiscount}đ.</span>--%>
+<%--                                </c:if>--%>
+<%--                                <span class="m-0 d-inline">Đơn tối thiểu ${v.minOrderValue}đ. </span>--%>
+
+                                <p class="m-0">Có hiệu lực từ: <fmt:formatDate value="${v.startDateFmt}" pattern="dd/MM/yyyy" /></p>
+                                <p class="m-0 text-muted">Còn lại: ${v.maxUses} voucher</p>
+                            </div>
+                            <div class="d-flex position-relative p-3">
+                                <button class="btn btn-danger px-4 my-auto">Lưu</button>
+                                <a href="${pageContext.request.contextPath}/voucher-detail?id=${v.id}" role="button" class="position-absolute bottom-0 mb-2">Điều kiện</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+        <div class="d-flex justify-content-center">
+            <a href="???" class="mx-auto my-1">Xem tất cả</a>
+        </div>
+    </div>
+    </c:if>
     <!-- -------------------------END SUGGESTED PRODUCTS---------------------------------- -->
 </div>
 

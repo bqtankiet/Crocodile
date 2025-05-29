@@ -1,9 +1,11 @@
 package vn.edu.hcmuaf.fit.crocodile.model.entity;
 
 import vn.edu.hcmuaf.fit.crocodile.model.order.Order;
+import vn.edu.hcmuaf.fit.crocodile.util.DateUtil;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class DiscountCode implements java.io.Serializable {
 
@@ -25,6 +27,7 @@ public class DiscountCode implements java.io.Serializable {
 
     public enum DiscountType {PERCENTAGE, FIXED}
     public enum DiscountStatus {ACTIVE, EXPIRED, USED_UP}
+    public enum DiscountCategory {COUPON, VOUCHER, FREESHIP}
 
     public static String TABLE = "discount_codes";
 
@@ -38,6 +41,7 @@ public class DiscountCode implements java.io.Serializable {
     private int maxUses;
     private BigDecimal minOrderValue;
     private DiscountStatus status; // "ACTIVE", "EXPIRED", "USED_UP"
+    private DiscountCategory category; // "COUPON", "VOUCHER", "FREESHIP"
 
     // Constructors
     public DiscountCode() {
@@ -75,6 +79,14 @@ public class DiscountCode implements java.io.Serializable {
     }
 
     // Getters and Setters
+    public DiscountCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(DiscountCategory category) {
+        this.category = category;
+    }
+
     public int getId() {
         return id;
     }
@@ -119,12 +131,20 @@ public class DiscountCode implements java.io.Serializable {
         return startDate;
     }
 
+    public Date getStartDateFmt() {
+        return DateUtil.convertLocalDateTimeToDate(startDate);
+    }
+
     public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
     public LocalDateTime getEndDate() {
         return endDate;
+    }
+
+    public Date getEndDateFmt() {
+        return DateUtil.convertLocalDateTimeToDate(endDate);
     }
 
     public void setEndDate(LocalDateTime endDate) {
