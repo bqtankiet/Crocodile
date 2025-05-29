@@ -59,4 +59,11 @@ public class DiscountCodeTest {
         DiscountCodeDAO dao = new DiscountCodeDAO();
         System.out.println(dao.checkUserUsage(1, 3));
     }
+
+    @Test
+    public void test6() {
+        DiscountCodeDAO dao = new DiscountCodeDAO();
+        List<DiscountCode> discountCodes = dao.findAllByCategory(DiscountCode.DiscountCategory.VOUCHER, 4);
+        discountCodes.forEach(System.out::println);
+    }
 }

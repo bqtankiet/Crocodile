@@ -10,10 +10,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import vn.edu.hcmuaf.fit.crocodile.dao.discount.DiscountCodeDAO;
 import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDao;
 import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDaoImpl;
+import vn.edu.hcmuaf.fit.crocodile.dao.userdiscount.UserDiscountDAO;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Address;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.DiscountCode;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Product;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.UserDiscount;
 import vn.edu.hcmuaf.fit.crocodile.model.order.Order;
 import vn.edu.hcmuaf.fit.crocodile.model.order.OrderItem;
 import vn.edu.hcmuaf.fit.crocodile.model.order.ShippingAddress;
@@ -29,6 +33,7 @@ import java.util.stream.Collectors;
 public class CheckoutControllerV2 extends HttpServlet {
     private UserDao userDao = new UserDaoImpl();
     private ProductService productService = new ProductService();
+    private UserDiscountDAO userDiscountDAO = new UserDiscountDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -50,6 +55,10 @@ public class CheckoutControllerV2 extends HttpServlet {
         // load danh sách địa chỉ đã lưu // Đã kiểm tra, lấy được danh sách address
         List<Address> savedAddress = userDao.getAddressesByUserId(userId);
         request.setAttribute("savedAddressList", savedAddress);
+
+        // load danh sách voucher
+        List<UserDiscount> userVouchers = userDiscountDAO.findAllVoucherByUserId(userId);
+        request.setAttribute("userVouchers", userVouchers);
 
         request.setAttribute("order", order);
         request.getRequestDispatcher("/views/checkout.jsp").forward(request, response);

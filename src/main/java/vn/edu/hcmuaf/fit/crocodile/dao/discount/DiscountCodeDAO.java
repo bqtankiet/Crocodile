@@ -79,4 +79,30 @@ public class DiscountCodeDAO implements IDiscountCodeDAO {
                         .isPresent()
         );
     }
+
+    @Override
+    public List<DiscountCode> findAllByCategory(DiscountCode.DiscountCategory category, int limit) {
+        String sql = """
+            SELECT * FROM `discount_codes`
+            WHERE category=:category
+            AND status="ACTIVE"
+            LIMIT :limit""";
+        return JdbiConnect.getJdbi().withHandle(handle -> handle
+                .createQuery(sql)
+                .bind("category", category)
+                .bind("limit", limit)
+                .mapToBean(DiscountCode.class)
+                .list()
+        );
+    }
+
+    @Override
+    public void decreaseMaxUses(int id) {
+        String sql = """
+                UPDATE discount_codes
+                SET maxUses=maxUses-1
+                WHERE id=:id
+                """;
+        JdbiConnect.getJdbi().withHandle(handle -> handle.createUpdate(sql).bind("id", id).execute());
+    }
 }
