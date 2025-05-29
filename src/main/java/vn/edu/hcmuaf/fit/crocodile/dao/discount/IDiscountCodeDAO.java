@@ -21,4 +21,6 @@ public interface IDiscountCodeDAO {
     boolean checkUserUsage(int id, int userId);
 
     List<DiscountCode> findAllByCategory(DiscountCode.DiscountCategory category, int limit);
+
+    void decreaseMaxUses(int id);
 }

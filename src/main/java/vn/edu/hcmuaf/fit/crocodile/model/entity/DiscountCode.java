@@ -42,6 +42,7 @@ public class DiscountCode implements java.io.Serializable {
     private BigDecimal minOrderValue;
     private DiscountStatus status; // "ACTIVE", "EXPIRED", "USED_UP"
     private DiscountCategory category; // "COUPON", "VOUCHER", "FREESHIP"
+    private boolean isSaved;
 
     // Constructors
     public DiscountCode() {
@@ -76,6 +77,14 @@ public class DiscountCode implements java.io.Serializable {
                 ", minOrderValue=" + minOrderValue +
                 ", status=" + status +
                 '}';
+    }
+
+    public boolean getSaved() {
+        return isSaved;
+    }
+
+    public void setSaved(boolean saved) {
+        isSaved = saved;
     }
 
     // Getters and Setters

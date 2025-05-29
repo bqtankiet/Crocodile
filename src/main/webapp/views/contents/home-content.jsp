@@ -436,7 +436,7 @@
         <div class="row row-gap-2 px-3 mb-3">
             <c:forEach var="v" items="${requestScope.vouchers}">
                 <div class="col-12 col-lg-6 d-flex justify-content-center">
-                    <div class="voucher-card d-inline-flex" style="height: 125px; --color:#dc3545">
+                    <div id="voucher-${v.id}" class="voucher-card d-inline-flex" style="height: 125px; --color:#dc3545">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16" class="flex-none" style="height: 125px;">
                             <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
                                   stroke-width="1.2" transform="" style="stroke: var(--color); fill: var(--color)"></path>
@@ -455,7 +455,17 @@
                                 <p class="m-0 text-muted">Còn lại: ${v.maxUses} voucher</p>
                             </div>
                             <div class="d-flex position-relative p-3">
-                                <button class="btn btn-danger px-4 my-auto">Lưu</button>
+                                <c:choose>
+                                    <c:when test="${v.saved}">
+                                        <button class="btn btn-secondary disabled px-4 my-auto" style="width: 100px">Đã lưu</button>
+                                    </c:when>
+                                    <c:when test="${v.maxUses <= 0}">
+                                        <button class="btn btn-secondary disabled px-4 my-auto" style="width: 100px">Đã hết</button>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <button class="btn btn-danger px-4 my-auto" style="width: 100px" onclick="saveVoucher(${v.id})">Lưu</button>
+                                    </c:otherwise>
+                                </c:choose>
                                 <a href="${pageContext.request.contextPath}/voucher-detail?id=${v.id}" role="button" class="position-absolute bottom-0 mb-2">Điều kiện</a>
                             </div>
                         </div>
@@ -471,3 +481,54 @@
     <!-- -------------------------END SUGGESTED PRODUCTS---------------------------------- -->
 </div>
 
+<script>
+    const saveVoucher = async (id) => {
+        console.log("saveVoucher("+id+")");
+        const card = document.getElementById(`voucher-`+id);
+        const button = card.querySelector("button");
+
+        if (!card || !button) return;
+
+        // Giao diện loading
+        card.classList.add("opacity-50", "pe-none", "position-relative");
+        button.disabled = true;
+        const originalCardHTML = card.innerHTML;
+        card.insertAdjacentHTML("beforeend",`<span class="spinner-border spinner-border-sm me-2 position-absolute top-50 start-50 translate-middle" role="status" aria-hidden="true"></span>`);
+
+        try {
+            const resp = await fetch("${pageContext.request.contextPath}/voucher-detail/save", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: id })
+            });
+
+            if (!resp.ok) {
+                if(resp.status===401) {
+                    window.location.href = "${pageContext.request.contextPath}/login";
+                }
+                throw new Error("Lỗi khi gửi yêu cầu");
+            }
+            console.log("Thành công");
+
+            setTimeout(() => {
+                card.classList.remove("opacity-50", "pe-none");
+                const spinner = card.querySelector(".spinner-border");
+                if (spinner) spinner.remove();
+                button.innerHTML = "Đã lưu";
+                button.classList.remove("btn-danger");
+                button.classList.add("btn-secondary");
+                // window.location.reload();
+            }, 0);
+        } catch (error) {
+            console.error("Gặp lỗi:", error);
+            setTimeout(() => {
+                card.classList.remove("opacity-50", "pe-none");
+                const spinner = card.querySelector(".spinner-border");
+                if (spinner) spinner.remove();
+                button.disabled=false;
+            }, 100);
+        }
+    };
+</script>
