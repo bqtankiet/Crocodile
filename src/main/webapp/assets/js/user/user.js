@@ -28,6 +28,23 @@ document.addEventListener("DOMContentLoaded", function () {
     var visiblePart = username.slice(-2);
 
     emailElement.innerText = hiddenPart + visiblePart + domain;
+
+    // filter order status
+    const btnStatusFilter = document.querySelectorAll(".status-filter");
+
+    btnStatusFilter.forEach(button => {
+        button.addEventListener("click", function () {
+            btnStatusFilter.forEach(btn => btn.classList.remove('active'));
+            const status = this.dataset.filter;
+            button.classList.add('active');
+
+            fetch(`/crocodile/status-order-filter?status=${status}`)
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById("ordersList").innerHTML = html.trim();
+                });
+        });
+    });
 });
 
 
@@ -151,3 +168,5 @@ function updateEmail(email, otpCode) {
     // Gửi yêu cầu cập nhật email và OTP
 
 }
+
+

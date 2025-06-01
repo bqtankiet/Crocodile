@@ -1,6 +1,7 @@
 package vn.edu.hcmuaf.fit.crocodile.service;
 
 import vn.edu.hcmuaf.fit.crocodile.dao.user.*;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.OrderInfo;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.OrderManagement;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
 
@@ -40,4 +41,5 @@ public class UserService {
 
     public int  orderCanceled(int idUser) { return userDaoAdmin.orderCanceled(idUser); }
 
+    public List<OrderInfo> getAllOrderInfoByUserId(int idUser, String status) { return userDao.getAllOrderInfoByUserId(idUser, status); }
 }

@@ -11,7 +11,7 @@ public class OrderManagement implements Serializable {
     private String phone;
     private String total;
     private Order.PaymentMethod paymentMethod;
-    private Order.Status status;
+    private Status status;
     private LocalDateTime invoiceDate;
 
     public int getId() {
@@ -54,11 +54,11 @@ public class OrderManagement implements Serializable {
         this.paymentMethod = paymentMethod;
     }
 
-    public Order.Status getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(Order.Status status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 

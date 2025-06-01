@@ -2,6 +2,7 @@ package vn.edu.hcmuaf.fit.crocodile.dao.user;
 
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Address;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Order;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.OrderInfo;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
 
 import java.util.List;
@@ -34,4 +35,5 @@ public interface UserDao {
 
     Address getDefaultAddressByUserId(int userId);
 
+    List<OrderInfo> getAllOrderInfoByUserId(int idUser, String status);
 }
