@@ -99,7 +99,7 @@
         }
 
         .rating.active {
-            background-color: #198754
+            background-color: #198754;
             color: white;
             border-color: #28a745;
         }

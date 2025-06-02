@@ -3,6 +3,7 @@ package vn.edu.hcmuaf.fit.crocodile.dao.user;
 import vn.edu.hcmuaf.fit.crocodile.config.JdbiConnect;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Address;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Order;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.OrderInfo;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
 
 import java.util.List;
@@ -153,6 +154,48 @@ public class UserDaoImpl implements UserDao {
                     .findFirst()
                     .orElse(null)
         );
+    }
+
+    @Override
+    public List<OrderInfo> getAllOrderInfoByUserId(int idUser, String status) {
+        StringBuilder sql = new StringBuilder("""
+                SELECT
+                    o.id,
+                    o.invoiceDate,
+                    o.total,
+                    o.status,
+                
+                    p.name AS productName,
+                    p.image AS productImage,
+                    p.price AS productPrice,
+                
+                    od.quantity,
+                    od.idVariant,
+                    po1.value AS option1Value,
+                    po2.value AS option2Value
+                
+                FROM orders o
+                JOIN order_details od ON od.idOrder = o.id
+                JOIN product_variants pv ON od.idVariant = pv.id
+                JOIN products p ON pv.idProduct = p.id
+                LEFT JOIN product_options po1 ON pv.idOption1 = po1.id
+                LEFT JOIN product_options po2 ON pv.idOption2 = po2.id
+                WHERE o.idUser = :idUser
+            """);
+        if (status != null && !status.equalsIgnoreCase("all")) {
+            sql.append(" AND o.status = :status");
+        }
+
+        return JdbiConnect.getJdbi().withHandle(handle -> {
+            var query = handle.createQuery(sql.toString())
+                    .bind("idUser", idUser);
+
+            if (status != null && !status.equalsIgnoreCase("all")) {
+                query.bind("status", status);
+            }
+
+            return query.mapToBean(OrderInfo.class).list();
+        });
     }
 
     @Override
