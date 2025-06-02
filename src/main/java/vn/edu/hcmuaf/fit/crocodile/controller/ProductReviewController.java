@@ -44,7 +44,7 @@ public class ProductReviewController extends HttpServlet {
             boolean showName = jsonObject.getBoolean("showName");
             int isShowUsername = showName ? 1 : 0;
 
-            productReviewService.evaluateProduct(productId, variantId, userId, rating, quality, matchDescription, reviewText, isShowUsername);
+//            productReviewService.evaluateProduct(productId, variantId, userId, rating, quality, matchDescription, reviewText, isShowUsername);
 
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().write("{\"message\": \"Evaluate successfully\"}");

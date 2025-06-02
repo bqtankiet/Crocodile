@@ -95,24 +95,24 @@ public class ProductReviewDao implements IProductReviewDao {
                 );
     }
 
-    @Override
-    public int evaluateProduct(int idProduct, int idVariant, int idUser, int rating, String productQuality, String matchDescription, String reviewText, int isShowUsername) {
-        String sql = """
-            INSERT INTO product_reviews (idProduct, idVariant, idUser, rating, productQuality, matchDescription, reviewText, isShowUsername) 
-            VALUES (:idProduct, :idVariant, :idUser, :rating, :productQuality, :matchDescription, :reviewText, :isShowUsername)
-            """;
-        return JdbiConnect.getJdbi().withHandle(handle ->
-                handle.createUpdate(sql)
-                        .bind("idProduct", idProduct)
-                        .bind("idVariant", idVariant)
-                        .bind("idUser", idUser)
-                        .bind("rating", rating)
-                        .bind("productQuality", productQuality)
-                        .bind("matchDescription", matchDescription)
-                        .bind("reviewText", reviewText)
-                        .bind("isShowUsername", isShowUsername)
-                        .execute()
-        );
-    }
+//    @Override
+//    public int evaluateProduct(int idProduct, int idVariant, int idUser, int rating, String productQuality, String matchDescription, String reviewText, int isShowUsername) {
+//        String sql = """
+//            INSERT INTO product_reviews (idProduct, idVariant, idUser, rating, productQuality, matchDescription, reviewText, isShowUsername)
+//            VALUES (:idProduct, :idVariant, :idUser, :rating, :productQuality, :matchDescription, :reviewText, :isShowUsername)
+//            """;
+//        return JdbiConnect.getJdbi().withHandle(handle ->
+//                handle.createUpdate(sql)
+//                        .bind("idProduct", idProduct)
+//                        .bind("idVariant", idVariant)
+//                        .bind("idUser", idUser)
+//                        .bind("rating", rating)
+//                        .bind("productQuality", productQuality)
+//                        .bind("matchDescription", matchDescription)
+//                        .bind("reviewText", reviewText)
+//                        .bind("isShowUsername", isShowUsername)
+//                        .execute()
+//        );
+//    }
 
 }

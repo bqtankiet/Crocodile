@@ -155,17 +155,17 @@ public class UserDaoImpl implements UserDao {
                     o.invoiceDate,
                     o.total,
                     o.status,
-                
+
                     p.id AS idProduct,
                     p.name AS productName,
                     p.image AS productImage,
                     p.price AS productPrice,
-                
+
                     od.quantity,
                     od.idVariant,
                     po1.value AS option1Value,
                     po2.value AS option2Value
-                
+
                 FROM orders o
                 JOIN order_details od ON od.idOrder = o.id
                 JOIN product_variants pv ON od.idVariant = pv.id

@@ -18,7 +18,7 @@ public class FilterOrderStatusController extends HttpServlet {
         Integer userId = (Integer) session.getAttribute("userId");
         String status = request.getParameter("status");
 
-        request.setAttribute("ordersList", userDao.getAllOrderInfoByUserId(userId, status));
+//        request.setAttribute("ordersList", userDao.getAllOrderInfoByUserId(userId, status));
 
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");

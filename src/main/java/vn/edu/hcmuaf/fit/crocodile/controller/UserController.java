@@ -33,17 +33,17 @@ public class UserController extends HttpServlet {
         try {
             UserDaoImpl userDao = new UserDaoImpl();
             List<Address> addressList = userDao.getAddressesByUserId(userId);
-            List<OrderInfo> ordersList = userDao.getAllOrderInfoByUserId(userId, "all");
-
-            request.setAttribute("addressList", addressList);
-            request.setAttribute("ordersList", ordersList);
-
-            if (addressList == null || addressList.isEmpty()) {
-                request.setAttribute("message", "Bạn chưa có địa chỉ nào.");
-            }
-            if (ordersList == null || ordersList.isEmpty()) {
-                request.setAttribute("ordersMessage", "Bạn chưa có đơn hàng nào.");
-            }
+//            List<OrderInfo> ordersList = userDao.getAllOrderInfoByUserId(userId, "all");
+//
+//            request.setAttribute("addressList", addressList);
+//            request.setAttribute("ordersList", ordersList);
+//
+//            if (addressList == null || addressList.isEmpty()) {
+//                request.setAttribute("message", "Bạn chưa có địa chỉ nào.");
+//            }
+//            if (ordersList == null || ordersList.isEmpty()) {
+//                request.setAttribute("ordersMessage", "Bạn chưa có đơn hàng nào.");
+//            }
 
             request.getRequestDispatcher("/views/user.jsp").forward(request, response);
 
