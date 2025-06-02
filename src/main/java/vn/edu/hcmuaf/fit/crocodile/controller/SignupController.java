@@ -74,7 +74,7 @@ public class SignupController extends HttpServlet {
                 tokenDao.insertToken(activationToken);
 
                 // Gửi email kích hoạt
-                String activationLink = "http://localhost:8080/activate?token=" + tokenValue;
+                String activationLink = "http://localhost:8080/crocodile/activate?token=" + tokenValue;
                 boolean emailSent = sendEmailService.sendWelcomeEmail(user.getEmail(), fullName, activationLink);
                 if (!emailSent) {
                     System.err.println("Không thể gửi email kích hoạt tới: " + user.getEmail());
