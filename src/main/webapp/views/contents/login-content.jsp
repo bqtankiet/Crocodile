@@ -1,5 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<style>
+    .g-recaptcha {
+        display: none;
+    }
+</style>
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <div id="page">
     <!-- Form đăng nhập -->
@@ -86,79 +91,115 @@
     </div>
 
 </div>
+
 <script>
-    // Hàm được gọi khi captcha hoàn thành
-    function enableSubmit() {
-        document.getElementById("submitBtn").disabled = false;
-    }
+    // Quản lý số lần đăng nhập sai và hiển thị captcha
+    document.addEventListener('DOMContentLoaded', function() {
+        const LOGIN_ATTEMPTS_KEY = 'loginAttempts';
+        const MAX_ATTEMPTS_BEFORE_CAPTCHA = 3;
 
-    function login() {
-    }
-</script>
-<script type="module">
-    // Import the functions you need from the SDKs you need
-    import {initializeApp} from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-    import {
-        getAuth,
-        GoogleAuthProvider,
-        signInWithPopup,
-        onAuthStateChanged
-    } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+        // Lấy các element cần thiết
+        const loginForm = document.getElementById('loginForm');
+        const captchaDiv = document.querySelector('.g-recaptcha');
+        const submitBtn = document.getElementById('submitBtn');
 
-    // JS xử lý login bằng Google
-    const firebaseConfig = {
-        apiKey: "AIzaSyAN1bs13AN-4mMYf3pzTDH99643kZe41uM",
-        authDomain: "crocodile-bd209.firebaseapp.com",
-        projectId: "crocodile-bd209",
-        storageBucket: "crocodile-bd209.firebasestorage.app",
-        messagingSenderId: "653977599527",
-        appId: "1:653977599527:web:cc4f29e1675f32fcf75802"
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    auth.languageCode = 'en';
-    const provider = new GoogleAuthProvider()
-
-    const googleLogin = document.getElementById("google-login-btn")
-    googleLogin.addEventListener("click", function () {
-        signInWithPopup(auth, provider)
-            .then((result) => {
-                const credential = GoogleAuthProvider.credentialFromResult(result);
-                const token = credential.accessToken;
-                const user = result.user;
-                console.log(user)
-                window.location.href = "login";
-            }).catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            const email = error.customData.email;
-            const credential = GoogleAuthProvider.credentialFromError(error);
-        });
-    })
-
-    function updateUserProfile(user) {
-        const email = user.email;
-        const name = user.displayName;
-        const profilePicture = user.photoURL;
-        console.log(email)
-
-
-        document.getElementById("nameUser").textContent = name
-        document.getElementById("emailUser").textContent = email
-        document.getElementById("userProfilePicture").src = profilePicture
-
-    }
-
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            updateUserProfile(user)
-            const uid = user.uid;
-            return uid;
-
+        // Lấy số lần đăng nhập sai từ sessionStorage
+        function getLoginAttempts() {
+            return parseInt(sessionStorage.getItem(LOGIN_ATTEMPTS_KEY) || '0');
         }
 
+        // Lưu số lần đăng nhập sai
+        function setLoginAttempts(attempts) {
+            sessionStorage.setItem(LOGIN_ATTEMPTS_KEY, attempts.toString());
+        }
+
+        // Xóa số lần đăng nhập sai (khi đăng nhập thành công)
+        function clearLoginAttempts() {
+            sessionStorage.removeItem(LOGIN_ATTEMPTS_KEY);
+        }
+
+        // Kiểm tra và ẩn/hiện captcha
+        function toggleCaptcha() {
+            const attempts = getLoginAttempts();
+
+            if (attempts < MAX_ATTEMPTS_BEFORE_CAPTCHA) {
+                // Ẩn captcha và enable submit button
+                captchaDiv.style.display = 'none';
+                submitBtn.disabled = false;
+                console.log(`Số lần thử: ${attempts}/${MAX_ATTEMPTS_BEFORE_CAPTCHA} - Captcha ẩn`);
+            } else {
+                // Hiện captcha và disable submit button cho đến khi hoàn thành captcha
+                captchaDiv.style.display = 'block';
+                submitBtn.disabled = true;
+                console.log(`Số lần thử: ${attempts}/${MAX_ATTEMPTS_BEFORE_CAPTCHA} - Captcha hiển thị`);
+            }
+        }
+
+        // Kiểm tra xem có thông báo lỗi đăng nhập không
+        function checkLoginError() {
+            // Kiểm tra nếu có error message từ server (có thể thêm hidden input hoặc check URL params)
+            const urlParams = new URLSearchParams(window.location.search);
+            const hasError = urlParams.get('error') === 'true' ||
+                document.querySelector('.alert-danger') !== null ||
+                '${requestScope.errorMessage}' !== '';
+
+            if (hasError) {
+                const currentAttempts = getLoginAttempts();
+                setLoginAttempts(currentAttempts + 1);
+                console.log('Đăng nhập thất bại, tăng số lần thử lên:', currentAttempts + 1);
+            }
+        }
+
+        // Khởi tạo khi trang load
+        function initialize() {
+            checkLoginError();
+            toggleCaptcha();
+        }
+
+        // Xử lý khi form được submit
+        loginForm.addEventListener('submit', function(e) {
+            const attempts = getLoginAttempts();
+
+            // Nếu >= 3 lần thử và captcha chưa được hoàn thành
+            if (attempts >= MAX_ATTEMPTS_BEFORE_CAPTCHA) {
+                const recaptchaResponse = grecaptcha.getResponse();
+                if (!recaptchaResponse) {
+                    e.preventDefault();
+                    alert('Vui lòng hoàn thành captcha để tiếp tục.');
+                    return false;
+                }
+            }
+
+            console.log('Form submitted với số lần thử:', attempts);
+        });
+
+        // Khởi chạy
+        initialize();
     });
+
+    // Hàm được gọi khi captcha hoàn thành (callback từ reCAPTCHA)
+    function enableSubmit() {
+        const submitBtn = document.getElementById("submitBtn");
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            console.log('Captcha hoàn thành - Enable submit button');
+        }
+    }
+
+    // Hàm để reset số lần thử (có thể gọi khi đăng nhập thành công)
+    function resetLoginAttempts() {
+        sessionStorage.removeItem('loginAttempts');
+        console.log('Đã reset số lần đăng nhập sai');
+    }
+
+    // Hàm để kiểm tra trạng thái hiện tại (dành cho debug)
+    function checkCurrentStatus() {
+        const attempts = parseInt(sessionStorage.getItem('loginAttempts') || '0');
+        const captchaVisible = document.querySelector('.g-recaptcha').style.display !== 'none';
+        console.log('Trạng thái hiện tại:', {
+            attempts: attempts,
+            captchaVisible: captchaVisible,
+            maxAttempts: 3
+        });
+    }
 </script>
-<

@@ -86,6 +86,7 @@
                     request.getRequestDispatcher("/views/login.jsp").forward(request, response);
                 }
             } else {
+                request.setAttribute("loginError", true);
                 request.setAttribute("errorMessage", "Sai thông tin đăng nhập hoặc mật khẩu.");
                 request.getRequestDispatcher("/views/login.jsp").forward(request, response);
             }

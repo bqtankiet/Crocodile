@@ -180,7 +180,7 @@ public class UserDaoImpl implements UserDao {
                 handle.createQuery(query)
                         .bind("input", input)
                         .mapToBean(User.class)
-                        .findOne()
+                        .findFirst()
         );
     }
     @Override
