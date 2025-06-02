@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="<c:url value="/assets/css/main.css"/> ">
 </head>
 <body>
-<jsp:include page="contents/about-content.jsp"/>
+<jsp:include page="contents/activation-result-content.jsp"/>
 
 <%--FOOTER--%>
 <jsp:include page="includes/footer.jsp"/>
