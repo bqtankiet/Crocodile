@@ -19,9 +19,6 @@
     }
 
     .translucent-background {
-        /*background: rgba(0, 0, 0, 0.8);*/
-        /*color: white;*/
-
         background-color: white;
     }
 
@@ -106,7 +103,6 @@
                     <div class="text-center my-2">
                         <button type="submit" id="submitBtn" class="btn btn-primary w-100" disabled>Đăng ký</button>
                     </div>
-
                 </form>
                 <div class="w-100">
                     <!-- Dòng phân cách -->
@@ -157,8 +153,44 @@
                         <p>Bạn đã có tài khoản?
                             <a href="<c:url value="/login"/>">Đăng nhập</a> ngay.
                         </p>
-                        <div class=""><a href=#>Quay lại trang chủ</a></div>
+                        <div class=""><a href="#">Quay lại trang chủ</a></div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal thông báo thành công -->
+    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmationModalLabel">Thông Báo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Link kích hoạt tài khoản đã được gửi tới email của bạn. Vui lòng xác thực email trước khi đăng nhập.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal thông báo lỗi -->
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="errorModalLabel">Thông Báo Lỗi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Đăng ký thất bại. Vui lòng thử lại.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Đóng</button>
                 </div>
             </div>
         </div>
@@ -169,9 +201,7 @@
     class RegisterFormValidator {
         constructor(formSelector) {
             this.$form = $(formSelector);
-
             this.errors = {};
-
             this.$nameInput = this.$form.find('#fullName');
             this.$genderInput = this.$form.find('#gender');
             this.$contactInput = this.$form.find('#contact');
@@ -201,9 +231,6 @@
             this.registerCallbacks();
         }
 
-        /**
-         * Đăng ký các callbacks để xử lý validate cho từng input
-         */
         registerCallbacks() {
             this.$nameInput.on('input', () => this.validateName());
             this.$genderInput.on('input', () => this.validateGender());
@@ -213,51 +240,33 @@
         }
 
         validateEmailAndPhone() {
-            let input = this.$contactInput.val().trim(); // Lấy giá trị từ input
-
-            // Regex kiểm tra email
+            let input = this.$contactInput.val().trim();
             let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-            // Regex kiểm tra số điện thoại (Việt Nam, 10-11 số, bắt đầu bằng 0)
             let phoneRegex = /^(0[1-9][0-9]{8,9})$/;
-
             let isValid = emailRegex.test(input) || phoneRegex.test(input);
-
-            // Cập nhật trạng thái validation
             this.setValidationState(this.$contactInput, isValid, 'Email hoặc số điện thoại không hợp lệ');
-
             return isValid;
         }
 
-        /**
-         * Validate password sử dụng passwordCriteria, cập nhật feedback thời gian thực
-         * @returns {boolean}
-         */
         validatePassword() {
             let pass = this.$passwordInput.val();
-            // check validations
             let isLongEnough = pass.length >= 8;
             let hasNumber = /\d/.test(pass);
             let hasUppercase = /[A-Z]/.test(pass);
             let hasSymbol = /[^a-zA-Z0-9]/.test(pass);
 
-            // update feedback
-            isLongEnough ? this.passwordCriteria.success(0) : this.passwordCriteria.danger(0)
+            isLongEnough ? this.passwordCriteria.success(0) : this.passwordCriteria.danger(0);
             hasNumber ? this.passwordCriteria.success(1) : this.passwordCriteria.danger(1);
             hasUppercase ? this.passwordCriteria.success(2) : this.passwordCriteria.danger(2);
             hasSymbol ? this.passwordCriteria.success(3) : this.passwordCriteria.danger(3);
 
             this.validateConfirmPassword();
 
-            let isValid = isLongEnough && hasSymbol && hasUppercase && hasSymbol;
+            let isValid = isLongEnough && hasNumber && hasUppercase && hasSymbol;
             this.setValidationState(this.$passwordInput, isValid, 'Mật khẩu không hợp lệ');
             return isValid;
         }
 
-        /**
-         * Validate mật khẩu nhập lại không rỗng và khớp với mật khẩu đã nhập
-         * @returns {boolean}
-         */
         validateConfirmPassword() {
             let isNotEmpty = !(this.$confirmPasswordInput.val().trim().length === 0);
             let isMatch = this.$passwordInput.val() === this.$confirmPasswordInput.val();
@@ -266,13 +275,9 @@
             return isValid;
         }
 
-        /**
-         * Validate name ít nhất 5 ký tự, và xử lý các khoảng trắng
-         * @returns {boolean}
-         */
         validateName() {
-            let name = this.$nameInput.val().replace(/^\s+/, "").replace(/\s+/g, " "); // Xóa khoảng trắng đầu + thừa
-            this.$nameInput.val(name); // Cập nhật lại giá trị đã chuẩn hóa
+            let name = this.$nameInput.val().replace(/^\s+/, "").replace(/\s+/g, " ");
+            this.$nameInput.val(name);
             let isValid = name.length >= 5;
             this.setValidationState(this.$nameInput, isValid, 'Họ và tên không hợp lệ');
             return isValid;
@@ -285,12 +290,6 @@
             return isChecked;
         }
 
-        /**
-         * Hiển thị feedback
-         * @param $input
-         * @param isValid
-         * @param message
-         */
         setValidationState($input, isValid, message) {
             let $feedback = $input.siblings('.invalid-feedback');
             if (!$feedback.length) {
@@ -305,10 +304,6 @@
             }
         }
 
-        /**
-         * Kiểm tra xem form có hợp lệ hay không?
-         * @returns {boolean}
-         */
         checkValidity() {
             let isValidName = this.validateName();
             let isValidGender = this.validateGender();
@@ -337,31 +332,29 @@
         bind(inputSelector) {
             this.$passwordInput = $(inputSelector);
             this.$criteriaHolder = this.$passwordInput.siblings('.password-criteria-holder');
-            let $ul = $('<ul></ul>')
+            let $ul = $('<ul></ul>');
             this.criteriaMessages.forEach(function (m) {
                 $ul.append($('<li class="text-danger">' + m + '</li>'));
             });
             this.$criteriaHolder.html($ul);
 
             this.$passwordInput.on('focus', () => {
-                this.$criteriaHolder.removeClass('d-none')
+                this.$criteriaHolder.removeClass('d-none');
             });
             this.$passwordInput.on('blur', () => {
-                this.$criteriaHolder.addClass('d-none')
+                this.$criteriaHolder.addClass('d-none');
             });
 
             return this;
         }
     }
-
 </script>
 
 <script>
-
     const formValidator = new RegisterFormValidator('#signupForm');
 
     (() => {
-        'use strict'
+        'use strict';
 
         const form = document.querySelector('#signupForm');
 
@@ -378,6 +371,7 @@
                 data: $(this).serialize(),
                 success: function(response) {
                     if (response.status === "success") {
+                        // Nếu thành công, chuyển hướng về trang login
                         window.location.href = '<c:url value="/login?registered=true"/>';
                     } else {
                         alert(response.message);
@@ -393,8 +387,21 @@
                 }
             });
         });
-    })()
+    })();
+
+    // Tự động hiển thị modal khi load trang nếu có thông báo
+    window.onload = function () {
+        <c:if test="${success}">
+        var confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+        confirmationModal.show();
+        </c:if>
+        <c:if test="${not empty error}">
+        var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+        errorModal.show();
+        </c:if>
+    }
 </script>
+
 <script>
     // Hàm được gọi khi captcha hoàn thành
     function enableSubmit() {

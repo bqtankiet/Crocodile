@@ -48,5 +48,5 @@ public class UrlProperties extends ApplicationProperties {
         return getProperty("url.resetPassword");
     }
     public static String verifyOtp (){ return  getProperty("url.verifyOtp"); }
-    public static String verifyEMail(){ return  getProperty("url.verifyEmail"); }
+    public static String activate(){ return  getProperty("url.activate"); }
 }
