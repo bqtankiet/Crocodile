@@ -160,7 +160,7 @@
 
     <div class="action-buttons">
         <% if (isSuccess) { %>
-        <a href="http://localhost:8080/crocodile/" class="btn btn-home">Về trang chủ</a>
+        <a href="https://crocodile.nludemo.id.vn/" class="btn btn-home">Về trang chủ</a>
         <div class="countdown">
             <p>Tự động chuyển hướng về trang chủ sau <span id="countdown" class="countdown-number">5</span> giây...</p>
         </div>
@@ -175,13 +175,13 @@
 
                 if (countdown <= 0) {
                     clearInterval(timer);
-                    window.location.href = 'http://localhost:8080/crocodile/';
+                    window.location.href = 'https://crocodile.nludemo.id.vn/';
                 }
             }, 1000);
         </script>
         <% } else { %>
-        <a href="http://localhost:8080/crocodile/signup" class="btn btn-signup">Đăng ký lại</a>
-        <a href="http://localhost:8080/crocodile/" class="btn btn-home">Về trang chủ</a>
+        <a href="https://crocodile.nludemo.id.vn/signup" class="btn btn-signup">Đăng ký lại</a>
+        <a href="https://crocodile.nludemo.id.vn/" class="btn btn-home">Về trang chủ</a>
         <% } %>
 
     </div>
