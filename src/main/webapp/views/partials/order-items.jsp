@@ -85,10 +85,9 @@
                                         </button>
 
                                     </c:if>
-                                    <c:if test="${order.status == 'CANCELLED'}">
-                                        <button class="btn btn-danger">Mua Lại</button>
+                                    <c:if test="${order.status == 'CANCELLED' || order.status == 'COMPLETED'}">
+                                        <button class="btn btn-danger" onclick="window.location.href='product-detail?id=${order.idProduct}'">Mua Lại</button>
                                     </c:if>
-                                    <button class="btn btn-outline-secondary ms-2">Liên Hệ Người Bán</button>
                                     <c:if test="${order.status == 'AWAITING'}">
                                         <button class="btn btn-outline-secondary ms-2">Xem Chi Tiết Đơn</button>
                                     </c:if>
