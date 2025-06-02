@@ -149,7 +149,7 @@ public class PaymentController extends HttpServlet {
 
             if(user != null && ip != null) {
                 LogOrder logOrder = new LogOrder();
-                logOrder.logSuccess(String.valueOf(user.getId()), user.getUsername(), ip, String.valueOf(order.getPaymentMethod()), String.valueOf(order.getTotal()));
+                logOrder.logSuccess(String.valueOf(user.getId()), user.getEmail(), ip, String.valueOf(order.getPaymentMethod()), String.valueOf(order.getTotal()));
                 user = null;
                 ip = null;
             }

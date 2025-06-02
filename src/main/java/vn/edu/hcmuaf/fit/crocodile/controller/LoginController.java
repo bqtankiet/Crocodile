@@ -147,7 +147,7 @@ public class LoginController extends HttpServlet {
                 session.setAttribute("gender", genderDisplay);
                 // log
                 LogAuthentication logAuthentication = new LogAuthentication();
-                logAuthentication.logSuccess(String.valueOf(user.getId()), user.getUsername(), LogUtil.getClientIp(request), new RolePermissionService().getRoleName(user.getRole()));
+                logAuthentication.logSuccess(String.valueOf(user.getId()), user.getEmail(), LogUtil.getClientIp(request), new RolePermissionService().getRoleName(user.getRole()));
 
 
                 // Xử lý chuyển hướng
