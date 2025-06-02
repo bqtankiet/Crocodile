@@ -261,7 +261,7 @@
             <c:forEach var="review" items="${productReviews}">
                 <div class="border-bottom pb-4 mb-4">
                     <div class="d-flex align-items-center mb-2">
-                        <img src="https://i1.sndcdn.com/artworks-ozhbsDOfLNl8quTs-ayDhHA-t240x240.jpg"
+                        <img src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
                              class="rounded-circle me-2" alt="avatar" style="width: 70px">
                         <div class="user-info">
                             <strong>

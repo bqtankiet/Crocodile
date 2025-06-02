@@ -1,0 +1,22 @@
+name: "📝 Simple Issue"
+description: "Template viết các Issue đơn giản."
+title: "[Issue]: "
+labels: []
+
+body:
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: "Nội dung issue"
+      description: "Sử dụng cú pháp markdown để viết nội dung issue."
+      placeholder: "Viết nội dung issue ở đây ..."
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: "✅ Xác nhận"
+      options:
+        - label: "Tôi đã kiểm tra rằng Issue này chưa có trong các Issue đã mở."
+          required: true
