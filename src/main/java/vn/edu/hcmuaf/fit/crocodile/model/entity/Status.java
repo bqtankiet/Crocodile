@@ -2,7 +2,6 @@ package vn.edu.hcmuaf.fit.crocodile.model.entity;
 
 public enum Status {
     PENDING("Chờ xử lý"),
-    PENDINGPICKUP("Chờ lấy hàng"),
     PROCESSING("Đang giao hàng"),
     AWAITING("Chờ lấy hàng"),
     COMPLETED("Hoàn thành"),

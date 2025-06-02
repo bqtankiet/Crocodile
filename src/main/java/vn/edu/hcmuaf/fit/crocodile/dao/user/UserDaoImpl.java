@@ -150,33 +150,33 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<OrderInfo> getAllOrderInfoByUserId(int idUser, String status) {
         StringBuilder sql = new StringBuilder("""
-                SELECT
-                    o.id,
-                    o.invoiceDate,
-                    o.total,
-                    o.status,
+               SELECT
+                  o.id,
+                  o.orderDate AS invoiceDate,
+                  o.total,
+                  o.status,
 
-                    p.id AS idProduct,
-                    p.name AS productName,
-                    p.image AS productImage,
-                    p.price AS productPrice,
+                  p.id AS idProduct,
+                  p.name AS productName,
+                  p.image AS productImage,
+                  p.price AS productPrice,
 
-                    od.quantity,
-                    od.idVariant,
-                    po1.value AS option1Value,
-                    po2.value AS option2Value
+                  oi.amount AS quantity,
+                  oi.idProductVariant AS idVariant,
+                  oi.o1Value AS option1Value,
+                  oi.o2Value AS option2Value
 
-                FROM orders o
-                JOIN order_details od ON od.idOrder = o.id
-                JOIN product_variants pv ON od.idVariant = pv.id
-                JOIN products p ON pv.idProduct = p.id
-                LEFT JOIN product_options po1 ON pv.idOption1 = po1.id
-                LEFT JOIN product_options po2 ON pv.idOption2 = po2.id
+                  FROM orders_v2 o
+                  JOIN order_items oi ON oi.idOrder = o.id
+                  JOIN product_variants pv ON oi.idProductVariant = pv.id
+                  JOIN products p ON pv.idProduct = p.id
                 WHERE o.idUser = :idUser
             """);
         if (status != null && !status.equalsIgnoreCase("all")) {
             sql.append(" AND o.status = :status");
         }
+
+        sql.append(" ORDER BY o.orderDate DESC");
 
         return JdbiConnect.getJdbi().withHandle(handle -> {
             var query = handle.createQuery(sql.toString())
