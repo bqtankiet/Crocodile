@@ -581,7 +581,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/crocodile/product-review" id="form-feedback" method="post">
+                    <form action="/product-review" id="form-feedback" method="post">
                         <div class="container mb-5">
                             <!-- Thông tin sản phẩm -->
                             <div class="d-flex align-items-center border rounded p-3 mb-3">
@@ -761,7 +761,7 @@
         }
 
         try {
-            const response = await productReview("/crocodile/product-review", data);
+            const response = await productReview("/product-review", data);
 
             if (response.status === "success") {
                 Swal.fire({

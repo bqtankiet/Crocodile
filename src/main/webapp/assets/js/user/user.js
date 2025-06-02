@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const status = this.dataset.filter;
             button.classList.add('active');
 
-            fetch(`/crocodile/status-order-filter?status=${status}`)
+            fetch(`/status-order-filter?status=${status}`)
                 .then(response => response.text())
                 .then(html => {
                     document.getElementById("ordersList").innerHTML = html.trim();

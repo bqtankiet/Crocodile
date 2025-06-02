@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded",  ()=> {
 
     // ajax xem thêm đánh giá
     loadMoreBtn.addEventListener("click", ()=> {
-        fetch(`/crocodile/more-review?idProduct=${idProduct}&offset=${offset}`)
+        fetch(`/more-review?idProduct=${idProduct}&offset=${offset}`)
             .then(response => response.text())
             .then(html => {
                 const content = html.trim();
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded",  ()=> {
             const reviewId = this.dataset.reviewId;
             const likeCountSpan = this.nextElementSibling;
 
-            fetch('/crocodile/like-review', {
+            fetch('/like-review', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded"
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded",  ()=> {
 
             button.classList.add('active');
 
-            fetch(`/crocodile/rating-filter?idProduct=${idProduct}&rating=${rating}`)
+            fetch(`/rating-filter?idProduct=${idProduct}&rating=${rating}`)
                 .then(response => response.text())
                 .then(html => {
                     document.getElementById("reviewList").innerHTML = html.trim();
