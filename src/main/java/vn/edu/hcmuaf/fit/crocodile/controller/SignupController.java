@@ -18,11 +18,13 @@ public class SignupController extends HttpServlet {
     private final AuthenticationService auth = new AuthenticationService();
     private final SendEmailService sendEmailService = new SendEmailService();
     private final TokenDao tokenDao = new TokenDao();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.getRequestDispatcher("/views/signup.jsp").forward(request, response);
     }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Lấy thông tin từ request
@@ -44,6 +46,9 @@ public class SignupController extends HttpServlet {
         user.setFullname(fullName);
         user.setGender(gender);
         user.setPassword(password);
+
+        // ✅ FIX: Set role mặc định là 16 (customer role)
+        user.setRole(16); // Role 16 cho customer
 
         // Xác định email hay số điện thoại
         boolean isEmail = !contact.matches("^0\\d{9,10}$");
@@ -97,7 +102,4 @@ public class SignupController extends HttpServlet {
         response.setContentType("application/json");
         response.getWriter().write("{\"status\": \"error\", \"message\": \"" + message + "\"}");
     }
-
-
-
 }
