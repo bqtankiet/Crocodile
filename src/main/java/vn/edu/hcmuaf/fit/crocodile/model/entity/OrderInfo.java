@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 public class OrderInfo implements Serializable {
     private int id;
+    private int idProduct;
     private String productName;
     private String productImage;
     private double productPrice;
@@ -26,6 +27,7 @@ public class OrderInfo implements Serializable {
                 ", productImage='" + productImage + '\'' +
                 ", productPrice=" + productPrice +
                 ", quantity=" + quantity +
+                ", idProduct=" + idProduct +
                 ", idVariant=" + idVariant +
                 ", option1Value='" + option1Value + '\'' +
                 ", option2Value='" + option2Value + '\'' +
@@ -42,6 +44,10 @@ public class OrderInfo implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
+
+    public int getIdProduct() { return idProduct; }
+
+    public void setIdProduct(int idProduct) { this.idProduct = idProduct; }
 
     public String getProductName() {
         return productName;
