@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import vn.edu.hcmuaf.fit.crocodile.dao.rolepermission.RolePermissionDAO;
 import vn.edu.hcmuaf.fit.crocodile.dao.rolepermission.RolePermissionService;
 import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDao;
 import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDaoImpl;
@@ -136,6 +137,11 @@ public class LoginController extends HttpServlet {
 
                 user.setPassword(null);
                 session.setAttribute("user", user);
+
+                // role name
+                RolePermissionDAO rolePermissionDAO = new RolePermissionDAO();
+                String roleName = rolePermissionDAO.getRoleName(user.getRole());
+                session.setAttribute("roleName", roleName);
 
                 // Xử lý hiển thị giới tính
                 String genderDisplay = switch (user.getGender()) {
