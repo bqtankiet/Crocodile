@@ -27,13 +27,14 @@
                 <div class="mb-3 col-md-6">
                   <label for="firstName" class="form-label">Tên</label>
                   <input class="form-control" type="text" id="firstName"
-                         name="firstName" value="Khoi" placeholder="Tên"/>
+                         name="firstName" value="${sessionScope.user.fullname}" placeholder="Tên"/>
+
                 </div>
 
                 <div class="mb-3 col-md-6">
                   <label for="lastName" class="form-label">Họ</label>
                   <input class="form-control" type="text" name="lastName"
-                         id="lastName" value="Minh" placeholder="Họ"/>
+                         id="lastName" value="" placeholder="Họ"/>
                 </div>
 
                 <div class="mb-3 col-md-6">
@@ -67,7 +68,7 @@
                 <div class="mb-3 col-md-6">
                   <label for="email" class="form-label">E-mail</label>
                   <input class="form-control" type="text" id="email" name="email"
-                         value="mkhoi@gmail.com" placeholder="abc@example.com" />
+                         value="${sessionScope.user.email}" placeholder="abc@example.com" />
                 </div>
 
                 <div class="mb-3 col-md-6">

@@ -447,5 +447,130 @@
             });
         });
     </script>
+    <script>
+        // Kiểm tra và hiển thị thông báo đăng nhập thành công
+        $(document).ready(function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const loginSuccess = urlParams.get('login');
 
+            if (loginSuccess === 'success') {
+                // Hiển thị thông báo thành công
+                showLoginSuccessMessage();
+
+                // Xóa parameter khỏi URL để tránh hiển thị lại khi refresh
+                const newUrl = window.location.pathname + window.location.search.replace(/[?&]login=success/, '');
+                window.history.replaceState({}, document.title, newUrl);
+            }
+
+            // Kiểm tra lỗi đăng nhập
+            const loginError = urlParams.get('error');
+            if (loginError) {
+                showLoginErrorMessage(loginError);
+
+                // Xóa error parameter khỏi URL
+                const newUrl = window.location.pathname + window.location.search.replace(/[?&]error=[^&]*/, '');
+                window.history.replaceState({}, document.title, newUrl);
+            }
+        });
+
+        function showLoginSuccessMessage() {
+            // Tạo toast notification
+            const toast = $(`
+            <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999;">
+                <div id="loginSuccessToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header bg-success text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill me-2" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.061L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                        </svg>
+                        <strong class="me-auto">Thành công</strong>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+                    </div>
+                    <div class="toast-body">
+                        Đăng nhập thành công! Chào mừng bạn đến với Crocodile.
+                    </div>
+                </div>
+            </div>
+        `);
+
+            $('body').append(toast);
+
+            // Hiển thị toast
+            const toastElement = new bootstrap.Toast(document.getElementById('loginSuccessToast'), {
+                delay: 4000 // Hiển thị trong 4 giây
+            });
+            toastElement.show();
+
+            // Xóa toast sau khi ẩn
+            $('#loginSuccessToast').on('hidden.bs.toast', function() {
+                $(this).parent().remove();
+            });
+        }
+
+        function showLoginErrorMessage(errorCode) {
+            let errorMessage = 'Đăng nhập thất bại. Vui lòng thử lại.';
+
+            switch(errorCode) {
+                case 'missing_token':
+                    errorMessage = 'Thiếu thông tin xác thực. Vui lòng thử lại.';
+                    break;
+                case 'invalid_token':
+                    errorMessage = 'Thông tin xác thực không hợp lệ.';
+                    break;
+                case 'user_creation_failed':
+                    errorMessage = 'Không thể tạo tài khoản. Vui lòng liên hệ hỗ trợ.';
+                    break;
+                case 'firebase_auth':
+                    errorMessage = 'Lỗi xác thực Firebase. Vui lòng thử lại.';
+                    break;
+                case 'unexpected':
+                    errorMessage = 'Có lỗi không mong muốn xảy ra. Vui lòng thử lại sau.';
+                    break;
+            }
+
+            // Tạo toast notification lỗi
+            const toast = $(`
+            <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999;">
+                <div id="loginErrorToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header bg-danger text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill me-2" viewBox="0 0 16 16">
+                            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                        </svg>
+                        <strong class="me-auto">Lỗi</strong>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+                    </div>
+                    <div class="toast-body">
+                        ${errorMessage}
+                    </div>
+                </div>
+            </div>
+        `);
+
+            $('body').append(toast);
+
+            // Hiển thị toast
+            const toastElement = new bootstrap.Toast(document.getElementById('loginErrorToast'), {
+                delay: 5000 // Hiển thị trong 5 giây
+            });
+            toastElement.show();
+
+            // Xóa toast sau khi ẩn
+            $('#loginErrorToast').on('hidden.bs.toast', function() {
+                $(this).parent().remove();
+            });
+        }
+
+        // Cập nhật thông tin giỏ hàng khi có thay đổi session
+        function updateCartInfo() {
+            // Chỉ cập nhật nếu có cart trong session
+            if (typeof window.updateCartDisplay === 'function') {
+                window.updateCartDisplay();
+            }
+        }
+
+        // Gọi cập nhật giỏ hàng sau khi đăng nhập thành công
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('login') === 'success') {
+            setTimeout(updateCartInfo, 1000); // Delay để đảm bảo session đã được cập nhật
+        }
+    </script>
 </header>
