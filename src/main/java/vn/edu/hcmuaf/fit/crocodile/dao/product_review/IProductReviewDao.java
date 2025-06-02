@@ -14,4 +14,6 @@ public interface IProductReviewDao {
     double getAverageRatingForProduct(int idProduct);
 
     List<ProductReview> getReviewsByRating(int idProduct, int rating);
+
+    int evaluateProduct(int idProduct, int idVariant, int idUser, int rating, String productQuality, String matchDescription, String reviewText, int isShowUsername);
 }

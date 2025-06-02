@@ -29,4 +29,8 @@ public class ProductReviewService {
     public List<ProductReview> getReviewsByRating(int idProduct, int rating) {
         return productReviewDao.getReviewsByRating(idProduct, rating);
     }
+
+    public int evaluateProduct(int idProduct, int idVariant, int idUser, int rating, String productQuality, String matchDescription, String reviewText, int isShowUsername) {
+        return productReviewDao.evaluateProduct(idProduct, idVariant, idUser, rating, productQuality, matchDescription, reviewText, isShowUsername);
+    }
 }

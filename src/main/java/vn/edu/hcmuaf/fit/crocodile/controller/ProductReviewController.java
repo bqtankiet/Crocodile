@@ -4,12 +4,14 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import org.json.JSONObject;
+import vn.edu.hcmuaf.fit.crocodile.service.ProductReviewService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 
 @WebServlet(name = "ProductReviewController", value = "/product-review")
 public class ProductReviewController extends HttpServlet {
+    ProductReviewService productReviewService = new ProductReviewService();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -19,6 +21,7 @@ public class ProductReviewController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession();
 
         BufferedReader reader = new BufferedReader(request.getReader());
         StringBuilder sb = new StringBuilder();
@@ -29,23 +32,27 @@ public class ProductReviewController extends HttpServlet {
         String jsonInput = sb.toString();
 
         JSONObject jsonObject = new JSONObject(jsonInput);
-        int productID = jsonObject.getInt("productId");
-        int variantID = jsonObject.getInt("variantId");
-        int rating = jsonObject.getInt("rating");
-        String quality = jsonObject.getString("quality");
-        String matchDescription = jsonObject.getString("descriptionMatch");
-        String reviewText = jsonObject.getString("reviewText");
-        boolean showName = jsonObject.getBoolean("showName");
-        int isShowUsername = showName ? 1 : 0;
 
-        System.out.println("productID::: " + productID);
-        System.out.println("variantID::: " + variantID);
-        System.out.println("rating::: " + rating);
-        System.out.println("quality::: " + quality);
-        System.out.println("matchDescription::: " + matchDescription);
-        System.out.println("reviewText::: " + reviewText);
-        System.out.println("showName::: " + showName);
-        System.out.println("isShowUsername::: " + isShowUsername);
+        try {
+            int userId = (int) session.getAttribute("userId");
+            int productId = jsonObject.getInt("productId");
+            int variantId = jsonObject.getInt("variantId");
+            int rating = jsonObject.getInt("rating");
+            String quality = jsonObject.getString("quality");
+            String matchDescription = jsonObject.getString("descriptionMatch");
+            String reviewText = jsonObject.getString("reviewText");
+            boolean showName = jsonObject.getBoolean("showName");
+            int isShowUsername = showName ? 1 : 0;
+
+            productReviewService.evaluateProduct(productId, variantId, userId, rating, quality, matchDescription, reviewText, isShowUsername);
+
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.getWriter().write("{\"message\": \"Evaluate successfully\"}");
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write("{\"error\": \"Invalid input data\"}");
+        }
+
 
 
 
