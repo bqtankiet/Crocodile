@@ -3,6 +3,8 @@ package vn.edu.hcmuaf.fit.crocodile.dao.token;
 import vn.edu.hcmuaf.fit.crocodile.config.JdbiConnect;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Token;
 
+import java.time.LocalDateTime;
+
 
 public class TokenDao implements ITokenDao {
     @Override
@@ -30,21 +32,23 @@ public class TokenDao implements ITokenDao {
         );
     }
 
-    @Override
     public int insertToken(Token token) {
         String sql = """
-                INSERT INTO tokens (idUser, token, tokenType, expiresAt)
-                VALUES (:idUser, :token, :tokenType, :expiresAt)
-                """;
+            INSERT INTO tokens (idUser, token, tokenType, createAt, expiresAt, status)
+            VALUES (:idUser, :token, :tokenType, :createdAt, :expiresAt, :status)
+            """;
         return JdbiConnect.getJdbi().withHandle(handle ->
                 handle.createUpdate(sql)
                         .bind("idUser", token.getIdUser())
                         .bind("token", token.getToken())
-                        .bind("tokenType", token.getTokenType())
+                        .bind("tokenType", token.getTokenType().name()) // Chuyển enum thành chuỗi
+                        .bind("createdAt", token.getCreatedAt() != null ? token.getCreatedAt() : LocalDateTime.now())
                         .bind("expiresAt", token.getExpiresAt())
+                        .bind("status", token.getStatus())
                         .executeAndReturnGeneratedKeys("id")
                         .mapTo(int.class)
-                        .findFirst().orElse(-1)
+                        .findFirst()
+                        .orElse(-1)
         );
     }
 }
