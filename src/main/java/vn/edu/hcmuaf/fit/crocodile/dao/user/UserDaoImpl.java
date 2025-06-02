@@ -6,7 +6,6 @@ import vn.edu.hcmuaf.fit.crocodile.model.entity.Order;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.OrderInfo;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -79,6 +78,16 @@ public class UserDaoImpl implements UserDao {
         return JdbiConnect.getJdbi().withHandle(handle ->
                 handle.createQuery(query)
                         .bind("email", email)
+                        .mapToBean(User.class)
+                        .findOne()
+        );
+    }
+    @Override
+    public Optional<User> findByPhone(String phone) {
+        String query = "SELECT * FROM users WHERE phoneNumber = :phone";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(query)
+                        .bind("phone", phone)
                         .mapToBean(User.class)
                         .findOne()
         );
@@ -191,26 +200,39 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public int create(User user) {
-        Optional<User> existingUser = findByUsername(user.getUsername());
-        if (existingUser.isPresent()) {
-            throw new IllegalArgumentException("Tài khoản đã tồn tại.");
-        }
-
-        String query = "INSERT INTO users (username, password, fullname, email, phoneNumber, gender, birthdate) " +
-                "VALUES (:username, :password, :fullname, :email, :phoneNumber , :gender, :dateOfBirth)";
-
+        String query = "INSERT INTO users (fullname, email, phoneNumber, gender, birthdate, password, active) " +
+                "VALUES (:fullname, :email, :phoneNumber, :gender, :birthdate, :password, :active)";
         return JdbiConnect.getJdbi().withHandle(handle ->
                 handle.createUpdate(query)
-                        .bind("username", user.getUsername())
-                        .bind("password", user.getPassword())
                         .bind("fullname", user.getFullname())
                         .bind("email", user.getEmail())
                         .bind("phoneNumber", user.getPhoneNumber())
                         .bind("gender", user.getGender())
-                        .bind("dateOfBirth", user.getBirthdate())
+                        .bind("birthdate", user.getBirthdate())
+                        .bind("password", user.getPassword())
+                        .bind("active", user.getActive())
                         .executeAndReturnGeneratedKeys("id")
                         .mapTo(int.class)
                         .one()
+        );
+    }
+    @Override
+    public Optional<User> findByEmailOrPhone(String input) {
+        String query = "SELECT * FROM users WHERE email = :input OR phoneNumber = :input";
+        return JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createQuery(query)
+                        .bind("input", input)
+                        .mapToBean(User.class)
+                        .findFirst()
+        );
+    }
+    @Override
+    public void activateUser(int userId) {
+        String query = "UPDATE users SET active = 1 WHERE id = :userId";
+        JdbiConnect.getJdbi().withHandle(handle ->
+                handle.createUpdate(query)
+                        .bind("userId", userId)
+                        .execute()
         );
     }
 }

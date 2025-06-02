@@ -5,7 +5,6 @@ import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDaoImpl;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
 import vn.edu.hcmuaf.fit.crocodile.util.HashUtil;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 public class AuthenticationService {
@@ -20,30 +19,42 @@ public class AuthenticationService {
      *
      * @return ID của user nếu thành công
      */
-    public int login(String username, String password) {
-        Optional<User> optionalUser = userDao.findByUsername(username);
+    public int login(String input, String password) {
+        // Tìm user bằng email hoặc số điện thoại
+        Optional<User> optionalUser = userDao.findByEmailOrPhone(input);
 
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            String hashedPassword = HashUtil.hashMD5(password);
-
-            if (hashedPassword.equals(user.getPassword())) {
-                if (!userDao.checkActive(user.getId())) {
-                    System.out.println("Tài khoản của bạn đã bị vô hiệu hóa.");
-                    return -2;
-                }
-
-                return user.getId();
-            } else {
-                System.out.println("Mật khẩu không khớp.");
-            }
-        } else {
-            System.out.println("Không tìm thấy người dùng với username: " + username);
+        if (optionalUser.isEmpty()) {
+            System.out.println("Không tìm thấy tài khoản với email/sđt: " + input);
+            return -1;
         }
 
-        return -1;
-    }
+        User user = optionalUser.get();
+        String hashedPassword = HashUtil.hashMD5(password);
 
+        // DEBUG: In ra thông tin để kiểm tra
+        System.out.println("=== LOGIN DEBUG ===");
+        System.out.println("Input email/phone: " + input);
+        System.out.println("Input password: " + password);
+        System.out.println("Hashed input password: " + hashedPassword);
+        System.out.println("Stored password hash: " + user.getPassword());
+        System.out.println("Password match: " + hashedPassword.equals(user.getPassword()));
+        System.out.println("User active status: " + userDao.checkActive(user.getId()));
+        System.out.println("==================");
+
+        // Kiểm tra mật khẩu
+        if (!hashedPassword.equals(user.getPassword())) {
+            System.out.println("Mật khẩu không khớp cho tài khoản: " + input);
+            return -1;
+        }
+
+        // Kiểm tra trạng thái active
+        if (!userDao.checkActive(user.getId())) {
+            System.out.println("Tài khoản đã bị vô hiệu hóa: " + input);
+            return -2;
+        }
+
+        return user.getId();
+    }
 
     public Optional<User> findEmail(String email) {
         return userDao.findByEmail(email);
@@ -51,7 +62,16 @@ public class AuthenticationService {
 
     public int signup(User user) {
         try {
-            String hashedPassword = HashUtil.hashMD5(user.getPassword());
+            String originalPassword = user.getPassword();
+            String hashedPassword = HashUtil.hashMD5(originalPassword);
+
+            // DEBUG: In ra thông tin khi đăng ký
+            System.out.println("=== SIGNUP DEBUG ===");
+            System.out.println("Original password: " + originalPassword);
+            System.out.println("Hashed password: " + hashedPassword);
+            System.out.println("Email: " + user.getEmail());
+            System.out.println("===================");
+
             user.setPassword(hashedPassword);
             return userDao.create(user);
         } catch (IllegalArgumentException e) {

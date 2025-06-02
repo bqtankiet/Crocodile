@@ -115,7 +115,7 @@
             <!-- Account, Cart -->
             <div class="d-flex justify-content-around lh-1 text-nowrap col-3 col-lg-3 ms-auto me-5 gap-5 gap-lg-4 order-lg-2">
                 <c:choose>
-                    <c:when test="${not empty sessionScope.userName}">
+                    <c:when test="${not empty sessionScope.fullName}">
                         <a href="${pageContext.request.contextPath}/user"
                            class="text-decoration-none position-relative custom-text-primary col-6">
                             <div class="d-flex align-items-center justify-content-end">
@@ -131,7 +131,7 @@
                                     <div class="small pb-1">Xin chào</div>
                                     <!-- Giữ nguyên avatar, chỉ cập nhật username -->
                                     <div class="pb-1 fw-semibold text-truncate"
-                                         style="width: 10ch">${sessionScope.userName}</div>
+                                         style="width: 10ch">${sessionScope.fullName}</div>
                                 </div>
                             </div>
                         </a>
