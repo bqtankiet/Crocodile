@@ -12,7 +12,7 @@ public class User implements Serializable {
     private String phoneNumber;
     private String gender;
     private LocalDate birthdate;
-    private int active = 1;
+    private int active ;
     private int role = 0;
 
     public User() {

@@ -1,38 +1,69 @@
+import org.junit.jupiter.api.Test;
+import vn.edu.hcmuaf.fit.crocodile.dao.token.TokenDao;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.Token;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
 import vn.edu.hcmuaf.fit.crocodile.service.AuthenticationService;
+import vn.edu.hcmuaf.fit.crocodile.service.SendEmailService;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class AuthenticationTest {
-    public static void main(String[] args) {
-        // Khởi tạo AuthenticationService
+    @Test
+    public  void testAuthentication() {
+        // Khởi tạo các service
         AuthenticationService authService = new AuthenticationService();
+        SendEmailService emailService = new SendEmailService();
+        TokenDao tokenDao = new TokenDao();
 
-        // Giả lập userId của người dùng
-        int userId = 8;  // Giả sử user có ID là 1
+        // Tạo đối tượng User mới
+        User newUser = new User();
+        newUser.setFullname("Nguyen Van A");
+        newUser.setEmail("acclienketlolriot@gmail.com"); // Email bạn muốn test
+        newUser.setPassword("securePass123");
+        newUser.setGender("NAM");
+        newUser.setPhoneNumber("");
+        newUser.setActive(0); // Chưa kích hoạt (giả sử đăng ký bằng email)
 
-        // Giả lập mật khẩu hiện tại và mật khẩu mới
-        String currentPassword = "ad";  // Mật khẩu hiện tại (đã được băm trong DB)
-        String newPassword = "newPassword123";   // Mật khẩu mới
-        String confirmPassword = "newPassword123"; // Mật khẩu xác nhận
+        // Thực hiện đăng ký
 
-        // Kiểm tra mật khẩu hiện tại có đúng không
-        boolean isCurrentPasswordCorrect = authService.checkCurrentPassword(userId, currentPassword);
+        // Kiểm tra kết quả đăng ký và in thông tin
+            System.out.println("Đăng ký thành công!");
+            System.out.println("Thông tin người dùng vừa đăng ký:");
+            System.out.println(" - Tên đầy đủ: " + newUser.getFullname());
+            System.out.println(" - Email: " + newUser.getEmail());
+            System.out.println(" - Số điện thoại: " + newUser.getPhoneNumber());
+            System.out.println(" - Giới tính: " + newUser.getGender());
+            System.out.println(" - Trạng thái kích hoạt: " + (newUser.getActive() == 1 ? "Đã kích hoạt" : "Chưa kích hoạt"));
 
-        if (isCurrentPasswordCorrect) {
-            // Kiểm tra mật khẩu mới và xác nhận mật khẩu có khớp không
-            if (newPassword.equals(confirmPassword)) {
-                // Cập nhật mật khẩu mới
-                boolean isPasswordUpdated = authService.updatePassword(userId, newPassword);
+            // Nếu đăng ký bằng email, tạo token và gửi email kích hoạt
+            if (!newUser.getEmail().isEmpty()) {
+                String tokenValue = UUID.randomUUID().toString();
+                LocalDateTime expiresAt = LocalDateTime.now().plusHours(24);
+                Token activationToken = new Token();
+                activationToken.setToken(tokenValue);
+                activationToken.setTokenType(Token.TokenType.VERIFY_ACCOUNT);
+                activationToken.setCreatedAt(LocalDateTime.now());
+                activationToken.setExpiresAt(expiresAt);
+                activationToken.setStatus(0); // Chưa sử dụng
 
-                if (isPasswordUpdated) {
-                    System.out.println("Mật khẩu đã được thay đổi thành công!");
+                // Lưu token vào cơ sở dữ liệu
+                tokenDao.insertToken(activationToken);
+
+                // Gửi email chào mừng với liên kết kích hoạt
+                String activationLink = "http://localhost:8080/activate?token=" + tokenValue;
+                boolean emailSent = emailService.sendWelcomeEmail(newUser.getEmail(), newUser.getFullname(), activationLink);
+
+                // In thông tin về email
+                if (emailSent) {
+                    System.out.println("Email chào mừng đã được gửi thành công đến: " + newUser.getEmail());
+                    System.out.println("Liên kết kích hoạt: " + activationLink);
                 } else {
-                    System.out.println("Có lỗi xảy ra khi cập nhật mật khẩu.");
+                    System.out.println("Gửi email chào mừng thất bại đến: " + newUser.getEmail());
                 }
             } else {
-                System.out.println("Mật khẩu mới và mật khẩu xác nhận không khớp.");
+                System.out.println("Không gửi email chào mừng vì người dùng đăng ký bằng số điện thoại.");
             }
-        } else {
-            System.out.println("Mật khẩu hiện tại không đúng.");
         }
-    }
+
 }

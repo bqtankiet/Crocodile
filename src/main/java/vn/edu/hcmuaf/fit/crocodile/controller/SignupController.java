@@ -3,125 +3,101 @@ package vn.edu.hcmuaf.fit.crocodile.controller;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import vn.edu.hcmuaf.fit.crocodile.dao.token.TokenDao;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.Token;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
 import vn.edu.hcmuaf.fit.crocodile.service.AuthenticationService;
 import vn.edu.hcmuaf.fit.crocodile.service.SendEmailService;
 
 import java.io.IOException;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @WebServlet(name = "SignupController", urlPatterns = {"/signup"})
 public class SignupController extends HttpServlet {
-    AuthenticationService auth = new AuthenticationService();
+    private final AuthenticationService auth = new AuthenticationService();
     private final SendEmailService sendEmailService = new SendEmailService();
-
+    private final TokenDao tokenDao = new TokenDao();
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         request.getRequestDispatcher("/views/signup.jsp").forward(request, response);
     }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Lấy thông tin từ request
         String fullName = request.getParameter("fullName");
-        String gender = request.getParameter("gender"); // male or female
-        String contact = request.getParameter("contact"); // email or phone
+        String gender = "NAM".equalsIgnoreCase(request.getParameter("gender")) ? "NAM" :
+                "NỮ".equalsIgnoreCase(request.getParameter("gender")) ? "NỮ" : "KHÁC";
+        String contact = request.getParameter("contact");
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
 
-        System.out.println(fullName);
-        System.out.println(gender);
-        System.out.println(contact);
-        System.out.println(password);
-        System.out.println(confirmPassword);
+        // Kiểm tra mật khẩu khớp
+        if (!password.equals(confirmPassword)) {
+            sendErrorResponse(response, "Mật khẩu không khớp");
+            return;
+        }
+
+        // Tạo đối tượng User
+        User user = new User();
+        user.setFullname(fullName);
+        user.setGender(gender);
+        user.setPassword(password);
+
+        // Xác định email hay số điện thoại
+        boolean isEmail = !contact.matches("^0\\d{9,10}$");
+        if (isEmail) {
+            user.setEmail(contact);
+            user.setPhoneNumber("");
+            user.setActive(0); // Chưa kích hoạt
+        } else {
+            user.setPhoneNumber(contact);
+            user.setEmail("");
+            user.setActive(1); // Đã kích hoạt
+        }
+
+        // Thực hiện đăng ký
+        int userId = auth.signup(user);
+        if (userId > 0) {
+            if (isEmail) {
+                // Tạo token kích hoạt
+                String tokenValue = UUID.randomUUID().toString();
+                LocalDateTime expiresAt = LocalDateTime.now().plusHours(24);
+                Token activationToken = new Token();
+                activationToken.setIdUser(userId);
+                activationToken.setToken(tokenValue);
+                activationToken.setTokenType(Token.TokenType.VERIFY_ACCOUNT);
+                activationToken.setExpiresAt(expiresAt);
+                activationToken.setCreatedAt(LocalDateTime.now());
+                activationToken.setStatus(0);
+                tokenDao.insertToken(activationToken);
+
+                // Gửi email kích hoạt
+                String activationLink = "https://crocodile.nludemo.id.vn/activate?token=" + tokenValue;
+                boolean emailSent = sendEmailService.sendWelcomeEmail(user.getEmail(), fullName, activationLink);
+                if (!emailSent) {
+                    System.err.println("Không thể gửi email kích hoạt tới: " + user.getEmail());
+                }
+            }
+            // Trả về phản hồi
+            String message = isEmail ? "Đăng ký thành công! Vui lòng kiểm tra email để kích hoạt tài khoản." : "Đăng ký thành công!";
+            sendSuccessResponse(response, message);
+        } else {
+            sendErrorResponse(response, "Đăng ký thất bại, vui lòng thử lại.");
+        }
     }
 
-//        @Override
-//    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        String firstName = request.getParameter("firstname");
-//        String lastName = request.getParameter("lastname");
-//
-//        String day = String.format("%02d", Integer.parseInt(request.getParameter("day")));
-//        String month = String.format("%02d", Integer.parseInt(request.getParameter("month")));
-//        String year = request.getParameter("year");
-//
-//        String birthdate = year + "-" + month + "-" + day;
-//
-//        String gender = request.getParameter("gender");
-//        String username = request.getParameter("username");
-//        String emailOrPhone = request.getParameter("email").trim();
-//        String password = request.getParameter("password");
-//
-//        User user = new User();
-//        user.setFullname(firstName + " " + lastName);
-//        user.setBirthdate(LocalDate.parse(birthdate));
-//        user.setUsername(username);
-//        user.setPassword(password);
-//
-//        if (gender != null) {
-//            user.setGender(gender);
-//        }
-//
-//        if (emailOrPhone.matches("^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
-//            user.setEmail(emailOrPhone);
-//            user.setPhoneNumber(null);
-//        } else if (emailOrPhone.matches("^[0-9]{10,15}$")) {
-//            user.setPhoneNumber(emailOrPhone);
-//            user.setEmail(null);
-//        }
-//
-//        int result = auth.signup(user);
-//        String subject = "Welcome To Crocodile!";
-//        String content = getHtmlWelcome(user.getFullname());
-//        boolean success = sendEmailService.sendEmail(user.getEmail(), subject, content, SendEmailService.CONTENT_TYPE_HTML_UTF8);
-//        if (success) {
-//            System.out.println("Send email successful");
-//        }
-//        if (result > 0) {
-//            response.sendRedirect(request.getContextPath() + "/login");
-//        } else {
-//            request.setAttribute("errorMessage", "Đăng ký thất bại. Vui lòng thử lại.");
-//            request.getRequestDispatcher("/views/signup.jsp").forward(request, response);
-//        }
-//    }
-
-
-    private String getHtmlWelcome(String userName) {
-        String html = """
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset=\"UTF-8\">
-                    <title>Welcome to Crocodile</title>
-                </head>
-                <body style=\"font-family: Arial, sans-serif; margin: 0; padding: 0;\">
-                <table style=\"width: 600px; margin: 0 auto; border: 1px solid #ddd; border-collapse: collapse;\">
-                    <!-- Header Image -->
-                    <!-- Card Content -->
-                    <tr>
-                        <td style=\"padding: 20px;\">
-                            <h2 style=\"margin: 0; color: #333333; font-size: 24px; text-align: center; padding: 1rem 0;\">
-                                Chào mừng %s đến với Crocodile!
-                            </h2>
-                            <p style=\"color: #666666; font-size: 0.9rem; line-height: 1.5; margin-top: 10px;\">
-                                Chúng tôi rất vui mừng khi bạn trở thành một phần của gia đình Crocodile. Hãy tận hưởng hành trình mua sắm đầy thú vị và đẳng cấp tại Crocodile.
-                            </p>
-                            <p style=\"color: #666666; font-size: 0.9rem; line-height: 1.5; margin-top: 10px;\">
-                                Cảm ơn bạn đã tin tưởng và lựa chọn chúng tôi.
-                            </p>
-                        </td>
-                    </tr>
-                    <!-- Footer -->
-                    <tr>
-                        <td style=\"background-color: #f4f4f4; padding: 10px; text-align: center; color: #666666; font-size: 12px;\">
-                            © 2024 Crocodile. Mọi quyền được bảo lưu.
-                        </td>
-                    </tr>
-                </table>
-                </body>
-                </html>
-                """;
-        return String.format(html, userName);
+    private void sendSuccessResponse(HttpServletResponse response, String message) throws IOException {
+        response.setContentType("application/json");
+        response.getWriter().write("{\"status\": \"success\", \"message\": \"" + message + "\"}");
     }
+
+    private void sendErrorResponse(HttpServletResponse response, String message) throws IOException {
+        response.setContentType("application/json");
+        response.getWriter().write("{\"status\": \"error\", \"message\": \"" + message + "\"}");
+    }
+
 
 
 }
