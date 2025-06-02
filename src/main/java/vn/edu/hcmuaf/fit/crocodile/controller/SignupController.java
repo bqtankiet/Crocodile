@@ -81,11 +81,16 @@ public class SignupController extends HttpServlet {
                 // Gửi email kích hoạt
                 String activationLink = "http://localhost:8080/crocodile/activate?token=" + tokenValue;
                 boolean emailSent = sendEmailService.sendWelcomeEmail(user.getEmail(), fullName, activationLink);
-                if (!emailSent) {
+                if (emailSent) {
+                    // Thêm thuộc tính để hiển thị modal thành công
+                    request.setAttribute("success", true);
+                    request.getRequestDispatcher("/views/signup.jsp").forward(request, response);
+                    return;
+                } else {
                     System.err.println("Không thể gửi email kích hoạt tới: " + user.getEmail());
                 }
             }
-            // Trả về phản hồi
+            // Trả về phản hồi nếu không phải email (số điện thoại)
             String message = isEmail ? "Đăng ký thành công! Vui lòng kiểm tra email để kích hoạt tài khoản." : "Đăng ký thành công!";
             sendSuccessResponse(response, message);
         } else {
