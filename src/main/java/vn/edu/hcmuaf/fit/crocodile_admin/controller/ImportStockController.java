@@ -53,21 +53,21 @@ public class ImportStockController extends HttpServlet {
                     Inventory.ImportItem item = new Inventory.ImportItem();
 
                     // idVariant
-                    Cell idVariantCell = getCellByColumnName(row, columnMap, "idVariant");
+                    Cell idVariantCell = getCellByColumnName(row, columnMap, "ma san pham");
                     if (idVariantCell == null || idVariantCell.getCellType() != CellType.NUMERIC) {
                         throw new IllegalArgumentException("idVariant không hợp lệ ở dòng " + (row.getRowNum() + 1));
                     }
                     item.setIdVariant((int) idVariantCell.getNumericCellValue());
 
                     // quantity
-                    Cell quantityCell = getCellByColumnName(row, columnMap, "quantity");
+                    Cell quantityCell = getCellByColumnName(row, columnMap, "so luong");
                     if (quantityCell == null || quantityCell.getCellType() != CellType.NUMERIC || quantityCell.getNumericCellValue() <= 0) {
                         throw new IllegalArgumentException("quantity không hợp lệ ở dòng " + (row.getRowNum() + 1));
                     }
                     item.setQuantity((int) quantityCell.getNumericCellValue());
 
                     // idSupplier (có thể null)
-                    Cell idSupplierCell = getCellByColumnName(row, columnMap, "idSupplier");
+                    Cell idSupplierCell = getCellByColumnName(row, columnMap, "ma nha cung cap");
                     if (idSupplierCell != null && idSupplierCell.getCellType() == CellType.NUMERIC) {
                         item.setIdSupplier((int) idSupplierCell.getNumericCellValue());
                     } else {
@@ -75,7 +75,7 @@ public class ImportStockController extends HttpServlet {
                     }
 
                     // note (có thể null)
-                    Cell noteCell = getCellByColumnName(row, columnMap, "note");
+                    Cell noteCell = getCellByColumnName(row, columnMap, "ghi chu");
                     if (noteCell != null && noteCell.getCellType() == CellType.STRING) {
                         item.setNote(noteCell.getStringCellValue());
                     } else {

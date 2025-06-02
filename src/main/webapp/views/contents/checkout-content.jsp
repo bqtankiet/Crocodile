@@ -87,6 +87,20 @@
                             </table>
                         </div>
                     </div>
+                    <%--mã giảm giá--%>
+                    <div class="mt-5">
+                        <div class="d-flex align-items-center mb-2">
+                            <p class="h5 flex-grow-1">Mã giảm giá</p>
+                            <a class="" id="btnChooseVoucher" role="button" data-bs-toggle="modal"
+                               data-bs-target="#chooseVoucherModal">Chọn voucher</a>
+                        </div>
+                        <div class="input-group">
+                            <input class="form-control" type="text" placeholder="Nhập mã giảm giá" id="discountCode"
+                                   value="${sessionScope.order.discountCode.code}">
+                            <button class="btn custom-btn-primary" id="btnApplyDiscount" disabled>Áp dụng</button>
+                        </div>
+                    </div>
+
                     <div class="mt-5">
                         <div class="d-flex align-items-center mb-2">
                             <p class="h5">Phương thức thanh toán</p>
@@ -203,6 +217,28 @@
                                     </span>
                                     </div>
                                 </div>
+                                <div class="d-flex align-items-center mt-3">
+                                    <span class="fw-medium text-muted">Giảm giá: </span>
+                                    <div class="ms-auto">
+                                    <span class="fw-bold">
+                                        <c:set var="discountType" value="${sessionScope.order.discountCode.type}"/>
+                                        <c:set var="discountValue" value="${sessionScope.order.discountCode.value}"/>
+                                        <c:choose>
+                                            <c:when test="${discountType == 'FIXED'}">
+                                                <fmt:formatNumber value="${discountValue}" type="number" pattern="#,##0" />
+                                                <sup>₫</sup>
+                                            </c:when>
+                                            <c:when test="${discountType == 'PERCENTAGE'}">
+                                                ${discountValue}%
+                                            </c:when>
+                                            <c:otherwise>
+                                                Không có
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </span>
+                                    </div>
+                                </div>
+
                                 <div class="border-top border-secondary-subtle mt-3 mb-2"></div>
 
 
@@ -396,6 +432,58 @@
     </div>
     <!-- Close Modal New Address -->
 
+    <!-- Modal Voucher -->
+    <div class="modal fade" tabindex="-1" id="chooseVoucherModal"
+         data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" style="min-width:1000px">
+            <div class="modal-content p-2">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Chọn voucher</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body row">
+                    <%--TODO: Triển khai chức năng sử dụng voucher --%>
+                    <p>Các voucher đã lưu</p>
+                    <c:forEach var="ud" items="${requestScope.userVouchers}">
+                            <c:set var="v" value="${ud.discountCode}"/>
+                            <div class="col-12 col-lg-6 d-flex justify-content-center">
+                                <div id="voucher-${v.id}" class="voucher-card d-inline-flex" style="height: 125px; --color:#dc3545">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 4 16" class="flex-none" style="height: 125px;">
+                                        <path d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
+                                              stroke-width="1.2" transform="" style="stroke: var(--color); fill: var(--color)"></path>
+                                    </svg>
+                                    <div class="bg-danger" style="width: 25px">
+                                    </div>
+                                    <div class="border border-1 d-inline-flex shadow-sm">
+                                        <div class="d-flex flex-column p-3 justify-content-center ">
+                                            <h5 class="m-0">Giảm ${v.value}${v.type.name().equals("PERCENTAGE")?"%":"đ"}</h5>
+                                            <p class="m-0">Có hiệu lực từ: <fmt:formatDate value="${v.startDateFmt}" pattern="dd/MM/yyyy" /></p>
+                                            <p class="m-0 text-muted">Còn lại: ${v.maxUses} voucher</p>
+                                        </div>
+                                        <div class="d-flex position-relative p-3">
+                                            <c:choose>
+                                                <c:when test="${v.saved}">
+                                                    <button class="btn btn-secondary disabled px-4 my-auto" style="width: 100px">Đã lưu</button>
+                                                </c:when>
+                                                <c:when test="${v.maxUses <= 0}">
+                                                    <button class="btn btn-secondary disabled px-4 my-auto" style="width: 100px">Đã hết</button>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <button class="btn btn-danger px-4 my-auto" style="width: 100px" onclick="useVoucher('${v.code}')">Dùng</button>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <a href="${pageContext.request.contextPath}/voucher-detail?id=${v.id}" role="button" class="position-absolute bottom-0 mb-2">Điều kiện</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:forEach>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Close Modal Voucher -->
+
 </div>
 
 
@@ -576,5 +664,98 @@
     }
 </script>
 
+<%-- Xử lý nhấn áp dụng voucher --%>
+<script>
+    // Cho phép nhấn nút áp dụng chỉ khi input mã giảm giá có dữ liệu
+    $('#discountCode').on('input', function () {
+        if ($(this).val()) {
+            $('#btnApplyDiscount').prop('disabled', false);
+        } else {
+            $('#btnApplyDiscount').prop('disabled', true);
+        }
+    });
 
+    // xử lý khi nhấn vào nút apply discount bằng ajax
+    $('#btnApplyDiscount').on('click', function () {
+        const discountCode = $('#discountCode').val();
+        const baseUrl = "${pageContext.request.contextPath}";
+        const endpoint = "/checkout/apply-discount";
+        $.ajax(
+            {
+                url: baseUrl + endpoint,
+                method: "POST",
+                data: {discountCode: discountCode},
+                success: function (response) {
+                    // Cập nhật giao diện hiển thị giá tiền thanh toán
+                    Swal.fire({
+                        icon: 'success',
+                        title: "Thành công",
+                        text: "Áp dụng thành công mã giảm giá " + discountCode.toUpperCase(),
+                        timer: 1500,              // tự đóng sau 1.5 giây
+                        timerProgressBar: true,   // thanh tiến trình thời gian
+                        showConfirmButton: true,  // vẫn hiện nút OK để người dùng có thể đóng sớm
+                    }).then((result) => {
+                        // Reload khi popup đóng (bấm OK hoặc timeout)
+                        location.reload();
+                    });
+                },
+                error: function (xhr, error) {
+                    // Thông báo lỗi cho người dùng
+                    try {
+                        const res = JSON.parse(xhr.responseText);
+                        Swal.fire({
+                            icon: 'error',
+                            title: "Thất bại",
+                            text: res.message,
+                            confirmButtonText: 'OK'
+                        });
+                    } catch (e) {
+                        alert("Có lỗi xảy ra. Vui lòng thử lại.");
+                    }
+                }
+            }
+        );
+    });
+</script>
 
+<script>
+    const useVoucher = (discountCode) => {
+        const baseUrl = "${pageContext.request.contextPath}";
+        const endpoint = "/checkout/apply-discount";
+        $.ajax(
+            {
+                url: baseUrl + endpoint,
+                method: "POST",
+                data: {discountCode: discountCode},
+                success: function (response) {
+                    // Cập nhật giao diện hiển thị giá tiền thanh toán
+                    Swal.fire({
+                        icon: 'success',
+                        title: "Thành công",
+                        text: "Áp dụng thành công mã giảm giá " + discountCode.toUpperCase(),
+                        timer: 1500,              // tự đóng sau 1.5 giây
+                        timerProgressBar: true,   // thanh tiến trình thời gian
+                        showConfirmButton: true,  // vẫn hiện nút OK để người dùng có thể đóng sớm
+                    }).then((result) => {
+                        // Reload khi popup đóng (bấm OK hoặc timeout)
+                        location.reload();
+                    });
+                },
+                error: function (xhr, error) {
+                    // Thông báo lỗi cho người dùng
+                    try {
+                        const res = JSON.parse(xhr.responseText);
+                        Swal.fire({
+                            icon: 'error',
+                            title: "Thất bại",
+                            text: res.message,
+                            confirmButtonText: 'OK'
+                        });
+                    } catch (e) {
+                        alert("Có lỗi xảy ra. Vui lòng thử lại.");
+                    }
+                }
+            }
+        );
+    };
+</script>

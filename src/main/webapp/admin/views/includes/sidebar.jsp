@@ -13,6 +13,7 @@
 <c:url var="inventoryUrl" value="<%= UrlProperties.inventory() %>"/>
 <c:url var="warehouseUrl" value="<%= UrlProperties.warehouse() %>"/>
 <c:url var="rolePermissionUrl" value="<%= UrlProperties.rolePermission() %>"/>
+<c:url var="discountCodeUrl" value="<%= UrlProperties.discountCode() %>"/>
 
 <c:set var="permissions" value="${sessionScope.permissions}" />
 <style>
@@ -205,6 +206,16 @@
                 </a>
             </li>
         </c:if>
+
+        <c:if test="${fn:contains(permissions, 'discount_read')}">
+            <li class="menu-item ${param.activePage == 'discount' ? 'active' : ''}">
+                <a href="${discountCodeUrl}" class="menu-link override">
+                    <i class="menu-icon tf-icons bx bx-crown"></i>
+                    <div>Mã giảm giá</div>
+                </a>
+            </li>
+        </c:if>
+
 
     </ul>
 </aside>

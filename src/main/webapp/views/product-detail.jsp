@@ -97,6 +97,12 @@
         .rating_box .rating_average {
             border-right: 1px solid gray;
         }
+
+        .rating.active {
+            background-color: #198754;
+            color: white;
+            border-color: #28a745;
+        }
     </style>
 
     <!--  Xử lý sự kiện các button trong phần mô tả sản phẩm  -->
@@ -115,6 +121,9 @@
             });
         });
     </script>
+
+    <script src="<c:url value="/assets/js/product-review.js"/>"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
     <!--  Khai báo Bootstrap tooltip  -->
     <script>
