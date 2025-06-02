@@ -295,7 +295,8 @@
                             </div>
                         </a>
 
-                        <a href="<%-- TODO: login url --%>">
+                        <c:set var="userUrl" value="${pageContext.request.contextPath}/user"/>
+                        <a href="${sessionScope.userName == null ? loginUrl : userUrl}">
                             <div class="custom-icon text-white" style="--size: 2rem">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-person-circle" viewBox="0 0 16 16">
@@ -309,7 +310,7 @@
                             <div class="custom-icon text-white" style="--size: 2rem">
                                 <c:if test="${sessionScope.cart != null}">
                                     <span class="badge text-bg-danger position-absolute translate-middle rounded-pill">
-                                            ${sessionScope.cart.totalQuantity}
+                                            ${sessionScope.cart.size}
                                     </span>
                                 </c:if>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

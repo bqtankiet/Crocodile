@@ -28,12 +28,15 @@ import java.util.Optional;
 @WebServlet(urlPatterns = "/checkout/payment/*")
 public class PaymentController extends HttpServlet {
     private Order order;
+    private Cart cart;
     private String ip;
     private User user;
+    private HttpServletRequest userRequest;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String pathInfo = req.getPathInfo();
+        this.userRequest = req;
         switch (pathInfo) {
             case "/cod" -> processCodPayment(req, resp);
             case "/momo" -> processMoMoPayment(req, resp);
@@ -66,7 +69,7 @@ public class PaymentController extends HttpServlet {
 
         if (resultCode == 0) {
             System.out.println("Thanh toán thành công");
-            placeOrder(req, resp);
+            placeOrder(userRequest, resp);
         } else {
             System.out.println("Thanh toán thất bại");
         }
@@ -80,6 +83,7 @@ public class PaymentController extends HttpServlet {
         this.order = (Order) req.getSession().getAttribute("order");
         this.ip = LogUtil.getClientIp(req);
         this.user = (User) req.getSession().getAttribute("user");
+        this.cart = (Cart) req.getSession().getAttribute("cart");
 
         // Khởi tạo order
         String requestId = String.valueOf(System.currentTimeMillis());
@@ -117,6 +121,7 @@ public class PaymentController extends HttpServlet {
         this.order = (Order) req.getSession().getAttribute("order");
         this.ip = LogUtil.getClientIp(req);
         this.user = (User) req.getSession().getAttribute("user");
+        this.cart = (Cart) req.getSession().getAttribute("cart");
         placeOrder(req, resp);
     }
 
@@ -128,12 +133,14 @@ public class PaymentController extends HttpServlet {
             // xóa order trong session
             req.getSession().removeAttribute("order");
             // xóa các sản phẩm khỏi giỏ hàng trong session
-            Cart cart = (Cart) req.getSession().getAttribute("cart");
+//            Cart cart = (Cart) req.getSession().getAttribute("cart");
             if (cart != null) {
                 order.getItems().forEach(item -> {
                     if (cart.containItem(item.getVariantId())) cart.removeItem(item.getVariantId());
                 });
+                req.setAttribute("cart", cart);
             }
+
             resp.setContentType("application/json");
             resp.setCharacterEncoding("UTF-8");
             // TODO: Thay đổi đường dẫn trên production

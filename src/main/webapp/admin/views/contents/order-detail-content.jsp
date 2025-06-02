@@ -166,7 +166,7 @@
                     <div class="card h-100">
                         <h5 class="card-header"><strong>Trạng thái đơn hàng</strong></h5>
                         <div class="card-body">
-                            <h3 class="badge bg-success">Giao hàng thành công</h3>
+                            <h3 class="badge bg-primary" id="orderStatus">Đang chờ nhận hàng</h3>
                             <!-- Section: Timeline -->
                             <section class="py-2">
                                 <ul class="timeline">
@@ -328,6 +328,7 @@
             $('#recipientPhone').val(data.recipientPhone);
             $('#shippingCode').val(data.shippingCode);
             $('#shippingAddress').val(data.shippingAddress);
+            $('#orderStatus').text(data.status);
         }
     </script>
 

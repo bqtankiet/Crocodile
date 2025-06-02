@@ -166,7 +166,7 @@ public class OrderDao implements IOrderDao{
                   total, u.email,
                   recipientName, shippingCompany,
                   recipientPhone, shippingCode,
-                  shippingAddress, isDelete
+                  shippingAddress, isDelete, status
                 FROM orders_v2 o
                 JOIN users u
                   ON o.idUser = u.id
