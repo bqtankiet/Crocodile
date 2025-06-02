@@ -21,16 +21,16 @@
                                 <h6 class="fw-bold mb-0">Crocodile</h6>
 
                                 <span class="ms-auto text-success">
-                                                                <c:choose>
-                                                                    <c:when test="${order.status == 'PENDING'}">Chờ xử lý</c:when>
-                                                                    <c:when test="${order.status == 'PENDINGPICKUP'}">Chờ lấy hàng</c:when>
-                                                                    <c:when test="${order.status == 'PROCESSING'}">Đang xử lý</c:when>
-                                                                    <c:when test="${order.status == 'COMPLETED'}">Hoàn thành</c:when>
-                                                                    <c:when test="${order.status == 'CANCELLED'}">Đã hủy</c:when>
-                                                                    <c:when test="${order.status == 'AWAITING'}">Đang chờ</c:when>
-                                                                    <c:otherwise>Không xác định</c:otherwise>
-                                                                </c:choose>
-                                                            </span>
+                                    <c:choose>
+                                        <c:when test="${order.status == 'PENDING'}">Chờ xử lý</c:when>
+                                        <c:when test="${order.status == 'PENDINGPICKUP'}">Chờ lấy hàng</c:when>
+                                        <c:when test="${order.status == 'PROCESSING'}">Đang xử lý</c:when>
+                                        <c:when test="${order.status == 'COMPLETED'}">Hoàn thành</c:when>
+                                        <c:when test="${order.status == 'CANCELLED'}">Đã hủy</c:when>
+                                        <c:when test="${order.status == 'AWAITING'}">Đang chờ</c:when>
+                                        <c:otherwise>Không xác định</c:otherwise>
+                                    </c:choose>
+                                </span>
                             </div>
                             <!-- Product Info -->
                             <div class="d-flex align-items-center mb-3">
@@ -71,9 +71,19 @@
                                 </div>
                                 <div>
                                     <c:if test="${order.status == 'COMPLETED'}">
-                                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-add-excel">
+                                        <button
+                                                class="btn btn-review"
+                                                style="background-color: #007b5f !important; color: white"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#feedback-form"
+                                                data-id-product="${order.idProduct}"
+                                                data-id-variant="${order.idVariant}"
+                                                data-product-name="${order.productName}"
+                                                data-product-image="${order.productImage}"
+                                                data-product-option="${order.option1Value} ${order.option2Value}">
                                             Đánh Giá
                                         </button>
+
                                     </c:if>
                                     <c:if test="${order.status == 'CANCELLED'}">
                                         <button class="btn btn-danger">Mua Lại</button>

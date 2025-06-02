@@ -411,7 +411,16 @@
                                                             </div>
                                                             <div>
                                                                 <c:if test="${order.status == 'COMPLETED'}">
-                                                                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-add-excel">
+                                                                    <button
+                                                                            class="btn btn-review"
+                                                                            style="background-color: #007b5f !important; color: white"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#feedback-form"
+                                                                            data-id-product="${order.idProduct}"
+                                                                            data-id-variant="${order.idVariant}"
+                                                                            data-product-name="${order.productName}"
+                                                                            data-product-image="${order.productImage}"
+                                                                            data-product-option="${order.option1Value} ${order.option2Value}">
                                                                         Đánh Giá
                                                                     </button>
                                                                 </c:if>
@@ -433,7 +442,6 @@
                             </div>
                         </div>
                     </div>
-
 
                 </div>
             </div>
@@ -579,17 +587,16 @@
                         <div class="container mb-5">
                             <!-- Thông tin sản phẩm -->
                             <div class="d-flex align-items-center border rounded p-3 mb-3">
-                                <img src="https://www.gento.vn/wp-content/uploads/2024/07/vi-nam-da-ca-sau8.jpg" class="me-3 rounded" alt="sản phẩm"
+                                <img class="product-image" src="https://www.gento.vn/wp-content/uploads/2024/07/vi-nam-da-ca-sau8.jpg" class="me-3 rounded" alt="sản phẩm"
                                      style="width: 50px">
                                 <div>
-                                    <strong>Ví gấp nam da cá sấu V7068</strong><br>
-                                    <span class="text-muted small">Phân loại hàng: Da lưng</span>
+                                    <strong class="product-name">Ví gấp nam da cá sấu V7068</strong><br>
+                                    <span class="product-types text-muted small">Phân loại hàng: Da lưng</span>
                                 </div>
                             </div>
 
                             <!-- Chất lượng sản phẩm -->
                             <div class="mb-3">
-                                <label class="form-label"><strong>Chất lượng sản phẩm</strong></label><br>
                                 <div id="product-rating" class="text-warning fs-4">
                                     <i class="fa-regular fa-star" data-value="1"></i>
                                     <i class="fa-regular fa-star" data-value="2"></i>
@@ -599,6 +606,10 @@
                                     <span class="ms-2" id="rating-label">Chưa đánh giá</span>
                                 </div>
                             </div>
+
+                            <input type="hidden" class="form-control" name="id-product" >
+
+                            <input type="hidden" class="form-control" name="id-variant" >
 
                             <!-- Chất lượng sản phẩm -->
                             <div class="mb-3">
@@ -616,8 +627,9 @@
 
                             <!-- Nội dung đánh giá -->
                             <div class="mb-3">
-                                <label class="form-label"><strong>Chất lượng sản phẩm:</strong></label>
-                                <textarea class="form-control" rows="4" placeholder="Hãy chia sẻ những điều bạn thích về sản phẩm này với những người mua khác nhé."></textarea>
+                                <label class="form-label"><strong>Nhận xét:</strong></label>
+                                <textarea class="form-control" rows="4" name="review-text"
+                                          placeholder="Hãy chia sẻ những điều bạn thích về sản phẩm này với những người mua khác nhé."></textarea>
                             </div>
 
                             <!-- Upload -->
@@ -630,7 +642,7 @@
                                 <input class="form-check-input" type="checkbox" id="showName" checked>
                                 <label class="form-check-label" for="showName">
                                     Hiển thị tên đăng nhập trên đánh giá này
-                                    <div class="text-muted small">Tên tài khoản sẽ hiển thị như <strong>TEST USER</strong></div>
+                                    <div class="text-muted small">Tên tài khoản sẽ hiển thị như <strong>${sessionScope.fullName}</strong></div>
                                 </label>
                             </div>
                         </div>
@@ -661,6 +673,95 @@
             ratingLabel.textContent = ratingText[index];
         });
     });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const reviewButtons = document.querySelectorAll(".btn-review");
+
+        reviewButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                const idProduct = this.dataset.idProduct;
+                const idVariant = this.dataset.idVariant;
+                const productName = this.dataset.productName;
+                const productImage = this.dataset.productImage;
+                const productOption = this.dataset.productOption;
+
+                const modal = document.getElementById("feedback-form");
+                modal.querySelector('input[name="id-product"]').value = idProduct;
+                modal.querySelector('input[name="id-variant"]').value = idVariant;
+
+                modal.querySelector(".modal-body strong").textContent = productName;
+
+                modal.querySelector("img").src = productImage;
+
+                modal.querySelector(".text-muted.small").textContent = "Phân loại hàng: " + productOption;
+
+
+
+            });
+        });
+    });
+</script>
+
+<script>
+    function getReviewFormData() {
+        const form = document.getElementById('form-feedback');
+
+        // Lấy đánh giá sao
+        const stars = form.querySelectorAll('#product-rating i');
+        let rating = 0;
+        stars.forEach(star => {
+            if (star.classList.contains('fa-solid')) {
+                rating++;
+            }
+        });
+
+        const productId = form.querySelector('input[name="id-product"]')?.value;
+        const variantId = form.querySelector('input[name="id-variant"]')?.value;
+
+        const quality = form.querySelector('input[name="product-quality"]')?.value.trim();
+        const descriptionMatch = form.querySelector('input[name="match-description"]')?.value.trim();
+        const reviewText = form.querySelector('textarea[name="review-text"]')?.value.trim();
+
+        const showName = form.querySelector('#showName')?.checked;
+
+        return {
+            productId,
+            variantId,
+            rating,
+            quality,
+            descriptionMatch,
+            reviewText,
+            showName
+        };
+    }
+
+    const productReview = async (url, data) => {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+        return response.json();
+    }
+
+    document.getElementById('form-feedback').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const data = getReviewFormData();
+        console.log(data);
+
+        try {
+            const response = await productReview("/crocodile/product-review", data);
+            console.log(response)
+            window.location.reload()
+        } catch (error) {
+            console.error("Lỗi khi đánh giá:", error);
+        }
+    });
+
 </script>
 
 

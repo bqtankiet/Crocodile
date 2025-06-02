@@ -156,6 +156,7 @@ public class UserDaoImpl implements UserDao {
                     o.total,
                     o.status,
                 
+                    p.id AS idProduct,
                     p.name AS productName,
                     p.image AS productImage,
                     p.price AS productPrice,
