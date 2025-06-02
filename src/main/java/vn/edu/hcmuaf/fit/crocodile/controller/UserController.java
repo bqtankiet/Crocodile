@@ -36,7 +36,7 @@ public class UserController extends HttpServlet {
             UserDaoImpl userDao = new UserDaoImpl();
             List<Address> addressList = userDao.getAddressesByUserId(userId);
             List<OrderInfo> ordersList = userService.getAllOrderInfoByUserId(userId, "all");
-ordersList.forEach(System.out::println);
+
             request.setAttribute("addressList", addressList);
             request.setAttribute("ordersList", ordersList);
 

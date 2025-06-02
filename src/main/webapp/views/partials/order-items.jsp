@@ -22,8 +22,7 @@
 
                                 <span class="ms-auto text-success">
                                     <c:choose>
-                                        <c:when test="${order.status == 'PENDING'}">Chờ xử lý</c:when>
-                                        <c:when test="${order.status == 'PENDINGPICKUP'}">Chờ lấy hàng</c:when>
+                                        <c:when test="${order.status == 'AWAITING'}">Chờ xử lý</c:when>
                                         <c:when test="${order.status == 'PROCESSING'}">Đang xử lý</c:when>
                                         <c:when test="${order.status == 'COMPLETED'}">Hoàn thành</c:when>
                                         <c:when test="${order.status == 'CANCELLED'}">Đã hủy</c:when>

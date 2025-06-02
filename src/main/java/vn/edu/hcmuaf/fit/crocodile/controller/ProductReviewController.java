@@ -44,14 +44,19 @@ public class ProductReviewController extends HttpServlet {
             boolean showName = jsonObject.getBoolean("showName");
             int isShowUsername = showName ? 1 : 0;
 
-//            productReviewService.evaluateProduct(productId, variantId, userId, rating, quality, matchDescription, reviewText, isShowUsername);
+            productReviewService.evaluateProduct(productId, variantId, userId, rating, quality, matchDescription, reviewText, isShowUsername);
 
             response.setStatus(HttpServletResponse.SC_OK);
-            response.getWriter().write("{\"message\": \"Evaluate successfully\"}");
+            response.getWriter().write("{\"status\": \"success\", \"message\": \"Cảm ơn bạn!\"}");
+
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().write("{\"error\": \"Invalid input data\"}");
+            JSONObject errorJson = new JSONObject();
+            errorJson.put("status", "error");
+            errorJson.put("message", "Đánh giá thất bại: " + e.getMessage());
+            response.getWriter().write(errorJson.toString());
         }
+
 
 
 

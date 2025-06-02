@@ -2,6 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <fmt:setLocale value="vi_VN"/>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <style>
     .hidden {
@@ -333,9 +334,8 @@
                                 <div class="mb-4 mt-3">
                                     <div class="btn-group" role="group" style="width: 100%">
                                         <button type="button" class="btn btn-outline-success status-filter active" data-filter="all">Tất cả</button>
-                                        <button type="button" class="btn btn-outline-success status-filter" data-filter="pending">Chờ xử lý</button>
-                                        <button type="button" class="btn btn-outline-success status-filter" data-filter="pendingPickup">Chờ lấy hàng</button>
-                                        <button type="button" class="btn btn-outline-success status-filter" data-filter="processing">Đang giao</button>
+                                        <button type="button" class="btn btn-outline-success status-filter" data-filter="awaiting">Chờ xử lý</button>
+                                        <button type="button" class="btn btn-outline-success status-filter" data-filter="processing">Đang xử lý</button>
                                         <button type="button" class="btn btn-outline-success status-filter" data-filter="completed">Đã giao</button>
                                         <button type="button" class="btn btn-outline-success status-filter" data-filter="cancelled">Đã hủy</button>
                                     </div>
@@ -362,7 +362,7 @@
 
                                                             <span class="ms-auto text-success">
                                                                 <c:choose>
-                                                                    <c:when test="${order.status == 'PENDING'}">Chờ xử lý</c:when>
+                                                                    <c:when test="${order.status == 'AWAITING'}">Chờ xử lý</c:when>
                                                                     <c:when test="${order.status == 'PROCESSING'}">Đang xử lý</c:when>
                                                                     <c:when test="${order.status == 'COMPLETED'}">Hoàn thành</c:when>
                                                                     <c:when test="${order.status == 'CANCELLED'}">Đã hủy</c:when>
@@ -748,17 +748,49 @@
 
     document.getElementById('form-feedback').addEventListener('submit', async function(e) {
         e.preventDefault();
+
         const data = getReviewFormData();
-        console.log(data);
+
+        if (data.rating === 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Thiếu đánh giá sao',
+                text: 'Vui lòng chọn số sao để đánh giá sản phẩm.',
+            });
+            return;
+        }
 
         try {
             const response = await productReview("/crocodile/product-review", data);
-            console.log(response)
-            window.location.reload()
+
+            if (response.status === "success") {
+                Swal.fire({
+                    icon: 'success',
+                    title: "Đánh giá thành công",
+                    text: response.message,
+                    confirmButtonText: 'OK',
+                }).then(() => {
+                    window.location.reload();
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: "Lỗi",
+                    text: response.message,
+                });
+            }
+
         } catch (error) {
-            console.error("Lỗi khi đánh giá:", error);
+            Swal.fire({
+                icon: 'error',
+                title: "Lỗi kết nối",
+                text: "Không thể gửi đánh giá. Vui lòng thử lại sau.",
+            });
+            console.error("Lỗi khi gửi đánh giá:", error);
         }
     });
+
+
 
 </script>
 
