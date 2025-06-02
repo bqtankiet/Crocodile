@@ -43,4 +43,9 @@ public interface UserDao {
 
     List<OrderInfo> getAllOrderInfoByUserId(int idUser, String status);
 
+    Optional<User> findByGoogleId(String googleId);
+
+    void updateGoogleInfo(int userId, String googleId);
+
+    Optional<User> findByEmailOrGoogleId(String email, String googleId);
 }
