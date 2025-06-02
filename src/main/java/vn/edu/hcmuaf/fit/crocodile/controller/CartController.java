@@ -5,6 +5,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 //import vn.edu.hcmuaf.fit.crocodile.model.entity.Cart;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Product;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
 import vn.edu.hcmuaf.fit.crocodile.service.ProductService;
 import java.io.IOException;
 import java.util.List;
@@ -12,10 +13,13 @@ import java.util.Objects;
 
 import vn.edu.hcmuaf.fit.crocodile.model.cart.Cart;
 import vn.edu.hcmuaf.fit.crocodile.model.cart.CartItem;
+import vn.edu.hcmuaf.fit.crocodile.util.log.LogCart;
+import vn.edu.hcmuaf.fit.crocodile.util.log.LogUtil;
 
 @WebServlet(name = "CartController", value = "/cart")
 public class CartController extends HttpServlet {
     ProductService productService = new ProductService();
+    LogCart logCart = new LogCart();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -59,6 +63,7 @@ public class CartController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         int idVariant = Integer.parseInt(request.getParameter("idVariant"));
+        User user = (User) request.getSession().getAttribute("user");
 
         switch (action){
             case "add" ->{
@@ -73,6 +78,11 @@ public class CartController extends HttpServlet {
 
                 session.setAttribute("cart", cart);
 
+                if(user != null) {
+                    logCart.logAddToCart(String.valueOf(user.getId()), String.valueOf(user.getFullname()), LogUtil.getClientIp(request), String.valueOf(pv.getId()), quantity);
+                } else {
+                    logCart.logGuestAddToCart(LogUtil.getClientIp(request), String.valueOf(pv.getId()), quantity);
+                }
             }
 
             case "update" -> {

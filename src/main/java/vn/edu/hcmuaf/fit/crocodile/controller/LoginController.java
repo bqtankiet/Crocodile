@@ -94,6 +94,8 @@ public class LoginController extends HttpServlet {
         } else {
             request.setAttribute("errorMessage", "Sai Tài Khoản Hoặc Mật Khẩu.");
             request.getRequestDispatcher("/views/login.jsp").forward(request, response);
+            LogAuthentication logAuthentication = new LogAuthentication();
+            logAuthentication.logFailure(username, LogUtil.getClientIp(request));
         }
     }
 

@@ -11,17 +11,25 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
+import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDao;
+import vn.edu.hcmuaf.fit.crocodile.dao.user.UserDaoImpl;
 import vn.edu.hcmuaf.fit.crocodile.model.cart.Cart;
+import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
 import vn.edu.hcmuaf.fit.crocodile.model.order.Order;
 import vn.edu.hcmuaf.fit.crocodile.service.OrderV2Service;
+import vn.edu.hcmuaf.fit.crocodile.util.log.LogOrder;
+import vn.edu.hcmuaf.fit.crocodile.util.log.LogUtil;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Optional;
 
 @WebServlet(urlPatterns = "/checkout/payment/*")
 public class PaymentController extends HttpServlet {
     private Order order;
+    private String ip;
+    private User user;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -70,6 +78,8 @@ public class PaymentController extends HttpServlet {
     private void processMoMoPayment(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         LogUtils.init();
         this.order = (Order) req.getSession().getAttribute("order");
+        this.ip = LogUtil.getClientIp(req);
+        this.user = (User) req.getSession().getAttribute("user");
 
         // Khởi tạo order
         String requestId = String.valueOf(System.currentTimeMillis());
@@ -78,8 +88,8 @@ public class PaymentController extends HttpServlet {
         long amount = 1000;
         String orderInfo = "Thanh toán đơn hàng QR";
         // TODO: Thay đổi đường dẫn trên production
-        String returnURL = "http://crocodile.nludemo.id.vn/";
-        String notifyURL = "http://crocodile.nludemo.id.vn/checkout/payment/momo-notify";
+        String returnURL = "https://crocodile.nludemo.id.vn/";
+        String notifyURL = "https://crocodile.nludemo.id.vn/checkout/payment/momo-notify";
 
         Environment environment = Environment.selectEnv("dev");
 
@@ -105,6 +115,8 @@ public class PaymentController extends HttpServlet {
 
     private void processCodPayment(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         this.order = (Order) req.getSession().getAttribute("order");
+        this.ip = LogUtil.getClientIp(req);
+        this.user = (User) req.getSession().getAttribute("user");
         placeOrder(req, resp);
     }
 
@@ -125,8 +137,15 @@ public class PaymentController extends HttpServlet {
             resp.setContentType("application/json");
             resp.setCharacterEncoding("UTF-8");
             // TODO: Thay đổi đường dẫn trên production
-            resp.getWriter().write("{\"redirectUrl\": \"" + "http://crocodile.nludemo.id.vn/" + "\", \"paymentMethod\": \"COD\"}");
+            resp.getWriter().write("{\"redirectUrl\": \"" + "https://crocodile.nludemo.id.vn/" + "\", \"paymentMethod\": \"COD\"}");
             resp.setStatus(HttpServletResponse.SC_OK);
+
+            if(user != null && ip != null) {
+                LogOrder logOrder = new LogOrder();
+                logOrder.logSuccess(String.valueOf(user.getId()), user.getUsername(), ip, String.valueOf(order.getPaymentMethod()), String.valueOf(order.getTotal()));
+                user = null;
+                ip = null;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
