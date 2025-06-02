@@ -186,7 +186,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="/crocodile/admin/warehouse-management/import" id="form-excel" method="post" enctype="multipart/form-data">
+                <form action="/admin/warehouse-management/import" id="form-excel" method="post" enctype="multipart/form-data">
 
                     <div class="mb-3">
                         <label for="formFile" class="form-label">Vui lòng chọn file excel</label>

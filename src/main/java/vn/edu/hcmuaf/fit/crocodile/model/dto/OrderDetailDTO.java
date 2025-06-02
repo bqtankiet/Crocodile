@@ -12,6 +12,7 @@ public record OrderDetailDTO(
         // Thong tin giao hang
         String recipientName, String shippingCompany,
         String recipientPhone, String shippingCode,
-        String shippingAddress, boolean isDelete
+        String shippingAddress, boolean isDelete,
+        String status
 ) {
 }

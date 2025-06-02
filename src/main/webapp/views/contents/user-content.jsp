@@ -2,6 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <fmt:setLocale value="vi_VN"/>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <style>
     .hidden {
@@ -333,9 +334,8 @@
                                 <div class="mb-4 mt-3">
                                     <div class="btn-group" role="group" style="width: 100%">
                                         <button type="button" class="btn btn-outline-success status-filter active" data-filter="all">Tất cả</button>
-                                        <button type="button" class="btn btn-outline-success status-filter" data-filter="pending">Chờ xử lý</button>
-                                        <button type="button" class="btn btn-outline-success status-filter" data-filter="pendingPickup">Chờ lấy hàng</button>
-                                        <button type="button" class="btn btn-outline-success status-filter" data-filter="processing">Đang giao</button>
+                                        <button type="button" class="btn btn-outline-success status-filter" data-filter="awaiting">Chờ xử lý</button>
+                                        <button type="button" class="btn btn-outline-success status-filter" data-filter="processing">Đang xử lý</button>
                                         <button type="button" class="btn btn-outline-success status-filter" data-filter="completed">Đã giao</button>
                                         <button type="button" class="btn btn-outline-success status-filter" data-filter="cancelled">Đã hủy</button>
                                     </div>
@@ -362,8 +362,7 @@
 
                                                             <span class="ms-auto text-success">
                                                                 <c:choose>
-                                                                    <c:when test="${order.status == 'PENDING'}">Chờ xử lý</c:when>
-                                                                    <c:when test="${order.status == 'PENDINGPICKUP'}">Chờ lấy hàng</c:when>
+                                                                    <c:when test="${order.status == 'AWAITING'}">Chờ xử lý</c:when>
                                                                     <c:when test="${order.status == 'PROCESSING'}">Đang xử lý</c:when>
                                                                     <c:when test="${order.status == 'COMPLETED'}">Hoàn thành</c:when>
                                                                     <c:when test="${order.status == 'CANCELLED'}">Đã hủy</c:when>
@@ -411,14 +410,22 @@
                                                             </div>
                                                             <div>
                                                                 <c:if test="${order.status == 'COMPLETED'}">
-                                                                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-add-excel">
+                                                                    <button
+                                                                            class="btn btn-review"
+                                                                            style="background-color: #007b5f !important; color: white"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#feedback-form"
+                                                                            data-id-product="${order.idProduct}"
+                                                                            data-id-variant="${order.idVariant}"
+                                                                            data-product-name="${order.productName}"
+                                                                            data-product-image="${order.productImage}"
+                                                                            data-product-option="${order.option1Value} ${order.option2Value}">
                                                                         Đánh Giá
                                                                     </button>
                                                                 </c:if>
-                                                                <c:if test="${order.status == 'CANCELLED'}">
-                                                                    <button class="btn btn-danger">Mua Lại</button>
+                                                                <c:if test="${order.status == 'CANCELLED' || order.status == 'COMPLETED'}">
+                                                                    <button class="btn btn-danger" onclick="window.location.href='product-detail?id=${order.idProduct}'">Mua Lại</button>
                                                                 </c:if>
-                                                                <button class="btn btn-outline-secondary ms-2">Liên Hệ Người Bán</button>
                                                                 <c:if test="${order.status == 'AWAITING'}">
                                                                     <button class="btn btn-outline-secondary ms-2">Xem Chi Tiết Đơn</button>
                                                                 </c:if>
@@ -433,7 +440,6 @@
                             </div>
                         </div>
                     </div>
-
 
                 </div>
             </div>
@@ -564,6 +570,228 @@
             </div>
         </div>
     </div>
+
+<%--    model đánh giá--%>
+    <div class="modal fade" tabindex="-1" id="feedback-form" >
+        <div class="modal-dialog modal-dialog-centered" style="min-width: 60%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Đánh giá sản phẩm</h4>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/product-review" id="form-feedback" method="post">
+                        <div class="container mb-5">
+                            <!-- Thông tin sản phẩm -->
+                            <div class="d-flex align-items-center border rounded p-3 mb-3">
+                                <img class="product-image" src="https://www.gento.vn/wp-content/uploads/2024/07/vi-nam-da-ca-sau8.jpg" class="me-3 rounded" alt="sản phẩm"
+                                     style="width: 50px">
+                                <div>
+                                    <strong class="product-name">Ví gấp nam da cá sấu V7068</strong><br>
+                                    <span class="product-types text-muted small">Phân loại hàng: Da lưng</span>
+                                </div>
+                            </div>
+
+                            <!-- Chất lượng sản phẩm -->
+                            <div class="mb-3">
+                                <div id="product-rating" class="text-warning fs-4">
+                                    <i class="fa-regular fa-star" data-value="1"></i>
+                                    <i class="fa-regular fa-star" data-value="2"></i>
+                                    <i class="fa-regular fa-star" data-value="3"></i>
+                                    <i class="fa-regular fa-star" data-value="4"></i>
+                                    <i class="fa-regular fa-star" data-value="5"></i>
+                                    <span class="ms-2" id="rating-label">Chưa đánh giá</span>
+                                </div>
+                            </div>
+
+                            <input type="hidden" class="form-control" name="id-product" >
+
+                            <input type="hidden" class="form-control" name="id-variant" >
+
+                            <!-- Chất lượng sản phẩm -->
+                            <div class="mb-3">
+                                <label class="product-quality mb-2"><strong>Chất lượng sản phẩm:</strong></label>
+                                <input type="text" class="form-control" id="product-quality" name="product-quality"
+                                       placeholder="Hãy để lại đánh giá.">
+                            </div>
+
+                            <!-- Đúng với mô tả -->
+                            <div class="mb-3">
+                                <label class="match-description mb-2"><strong>Đúng với mô tả:</strong></label>
+                                <input type="text" class="form-control" id="match-description" name="match-description"
+                                       placeholder="Hãy để lại đánh giá.">
+                            </div>
+
+                            <!-- Nội dung đánh giá -->
+                            <div class="mb-3">
+                                <label class="form-label"><strong>Nhận xét:</strong></label>
+                                <textarea class="form-control" rows="4" name="review-text"
+                                          placeholder="Hãy chia sẻ những điều bạn thích về sản phẩm này với những người mua khác nhé."></textarea>
+                            </div>
+
+                            <!-- Upload -->
+                            <div class="mb-3 d-flex gap-2">
+                                <button class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-camera"></i> Thêm Hình ảnh</button>
+                            </div>
+
+                            <!-- Tùy chọn -->
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" id="showName" checked>
+                                <label class="form-check-label" for="showName">
+                                    Hiển thị tên đăng nhập trên đánh giá này
+                                    <div class="text-muted small">Tên tài khoản sẽ hiển thị như <strong>${sessionScope.fullName}</strong></div>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- Nút -->
+                <div class="modal-footer d-flex justify-content-end gap-2">
+                    <button class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">TRỞ LẠI</button>
+                    <button type="submit" form="form-feedback" class="btn" style="background-color: #007b5f !important; color: white">HOÀN THÀNH</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<!-- JS xử lý chọn sao -->
+<script>
+    const stars = document.querySelectorAll('#product-rating i');
+    const ratingLabel = document.getElementById('rating-label');
+    const ratingText = ['Tệ', 'Không hài lòng', 'Bình thường', 'Hài lòng', 'Tuyệt vời'];
+
+    stars.forEach((star, index) => {
+        star.addEventListener('click', () => {
+            stars.forEach((s, i) => {
+                s.classList.toggle('fa-solid', i <= index);
+                s.classList.toggle('fa-regular', i > index);
+            });
+            ratingLabel.textContent = ratingText[index];
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const reviewButtons = document.querySelectorAll(".btn-review");
+
+        reviewButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                const idProduct = this.dataset.idProduct;
+                const idVariant = this.dataset.idVariant;
+                const productName = this.dataset.productName;
+                const productImage = this.dataset.productImage;
+                const productOption = this.dataset.productOption;
+
+                const modal = document.getElementById("feedback-form");
+                modal.querySelector('input[name="id-product"]').value = idProduct;
+                modal.querySelector('input[name="id-variant"]').value = idVariant;
+
+                modal.querySelector(".modal-body strong").textContent = productName;
+
+                modal.querySelector("img").src = productImage;
+
+                modal.querySelector(".text-muted.small").textContent = "Phân loại hàng: " + productOption;
+
+
+
+            });
+        });
+    });
+</script>
+
+<script>
+    function getReviewFormData() {
+        const form = document.getElementById('form-feedback');
+
+        // Lấy đánh giá sao
+        const stars = form.querySelectorAll('#product-rating i');
+        let rating = 0;
+        stars.forEach(star => {
+            if (star.classList.contains('fa-solid')) {
+                rating++;
+            }
+        });
+
+        const productId = form.querySelector('input[name="id-product"]')?.value;
+        const variantId = form.querySelector('input[name="id-variant"]')?.value;
+
+        const quality = form.querySelector('input[name="product-quality"]')?.value.trim();
+        const descriptionMatch = form.querySelector('input[name="match-description"]')?.value.trim();
+        const reviewText = form.querySelector('textarea[name="review-text"]')?.value.trim();
+
+        const showName = form.querySelector('#showName')?.checked;
+
+        return {
+            productId,
+            variantId,
+            rating,
+            quality,
+            descriptionMatch,
+            reviewText,
+            showName
+        };
+    }
+
+    const productReview = async (url, data) => {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+        return response.json();
+    }
+
+    document.getElementById('form-feedback').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const data = getReviewFormData();
+
+        if (data.rating === 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Thiếu đánh giá sao',
+                text: 'Vui lòng chọn số sao để đánh giá sản phẩm.',
+            });
+            return;
+        }
+
+        try {
+            const response = await productReview("/product-review", data);
+
+            if (response.status === "success") {
+                Swal.fire({
+                    icon: 'success',
+                    title: "Đánh giá thành công",
+                    text: response.message,
+                    confirmButtonText: 'OK',
+                }).then(() => {
+                    window.location.reload();
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: "Lỗi",
+                    text: response.message,
+                });
+            }
+
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: "Lỗi kết nối",
+                text: "Không thể gửi đánh giá. Vui lòng thử lại sau.",
+            });
+            console.error("Lỗi khi gửi đánh giá:", error);
+        }
+    });
+
+
+
+</script>
 
 

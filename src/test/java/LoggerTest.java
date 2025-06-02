@@ -42,13 +42,13 @@ public class LoggerTest {
     public void test() {
         LogDataChange logDataChange = new LogDataChange("Product");
 //        logDataChange.logCreate("1", "test", "127.0.0.1", "products", 1000);
-        logDataChange.logUpdate("2", "test", "127.0.0.1", "products", 1000, 1001);
-        logDataChange.logDelete("2", "test", "127.0.0.1", "products", 1000);
+        logDataChange.logUpdate("2", "test", "127.0.0.1", "products", 1, 2);
+        logDataChange.logDelete("2", "test", "127.0.0.1", "products", 3);
     }
 
     @Test
     public void test2() {
         LogAuthentication logAuthentication = new LogAuthentication();
-        logAuthentication.logSuccess("1", "test", "127.0.0.1", "admin");
+        logAuthentication.logSuccess("1", "test", "0.0.0.0", "admin");
     }
 }

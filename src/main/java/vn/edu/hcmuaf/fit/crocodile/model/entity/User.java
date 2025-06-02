@@ -12,8 +12,9 @@ public class User implements Serializable {
     private String phoneNumber;
     private String gender;
     private LocalDate birthdate;
-    private int active = 1;
+    private int active ;
     private int role = 0;
+    private String googleId;
 
     public User() {
     }
@@ -43,7 +44,8 @@ public class User implements Serializable {
                 ", role=" + role +
                 '}';
     }
-
+    public String getGoogleId() { return googleId; }
+    public void setGoogleId(String googleId) { this.googleId = googleId; }
     public String getFullname() {
         return fullname;
     }

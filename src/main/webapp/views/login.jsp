@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="<c:url value="/layouts/layout.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/main.css"/>">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
+
     <script>
         function showErrorMessage() {
             alert("${errorMessage}");

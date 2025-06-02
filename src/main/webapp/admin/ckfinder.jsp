@@ -14,7 +14,7 @@
 <script src="../public/ckfinder/ckfinder.js"></script>
 <script>
     CKFinder.start({
-        connectorPath: '/crocodile/ckfinder/connector'
+        connectorPath: '/ckfinder/connector'
     });
 </script>
 </body>

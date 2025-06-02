@@ -1,6 +1,6 @@
 function popupCkfinder(startupPath, callback) {
     CKFinder.popup({
-        connectorPath: '/crocodile/ckfinder/connector',
+        connectorPath: '/ckfinder/connector',
         connectorLanguage: 'java',
         chooseFiles: true,
         rememberLastFolder: false,

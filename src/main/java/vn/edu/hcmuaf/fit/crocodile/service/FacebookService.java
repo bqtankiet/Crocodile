@@ -6,7 +6,7 @@ import vn.edu.hcmuaf.fit.crocodile.util.HttpUtil;
 public class FacebookService {
     private static final String CLIENT_ID = "605632051831778";
     private static final String CLIENT_SECRET = "ec1618beb2a76ca2da77a840b4c27809";
-    private static final String REDIRECT_URI = "http://localhost:8080/crocodile/facebooklogin";
+    private static final String REDIRECT_URI = "http://crocodile.nludemo.id.vn/facebooklogin";
     private static final String AUTH_URL = "https://www.facebook.com/v16.0/dialog/oauth";
     private static final String TOKEN_URL = "https://graph.facebook.com/v16.0/oauth/access_token";
     private static final String USER_INFO_URL = "https://graph.facebook.com/me";

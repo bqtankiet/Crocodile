@@ -9,6 +9,7 @@ import vn.edu.hcmuaf.fit.crocodile.model.entity.Address;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.Order;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.OrderInfo;
 import vn.edu.hcmuaf.fit.crocodile.service.OrderService;
+import vn.edu.hcmuaf.fit.crocodile.service.UserService;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,6 +19,7 @@ import java.util.List;
 public class UserController extends HttpServlet {
     private final OrderService orderService = new OrderService();
     private final UserDao userDao = new UserDaoImpl();
+    private final UserService userService = new UserService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,7 +35,7 @@ public class UserController extends HttpServlet {
         try {
             UserDaoImpl userDao = new UserDaoImpl();
             List<Address> addressList = userDao.getAddressesByUserId(userId);
-            List<OrderInfo> ordersList = userDao.getAllOrderInfoByUserId(userId, "all");
+            List<OrderInfo> ordersList = userService.getAllOrderInfoByUserId(userId, "all");
 
             request.setAttribute("addressList", addressList);
             request.setAttribute("ordersList", ordersList);

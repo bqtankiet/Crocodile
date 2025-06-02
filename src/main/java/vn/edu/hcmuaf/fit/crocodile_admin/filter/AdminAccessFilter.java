@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import vn.edu.hcmuaf.fit.crocodile.dao.rolepermission.RolePermissionService;
 import vn.edu.hcmuaf.fit.crocodile.model.entity.User;
+import vn.edu.hcmuaf.fit.crocodile.util.log.LogAuthentication;
+import vn.edu.hcmuaf.fit.crocodile.util.log.LogUtil;
 
 import java.io.IOException;
 
@@ -16,6 +18,7 @@ import static vn.edu.hcmuaf.fit.crocodile.dao.rolepermission.RolePermissionConst
 @WebFilter(filterName = "AdminFilter", urlPatterns = "/admin/*")
 public class AdminAccessFilter implements Filter {
     private final RolePermissionService rolePermissionService = new RolePermissionService();
+
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;

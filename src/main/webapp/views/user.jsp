@@ -15,6 +15,8 @@
     <!--  js  -->
     <script src="<c:url value="/assets/js/loadVNAddress.js"/>"></script>
     <script src="<c:url value="/assets/js/user/user.js"/>"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
 </head>
 <body>
 <jsp:include page="includes/header.jsp">

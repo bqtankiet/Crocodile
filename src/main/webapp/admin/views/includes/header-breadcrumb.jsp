@@ -43,7 +43,7 @@
                 <a class="d-flex nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                    data-bs-toggle="dropdown" aria-expanded="false">
                     <div id="admin-info">
-                        <span>Admin: Bùi Quang Tấn Kiệt</span>
+                        <span>${sessionScope.roleName}: ${sessionScope.user.fullname}</span>
                     </div>
                     <i class="bx bx-chevron-down fs-4 lh-0"></i>
                 </a>
@@ -52,8 +52,8 @@
                         <a class="dropdown-item" href="#">
                             <div class="d-flex">
                                 <div class="flex-grow-1">
-                                    <span class="fw-semibold d-block">Bùi Quang Tấn Kiệt</span>
-                                    <small class="text-muted">Admin</small>
+                                    <span class="fw-semibold d-block">${sessionScope.user.fullname}</span>
+                                    <small class="text-muted">${sessionScope.roleName}</small>
                                 </div>
                             </div>
                         </a>
@@ -72,7 +72,7 @@
                         <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="${loginUrl}">
+                        <a class="dropdown-item" href="${pageContext.request.contextPath}/logout">
                             <i class="bx bx-power-off me-2"></i>
                             <span class="align-middle">Đăng xuất</span>
                         </a>

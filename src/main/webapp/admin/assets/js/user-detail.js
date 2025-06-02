@@ -1,4 +1,4 @@
-const url = '/crocodile/admin/user/update';
+const url = '/admin/user/update';
 
 function validateFullName(fullname) {
     const regex = /[<>@#$%^&*()_+\-=\[\]{};':"\\|,.\/?`~!]/;
