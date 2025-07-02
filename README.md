@@ -113,21 +113,20 @@ Mở **Terminal** hoặc **Git Bash** và thực hiện các lệnh sau:
 ```
 # Clone repository từ GitHub
 git clone https://github.com/bqtankiet/Crocodile.git
-
-# Di chuyển vào thư mục dự án
-cd Crocodile
-
-# Chuyển sang nhánh localhost
-git checkout localhost
 ```
 
-### 3️⃣ Chạy Local với Docker Desktop
-- Sau khi clone thành công, hãy chắc chắn đã chuyển qua nhánh `localhost`
-- Truy cập vào thư mục `docker`
+### 3️⃣ Build file WAR
+- Mở project trong IntelliJ và tiến hành build file `WAR` bằng maven
 ```
-cd docker
+# Build file WAR
+mvn clean package
 ```
-- Tại thư mục `docker` chạy docker compose
+- Trong thư mục `\target` mà maven vừa tạo ra, tìm file `crocodile-1.0-SNAPSHOT.war` đổi tên thành `ROOT.war`
+- Copy file `ROOT.war` vào thư mục `\docker\volumes\tomcat_webapps`
+
+### 4️⃣ Chạy Local với Docker Desktop
+- Truy cập vào thư mục `docker` (có chứa file `docker-compose.yml`
+- Tại thư mục `docker` chạy lệnh docker compose
 ```
 docker compose up -d --build
 ```
