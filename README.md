@@ -119,7 +119,7 @@ git clone https://github.com/bqtankiet/Crocodile.git
 - Mở project trong IntelliJ và tiến hành build file `WAR` bằng maven
 ```
 # Build file WAR
-mvn clean package
+mvn clean package -DskipTests
 ```
 - Trong thư mục `\target` mà maven vừa tạo ra, tìm file `crocodile-1.0-SNAPSHOT.war` đổi tên thành `ROOT.war`
 - Copy file `ROOT.war` vào thư mục `\docker\volumes\tomcat_webapps`
