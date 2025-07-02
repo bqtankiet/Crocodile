@@ -114,7 +114,7 @@
 <script>
     function fetchLogDetailData(eventId) {
         $.ajax({
-            url: 'https://crocodile.nludemo.id.vn/api/admin/log-detail',
+            url: 'http://localhost:8080/api/admin/log-detail',
             type: 'GET',
             data: {eventId: eventId},
             dataType: 'json',

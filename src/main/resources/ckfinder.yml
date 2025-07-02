@@ -13,7 +13,7 @@ backends:
   - name: 'default'
     adapter: 'local'
     # baseUrl: Đường dẫn url tới thư mục upload tài nguyên (Sử dụng để truy cập vào tài nguyên thông quan url từ client-browser)
-    baseUrl: 'https://crocodile.nludemo.id.vn/uploads' # đường dẫn tuyệt đối.
+    baseUrl: 'http://localhost:8080/uploads' # đường dẫn tuyệt đối.
     # root: Đường dẫn tuyệt đối đến thư mục vật lý chứa file upload (Sử dụng để lưu trữ tài nguyên trên server)
     root: '/opt/crocodile/volumes/tomcat_webapps/ROOT/uploads'
     disallowUnsafeCharacters: true

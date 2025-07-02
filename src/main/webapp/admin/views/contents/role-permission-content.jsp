@@ -99,7 +99,7 @@
             </div>
         `);
         $.ajax({
-            url: 'https://crocodile.nludemo.id.vn/admin/role-permission-modal',
+            url: 'http://localhost:8080/admin/role-permission-modal',
             method: 'GET',
             data: {roleId: roleId},
             success: function(html) {
@@ -122,7 +122,7 @@
             </div>
         `);
         $.ajax({
-            url: 'https://crocodile.nludemo.id.vn/admin/role-permission-modal',
+            url: 'http://localhost:8080/admin/role-permission-modal',
             method: 'GET',
             data: {action: "newRole"},
             success: function(html) {

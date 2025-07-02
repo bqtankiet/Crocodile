@@ -1,0 +1,27 @@
+services:
+  db:
+    image: mariadb:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./volumes/db_data:/var/lib/mysql
+      - ./volumes/db_init:/docker-entrypoint-initdb.d
+    networks:
+      - crocodile_net
+    container_name: crocodile_db
+
+  web:
+    image: tomcat:10.1.34-jdk17-temurin-jammy
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./volumes/tomcat_webapps:/usr/local/tomcat/webapps
+    networks:
+      - crocodile_net
+    container_name: crocodile_web
+
+networks:
+  crocodile_net:
+    driver: bridge
