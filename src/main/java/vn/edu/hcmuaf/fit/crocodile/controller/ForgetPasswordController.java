@@ -48,7 +48,7 @@ public class ForgetPasswordController extends HttpServlet {
 
 
             request.setAttribute("success", true);
-            String link = "http://crocodile.nludemo.id.vn/reset-password?token=" + token.getToken();
+            String link = "http://localhost:8080/reset-password?token=" + token.getToken();
             String subject = "Crocodile Verify";
             String content = getHtml(link);
             boolean success = sendEmailService.sendEmail(email, subject, content, SendEmailService.CONTENT_TYPE_HTML_UTF8);

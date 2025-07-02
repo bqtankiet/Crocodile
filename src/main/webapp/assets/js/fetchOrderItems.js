@@ -1,6 +1,6 @@
 function fetchOrderItems(id) {
     $.ajax({
-        url: `https://crocodile.nludemo.id.vn/api/admin/order/items?id=${id}`,
+        url: `http://localhost:8080/api/admin/order/items?id=${id}`,
         dataType: 'json',
         method: 'GET',
         success: function (data) {

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Hướng dẫn triển khai Crocodile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+        code {
+            background-color: #f2f2f2;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        pre {
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-left: 4px solid #ccc;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+<h1>🛠️ Hướng dẫn triển khai Crocodile</h1>
+
+<p>Dự án Crocodile có thể được triển khai dễ dàng lên Tomcat server bằng cách build thành file <code>.war</code>.</p>
+
+<h2>1️⃣ Bước 1: Build file WAR</h2>
+<p>Sử dụng IDE IntelliJ IDEA để build file <code>.war</code> của ứng dụng.</p>
+
+<pre><code>mvn clean package</code></pre>
+
+<p>File WAR sẽ nằm trong thư mục <code>target/</code> có tên là <code>crocodile-1.0-SNAPSHOT.war</code></p>
+
+<h2>2️⃣ Bước 2: Đổi tên file WAR</h2>
+<p>Để Tomcat tự động triển khai ứng dụng ở <code>http://localhost:8080</code> mà không cần chỉ định đường dẫn con, hãy đổi tên file:</p>
+
+<pre><code>crocodile-1.0-SNAPSHOT.war → ROOT.war</code></pre>
+
+<h2>3️⃣ Bước 3: Copy vào thư mục <code>webapps</code></h2>
+<p>Copy file <code>ROOT.war</code> vào thư mục webapps đã được mount tại:</p>
+<pre><code>docker/volumes/tomcat_webapps/ROOT.war</code></pre>
+
+<h2>✅ Sau khi deploy</h2>
+<p>Sau khi deploy thành công, bạn sẽ thấy folder <code>ROOT</code> xuất hiện </p>
+<p>Truy cập ứng dụng tại: <a href="http://localhost:8080" target="_blank">http://localhost:8080</a></p>
+
+<hr>
+<p><strong>Ghi chú:</strong> Nếu bạn không đổi tên file thành <code>ROOT.war</code>, bạn sẽ cần truy cập theo tên file gốc, ví dụ: <code>http://localhost:8080/crocodile-1.0-SNAPSHOT</code> và phải sửa đổi lại một số đoạn code trong project.</p>
+</body>
+</html>

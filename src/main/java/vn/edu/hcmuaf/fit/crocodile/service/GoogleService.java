@@ -7,7 +7,7 @@ public class GoogleService {
 
     private static final String CLIENT_ID = "183146911471-otedkdah3ihnpvc5fovddjsubn5ma5pn.apps.googleusercontent.com";
     private static final String CLIENT_SECRET = "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";
-    private static final String REDIRECT_URI = "http://crocodile.nludemo.id.vn/google-login";
+    private static final String REDIRECT_URI = "http://localhost:8080/google-login";
 
     public static String getLoginUrl() {
         return "https://accounts.google.com/o/oauth2/v2/auth?" +

@@ -406,12 +406,12 @@
             });
             console.log(items);
             $.ajax({
-                url: "https://crocodile.nludemo.id.vn/checkout/v2",
+                url: "http://localhost:8080/checkout/v2",
                 type: "POST",
                 data: JSON.stringify({ items }),
                 success: function (response) {
                     console.log('Request successful:', response);
-                    window.location.href = 'https://crocodile.nludemo.id.vn/checkout/v2';
+                    window.location.href = 'http://localhost:8080/checkout/v2';
                 },
                 error: function (xhr, status, error) {
                     console.error('Request failed:', status, error);

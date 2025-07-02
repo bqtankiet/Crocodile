@@ -440,18 +440,18 @@
             ];
 
             $.ajax({
-                url: 'https://crocodile.nludemo.id.vn/checkout/v2',
+                url: 'http://localhost:8080/checkout/v2',
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify({ items }),
                 success: function(response) {
                     console.log('Request successful:', response);
-                    window.location.href = 'https://crocodile.nludemo.id.vn/checkout/v2';
+                    window.location.href = 'http://localhost:8080/checkout/v2';
                 },
                 error: function(xhr, status, error) {
                     console.error('Request failed:', status, error);
                     if(xhr.status === 406){
-                        window.location.href = 'https://crocodile.nludemo.id.vn/login';
+                        window.location.href = 'http://localhost:8080/login';
                     }
                 }
             });

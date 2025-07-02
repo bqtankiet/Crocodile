@@ -92,8 +92,8 @@ public class PaymentController extends HttpServlet {
         long amount = 1000;
         String orderInfo = "Thanh toán đơn hàng QR";
         // TODO: Thay đổi đường dẫn trên production
-        String returnURL = "https://crocodile.nludemo.id.vn/";
-        String notifyURL = "https://crocodile.nludemo.id.vn/checkout/payment/momo-notify";
+        String returnURL = "http://localhost:8080/";
+        String notifyURL = "http://localhost:8080/checkout/payment/momo-notify";
 
         Environment environment = Environment.selectEnv("dev");
 
@@ -144,7 +144,7 @@ public class PaymentController extends HttpServlet {
             resp.setContentType("application/json");
             resp.setCharacterEncoding("UTF-8");
             // TODO: Thay đổi đường dẫn trên production
-            resp.getWriter().write("{\"redirectUrl\": \"" + "https://crocodile.nludemo.id.vn/" + "\", \"paymentMethod\": \"COD\"}");
+            resp.getWriter().write("{\"redirectUrl\": \"" + "http://localhost:8080/" + "\", \"paymentMethod\": \"COD\"}");
             resp.setStatus(HttpServletResponse.SC_OK);
 
             if(user != null && ip != null) {

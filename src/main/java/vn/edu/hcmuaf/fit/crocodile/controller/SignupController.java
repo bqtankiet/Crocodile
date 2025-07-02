@@ -79,7 +79,7 @@ public class SignupController extends HttpServlet {
                 tokenDao.insertToken(activationToken);
 
                 // Gửi email kích hoạt
-                String activationLink = "https://crocodile.nludemo.id.vn/activate?token=" + tokenValue;
+                String activationLink = "http://localhost:8080/activate?token=" + tokenValue;
                 boolean emailSent = sendEmailService.sendWelcomeEmail(user.getEmail(), fullName, activationLink);
                 if (emailSent) {
                     // Thêm thuộc tính để hiển thị modal thành công
